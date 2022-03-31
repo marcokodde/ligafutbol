@@ -51,5 +51,8 @@
         @stack('modals')
 
         @livewireScripts
+        <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="{{asset('js/alert.js')}}"></script>
     </body>
 </html>
