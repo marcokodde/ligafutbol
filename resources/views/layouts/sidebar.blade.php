@@ -21,14 +21,41 @@
             </a>
             <ul>
                 <li>
+
                     <a href="{{url('statuses')}}">
-                    <span>{{__('Status')}}</span>
+                          <span>{{__('Status')}}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{url('positions')}}">
                     <span>{{__('Positions')}}</span>
+                    </a>
+                </li>
+
+
+
+                <li>
+                    <a href="{{url('departaments')}}">
+                    <span>{{__('Departaments')}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{url('boards')}}">
+                    <span>{{__('Boards')}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{url('groups')}}">
+                    <span>{{__('Groups')}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{url('tasks')}}">
+                    <span>{{__('Tasks')}}</span>
                     </a>
                 </li>
 

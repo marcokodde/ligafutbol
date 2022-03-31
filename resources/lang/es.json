@@ -1,13 +1,34 @@
 {
 
+    "Title": "Título",
+    "Description": "Descripción",
+    "Explain about it": "Explique de que se trata",
+
     "Position": "Puesto",
     "Positions": "Puestos",
     "Position Name": "Nombre Puesto",
 
+    "Departament": "Departamento",
+    "Departaments": "Departamentos",
+    "Departament Name": "Nombre Departamento",
 
-    "Languages": "Idiomas",
-    "Manage Languages": "Gestión de Idiomas",
-    "Language": "Idioma",
+
+    "Board": "Tablero",
+    "Boards": "Tableros",
+    "Board Name": "Nombre Tablero",
+
+    "Group": "Grupo",
+    "Groups": "Grupos",
+    "Group Name": "Nombre Grupo",
+
+    "Task": "Tarea",
+    "Tasks": "Tareas",
+    "Task Name": "Nombre Tarea",
+
+    "Sub Task": "Sub Tarea",
+    "Sub Tasks": "Sub Tareas",
+    "Sub Task Name": "Nombre Sub Tarea",
+
 
 
     "Dashboard": "Panel Inicial",

@@ -5,13 +5,14 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 
 use App\Http\Livewire\Traits\CrudTrait;
+use App\Models\Departament;
 use App\Models\Position;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\App;
 use Livewire\WithPagination;
 
-class Positions extends Component {
+class Departaments extends Component {
     use AuthorizesRequests;
     use WithPagination;
     use CrudTrait;
@@ -20,11 +21,11 @@ class Positions extends Component {
 
     public function mount()
     {
-        $this->manage_title = __('Manage') . ' ' . __('Positions');
-        $this->search_label = "Position Name";
-        $this->view_form = 'livewire.positions.form';
-        $this->view_table = 'livewire.positions.table';
-        $this->view_list  = 'livewire.positions.list';
+        $this->manage_title = __('Manage') . ' ' . __('Departaments');
+        $this->search_label = "Departament Name";
+        $this->view_form = 'livewire.departaments.form';
+        $this->view_table = 'livewire.departaments.table';
+        $this->view_list  = 'livewire.departaments.list';
     }
 
 
@@ -34,18 +35,18 @@ class Positions extends Component {
 	 */
 
 	public function render() {
-        $this->create_button_label =  $this->record_id ?    __('Update') . ' ' . __('Position')
-                                                        : __('Create') . ' ' . __('Position');
+        $this->create_button_label =  $this->record_id ?    __('Update') . ' ' . __('Departament')
+                                                        : __('Create') . ' ' . __('Departament');
 
         $searchTerm = '%' . $this->search . '%';
 
         if(App::isLocale('en')){
             return view('livewire.index', [
-                'records' => Position::English($searchTerm)->paginate($this->pagination),
+                'records' => Departament::English($searchTerm)->paginate($this->pagination),
             ]);
         }
         return view('livewire.index', [
-            'records' => Position::Spanish($searchTerm)->paginate($this->pagination),
+            'records' => Departament::Spanish($searchTerm)->paginate($this->pagination),
         ]);
 	}
 
@@ -75,15 +76,15 @@ class Positions extends Component {
 		]);
 
 
-		Position::updateOrCreate(['id' => $this->record_id], [
+		Departament::updateOrCreate(['id' => $this->record_id], [
             'spanish'       => $this->spanish,
 			'short_spanish' => $this->short_spanish,
             'english'       => $this->english,
             'short_english' => $this->short_english
 		]);
 
-        $this->create_button_label = __('Create') . ' ' . __('Position');
-        $this->store_message(__('Position'));
+        $this->create_button_label = __('Create') . ' ' . __('Departament');
+        $this->store_message(__('Departament'));
 	}
 
     /*+------------------------------+
@@ -91,7 +92,7 @@ class Positions extends Component {
 	+------------------------------+
 	 */
 
-	public function edit(Position $record) {
+	public function edit(Departament $record) {
         $this->resetInputFields();
         $this->create_button_label = __('Update') . ' ' . __('Status');
         $this->record= $record;
@@ -107,7 +108,8 @@ class Positions extends Component {
 	| Elimina Registro             |
 	+------------------------------+
 	 */
-	public function destroy(Position $record) {
-        $this->delete_record($record,__('Position') . ' ' . __('Deleted Successfully!!'));
+	public function destroy(Departament $record) {
+        $this->delete_record($record,__('Departament') . ' ' . __('Deleted Successfully!!'));
     }
 }
+
