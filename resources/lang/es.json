@@ -66,5 +66,9 @@
     "Update": "Actualizar",
     "Deleted Successfully!!": "Eliminado Satisfactoriamente",
     "Updateted Successfully!!": "Actualizado Correctamente",
-    "Created Successfully!!": "Creado Satisfactoriamente"
+    "Created Successfully!!": "Creado Satisfactoriamente",
+    "Are you sure?":"¿Estas seguro?",
+    "You wo not be able to revert this!":"¡No podrás revertir esto!",
+    "Yes, delete it":"Si, Eliminarlo",
+    "Your record has been deleted.":"Su registro ha sido eliminado."
 }

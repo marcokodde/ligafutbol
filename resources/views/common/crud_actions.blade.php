@@ -7,8 +7,9 @@
             <span class="icon"><i class="mdi mdi-eye"></i></span>
             {{-- <span class="control-label">{{__("Edit")}}</span> --}}
     </button>
+
     @if($record->can_be_delete())
-        <button wire:click="destroy({{ $record->id }})"
+        <button {{--  wire:click="selectId({{ $record->id }},'delete')"  --}} onclick="confirm_modal({{$record->id}})"
                 class="button small red --jb-modal hover:text-black font-bold rounded-lg"
                 data-target="sample-modal"
                 type="button"
@@ -21,7 +22,7 @@
                 class="button small red --jb-modal hover:text-black font-bold rounded-lg"
                 data-target="sample-modal"
                 disabled
-                title="{{__("It can't delete")}}">
+                title="{{__("It ca not delete")}}">
             {{-- <span class="control-label">{{__("Delete")}}</span> --}}
             <span class="icon"><i class="mdi mdi-trash-can"></i></span>
 

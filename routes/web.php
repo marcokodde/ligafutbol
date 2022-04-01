@@ -19,6 +19,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Cambio de Lenguaje
+Route::get('language/{locale}', function ($locale) {
+    if (! in_array($locale, ['en', 'es'])) {
+        abort(404);
+    }
+    session()->put('locale', $locale);
+    App::setLocale(session()->get('locale'));
+    return back();
+    })->name('changelanguage');
 
 Route::get('/', function () {
     return view('welcome');

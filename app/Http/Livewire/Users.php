@@ -29,6 +29,7 @@ class Users extends Component {
       | Inicializa Componante   |
       +-------------------------+
     */
+
 	public function mount() {
         $this->authorize('hasaccess', 'users.index');
         $this->manage_title = "Manage Users";

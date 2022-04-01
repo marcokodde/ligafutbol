@@ -11,6 +11,7 @@ trait CrudTrait {
 	public $search,$searchTerm;
     public $isOpen = false;
     public $isOpen2 = false;
+    public $isOpenDelete = 0;
     public $allow_create=true;
     public $allow_navigate = true;
     public $member_expired = false;
@@ -19,6 +20,7 @@ trait CrudTrait {
     public $member_auth_user;
     public $confirm_delete =false;
     public $action_form;
+    public $show_delete_detail = false;
 
     // Vistas
     public $view_search = 'common.crud_search';
@@ -127,6 +129,21 @@ trait CrudTrait {
             'type'=>$type,
             'message'=> $message
         ]);
-
     }
+
+    //Modal y metodo para confirmar eliminacion
+    public function selectId($id, $action) {
+		$this->selectId = $id;
+		if ($action == 'delete') {
+			$this->openModaldelete();
+		}
+	}
+
+    public function openModaldelete() {
+		$this->isOpen = false;
+		$this->isOpen2 = false;
+		$this->isOpen3 = false;
+		$this->confirm_delete = true;
+	}
+
 }

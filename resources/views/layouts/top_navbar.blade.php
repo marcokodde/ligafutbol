@@ -64,7 +64,10 @@
                         </x-jet-dropdown>
                     </div>
                 @endif
-
+                {{--  Vista de Cambios de Idioma  --}}
+                <div>
+                    @include('common.language')
+                </div>
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">

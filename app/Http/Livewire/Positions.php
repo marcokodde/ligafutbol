@@ -17,6 +17,7 @@ class Positions extends Component {
     use CrudTrait;
 
     public $english,$spanish,$short_spanish,$short_english;
+    protected $listeners = ['destroy'];
 
     public function mount()
     {
