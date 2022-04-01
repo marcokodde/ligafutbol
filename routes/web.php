@@ -29,9 +29,7 @@ Route::get('language/{locale}', function ($locale) {
     return back();
     })->name('changelanguage');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::middleware([
     'auth:sanctum',
@@ -46,6 +44,9 @@ Route::middleware([
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
     Route::get('statuses', Statuses::class)->name('statuses');                  // Estados de registros
     Route::get('positions',Positions::class)->name('positions');                // Puestos
     Route::get('departaments',Departaments::class)->name('departaments');       // Departamentos
