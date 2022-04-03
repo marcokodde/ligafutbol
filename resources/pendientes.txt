@@ -8,4 +8,4 @@
     Que se pueda seleccionar:
         (a) Board
         (b) Group
-2.- Eliminar tarea: No borra el registro
+

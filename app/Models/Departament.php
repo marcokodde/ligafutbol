@@ -34,6 +34,9 @@ class Departament extends Model
       +-----------------+
      */
 
+    public function tasks(){
+        return $this->belongsTo(Task::class,'departament_id');
+    }
 
 
 

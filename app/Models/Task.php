@@ -11,16 +11,21 @@ class Task extends Model
     protected $table = 'tasks';
     protected $fillable =  [
         'group_id',
+        'user_require_id',
+        'user_responsible_id',
+        'status_id',
+        'departament_id',
+        'priority_id',
+        'deadline',
         'title',
         'description',
     ];
+
 
     /*+--------------+
       | Relaciones   |
       +--------------+
      */
-
-
 
     public function subtasks(){
         return $this->hasMany(SubTask::class);
@@ -30,6 +35,27 @@ class Task extends Model
     public function Group(){
         return $this->belongsTo(Group::class);
     }
+
+    public function user_requiere(){
+        return $this->belongsTo(User::class,'user_require_id');
+    }
+
+    public function user_responsible(){
+        return $this->belongsTo(User::class,'user_responsible_id');
+    }
+
+    public function status(){
+        return $this->belongsTo(Status::class,'status_id');
+    }
+
+    public function departament(){
+        return $this->belongsTo(Departament::class,'departament_id');
+    }
+
+    public function priority(){
+        return $this->belongsTo(Priority::class,'priority_id');
+    }
+
 
     /*+-----------------+
       | Funciones Apoyo |

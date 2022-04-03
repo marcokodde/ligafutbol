@@ -58,4 +58,18 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /*+--------------+
+      | Relaciones   |
+      +--------------+
+     */
+
+    public function users_require(){
+        return $this->hasMany(Task::class,'user_require_id');
+    }
+
+    public function users_responsible(){
+        return $this->hasMany(Task::class,'user_responsible_id');
+    }
+
 }

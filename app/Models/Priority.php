@@ -35,8 +35,9 @@ class Priority extends Model
       +-----------------+
      */
 
-
-
+    public function tasks(){
+        return $this->belongsTo(Task::class,'priority_id');
+    }
 
 
     /*+-----------------+

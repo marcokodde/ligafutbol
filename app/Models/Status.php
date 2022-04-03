@@ -34,7 +34,9 @@ class Status extends Model
       +-----------------+
      */
 
-
+    public function tasks(){
+        return $this->belongsTo(Task::class,'status_id');
+    }
 
 
 
