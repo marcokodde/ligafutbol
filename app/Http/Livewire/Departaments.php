@@ -19,6 +19,7 @@ class Departaments extends Component {
 
     public $english,$spanish,$short_spanish,$short_english;
 
+    protected $listeners = ['destroy'];
     public function mount()
     {
         $this->manage_title = __('Manage') . ' ' . __('Departaments');

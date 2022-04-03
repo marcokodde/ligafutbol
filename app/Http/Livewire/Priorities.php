@@ -16,8 +16,8 @@ class Priorities extends Component {
     use CrudTrait;
 
     public $english,$spanish,$short_spanish,$short_english,$priority;
-    protected $listeners = ['destroy'];
 
+    protected $listeners = ['destroy'];
     public function mount()
     {
         $this->manage_title = __('Manage') . ' ' . __('Priority');
@@ -88,16 +88,6 @@ class Priorities extends Component {
 
         $this->update_new_priorities($priority);
 
-        // $priorities_to_update = Priority::where('id',"!=",$priority->id)->where('priority','>=',$this->priority)->get();
-
-        // if($priorities_to_update->count()){
-        //     $new_priority=$this->priority;
-        //     foreach($priorities_to_update as $priority_to_update){
-        //         $new_priority++;
-        //         $priority_to_update->priority = $new_priority;
-        //         $priority_to_update->save();
-        //     }
-        // }
         $this->create_button_label = __('Create') . ' ' . __('Priority');
         $this->store_message(__('Priority'));
 	}

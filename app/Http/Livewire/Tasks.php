@@ -14,6 +14,8 @@ class Tasks extends Component {
     use AuthorizesRequests;
     use WithPagination;
     use CrudTrait;
+    protected $listeners = ['destroy'];
+
 
     public $group_id,$title,$description;
     public $groups;

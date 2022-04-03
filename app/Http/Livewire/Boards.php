@@ -14,7 +14,9 @@ class Boards extends Component {
     use WithPagination;
     use CrudTrait;
 
+    protected $listeners = ['destroy'];
     public $title,$description;
+
 
     public function mount()
     {

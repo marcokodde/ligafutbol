@@ -22,7 +22,7 @@
 
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Short Spanish")}}</label>
-                                <input type="text" wire:model="short_spanish"  maxlength="5" placeholder="{{__("Short")}}"
+                                <input type="text" wire:model="short_spanish"  maxlength="3" placeholder="{{__("Short")}}"
                                 class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <div>@error('short_spanish') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
@@ -38,7 +38,7 @@
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Short English")}}</label>
                                 <input type="text"
                                         wire:model="short_english"
-                                        maxlength="5"
+                                        maxlength="3"
                                         placeholder="{{__("Short")}}"
                                         class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         size="2"

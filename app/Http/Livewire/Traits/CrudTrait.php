@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Auth;
 
 trait CrudTrait {
 
+
+
+
+
     public $manage_title,$create_button_label,$search_label;
     public $record_id,$record;
 	public $search,$searchTerm;

@@ -15,6 +15,7 @@ class Groups extends Component {
     use WithPagination;
     use CrudTrait;
 
+    protected $listeners = ['destroy'];
     public $board_id,$title,$description;
     public $boards;
 

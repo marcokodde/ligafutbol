@@ -108,6 +108,7 @@ class Statuses extends Component {
 	+------------------------------+
 	 */
 	public function destroy(Status $record) {
+
         $this->delete_record($record,__('Status') . ' ' . __('Deleted Successfully!!'));
     }
 }
