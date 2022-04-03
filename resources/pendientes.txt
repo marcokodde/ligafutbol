@@ -1,0 +1,11 @@
+1.- Agregar a la tares:
+    (a) Deadline
+    (b) Usuario que solicita
+    (c) Usuario que le corresponde la tarea
+    (d) Status
+    (e) Departamento
+    (f) Prioridad
+    Que se pueda seleccionar:
+        (a) Board
+        (b) Group
+2.- Eliminar tarea: No borra el registro

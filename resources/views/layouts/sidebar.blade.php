@@ -27,6 +27,20 @@
                     </a>
                 </li>
 
+
+                <li>
+                    <a href="{{url('priorities')}}">
+                    <span>{{__('Priorities')}}</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{url('channels')}}">
+                    <span>{{__('Channales')}}</span>
+                    </a>
+                </li>
+
                 <li>
                     <a href="{{url('positions')}}">
                     <span>{{__('Positions')}}</span>
@@ -46,6 +60,7 @@
                     <span>{{__('Boards')}}</span>
                     </a>
                 </li>
+
 
                 <li>
                     <a href="{{url('groups')}}">

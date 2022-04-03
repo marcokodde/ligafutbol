@@ -20,12 +20,16 @@ class DatabaseSeeder extends Seeder
         $this->truncateTables([
             'users',
             'statuses',
+            'priorities',
+            'channels',
             'positions'
         ]);
 
         $this->call([
             UserSeeder::class,
             StatusSeeder::class,
+            PrioritySeeder::class,
+            ChannelSeeder::class,
             PositionSeeder::class,
 
        ]);

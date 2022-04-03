@@ -1,6 +1,11 @@
 {
-    "Yes, delete it!": "Si, Elimínalo!",
 
+    "Priority": "Prioridad",
+    "Priorities": "Prioridades",
+    "Channel": "Canal",
+    "Channels": "Canales",
+
+    "Yes, delete it!": "Si, Elimínalo!",
 
     "Title": "Título",
     "Description": "Descripción",
