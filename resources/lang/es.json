@@ -1,5 +1,10 @@
 {
+    "Deadline": "Fecha Compromiso",
+    "Required By":"Solicitado por",
+    "Deadline Date": "Fecha Compromiso",
+    "Responsible": "Responsable",
 
+    "Pick To Indicate a Deadline Date": "Clic para Seleccionar Fecha",
     "Priority": "Prioridad",
     "Priorities": "Prioridades",
     "Channel": "Canal",

@@ -5,9 +5,15 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 
 use App\Http\Livewire\Traits\CrudTrait;
+use App\Models\Board;
+use App\Models\Departament;
 use App\Models\Group;
+use App\Models\Priority;
+use App\Models\Status;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\App;
 use Livewire\WithPagination;
 
 class Tasks extends Component {
@@ -17,8 +23,13 @@ class Tasks extends Component {
     protected $listeners = ['destroy'];
 
 
-    public $group_id,$title,$description;
+    public $group_id,$user_require_id,$user_responsible_id,$status_id,$departament_id,$priority_id,$deadline,$title,$description;
+    public $boards,$board_id;
     public $groups;
+    public $users;
+    public $statuses;
+    public $departaments;
+    public $priorities;
 
     public function mount()
     {
@@ -27,9 +38,18 @@ class Tasks extends Component {
         $this->view_form    = 'livewire.tasks.form';
         $this->view_table   = 'livewire.tasks.table';
         $this->view_list    = 'livewire.tasks.list';
-        $this->groups       = Group::all();
+        $this->fill_combos();
     }
 
+    /** Llena combos */
+    private function fill_combos(){
+        $this->boards       = Board::all();
+        $this->departaments = Departament::all();
+        $this->users        = User::all();
+        $this->statuses     = Status::all();
+        $this->priorities   = Priority::all();
+       // dd($this->departaments,$this->users,$this->statuses,$this->priorities);
+    }
 
     /*+----------------------------------------------+
 	| Presenta formulario filtrando la búsqueda    |
@@ -54,10 +74,11 @@ class Tasks extends Component {
 	private function resetInputFields() {
         $this->record_id = null;
         $this->record = null;
-        $this->reset(['group_id','title','description']);
+        $this->reset(['group_id','user_require_id','user_responsible_id','status_id','departament_id','priority_id','deadline','title','description']);
 	}
 
-    /*+---------------------------------------------+
+
+    /*+-------------------------------------------+
     | Valida, crea o actualiza según corresponda  |
     +---------------------------------------------+
     */
@@ -65,16 +86,27 @@ class Tasks extends Component {
 	public function store() {
 
 		$this->validate([
-            'group_id'      => 'required|not_in:Elegir|not_in:Choose|exists:groups,id',
-            'title'         => 'required',
-            'description'   => 'required',
+            'group_id'              => 'required|not_in:Elegir|not_in:Choose|exists:groups,id',
+            'user_require_id'       => 'required|not_in:Elegir|not_in:Choose|exists:users,id',
+            'user_responsible_id'   => 'required|not_in:Elegir|not_in:Choose|exists:users,id',
+            'status_id'            => 'required|not_in:Elegir|not_in:Choose|exists:statuses,id',
+            'departament_id'        => 'required|not_in:Elegir|not_in:Choose|exists:departaments,id',
+            'priority_id'           => 'required|not_in:Elegir|not_in:Choose|exists:priorities,id',
+            'deadline'              => 'required',
+            'title'                 => 'required',
+            'description'           => 'required',
 		]);
 
-
 		Task::updateOrCreate(['id' => $this->record_id], [
-            'group_id'      => $this->group_id,
-            'title'         => $this->title,
-			'description'   => $this->description
+            'group_id'              => $this->group_id,
+            'user_require_id'       => $this->user_require_id,
+            'user_responsible_id'   => $this->user_responsible_id,
+            'status_id'             => $this->status_id,
+            'departament_id'        => $this->departament_id,
+            'priority_id'           => $this->priority_id,
+            'deadline'              => $this->deadline,
+            'title'                 => $this->title,
+			'description'           => $this->description
 		]);
 
         $this->create_button_label = __('Create') . ' ' . __('Task');
@@ -88,21 +120,59 @@ class Tasks extends Component {
 
 	public function edit(Task $record) {
         $this->resetInputFields();
-        $this->create_button_label = __('Update') . ' ' . __('Task');
-        $this->record       = $record;
-		$this->record_id    = $record->id;
-        $this->group_id     = $record->group_id;
-		$this->title        = $record->title;
-		$this->description  = $record->description;
+        $this->create_button_label  = __('Update') . ' ' . __('Task');
+        $this->record               = $record;
+		$this->record_id            = $record->id;
+        $this->group_id             = $record->group_id;
+        $this->user_require_id      = $record->user_require_id;
+        $this->user_responsible_id  = $record->user_responsible_id;
+        $this->status_id            = $record->status_id;
+        $this->departament_id       = $record->departament_id;
+        $this->priority_id          = $record->priority_id;
+        $this->deadline             = $record->deadline;
+		$this->title                = $record->title;
+		$this->description          = $record->description;
 		$this->openModal();
 	}
 
     /*+------------------------------+
-	| Elimina Registro             |
-	+------------------------------+
+	  | Elimina Registro             |
+	  +------------------------------+
 	 */
 	public function destroy(Task $record) {
         $this->delete_record($record,__('Task') . ' ' . __('Deleted Successfully!!'));
+    }
+
+   /*+-------------------------------+
+	  | Llena lista de grupos        |
+	  +------------------------------+
+    */
+    public function fill_groups(){
+        $this->reset(['groups']);
+
+        if($this->board_id){
+            $board_record = Board::findOrFail($this->board_id);
+            if($board_record){
+                $this->groups = $board_record->groups;
+            }
+        }
+
+    }
+
+
+    /** Valores para el store */
+    private function show_values_to_store(){
+        dd(
+        'group_id'              . '= ' .  $this->group_id,
+        'user_require_id'       . '= ' .  $this->user_require_id,
+        'user_responsible_id'   . '= ' .  $this->user_responsible_id,
+        'status_id'             . '= ' .  $this->status_id,
+        'departament_id'        . '= ' .  $this->departament_id,
+        'priority_id'           . '= ' .  $this->priority_id,
+        'deadline'              . '= ' .  $this->deadline,
+        'title'                 . '= ' .  $this->title,
+        'description'           . '= ' .  $this->description);
+
     }
 }
 
