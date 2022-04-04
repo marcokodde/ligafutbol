@@ -39,6 +39,9 @@ class Status extends Model
     }
 
 
+    public function subtasks(){
+        return $this->belongsTo(SubTask::class,'status_id');
+    }
 
     /*+-----------------+
       | Funciones Apoyo |

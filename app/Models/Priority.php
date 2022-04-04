@@ -39,6 +39,9 @@ class Priority extends Model
         return $this->belongsTo(Task::class,'priority_id');
     }
 
+    public function subtasks(){
+        return $this->belongsTo(SubTask::class,'priority_id');
+    }
 
     /*+-----------------+
       | Funciones Apoyo |
@@ -47,6 +50,8 @@ class Priority extends Model
 
 
     public function can_be_delete(){
+        if($this->tasks()->count()) return false;
+        if($this->subtasks()->count()) return false;
         return true;
     }
 

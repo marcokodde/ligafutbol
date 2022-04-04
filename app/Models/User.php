@@ -73,11 +73,11 @@ class User extends Authenticatable
     }
 
     public function subtasks_require(){
-        return $this->hasMany(Task::class,'user_require_id');
+        return $this->hasMany(SubTask::class,'user_require_id');
     }
 
     public function subtasks_responsible(){
-        return $this->hasMany(Task::class,'user_responsible_id');
+        return $this->hasMany(SubTask::class,'user_responsible_id');
     }
 
     /*+-----------------+
