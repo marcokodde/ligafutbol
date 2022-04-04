@@ -64,12 +64,34 @@ class User extends Authenticatable
       +--------------+
      */
 
-    public function users_require(){
+    public function tasks_require(){
         return $this->hasMany(Task::class,'user_require_id');
     }
 
-    public function users_responsible(){
+    public function tasks_responsible(){
         return $this->hasMany(Task::class,'user_responsible_id');
+    }
+
+    public function subtasks_require(){
+        return $this->hasMany(Task::class,'user_require_id');
+    }
+
+    public function subtasks_responsible(){
+        return $this->hasMany(Task::class,'user_responsible_id');
+    }
+
+    /*+-----------------+
+      | Funciones Apoyo |
+      +-----------------+
+     */
+
+
+    public function can_be_delete(){
+        if($this->tasks_require()->count()) return false;
+        if($this->tasks_responsible()->count()) return false;
+        if($this->subtasks_require()->count()) return false;
+        if($this->subtasks_responsible()->count()) return false;
+        return true;
     }
 
 }

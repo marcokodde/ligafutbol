@@ -40,13 +40,9 @@ class Positions extends Component {
 
         $searchTerm = '%' . $this->search . '%';
 
-        if(App::isLocale('en')){
-            return view('livewire.index', [
-                'records' => Position::English($searchTerm)->paginate($this->pagination),
-            ]);
-        }
+
         return view('livewire.index', [
-            'records' => Position::Spanish($searchTerm)->paginate($this->pagination),
+            'records' => Position::Position($searchTerm)->paginate($this->pagination),
         ]);
 	}
 
