@@ -47,7 +47,6 @@ class TaskType extends Model
 
     public function can_be_delete(){
         if($this->tasks()->count()) return false;
-        if($this->subtasks()->count()) return false;
         return true;
     }
 

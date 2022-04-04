@@ -11,6 +11,7 @@ use App\Models\Group;
 use App\Models\Priority;
 use App\Models\Status;
 use App\Models\Task;
+use App\Models\TaskType;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\App;
@@ -23,12 +24,12 @@ class Tasks extends Component {
     protected $listeners = ['destroy'];
 
 
-    public $group_id,$user_require_id,$user_responsible_id,$status_id,$departament_id,$priority_id,$deadline,$title,$description;
+    public $group_id,$user_require_id,$user_responsible_id,$status_id,$type_task_id,$priority_id,$deadline,$title,$description;
     public $boards,$board_id;
     public $groups;
     public $users;
     public $statuses;
-    public $departaments;
+    public $task_types;
     public $priorities;
 
     public function mount()
@@ -44,11 +45,11 @@ class Tasks extends Component {
     /** Llena combos */
     private function fill_combos(){
         $this->boards       = Board::all();
-        $this->departaments = Departament::all();
+        $this->task_types   = TaskType::all();
         $this->users        = User::all();
         $this->statuses     = Status::all();
         $this->priorities   = Priority::all();
-       // dd($this->departaments,$this->users,$this->statuses,$this->priorities);
+       // dd($this->task_types,$this->users,$this->statuses,$this->priorities);
     }
 
     /*+----------------------------------------------+
@@ -74,7 +75,7 @@ class Tasks extends Component {
 	private function resetInputFields() {
         $this->record_id = null;
         $this->record = null;
-        $this->reset(['group_id','user_require_id','user_responsible_id','status_id','departament_id','priority_id','deadline','title','description']);
+        $this->reset(['group_id','user_require_id','user_responsible_id','status_id','type_task_id','priority_id','deadline','title','description']);
 	}
 
 
@@ -90,7 +91,7 @@ class Tasks extends Component {
             'user_require_id'       => 'required|not_in:Elegir|not_in:Choose|exists:users,id',
             'user_responsible_id'   => 'required|not_in:Elegir|not_in:Choose|exists:users,id',
             'status_id'            => 'required|not_in:Elegir|not_in:Choose|exists:statuses,id',
-            'departament_id'        => 'required|not_in:Elegir|not_in:Choose|exists:departaments,id',
+            'type_task_id'        => 'required|not_in:Elegir|not_in:Choose|exists:task_types,id',
             'priority_id'           => 'required|not_in:Elegir|not_in:Choose|exists:priorities,id',
             'deadline'              => 'required',
             'title'                 => 'required',
@@ -102,7 +103,7 @@ class Tasks extends Component {
             'user_require_id'       => $this->user_require_id,
             'user_responsible_id'   => $this->user_responsible_id,
             'status_id'             => $this->status_id,
-            'departament_id'        => $this->departament_id,
+            'type_task_id'        => $this->type_task_id,
             'priority_id'           => $this->priority_id,
             'deadline'              => $this->deadline,
             'title'                 => $this->title,
@@ -127,7 +128,7 @@ class Tasks extends Component {
         $this->user_require_id      = $record->user_require_id;
         $this->user_responsible_id  = $record->user_responsible_id;
         $this->status_id            = $record->status_id;
-        $this->departament_id       = $record->departament_id;
+        $this->type_task_id       = $record->type_task_id;
         $this->priority_id          = $record->priority_id;
         $this->deadline             = $record->deadline;
 		$this->title                = $record->title;
@@ -167,7 +168,7 @@ class Tasks extends Component {
         'user_require_id'       . '= ' .  $this->user_require_id,
         'user_responsible_id'   . '= ' .  $this->user_responsible_id,
         'status_id'             . '= ' .  $this->status_id,
-        'departament_id'        . '= ' .  $this->departament_id,
+        'type_task_id'        . '= ' .  $this->type_task_id,
         'priority_id'           . '= ' .  $this->priority_id,
         'deadline'              . '= ' .  $this->deadline,
         'title'                 . '= ' .  $this->title,

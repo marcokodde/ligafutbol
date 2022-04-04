@@ -48,21 +48,21 @@
                             <div class="p-2 rounded-lg">
                                 {{-- Grupo --}}
                                 @if($group_id)
-                                    <label class="block text-gray-700 text-sm font-bold text-left">{{__("Departament")}}</label>
-                                    <select wire:model="departament_id"
+                                    <label class="block text-gray-700 text-sm font-bold text-left">{{__("Task Type")}}</label>
+                                    <select wire:model="type_task_id"
                                         class="block form-select form-select-md  rounded w-auto">
                                         <option value="" selected>{{__('Choose')}}</option>
-                                        @foreach($departaments as $departament)
-                                                <option value="{{ $departament->id }}">
+                                        @foreach($task_types as $task_type)
+                                                <option value="{{ $task_type->id }}">
                                                 @if(App::isLocale('en'))
-                                                    {{ $departament->english }}
+                                                    {{ $task_type->english }}
                                                 @else
-                                                    {{ $departament->spanish }}
+                                                    {{ $task_type->spanish }}
                                                 @endif
                                             </option>
                                         @endforeach
                                     </select>
-                                    <div>@error('departament_id') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                                    <div>@error('type_task_id') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                                 @endif
                             </div>
                             <div class="p-2 rounded-lg">
