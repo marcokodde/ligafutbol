@@ -12,19 +12,17 @@
                         </p>
                     </header>
                     <form>
-
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold text-left">{{__("Board")}}</label>
                             <select wire:model="board_id"
-                                    class="form-select form-select-md  sm:mr-2">
+                                class="select rounded w-2/4">
                                 <option value="" selected>{{__('Choose')}}</option>
                                     @foreach($boards as $board)
                                         <option value="{{ $board->id }}">{{ $board->title }}</option>
                                     @endforeach
-                                </select>
-                                <div>@error('board_id') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                            </select>
+                            <div>@error('board_id') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                         </div>
-
 
                         <div class="bg-white mx-auto">
                             <div class="mb-4">
@@ -33,21 +31,16 @@
                                 class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <div>@error('title') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
-
                             <div class="mb-4">
                                 <div class="field">
                                     <label class="block text-gray-700 text-sm font-bold text-left">{{__("Description")}}</label>
                                     <div class="control">
-                                      <textarea wire:model="description" class="textarea" placeholder="{{__('Explain about it')}}"></textarea>
+                                        <textarea wire:model="description" class="textarea" placeholder="{{__('Explain about it')}}"></textarea>
                                     </div>
                                     <div>@error('description') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                                 </div>
                             </div>
-
-
-
                         </div>
-
                         @include('common.crud_save_cancel')
                     </form>
                 </div>

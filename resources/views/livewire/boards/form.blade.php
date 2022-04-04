@@ -16,24 +16,19 @@
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Title")}}</label>
                                 <input type="text" wire:model="title" maxlength="50" placeholder="{{__("Title")}}"
-                                class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                                class="block shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <div>@error('title') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
-
                             <div class="mb-4">
                                 <div class="field">
                                     <label class="block text-gray-700 text-sm font-bold text-left">{{__("Description")}}</label>
                                     <div class="control">
-                                      <textarea wire:model="description" class="textarea" placeholder="{{__('Explain about it')}}"></textarea>
+                                        <textarea wire:model="description" class="textarea" placeholder="{{__('Explain about it')}}"></textarea>
                                     </div>
                                     <div>@error('description') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                                 </div>
                             </div>
-
-
-
                         </div>
-
                         @include('common.crud_save_cancel')
                     </form>
                 </div>
