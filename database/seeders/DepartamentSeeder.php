@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DepartamentSeeder extends Seeder
 {
@@ -13,6 +14,12 @@ class DepartamentSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $sql= "INSERT INTO departaments (spanish,short_spanish,english,short_english) VALUES
+        ('Ventas', 'Ventas','Sales','Sales'),
+        ('Operaciones', 'Operac','Operations','Operac'),
+        ('Estrategia', 'Estrat','Strategy','Strat'),
+        ('Recursos Humanos', 'Rrhh','Human Resources','HHRR')";
+
+        DB::update ($sql);
     }
 }

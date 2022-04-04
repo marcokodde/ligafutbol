@@ -9,6 +9,7 @@ use App\Http\Livewire\Priorities;
 use App\Http\Livewire\Statuses;
 use App\Http\Livewire\SubTasks;
 use App\Http\Livewire\Tasks;
+use App\Http\Livewire\TaskTypes;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,8 +55,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('departaments',Departaments::class)->name('departaments');       // Departamentos
     Route::get('priorities',Priorities::class)->name('priorities');             // Prioridades
     Route::get('channels',Channels::class)->name('channels');                   // Canales
-    Route::get('boards',Boards::class)->name('boards');                         // Tableros
+    Route::get('tasktypes',TaskTypes::class)->name('tasktypes');                // Tipos de Tarea
 
+    Route::get('boards',Boards::class)->name('boards');                         // Tableros
     Route::get('groups',Groups::class)->name('groups');                         // Grupos
     Route::get('tasks',Tasks::class)->name('tasks');                            // Tareas
     Route::get('sub-tasks',SubTasks::class)->name('sub-tasks');                 // Sub Tareas

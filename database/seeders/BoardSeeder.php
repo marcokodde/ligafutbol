@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Board;
 use Illuminate\Database\Seeder;
 
 class BoardSeeder extends Seeder
@@ -13,6 +14,7 @@ class BoardSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Board::factory(10)->create();
+
     }
 }

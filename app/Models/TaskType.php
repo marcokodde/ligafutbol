@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Status extends Model
+class TaskType extends Model
 {
     use HasFactory;
-    protected $table = 'statuses';
+    protected $table = 'task_types';
     public $timestamps = false;
     protected $fillable =  [
         'english',
@@ -28,20 +28,16 @@ class Status extends Model
         $this->attributes['english'] =  ucwords(strtolower($value));
     }
 
-
     /*+-----------------+
       | Relaciones      |
       +-----------------+
      */
 
     public function tasks(){
-        return $this->belongsTo(Task::class,'status_id');
+        return $this->hasMany(Task::class,'type_task_id');
     }
 
 
-    public function subtasks(){
-        return $this->belongsTo(SubTask::class,'status_id');
-    }
 
     /*+-----------------+
       | Funciones Apoyo |
@@ -60,6 +56,16 @@ class Status extends Model
       +-------------------+
     */
 
+    public function scopeTaskType($query,$valor)
+    {
+        if ( trim($valor) != "") {
+            $query->where('spanish','LIKE',"%$valor%")
+                  ->orwhere('english','LIKE',"%$valor%")
+                  ->orwhere('short_spanish','LIKE',"%$valor%")
+                  ->orwhere('short_english','LIKE',"%$valor%");
+         }
+    }
+
     public function scopeSpanish($query,$valor)
     {
         if ( trim($valor) != "") {
@@ -76,3 +82,5 @@ class Status extends Model
     }
 
 }
+
+

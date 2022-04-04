@@ -22,7 +22,11 @@ class DatabaseSeeder extends Seeder
             'statuses',
             'priorities',
             'channels',
-            'positions'
+            'positions',
+            'task_types',
+            'boards',
+            'groups',
+
         ]);
 
         $this->call([
@@ -31,6 +35,9 @@ class DatabaseSeeder extends Seeder
             PrioritySeeder::class,
             ChannelSeeder::class,
             PositionSeeder::class,
+            TaskTypeSeeder::class,
+            BoardSeeder::class,
+            GroupSeeder::class
 
        ]);
 

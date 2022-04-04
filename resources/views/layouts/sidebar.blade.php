@@ -38,7 +38,7 @@
 
                     <li>
                         <a href="{{url('channels')}}">
-                        <span>{{__('Channales')}}</span>
+                        <span>{{__('Channels')}}</span>
                         </a>
                     </li>
 
@@ -53,6 +53,12 @@
                     <li>
                         <a href="{{url('departaments')}}">
                         <span>{{__('Departaments')}}</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{url('tasktypes')}}">
+                        <span>{{__('Task Types')}}</span>
                         </a>
                     </li>
 

@@ -14,7 +14,7 @@ class Task extends Model
         'user_require_id',
         'user_responsible_id',
         'status_id',
-        'departament_id',
+        'type_task_id',
         'priority_id',
         'deadline',
         'title',
@@ -48,8 +48,8 @@ class Task extends Model
         return $this->belongsTo(Status::class,'status_id');
     }
 
-    public function departament(){
-        return $this->belongsTo(Departament::class,'departament_id');
+    public function task_type(){
+        return $this->belongsTo(TaskType::class,'type_task_id');
     }
 
     public function priority(){

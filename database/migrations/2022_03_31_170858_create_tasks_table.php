@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->foreignId('group_id')->constrained('groups')->comment('Grupo');
             $table->foreignId('user_require_id')->constrained('users');
             $table->foreignId('user_responsible_id')->constrained('users');
-              $table->foreignId('departament_id')->constrained('departaments');
+            $table->foreignId('type_task_id')->constrained('task_types');
             $table->foreignId('priority_id')->constrained('priorities');
             $table->date('deadline');
             $table->string('title')->comment('Título');
