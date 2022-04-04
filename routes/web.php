@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Accordeon;
 use App\Http\Livewire\Boards;
 use App\Http\Livewire\Channels;
 use App\Http\Livewire\Departaments;
@@ -62,3 +63,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('tasks',Tasks::class)->name('tasks');                            // Tareas
     Route::get('sub-tasks',SubTasks::class)->name('sub-tasks');                 // Sub Tareas
 });
+
+// Route::get('/accordeon', function () {
+//     return view('livewire.accordeon');
+// })->name('accordeon');
+
+Route::get('accordeon',Accordeon::class)->name('accordeon');
+
