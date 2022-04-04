@@ -66,7 +66,7 @@
                                 @endif
                             </div>
                             <div class="p-2 rounded-lg">
-                                @if($departament_id)
+                                @if($type_task_id)
                                     {{-- Usuario que requeire --}}
                                     <label class="block text-gray-700 text-sm font-bold text-left">{{__("Required By")}}</label>
                                     <select wire:model="user_require_id"
