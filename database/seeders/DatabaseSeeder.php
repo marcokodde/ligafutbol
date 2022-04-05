@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'task_types',
             'boards',
             'groups',
-
+            'clients',
         ]);
 
         $this->call([
@@ -37,8 +37,8 @@ class DatabaseSeeder extends Seeder
             PositionSeeder::class,
             TaskTypeSeeder::class,
             BoardSeeder::class,
-            GroupSeeder::class
-
+            GroupSeeder::class,
+            ClientSeeder::class
        ]);
 
 

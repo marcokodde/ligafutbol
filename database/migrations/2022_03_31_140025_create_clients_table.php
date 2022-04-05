@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
             $table->id();
             $table->string('name',100)->comment('Nombre del cliente');
             $table->string('email')->null();
-            $table->string('address', 60)->null();
+            $table->string('address', 100)->null();
             $table->string('interior_number', 10)->nullable()->default(null)->comment('Interior Number');
 			$table->integer('zipcode')->unsigned()->null();
 			$table->string('phone', 15)->null();

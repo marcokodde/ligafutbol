@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Models\Zipcode;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ClientFactory extends Factory
@@ -14,7 +16,12 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name'                      => $this->faker->name(),
+            'email'                     => $this->faker->safeEmail(),
+            'address'                   => $this->faker->address(),
+            'zipcode'                   => Zipcode::all()->random()->zipcode,
+            'phone'                     => $this->faker->e164PhoneNumber(),
+            'user_account_manager_id'   => User::all()->random()->id,
         ];
     }
 }

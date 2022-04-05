@@ -35,6 +35,7 @@ class Clients extends Component {
         $this->view_table   = 'livewire.clients.table';
         $this->view_list    = 'livewire.clients.list';
         $this->users        = User::orderby('name')->get();
+        $this->pagination   = 8;
     }
 
 
@@ -48,6 +49,7 @@ class Clients extends Component {
                                                         : __('Create') . ' ' . __('Client');
 
         $searchTerm = '%' . $this->search . '%';
+
 
 
         return view('livewire.index', [
