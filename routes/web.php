@@ -72,6 +72,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::get('accordeon',Accordeon::class)->name('accordeon');
 
 Route::get('get_zipcode/{zipcode}',function($zipcode){
+
     return json_decode(Http::get('http://virtacc.teamkodde.com/api/get_zipcode/' . $zipcode),true);
 
 })->name('get_zipcode');
