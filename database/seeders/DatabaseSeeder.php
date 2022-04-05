@@ -37,8 +37,7 @@ class DatabaseSeeder extends Seeder
             PositionSeeder::class,
             TaskTypeSeeder::class,
             BoardSeeder::class,
-            GroupSeeder::class,
-            ClientSeeder::class
+            GroupSeeder::class
        ]);
 
 
