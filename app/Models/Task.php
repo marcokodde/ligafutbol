@@ -11,15 +11,20 @@ class Task extends Model
     protected $table = 'tasks';
     protected $fillable =  [
         'group_id',
-        'user_require_id',
-        'user_responsible_id',
+        'client_id',
+        'title',
+        'description',
+        'deadline',
         'status_id',
         'type_task_id',
         'priority_id',
-        'deadline',
-        'title',
-        'description',
+        'channel_id',
+        'user_require_id',
+        'user_responsible_id',
+        'user_created_by_id',
+        'user_take_over_id',
     ];
+
 
 
     /*+--------------+

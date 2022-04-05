@@ -6,7 +6,6 @@ use Livewire\Component;
 
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Models\Board;
-use App\Models\Departament;
 use App\Models\Group;
 use App\Models\Priority;
 use App\Models\Status;
@@ -14,7 +13,7 @@ use App\Models\Task;
 use App\Models\TaskType;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\App;
+
 use Livewire\WithPagination;
 
 class Tasks extends Component {
@@ -44,7 +43,7 @@ class Tasks extends Component {
 
     /** Llena combos */
     private function fill_combos(){
-        $this->boards       = Board::all();
+        $this->boards       = Board::wherehas('groups')->get;
         $this->task_types   = TaskType::all();
         $this->users        = User::all();
         $this->statuses     = Status::all();
@@ -107,7 +106,8 @@ class Tasks extends Component {
             'priority_id'           => $this->priority_id,
             'deadline'              => $this->deadline,
             'title'                 => $this->title,
-			'description'           => $this->description
+			'description'           => $this->description,
+
 		]);
 
         $this->create_button_label = __('Create') . ' ' . __('Task');
@@ -157,6 +157,7 @@ class Tasks extends Component {
                 $this->groups = $board_record->groups;
             }
         }
+        dd($this->groups);
 
     }
 

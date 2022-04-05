@@ -16,21 +16,18 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')->constrained('groups')->comment('Grupo');
-            $table->foreignId('client_id')->constrained('channels');
+            $table->foreignId('client_id')->constrained('clients')->nullable();
             $table->string('title')->comment('Título');
-
-            $table->foreignId('priority_id')->constrained('priorities');
-            $table->date('deadline');
-            $table->foreignId('channel_id')->constrained('channels');
-            $table->foreignId('type_task_id')->constrained('task_types');
-            $table->foreignId('status_id')->constrained('statuses');
             $table->mediumText('description')->comment('Descripción');
-
+            $table->date('deadline');
+            $table->foreignId('channel_id')->constrained('channels')->nullable();
+            $table->foreignId('type_task_id')->constrained('task_types')->nullable();
+            $table->foreignId('priority_id')->constrained('priorities')->nullable();
             $table->foreignId('user_require_id')->constrained('users');
-            $table->foreignId('user_created_by_id')->constrained('users'); // Auth user
+            $table->foreignId('user_created_by_id')->constrained('users');
             $table->foreignId('user_responsible_id')->constrained('users');
-            $table->foreignId('user_take_over_id')->constrained('users'); // User_responsible_id
-
+            $table->foreignId('user_take_over_id')->constrained('users');
+            $table->foreignId('status_id')->constrained('statuses')->nullable();
             $table->timestamps();
         });
     }
