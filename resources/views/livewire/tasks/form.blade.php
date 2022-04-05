@@ -12,7 +12,7 @@
                         </p>
                     </header>
                     <form>
-                        <div class="grid grid-cols-2 gap-2 text-sm text-center">
+                        <div class="mb-4 text-sm text-center">
                             {{-- Tablero --}}
                             <div class="p-2 rounded-lg">
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Board")}}</label>
@@ -121,7 +121,7 @@
                         </div>
 
                         {{-- Descripción --}}
-                        <div class="mb-2 m-2">
+                        {{--  <div class="mb-2 m-2">
                             <div class="field">
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Description")}}</label>
                                 <div class="control">
@@ -129,15 +129,22 @@
                                 </div>
                                 <div>@error('description') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
+                        </div>  --}}
+                        <label class="block text-gray-700 text-sm font-bold text-left">{{__("Description")}}</label>
+                        <div wire:ignore class="form-group row">
+                            <div class="w-auto h-auto">
+                                <textarea wire:model="description" class="textarea" name="description" id="description" placeholder="{{__('Explain about it')}}">
+                                </textarea>
+                            </div>
+                            <div>@error('description') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                         </div>
-
                         {{-- Estado de la tarea --}}
                         <div class="grid grid-cols-2 gap-2 text-sm text-center">
                             <div class="p-2 rounded-lg">
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Status")}}</label>
                                 <span>
                                     <select wire:model="status_id"
-                                    class="form-select form-select-md  sm:mr-2">
+                                    class="block form-select form-select-md  sm:mr-2">
                                     <option value="" selected>{{__('Choose')}}</option>
                                     @foreach($statuses as $status)
                                                                                 <option value="{{ $status->id }}">
@@ -157,7 +164,7 @@
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Priority")}}</label>
                                 <span>
                                     <select wire:model="priority_id"
-                                    class="form-select form-select-md  sm:mr-2">
+                                    class="block form-select form-select-md  sm:mr-2">
                                     <option value="" selected>{{__('Choose')}}</option>
                                     @foreach($priorities as $priority)
                                             <option value="{{ $priority->id }}">
@@ -182,3 +189,18 @@
         </div>
     </div>
 </div>
+@section('scripts')
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#description' ) )
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+				    @this.set('description', editor.getData());
+                })
+            })
+            .catch(error => {
+                console.error(error);
+            });
+</script>
+@endsection

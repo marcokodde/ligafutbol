@@ -10,19 +10,12 @@
         @include('layouts.head_links_tags')
 
         @include('layouts.head_meta_tags')
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-130795909-1');
-        </script>
+        
         <!-- Fonts -->
         <link rel="icon" type="image/x-icon" href="{{asset('images/logo.png')}}" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
         @livewireStyles
 
         <!-- Scripts -->
@@ -64,7 +57,7 @@
             {{ $slot }}
         </section>
         @stack('modals')
-
+        @stack('scripts')
         {{-- @include('layouts.footer') --}}
     </div>
 
@@ -72,6 +65,8 @@
     <script type="text/javascript" src="{{asset('admin-one/dist/js/main.min.js?v=1628755089081')}}"></script>
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+
 <script>
     const Toast = Swal.mixin({
         toast: true,
@@ -116,5 +111,6 @@
         })
     }
 </script>
+
 </body>
 </html>
