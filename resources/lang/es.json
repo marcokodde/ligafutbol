@@ -1,5 +1,8 @@
 {
 
+    "Client": "Cliente",
+    "Clients": "Clientes",
+    "Client Name": "Nombre Cliente",
     "Task Type": "Tipo Tarea",
     "Task Types":"Tipos de Tarea",
     "Operations": "Operaciones",

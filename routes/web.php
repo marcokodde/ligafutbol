@@ -7,6 +7,7 @@ use App\Http\Livewire\Channels;
 use App\Http\Livewire\Statuses;
 use App\Http\Livewire\SubTasks;
 use App\Http\Livewire\Accordeon;
+use App\Http\Livewire\Clients;
 use App\Http\Livewire\Positions;
 use App\Http\Livewire\TaskTypes;
 use App\Http\Livewire\Priorities;
@@ -59,6 +60,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('channels',Channels::class)->name('channels');                   // Canales
     Route::get('tasktypes',TaskTypes::class)->name('tasktypes');                // Tipos de Tarea
 
+    Route::get('clients',Clients::class)->name('clients');                       // Clientes
     Route::get('boards',Boards::class)->name('boards');                         // Tableros
     Route::get('groups',Groups::class)->name('groups');                         // Grupos
     Route::get('tasks',Tasks::class)->name('tasks');                            // Tareas

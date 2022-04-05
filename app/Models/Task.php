@@ -44,6 +44,7 @@ class Task extends Model
         return $this->belongsTo(User::class,'user_responsible_id');
     }
 
+
     public function status(){
         return $this->belongsTo(Status::class,'status_id');
     }
@@ -54,6 +55,10 @@ class Task extends Model
 
     public function priority(){
         return $this->belongsTo(Priority::class,'priority_id');
+    }
+
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id');
     }
 
 

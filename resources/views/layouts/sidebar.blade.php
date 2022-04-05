@@ -75,6 +75,12 @@
                 <ul>
 
                     <li>
+                        <a href="{{url('clients')}}">
+                        <span>{{__('Clients')}}</span>
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="{{url('boards')}}">
                         <span>{{__('Boards')}}</span>
                         </a>
