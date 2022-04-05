@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Livewire\Accordeon;
+use App\Http\Livewire\Tasks;
 use App\Http\Livewire\Boards;
-use App\Http\Livewire\Channels;
-use App\Http\Livewire\Departaments;
 use App\Http\Livewire\Groups;
-use App\Http\Livewire\Positions;
-use App\Http\Livewire\Priorities;
+use App\Http\Livewire\Channels;
 use App\Http\Livewire\Statuses;
 use App\Http\Livewire\SubTasks;
-use App\Http\Livewire\Tasks;
+use App\Http\Livewire\Accordeon;
+use App\Http\Livewire\Positions;
 use App\Http\Livewire\TaskTypes;
+use App\Http\Livewire\Priorities;
+use App\Http\Livewire\Departaments;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,4 +70,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 // })->name('accordeon');
 
 Route::get('accordeon',Accordeon::class)->name('accordeon');
+
+Route::get('get_zipcode/{zipcode}',function($zipcode){
+    return json_decode(Http::get('http://virtacc.teamkodde.com/api/get_zipcode/' . $zipcode),true);
+
+})->name('get_zipcode');
+
+
 
