@@ -1,0 +1,11 @@
+sociación de archivos a los tableros, grupos, tareas
+Permitir subir "avatar" a los usuarios
+Asignar "rol" por defecto a un usuario
+ABC-K Roles
+ABC-K Permisos
+Asignar permisos al rol
+Asignar roles a usuario
+Asignar permisos a usuario
+Estructura para que las tareas permitan "varios responsables"
+ACTUALIZACIONES (La pequeña red social) que es una "Actividad" que involucrará muchas mas.
+Etc.
