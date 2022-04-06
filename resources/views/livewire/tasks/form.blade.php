@@ -116,28 +116,43 @@
                         <div class="mb-2 m-2">
                             <label class="block text-gray-700 text-sm font-bold text-left">{{__("Title")}}</label>
                             <input type="text" wire:model="title" maxlength="50" placeholder="{{__("Title")}}"
-                            class="block shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                            class="block shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                             <div>@error('title') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                         </div>
 
-                        {{-- Descripción --}}
-                        {{--  <div class="mb-2 m-2">
-                            <div class="field">
-                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Description")}}</label>
-                                <div class="control">
-                                <textarea wire:model="description" class="textarea" placeholder="{{__('Explain about it')}}"></textarea>
-                                </div>
-                                <div>@error('description') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                        {{--  Channels y Clients  --}}
+                        <div class="grid grid-cols-2 gap-2 text-sm text-center">
+                            <div class="p-2 rounded-lg">
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Client")}}</label>
+                                <span>
+                                    <select wire:model="client_id"
+                                    class="block form-select form-select-md  sm:mr-2">
+                                    <option value="" selected>{{__('Choose')}}</option>
+                                    @foreach($clients as $client)
+                                            <option value="{{ $client->id }}">{{ $client->name }} </option>
+                                        </option>
+                                    @endforeach
+                                    </select>
+                                    <div>@error('client_id') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                                </span>
                             </div>
-                        </div>  --}}
-                        <label class="block text-gray-700 text-sm font-bold text-left">{{__("Description")}}</label>
-                        <div wire:ignore class="form-group row">
-                            <div class="w-auto h-auto">
-                                <textarea wire:model="description" class="textarea" name="description" id="description" placeholder="{{__('Explain about it')}}">
-                                </textarea>
+                            {{-- Prioridad --}}
+                            <div class="p-2 rounded-lg">
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Channel")}}</label>
+                                <span>
+                                    <select wire:model="channel_id"
+                                    class="block form-select form-select-md  sm:mr-2">
+                                    <option value="" selected>{{__('Choose')}}</option>
+                                    @foreach($channels as $channel)
+                                        <option value="{{ $channel->id }}">{{ $channel->channel }} </option>
+                                        </option>
+                                    @endforeach
+                                    </select>
+                                    <div>@error('channel_id') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                                </span>
                             </div>
-                            <div>@error('description') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                         </div>
+
                         {{-- Estado de la tarea --}}
                         <div class="grid grid-cols-2 gap-2 text-sm text-center">
                             <div class="p-2 rounded-lg">
@@ -180,6 +195,25 @@
                                 </span>
                             </div>
                         </div>
+                        {{-- Descripción --}}
+                        {{--  <div class="mb-2 m-2">
+                            <div class="field">
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Description")}}</label>
+                                <div class="control">
+                                <textarea wire:model="description" class="textarea" placeholder="{{__('Explain about it')}}"></textarea>
+                                </div>
+                                <div>@error('description') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                            </div>
+                        </div>  --}}
+                        <label class="block text-gray-700 text-sm font-bold text-left">{{__("Description")}}</label>
+                        <div wire:ignore class="form-group row">
+                            <div class="w-auto h-auto">
+                                <textarea wire:model="description" class="textarea" name="description" id="description" placeholder="{{__('Explain about it')}}">
+                                </textarea>
+                            </div>
+                            <div>@error('description') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                        </div>
+                        
                         @endif
 
                         @include('common.crud_save_cancel')
@@ -190,17 +224,16 @@
     </div>
 </div>
 @section('scripts')
-
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#description' ) )
-            .then(editor => {
-                editor.model.document.on('change:data', () => {
-				    @this.set('description', editor.getData());
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#description' ) )
+                .then(editor => {
+                    editor.model.document.on('change:data', () => {
+                        @this.set('description', editor.getData());
+                    })
                 })
-            })
-            .catch(error => {
-                console.error(error);
-            });
-</script>
+                .catch(error => {
+                    console.error(error);
+                });
+    </script>
 @endsection

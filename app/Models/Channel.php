@@ -28,6 +28,10 @@ class Channel extends Model
      */
 
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 
     /*+-----------------+
       | Funciones Apoyo |
@@ -35,7 +39,8 @@ class Channel extends Model
      */
 
 
-    public function can_be_delete(){
+    public function can_be_delete()
+    {
         return true;
     }
 
@@ -45,19 +50,17 @@ class Channel extends Model
     */
 
 
-    public function scopeChannel($query,$valor)
+    public function scopeChannel($query, $valor)
     {
-        if ( trim($valor) != "") {
-            $query->where('channel','LIKE',"%$valor%")
-                  ->orwhere('short','LIKE',"%$valor%");
-         }
+        if (trim($valor) != "") {
+            $query->where('channel', 'LIKE', "%$valor%")
+                ->orwhere('short', 'LIKE', "%$valor%");
+        }
     }
-    public function scopeShort($query,$valor)
+    public function scopeShort($query, $valor)
     {
-        if ( trim($valor) != "") {
-            $query->where('short','LIKE',"%$valor%");
-         }
+        if (trim($valor) != "") {
+            $query->where('short', 'LIKE', "%$valor%");
+        }
     }
-
 }
-
