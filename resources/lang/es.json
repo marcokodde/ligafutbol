@@ -89,5 +89,15 @@
     "Are you sure?":"¿Estas seguro?",
     "You wo not be able to revert this!":"¡No podrás revertir esto!",
     "Yes, delete it":"Si, Eliminarlo",
-    "Your record has been deleted.":"Su registro ha sido eliminado."
+    "Your record has been deleted.":"Su registro ha sido eliminado.",
+    "You have not Admin access":"Usted no tiene acceso como Administrador",
+    "You have not Admin Licence access":"Usted no tiene acceso como Administrador de Licencia",
+    "You have not Designer Lead access": "Usted no tiene acceso como Líder de Diseño",
+    "You have not Departament Lead access": "Usted no tiene acceso como Líder de Departamento",
+    "You have no Account Manager access": "Usted no tiene acceso como Gerente de Cuenta",
+    "You have not Social Media Agent acces": "Usted no tiene acceso como Agente de Redes Sociales",
+    "You have not Graphic Designer access": "Usted no tiene acceso como Diseñador Gráfico",
+    "You have not Developer access": "Usted no tiene acceso como Desarrollador"
+
+
 }

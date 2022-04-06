@@ -21,7 +21,7 @@ trait UserTrait {
     }
 
     public function this_permission(Permission $permission){
-        return $this->belongsToMany(Permission::class)->where('permission_id',$permission->id);
+        return $this->belongsToMany(Permission::class)->where('permission_id',$permission->id)->count();
     }
 
 	/**
@@ -76,5 +76,40 @@ trait UserTrait {
         return $this->hasRole($role);
     }
 
+
+    public function isAdmin(){
+        return $this->is('admin');
+    }
+
+    public function isLicence(){
+        return $this->is('licence');
+    }
+    public function isDesignLead(){
+        return $this->is('DesignLead');
+    }
+
+    public function isDeptoLead(){
+        return $this->is('DeptoLead');
+    }
+
+    public function isAccountManager(){
+        return $this->is('AccountManager');
+    }
+
+    public function isSocialAgent(){
+        return $this->is('SocialAgent');
+    }
+
+    public function isBrandDesigner(){
+        return $this->is('BrandDesigner');
+    }
+
+    public function isGraphDesigner(){
+        return $this->is('GraphDesigner');
+    }
+
+    public function isDeveloper(){
+        return $this->is('Developer');
+    }
 
 }
