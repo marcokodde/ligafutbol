@@ -3,8 +3,6 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-
-use App\Http\Livewire\Traits\CrudTrait;
 use App\Models\Board;
 use App\Models\Group;
 use App\Models\Priority;
