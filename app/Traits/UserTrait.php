@@ -21,7 +21,7 @@ trait UserTrait {
     }
 
     public function this_permission(Permission $permission){
-        return $this->belongsToMany(Permission::class)->where('permission_id',$permission->id)->count();
+        return $this->belongsToMany(Permission::class)->where('permission_id',$permission->id);
     }
 
 	/**
