@@ -4,7 +4,7 @@
     <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600">{{ $record->title }}</td>
     <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600">{{date("l F d", strtotime($record->deadline))}}</td>
     <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600">
-        <span class="border-2 text-white
+        <span class="border-2 text-white px-4 py-2
         @switch($record->priority->id)
             @case(1)
                 border-red-600 bg-red-600
@@ -31,7 +31,7 @@
     </td>
 
     <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600">
-        <span class="border-2 text-white
+        <span class="border-2 text-white px-4 py-2
         @switch($record->status->id)
             @case(1)
                 border-blue-500 bg-blue-500
