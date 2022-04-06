@@ -20,12 +20,17 @@ class Statuses extends Component {
 
     public function mount()
     {
-        $this->authorize('hasaccess', 'statuses.index');
+        //$this->authorize('hasaccess', 'statuses.index');
         $this->manage_title = __('Manage') . ' ' . __('Status');
         $this->search_label = "Status Name";
         $this->view_form = 'livewire.statuses.form';
         $this->view_table = 'livewire.statuses.table';
         $this->view_list  = 'livewire.statuses.list';
+        // Permisos
+        $this->permission_create   = 'status.create';
+        $this->permission_edit     = 'status.edit';
+        $this->permission_delete   = 'status.delete';
+        $this->permission_view     = 'stauts.view';
     }
 
 

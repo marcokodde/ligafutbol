@@ -26,6 +26,13 @@ trait CrudTrait {
     public $action_form;
     public $show_delete_detail = false;
 
+    // Permisos
+    public $permission_create;
+    public $permission_edit;
+    public $permission_delete;
+    public $permission_view;
+
+
     // Vistas
     public $view_search = 'common.crud_search';
     public $view_form;
