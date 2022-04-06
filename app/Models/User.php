@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Traits\UserTrait;
 
 class User extends Authenticatable
 {
@@ -17,6 +18,8 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use UserTrait;
+
 
     /**
      * The attributes that are mass assignable.
@@ -58,40 +61,4 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
-    /*+--------------+
-      | Relaciones   |
-      +--------------+
-     */
-
-    public function tasks_require(){
-        return $this->hasMany(Task::class,'user_require_id');
-    }
-
-    public function tasks_responsible(){
-        return $this->hasMany(Task::class,'user_responsible_id');
-    }
-
-    public function subtasks_require(){
-        return $this->hasMany(SubTask::class,'user_require_id');
-    }
-
-    public function subtasks_responsible(){
-        return $this->hasMany(SubTask::class,'user_responsible_id');
-    }
-
-    /*+-----------------+
-      | Funciones Apoyo |
-      +-----------------+
-     */
-
-
-    public function can_be_delete(){
-        if($this->tasks_require()->count()) return false;
-        if($this->tasks_responsible()->count()) return false;
-        if($this->subtasks_require()->count()) return false;
-        if($this->subtasks_responsible()->count()) return false;
-        return true;
-    }
-
 }

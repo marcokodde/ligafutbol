@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->truncateTables([
             'users',
+            'role_user',
+            'permission_user',
+            'roles',
+            'permissions',
             'statuses',
             'priorities',
             'channels',
@@ -31,6 +35,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
+            RoleSeeder::class,
+            PermissionSeeder::class,
             StatusSeeder::class,
             PrioritySeeder::class,
             ChannelSeeder::class,
