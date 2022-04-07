@@ -1,60 +1,30 @@
 {
-    "Name": "Nombre",
-    "Client": "Cliente",
-    "Clients": "Clientes",
-    "Client Name": "Nombre Cliente",
-    "Task Type": "Tipo Tarea",
-    "Task Types":"Tipos de Tarea",
-    "Operations": "Operaciones",
-    "Deadline": "Fecha Compromiso",
-    "Required By":"Solicitado por",
-    "Deadline Date": "Fecha Compromiso",
-    "Responsible": "Responsable",
 
-    "Pick To Indicate a Deadline Date": "Clic para Seleccionar Fecha",
-    "Priority": "Prioridad",
-    "Priorities": "Prioridades",
-    "Channel": "Canal",
-    "Channels": "Canales",
+    "Operations": "Operaciones",
+    "Permission": "Permiso",
+    "Permissions": "Permisos",
+    "Permission Name": "Nombre del Permiso",
+    "Full Access?": "Acceso Total",
+    "Description": "Descripción",
+    "Role": "Rol",
+    "Roles": "Roles",
+    "Role Name": "Nombre del Rol",
+    "Team": "Equipo",
+    "Teams": "Equipos",
+    "Category": "Categoría",
+    "Categories": "Categorías",
+    "Category Name": "Nombre Categoría",
+
+    "Name": "Nombre",
+    "User": "Usuario",
+    "Users": "Usuarios",
 
     "Yes, delete it!": "Si, Elimínalo!",
-
-    "Title": "Título",
-    "Description": "Descripción",
-    "Explain about it": "Explique de que se trata",
-
-    "Position": "Puesto",
-    "Positions": "Puestos",
-    "Position Name": "Nombre Puesto",
-
-    "Departament": "Departamento",
-    "Departaments": "Departamentos",
-    "Departament Name": "Nombre Departamento",
-
-
-    "Board": "Tablero",
-    "Boards": "Tableros",
-    "Board Name": "Nombre Tablero",
-
-    "Group": "Grupo",
-    "Groups": "Grupos",
-    "Group Name": "Nombre Grupo",
-
-    "Task": "Tarea",
-    "Tasks": "Tareas",
-    "Task Name": "Nombre Tarea",
-
-    "Sub Task": "Sub Tarea",
-    "Sub Tasks": "Sub Tareas",
-    "Sub Task Name": "Nombre Sub Tarea",
-
-
 
     "Dashboard": "Panel Inicial",
     "Configuration": "Configuración",
     "Manage": "Gestión",
     "Status Name": "Nombre de Estado",
-    "Customer": "Cliente",
     "No Records Found": "No hay resultados",
     "First Name": "Nombre",
     "Last Name": "Apellido",
@@ -62,6 +32,7 @@
     "Email": "Correo Electrónico",
     "Zipcode": "Código Postal",
     "Name or Phone": "Nombre o Teléfono",
+    "Name or Email": "Nombre o Correo",
     "Actions": "Acciones",
 
     "It can't delete": "No se puede borrar",
@@ -90,14 +61,9 @@
     "You wo not be able to revert this!":"¡No podrás revertir esto!",
     "Yes, delete it":"Si, Eliminarlo",
     "Your record has been deleted.":"Su registro ha sido eliminado.",
-    "You have not Admin access":"Usted no tiene acceso como Administrador",
-    "You have not Admin Licence access":"Usted no tiene acceso como Administrador de Licencia",
-    "You have not Designer Lead access": "Usted no tiene acceso como Líder de Diseño",
-    "You have not Departament Lead access": "Usted no tiene acceso como Líder de Departamento",
-    "You have no Account Manager access": "Usted no tiene acceso como Gerente de Cuenta",
-    "You have not Social Media Agent acces": "Usted no tiene acceso como Agente de Redes Sociales",
-    "You have not Graphic Designer access": "Usted no tiene acceso como Diseñador Gráfico",
-    "You have not Developer access": "Usted no tiene acceso como Desarrollador"
 
+    "You have not Admin access":"Usted no tiene acceso como Administrador",
+    "You have not Coach Access":"Usted no tiene acceso como Entrenador",
+    "You have not Support Agent access": "Usted no tiene acceso como Agente de Soporte"
 
 }

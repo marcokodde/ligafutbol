@@ -1,19 +1,15 @@
 <?php
 
-use App\Http\Livewire\Tasks;
-use App\Http\Livewire\Boards;
-use App\Http\Livewire\Groups;
-use App\Http\Livewire\Channels;
+use App\Http\Livewire\Categories;
+use App\Http\Livewire\Roles;
+use App\Http\Livewire\Users;
 use App\Http\Livewire\Statuses;
-use App\Http\Livewire\SubTasks;
-use App\Http\Livewire\Accordeon;
-use App\Http\Livewire\Clients;
-use App\Http\Livewire\Positions;
-use App\Http\Livewire\TaskTypes;
-use App\Http\Livewire\Priorities;
-use App\Http\Livewire\Departaments;
-use Illuminate\Support\Facades\Http;
+use App\Http\Livewire\Permissions;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\RolePermissions;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +29,21 @@ Route::get('language/{locale}', function ($locale) {
     session()->put('locale', $locale);
     App::setLocale(session()->get('locale'));
     return back();
-    })->name('changelanguage');
+})->name('changelanguage');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::get('statuses', Statuses::class)->name('statuses');                      // Estados de registros
+
+    Route::get('permission',Permissions::class)->name('permission');                // Permisos
+    Route::get('role',Roles::class)->name('role');                                  // Roles
+    Route::get('role-permission',RolePermissions::class)->name('role-permission');  // Asignar Permisos al Rol
+    Route::get('users',Users::class)->name('users');                                // Usuarios
+    Route::get('categories',Categories::class)->name('categories'); // Usuarios
+
+});
 
 
 
@@ -47,37 +57,6 @@ Route::middleware([
     })->name('dashboard');
 });
 
-
-
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
-    Route::get('statuses', Statuses::class)->name('statuses');                  // Estados de registros
-    Route::get('positions',Positions::class)->name('positions');                // Puestos
-    Route::get('departaments',Departaments::class)->name('departaments');       // Departamentos
-    Route::get('priorities',Priorities::class)->name('priorities');             // Prioridades
-    Route::get('channels',Channels::class)->name('channels');                   // Canales
-    Route::get('tasktypes',TaskTypes::class)->name('tasktypes');                // Tipos de Tarea
-
-    Route::get('clients',Clients::class)->name('clients');                       // Clientes
-    Route::get('boards',Boards::class)->name('boards');                         // Tableros
-    Route::get('groups',Groups::class)->name('groups');                         // Grupos
-    Route::get('tasks',Tasks::class)->name('tasks');                            // Tareas
-    Route::get('sub-tasks',SubTasks::class)->name('sub-tasks');                 // Sub Tareas
-});
-
-// Route::get('/accordeon', function () {
-//     return view('livewire.accordeon');
-// })->name('accordeon');
-
-Route::get('accordeon',Accordeon::class)->name('accordeon');
-
-Route::get('get_zipcode/{zipcode}',function($zipcode){
-
-    return json_decode(Http::get('http://virtacc.teamkodde.com/api/get_zipcode/' . $zipcode),true);
-
-})->name('get_zipcode');
 
 
 

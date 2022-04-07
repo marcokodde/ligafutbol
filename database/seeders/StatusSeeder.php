@@ -16,10 +16,8 @@ class StatusSeeder extends Seeder
     {
         $sql= "INSERT INTO statuses (spanish,short_spanish,english,short_english) VALUES
         ('Activo', 'Activ','Active','Activ'),
-        ('Proceso', 'Proc','Process','Proc'),
-        ('Pendiente', 'Pend','Pending','Pend'),
+        ('Inactivo', 'Inact','Inactive','Inact'),
         ('Terminado', 'Term','Finished','Fini')";
-
         DB::update ($sql);
     }
 }

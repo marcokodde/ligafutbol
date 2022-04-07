@@ -14,95 +14,16 @@
         </ul>
         <ul class="menu-list">
             {{-- Menú Configuración --}}
-            <li>
-                <a class="dropdown">
-                    <span class="icon"><i class="mdi mdi-settings"></i></span>
-                    <span class="menu-item-label">{{__('Configuration')}}</span>
-                    <span class="icon"><i class="mdi mdi-plus"></i></span>
-                </a>
-                <ul>
-                    <li>
+            @if(Auth::user()->isAdmin())
+                @include('layouts.menus.admin')
+            @endif
 
-                        <a href="{{url('statuses')}}">
-                            <span>{{__('Status')}}</span>
-                        </a>
-                    </li>
+            {{-- Menú de Coach --}}
+            @if(Auth::user()->isCoach())
+                @include('layouts.menus.coach')
+            @endif
 
 
-                    <li>
-                        <a href="{{url('priorities')}}">
-                        <span>{{__('Priorities')}}</span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="{{url('channels')}}">
-                        <span>{{__('Channels')}}</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{{url('positions')}}">
-                        <span>{{__('Positions')}}</span>
-                        </a>
-                    </li>
-
-
-
-                    <li>
-                        <a href="{{url('departaments')}}">
-                        <span>{{__('Departaments')}}</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{{url('tasktypes')}}">
-                        <span>{{__('Task Types')}}</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-
-            {{-- Menú de operaciones --}}
-            <li class="mt-5">
-                <a class="dropdown">
-                    <span class="icon"><i class="mdi mdi-settings"></i></span>
-                    <span class="menu-item-label">{{__('Operations')}}</span>
-                    <span class="icon"><i class="mdi mdi-plus"></i></span>
-                </a>
-                <ul>
-
-                    <li>
-                        <a href="{{url('clients')}}">
-                        <span>{{__('Clients')}}</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{{url('boards')}}">
-                        <span>{{__('Boards')}}</span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="{{url('groups')}}">
-                        <span>{{__('Groups')}}</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{{url('tasks')}}">
-                        <span>{{__('Tasks')}}</span>
-                        </a>
-                    </li>
-
-
-
-                </ul>
-            </li>
 
         </ul>
     </div>

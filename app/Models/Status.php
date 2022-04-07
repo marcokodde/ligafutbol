@@ -34,14 +34,9 @@ class Status extends Model
       +-----------------+
      */
 
-    public function tasks(){
-        return $this->belongsTo(Task::class,'status_id');
-    }
 
 
-    public function subtasks(){
-        return $this->belongsTo(SubTask::class,'status_id');
-    }
+
 
     /*+-----------------+
       | Funciones Apoyo |
@@ -50,8 +45,6 @@ class Status extends Model
 
 
     public function can_be_delete(){
-        if($this->tasks()->count()) return false;
-        if($this->subtasks()->count()) return false;
         return true;
     }
 

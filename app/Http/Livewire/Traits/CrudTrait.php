@@ -97,27 +97,6 @@ trait CrudTrait {
         $this->resetInputFields();
     }
 
-    public function review_member(){
-        if(Auth::User()->isManager() || Auth::User()->isRegular()){
-            $this->member_auth_user = Auth::user()->read_member();
-            $this->member_expired = Auth::user()->memberExpired();
-            $this->allow_navigate = !$this->member_expired;
-            $this->allow_create = !$this->member_expired;
-
-            if(!$this->member_auth_user){
-                $this->message = __('Your not have Membership Linked');
-            }
-
-            if($this->member_expired){
-                $this->message = __('License Expire please Renew');
-            }
-
-            if($this->member_auth_user->limitUsers() && request()->routeIs('users') ){
-                $this->message = __('License Expire please Renew');
-                $this->allow_create = false;
-            }
-        }
-    }
 
     private function delete_record($record,$message){
         $record->delete();

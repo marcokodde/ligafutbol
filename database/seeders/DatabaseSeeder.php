@@ -24,13 +24,6 @@ class DatabaseSeeder extends Seeder
             'roles',
             'permissions',
             'statuses',
-            'priorities',
-            'channels',
-            'positions',
-            'task_types',
-            'boards',
-            'groups',
-            'clients',
         ]);
 
         $this->call([
@@ -38,12 +31,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             StatusSeeder::class,
-            PrioritySeeder::class,
-            ChannelSeeder::class,
-            PositionSeeder::class,
-            TaskTypeSeeder::class,
-            BoardSeeder::class,
-            GroupSeeder::class
+            RoleUserSeeder::class
        ]);
 
 

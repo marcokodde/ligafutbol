@@ -20,7 +20,7 @@ class Statuses extends Component {
 
     public function mount()
     {
-        //$this->authorize('hasaccess', 'statuses.index');
+        $this->authorize('hasaccess', 'statuses.index');
         $this->manage_title = __('Manage') . ' ' . __('Status');
         $this->search_label = "Status Name";
         $this->view_form = 'livewire.statuses.form';

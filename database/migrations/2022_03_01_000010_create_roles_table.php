@@ -15,10 +15,10 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50)->coment('Role Name');
-            $table->text('english')->nullable()->coment('English Description');
-			$table->text('spanish')->nullable()->coment('Spanish Description');
-			$table->boolean('full_access')->default(0)->coment('Full Access?');
+            $table->string('name',50)->comment('Role Name');
+            $table->text('english')->nullable()->comment('English Description');
+			$table->text('spanish')->nullable()->comment('Spanish Description');
+			$table->boolean('full_access')->default(0)->comment('Full Access?');
         });
     }
 

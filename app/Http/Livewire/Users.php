@@ -19,11 +19,8 @@ class Users extends Component {
     use WithPagination;
     use CrudTrait;
 
-    public $name, $email, $password, $active,$password_confirmation;
-    public $roles,$role_id,$members,$member_id;
-    public $member_auth_user;
-    public $show_member = false;
-    private $member;
+    public $name, $email, $password, $phone,$active,$password_confirmation;
+    public $roles,$role_id;
 
     /*+-------------------------+
       | Inicializa Componante   |
@@ -32,22 +29,16 @@ class Users extends Component {
 
 	public function mount() {
         $this->authorize('hasaccess', 'users.index');
-        $this->manage_title = "Manage Users";
+        $this->manage_title = __('Manage') . ' ' . __('Users');
         $this->create_button_label = "Create User";
         $this->search_label = "Name or Email";
-        $this->member = null;
-        $this->members = null;
         $this->readRoles();
     }
 
     // Lee los roles para SELECT en formulario
     private function readRoles(){
         if(Auth::user()->IsAdmin()){
-            $this->roles = Role::whereIn('id', [1, 2,3])->get();
-        }
-
-        if(Auth::user()->IsManager()){
-            $this->roles = Role::whereIn('id', [3,4])->get();
+            $this->roles = Role::orderBy('name')->get();
         }
     }
 
@@ -59,25 +50,12 @@ class Users extends Component {
         $searchTerm = '%' . $this->search . '%';
 
         if(Auth::user()->IsAdmin()){
-            return view('livewire.users.index', [
-                'records' => User::whereHas('roles', function (Builder $query) {
-                    $query->whereIn('role_id', [1,2,3]);
-                })->where('name', 'like', $searchTerm)
-                ->orderBy('id')
-                ->paginate($this->pagination),
+            return view('livewire.index', [
+                'records' => User::Search($searchTerm)->paginate($this->pagination),
             ]);
         }
 
-        $this->review_member();
-        if(Auth::user()->IsManager()){
-            return view('livewire.users.index', [
-                'records' => User::whereHas('roles', function (Builder $query)  {
-                    $query->whereIn('role_id', [3,4]);
-                })->whereHas('members', function (Builder $query) {
-                    $query->where('member_id', '=',$this->member_auth_user->id);
-                })->where('name', 'like', $searchTerm)->paginate($this->pagination),
-            ]);
-        }
+
 	}
 
 	/**
@@ -85,14 +63,9 @@ class Users extends Component {
 	 */
 
 	private function resetInputFields() {
-        $this->record_id = '';
-		$this->name = '';
-        $this->email = '';
-        $this->password = '';
-        $this->active = false;
-        $this->show_member=false;
-        $this->members = null;
+        $this->record_id = null;
         $this->record = null;
+        $this->reset(['name','email','phone','password','active']);
 	}
 
 	/**+------------------------------------+
@@ -104,24 +77,16 @@ class Users extends Component {
 
         $this->validateUser();
 
+
         if($this->record_id){
             $user = $this->updateUser();
         }else{
             $user = $this->createUser();
         }
 
-        if($user){
-            if($user->isAdmin()){
-                $user->members()->sync(null);
-            }else{
-                $this->enrolMember($user);
-            }
-        }
 
-        session()->flash('message',
-        $this->record_id ? 'User Updated Successfully.' : 'User Created Successfully.');
-		$this->closeModal();
-		$this->resetInputFields();
+        $this->create_button_label = __('Create') . ' ' . __('User');
+        $this->store_message(__('User'));
 	}
 
     /**+----------------+
@@ -129,47 +94,14 @@ class Users extends Component {
      * +----------------+
      */
     private function validateUser(){
-        // Administrador
-        if(Auth::user()->IsAdmin()){
-            if($this->record_id){
-                $this->validate([
-                    'name' => 'required',
-                    'email' => 'required|email|unique:users,email,' . $this->record_id,
-                    'role_id' => 'required|exists:roles,id',
-                    'password_confirmation' =>'required_with:password',
-                    'member_id'=> 'required_if:role_id,3'
-                ]);
 
-            }else{
-                $this->validate([
-                    'name' => 'required',
-                    'email' => 'required|email|unique:users,email,' . $this->record_id,
-                    'role_id' => 'required|exists:roles,id',
-                    'password' => 'required|confirmed',
-                    'password_confirmation' =>'required_with:password',
-                    'member_id'=> 'required_if:role_id,3'
-                ]);
-            }
-        }
-        // Propietario
-        if(Auth::user()->isManager()){
-            if($this->record_id){
-                $this->validate([
-                    'name' => 'required',
-                    'email' => 'required|email|unique:users,email,' . $this->record_id,
-                    'role_id' => 'required|exists:roles,id',
-                    'password_confirmation' =>'required_with:password',
-                ]);
-            }else{
-                $this->validate([
-                    'name' => 'required',
-                    'email' => 'required|email|unique:users,email,' . $this->record_id,
-                    'role_id' => 'required|exists:roles,id',
-                    'password_confirmation' =>'required_with:password',
-                ]);
-            }
-        }
-
+        $this->validate([
+            'name'                  => 'required|min:3|max:50',
+            'email'                 => 'required|email|unique:users,email,' . $this->record_id,
+            'role_id'               => 'required|exists:roles,id',
+            'phone'                 => 'required|max:15',
+            'password_confirmation' =>'required_with:password'
+		]);
     }
 
     /**+----------------+
@@ -178,15 +110,15 @@ class Users extends Component {
      */
 
     private function createUser(){
-        $active = $this->active ? 1 : 0;
         $user = User::create([
-			'name' => $this->name,
-			'email' => $this->email,
-            'password' => Hash::make($this->password),
-            'active' => $active,
+			'name'      => $this->name,
+			'email'     => $this->email,
+            'phone'     => $this->phone,
+            'password'  => Hash::make($this->password),
+            'active'    =>$this->active ? 1 : 0,
         ]);
         $user->roles()->sync($this->role_id);
-        $user->members()->sync($this->member_id);
+
         $user->save();
         return $user;
     }
@@ -197,11 +129,11 @@ class Users extends Component {
 
     private function updateUser(){
         $user = User::findOrFail($this->record_id);
-        $this->active = $this->active ? 1 : 0;
         $user->update([
-            'name' => $this->name,
+            'name'  => $this->name,
             'email' => $this->email,
-            'active' => $this->active,
+            'phone'  => $this->phone,
+            'active' => $$this->active ? 1 : 0,
         ]);
 
         if($this->password){
@@ -210,56 +142,27 @@ class Users extends Component {
             ]);
         }
         $user->roles()->sync($this->role_id);
-        $user->members()->sync($this->member_id);
         $user->save();
         return $user;
     }
 
-    /**+--------------------+
-     * | Asocia empresa     |
-     * +--------------------+
-     */
-
-    private function enrolMember(User $user){
-        if(Auth::user()->isAdmin() && $this->member_id){
-            $user->members()->sync($this->member_id);
-        }else{
-            $user->members()->sync(Auth::user()->read_member());
-        }
-    }
 
 	/**
 	 * Mueve datos del registro a las variables
 	 */
 
-	public function edit($id,$action='edit') {
+	public function edit(User $record) {
         $this->resetInputFields();
-		$record = User::findOrFail($id);
-		$this->record_id = $id;
-		$this->name = $record->name;
-		$this->email = $record->email;
-        $this->active = $record->active;
-        $this->role_id = $record->user_role_id();
-        $this->member_id = $record->user_member_id();
+        $this->create_button_label = __('Update') . ' ' . __('User');
+        $this->record       = $record;
+		$this->record_id    = $record->id;
+		$this->name         = $record->name;
+		$this->email        = $record->email;
+        $this->phone        = $record->phone;
+        $this->active       = $record->active;
+        $this->role_id      = $record->user_role_id();
+		$this->openModal();
 
-        if(Auth::user()->IsAdmin() && $this->role_id > 2){
-            $this->show_member = true;
-            $this->members = Member::where('active','=',1)->get();
-        }
-        $this->openModal($action);
 	}
 
-
-    /**
-     * ¿Mostrar o no compañía?
-     */
-    public function read_members(){
-        $this->show_member = false;
-        $this->members = null;
-        $this->member_id = Null;
-        if(Auth::user()->IsAdmin() && $this->role_id > 2){
-                $this->show_member = true;
-                $this->members = Member::where('active','=',1)->get();
-        }
-    }
 }

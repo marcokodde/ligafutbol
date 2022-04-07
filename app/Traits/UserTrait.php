@@ -64,7 +64,7 @@ trait UserTrait {
 
     public function hasRole($role){
         foreach($this->roles as $rol){
-            if($role == $rol->english || $role == $rol->spanish ){
+            if($role == $rol->name ){
                 return true;
             }
         }
@@ -81,35 +81,13 @@ trait UserTrait {
         return $this->is('admin');
     }
 
-    public function isLicence(){
-        return $this->is('licence');
-    }
-    public function isDesignLead(){
-        return $this->is('DesignLead');
+    public function isSupport(){
+        return $this->is('support');
     }
 
-    public function isDeptoLead(){
-        return $this->is('DeptoLead');
+    public function isCoach(){
+        return $this->is('coach');
     }
 
-    public function isAccountManager(){
-        return $this->is('AccountManager');
-    }
-
-    public function isSocialAgent(){
-        return $this->is('SocialAgent');
-    }
-
-    public function isBrandDesigner(){
-        return $this->is('BrandDesigner');
-    }
-
-    public function isGraphDesigner(){
-        return $this->is('GraphDesigner');
-    }
-
-    public function isDeveloper(){
-        return $this->is('Developer');
-    }
 
 }
