@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             'roles',
             'permissions',
             'statuses',
+            'categories',
             'coaches',
+            'teams'
 
         ]);
 
@@ -34,10 +36,9 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             StatusSeeder::class,
             RoleUserSeeder::class,
+            CategorySeeder::class,
             CoachSeeder::class,
             TeamSeeder::class,     ]);
-
-
     }
 
     // Limpia las tablas

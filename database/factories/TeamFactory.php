@@ -16,9 +16,9 @@ class TeamFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => $this->faker->sentence(),
-            'category_id'   => Category::all()->random()->id,
-            'user_id'       => User::all()->random()->id,
+            'name'          => $this->faker->text(20),
+            'category_id'   => 1,
+            'user_id'       => 1
         ];
     }
 }
