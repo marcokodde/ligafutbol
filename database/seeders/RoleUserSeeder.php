@@ -14,8 +14,21 @@ class RoleUserSeeder extends Seeder
      */
     public function run()
     {
+        // Administrador
         $role = Role::where('name','admin')->first();
         $user = User::where('email','admin@admin.com')->first();
         $user->roles()->attach($role);
+
+        // Soporte
+        $role = Role::where('name','support')->first();
+        $user = User::where('email','support@admin.com')->first();
+        $user->roles()->attach($role);
+
+        // Entrenador
+        $role = Role::where('name','coach')->first();
+        $user = User::where('email','coach@admin.com')->first();
+        $user->roles()->attach($role);
+
+
     }
 }

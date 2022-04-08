@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Categories;
+use App\Http\Livewire\Coaches;
 use App\Http\Livewire\Roles;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Statuses;
@@ -42,8 +43,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('role-permission',RolePermissions::class)->name('role-permission');  // Asignar Permisos al Rol
     Route::get('users',Users::class)->name('users');                                // Usuarios
     Route::get('categories',Categories::class)->name('categories');                 // Categorías
-    Route::get('teams',Teams::class)->name('teams'); // Usuarios
+    Route::get('teams',Teams::class)->name('teams');                                // Equipos
+    Route::get('coaches',Coaches::class)->name('coaches');                          // Entrenadores
 });
+
 
 
 

@@ -20,7 +20,25 @@ class UserSeeder extends Seeder
 			'name' => 'Administrador General',
 			'email' => 'admin@admin.com',
             'phone'     => '28112345678',
-            'password' => Hash::make('password')
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
         ]);
+
+        User::create([
+			'name' => 'Soporte General',
+			'email' => 'support@admin.com',
+            'phone'     => '28112345678',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+			'name' => 'Coach Ejemplo',
+			'email' => 'coach@admin.com',
+            'phone'     => '28112345678',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+        ]);
+
     }
 }

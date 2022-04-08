@@ -8,6 +8,7 @@ use App\Http\Livewire\Traits\CrudTrait;
 use App\Models\Category;
 use App\Models\Team;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
 class Teams extends Component {
@@ -68,6 +69,7 @@ class Teams extends Component {
 		$this->validate([
             'name'         => 'required|min:3|max:50',
             'category_id'  => 'required|not_in:Elegir|not_in:Choose|exists:categories,id',
+            'user_id'       => Auth::user()->id
 		]);
 
 

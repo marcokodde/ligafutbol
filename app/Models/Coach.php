@@ -4,18 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
-class Category extends Model
+class Coach extends Model
 {
     use HasFactory;
-    protected $table = 'categories';
+    protected $table = 'coaches';
     public $timestamps = false;
     protected $fillable =  [
         'name',
-        'date_from',
-        'date_to',
-        'gender',
-        'active'
+        'phone',
+        'user_id'
     ];
 
     /*+-----------------+
@@ -23,9 +22,9 @@ class Category extends Model
       +-----------------+
      */
 
-        public function teams(){
-            return $this->hasMany(Team::class);
-        }
+    public function teams(){
+        return $this->belongsToMany(Team::class);
+    }
 
 
 
@@ -34,19 +33,28 @@ class Category extends Model
       +-----------------+
      */
 
-    public function isActive(){
-        return $this->active;
-    }
 
     public function can_be_delete(){
         if($this->teams()->count()) return false;
         return true;
     }
-
     /*+-------------------+
       | Búsquedas         |
       +-------------------+
     */
+    public function scopeUser($query)
+    {
+        $query->where('user_id',Auth::user()->id);
+    }
+
+
+    public function scopeSearch($query,$valor)
+    {
+        if ( trim($valor) != "") {
+            $query->where('name','LIKE',"%$valor%")
+                ->orwhere('phone','LIKE',"%$valor%");
+         }
+    }
 
     public function scopeName($query,$valor)
     {
@@ -55,11 +63,12 @@ class Category extends Model
          }
     }
 
-    public function scopeActive($query)
+    public function scopePhone($query,$valor)
     {
-        $query->where('active',1);
+        if ( trim($valor) != "") {
+            $query->where('phone','LIKE',"%$valor%");
+         }
     }
-
 
 }
 

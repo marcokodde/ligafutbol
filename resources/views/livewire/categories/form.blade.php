@@ -22,7 +22,7 @@
 
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Date From")}}</label>
-                                <input type="date" wire:model="date_from" maxlength="15" placeholder="{{__("Date From")}}"
+                                <input type="date" wire:model="date_from" maxlength="10" placeholder="{{__("Date From")}}"
                                 class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <div>@error('date_from') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>

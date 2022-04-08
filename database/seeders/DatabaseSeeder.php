@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             'roles',
             'permissions',
             'statuses',
+            'coaches',
+
         ]);
 
         $this->call([
@@ -31,8 +33,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             StatusSeeder::class,
-            RoleUserSeeder::class
-       ]);
+            RoleUserSeeder::class,
+            CoachSeeder::class,
+            TeamSeeder::class,     ]);
 
 
     }

@@ -9,13 +9,13 @@
 
         <li>
             <a href="{{url('teams')}}">
-            <span>{{__('Teams')}}</span>
+                <span>{{__('Teams')}}</span>
             </a>
         </li>
 
         <li>
-            <a href="">
-            <span>{{__('Coaches')}}</span>
+            <a href="{{url('coaches')}}">
+                <span>{{__('Coaches')}}</span>
             </a>
         </li>
 

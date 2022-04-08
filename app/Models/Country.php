@@ -32,7 +32,7 @@ class Country extends Model
     public function payers(){
         return $this->hasMany('App\Models\Payer', 'country_id', 'id')->orderby('payer');
     }
-    
+
     //receivers
     public function receivers(){
         return $this->hasMany('App\Models\Receiver', 'country_id', 'id');
@@ -61,14 +61,6 @@ class Country extends Model
         return $this->hasManyThrough(Transfer::class, Receiver::class,'country_id','receiver_id','id','id');
     }
 
-    // De la empresa para marcar
-    /*
-    public function company_auth_user()
-    {
-        return $this->belongsToMany('App\Models\Company')
-            ->where('company_id',Auth::user()->user_company_id());
-    }
-*/
 
     /**+------------------------+
      * | Funciones de apoyo     |

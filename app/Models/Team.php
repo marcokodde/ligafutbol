@@ -13,6 +13,7 @@ class Team extends Model
     protected $fillable =  [
         'name',
         'category_id',
+        'user_id',
         'active'
     ];
 
@@ -21,11 +22,14 @@ class Team extends Model
       +-----------------+
      */
 
-        public function category(){
-            return $this->belongsTo(Category::class,'category_id');
-        }
+    public function category(){
+        return $this->belongsTo(Category::class,'category_id');
+    }
 
 
+    public function coaches(){
+        return $this->belongsToMany(Team::class);
+    }
 
     /*+-----------------+
       | Funciones Apoyo |
@@ -37,6 +41,7 @@ class Team extends Model
     }
 
     public function can_be_delete(){
+        if($this->coaches()->count()) return false;
         return true;
     }
 
@@ -45,6 +50,11 @@ class Team extends Model
       +-------------------+
     */
 
+    public function scopeUser($query)
+    {
+        $query->where('user_id',Auth::user()->id);
+    }
+
     public function scopeName($query,$valor)
     {
         if ( trim($valor) != "") {
@@ -52,7 +62,7 @@ class Team extends Model
          }
     }
 
-    public function scopeCattegory($query,$valor)
+    public function scopeCategory($query,$valor)
     {
         if ( $valor) {
             $query->where('category_id',$valor);

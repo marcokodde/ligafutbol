@@ -1,5 +1,8 @@
 {
-    "'Already registered?": "¿Ya está registrado?",
+
+    "Coach": "Entrenador",
+    "Coaches": "Entrenadores",
+    "Already registered?": "¿Ya está registrado?",
     "Password": "Clave",
     "Confirm Password": "Confirme Clave",
     "Register": "Registrarse",
