@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,11 +31,16 @@ class CreateNewUser implements CreatesNewUsers
 
 
 
-        return User::create([
+        $user= User::create([
             'name'  => $input['name'],
             'email' => $input['email'],
             'phone' => $input['phone'],
             'password' => Hash::make($input['password']),
         ]);
+        $role_record = Role::where('name','coach')->first();
+        if($role_record){
+            $user->roles()->attach($role_record);
+        }
+        return $user;
     }
 }

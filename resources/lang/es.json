@@ -1,4 +1,10 @@
 {
+    "'Already registered?": "¿Ya está registrado?",
+    "Password": "Clave",
+    "Confirm Password": "Confirme Clave",
+    "Register": "Registrarse",
+    "Forgot your password?": "¿Olvidó su Clave?",
+    "Log in": "Ingresar",
     "Female": "Femenino",
     "Male": "Masculino",
     "Both": "Ambos",
