@@ -8,7 +8,7 @@ use App\Http\Livewire\Permissions;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RolePermissions;
-
+use App\Http\Livewire\Teams;
 
 
 /*
@@ -41,8 +41,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('role',Roles::class)->name('role');                                  // Roles
     Route::get('role-permission',RolePermissions::class)->name('role-permission');  // Asignar Permisos al Rol
     Route::get('users',Users::class)->name('users');                                // Usuarios
-    Route::get('categories',Categories::class)->name('categories'); // Usuarios
-
+    Route::get('categories',Categories::class)->name('categories');                 // Categorías
+    Route::get('teams',Teams::class)->name('teams'); // Usuarios
 });
 
 

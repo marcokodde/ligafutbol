@@ -8,7 +8,7 @@
     <ul>
 
         <li>
-            <a href="">
+            <a href="{{url('teams')}}">
             <span>{{__('Teams')}}</span>
             </a>
         </li>
