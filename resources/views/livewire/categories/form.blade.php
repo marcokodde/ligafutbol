@@ -14,38 +14,47 @@
                     <form>
                         <div class="bg-white mx-auto">
                             <div class="mb-4">
-                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Spanish")}}</label>
-                                <input type="text" wire:model="spanish" maxlength="15" placeholder="{{__("Spanish")}}"
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Name")}}</label>
+                                <input type="text" wire:model="name" maxlength="50" placeholder="{{__("Name")}}"
                                 class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                                @error('spanish') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <div>@error('name') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 
                             <div class="mb-4">
-                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Short Spanish")}}</label>
-                                <input type="text" wire:model="short_spanish"  maxlength="5" placeholder="{{__("Short")}}"
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Date From")}}</label>
+                                <input type="date" wire:model="date_from" maxlength="15" placeholder="{{__("Date From")}}"
                                 class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                                @error('short_spanish') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <div>@error('date_from') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 
                             <div class="mb-4">
-                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("English")}}</label>
-                                <input type="text" wire:model="english" maxlength="15" placeholder="{{__("English")}}"
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Date To")}}</label>
+                                <input type="date" wire:model="date_to" maxlength="10" placeholder="{{__("Date To")}}"
                                 class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                                @error('english') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <div>@error('date_to') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 
                             <div class="mb-4">
-                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Short English")}}</label>
-                                <input type="text"
-                                        wire:model="short_english"
-                                        maxlength="5"
-                                        placeholder="{{__("Short")}}"
-                                        class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        size="2"
-                                        >
-                                @error('short_english') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Gender")}}</label>
+                                <select wire:model="gender"
+                                        class="block form-select form-select-md  rounded w-auto">
+                                        <option value="" selected>{{__('Choose')}}</option>
+                                        <option value="Female">{{__('Female')}}</option>
+                                        <option value="Male">{{__('Male')}}</option>
+                                        <option value="Both">{{__('Both')}}</option>
+                                </select>
+                                <div>@error('gender') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 
+                            <div class="mb-4">
+                                <label class="flex text-gray-700 justify-start font-semibold items-start mr-2 mt-4">
+                                    <div class="bg-white border-2 rounded border-gray-400 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+                                    <input type="checkbox" wire:model="active" class="checkbox absolute" checked>
+                                    <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
+                                    </div>
+                                    {{__("Active?")}}
+                                </label>
+                            </div>
                         </div>
 
                         @include('common.crud_save_cancel')

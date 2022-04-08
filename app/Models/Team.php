@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Team extends Model
 {
     use HasFactory;
-    protected $table = 'categories';
+    protected $table = 'teams';
     public $timestamps = false;
     protected $fillable =  [
         'name',
-        'date_from',
-        'date_to',
-        'gender',
+        'category_id',
         'active'
     ];
 
@@ -23,8 +21,8 @@ class Category extends Model
       +-----------------+
      */
 
-        public function teams(){
-            return $this->hasMany(Team::class);
+        public function category(){
+            return $this->belongsTo(Category::class,'category_id');
         }
 
 
@@ -51,6 +49,13 @@ class Category extends Model
     {
         if ( trim($valor) != "") {
             $query->where('name','LIKE',"%$valor%");
+         }
+    }
+
+    public function scopeCattegory($query,$valor)
+    {
+        if ( $valor) {
+            $query->where('category_id',$valor);
          }
     }
 

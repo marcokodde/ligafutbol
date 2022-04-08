@@ -1,4 +1,12 @@
 {
+    "Female": "Femenino",
+    "Male": "Masculino",
+    "Both": "Ambos",
+    "Date From": "Fecha Desde",
+    "Date To": "Fecha Hasta",
+    "Gender": "Sexo",
+    "Active": "Activo",
+    "Activ?": "¿Activo?",
 
     "Operations": "Operaciones",
     "Permission": "Permiso",

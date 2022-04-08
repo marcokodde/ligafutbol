@@ -16,7 +16,7 @@ class Categories extends Component {
     use WithPagination;
     use CrudTrait;
 
-    public $english,$spanish,$short_spanish,$short_english;
+    public $name,$date_from,$date_to,$gender,$active;
     protected $listeners = ['destroy'];
 
     public function mount()
@@ -68,7 +68,7 @@ class Categories extends Component {
             'name'          => 'required|min:4|max:50|unique:categories,name,' . $this->record_id,
             'date_from'     => 'required',
             'date_to'       => 'required',
-            'gender'       => 'required|in:Female,Male,Unisex',
+            'gender'        => 'required|in:Female,Male,Both',
 		]);
 
 		Category::updateOrCreate(['id' => $this->record_id], [
@@ -76,7 +76,7 @@ class Categories extends Component {
 			'date_from' => $this->date_from,
             'date_to'   => $this->date_to,
             'gender'    => $this->gender,
-            'active'    => $this->acive ? 1 : 0
+            'active'    => $this->active ? 1 : 0
 		]);
 
         $this->create_button_label = __('Create') . ' ' . __('Category');

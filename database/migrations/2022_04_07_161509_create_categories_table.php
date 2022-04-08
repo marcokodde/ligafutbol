@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name',50)->comment('Nombre Categoría');
             $table->date('date_from')->comment('Fecha desde');
             $table->date('date_to')->comment('Fecha hasta');
-            $table->enum('gender',['Female','Male','Unisex'])->default('Unisex')->comment('Sexo');
+            $table->enum('gender',['Female','Male','Both'])->default('Both')->comment('Sexo');
             $table->boolean('active')->default(1)->comment('¿Activa?');
         });
     }
