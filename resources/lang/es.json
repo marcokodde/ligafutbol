@@ -86,6 +86,9 @@
 
     "You have not Admin access":"Usted no tiene acceso como Administrador",
     "You have not Coach Access":"Usted no tiene acceso como Entrenador",
-    "You have not Support Agent access": "Usted no tiene acceso como Agente de Soporte"
+    "You have not Support Agent access": "Usted no tiene acceso como Agente de Soporte",
+    "Assign Coach To Teams":"Asignar Entrenador a Equipos",
+    "Search Team":"Buscar Equipo",
+    "Select Coach": "Selecionar Entrenador"
 
 }

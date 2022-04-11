@@ -25,6 +25,11 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{url('coach-teams')}}">
+                <span>{{__('Assign Coach To Teams')}}</span>
+            </a>
+        </li>
 
     </ul>
 </li>
