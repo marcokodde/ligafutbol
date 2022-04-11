@@ -50,7 +50,9 @@ class CoachTeams extends Component
     // Lee a los entrenadores
 
     public function read_coaches() {
-        $this->coaches = Coach::UserId()->get();
+        $this->coaches = Auth::user()->coaches()->get();
+        //$this->coaches = Coach::UserId()->get();
+       // $this->coaches = Coach::where('user_id', Auth::user()->id)->get();
     }
 
     public function selectRecord(){
