@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\UserTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Permission extends Model
 {
     use HasFactory;
+    use UserTrait;
+
+
     protected $table = 'permissions';
     public $timestamps = false;
 

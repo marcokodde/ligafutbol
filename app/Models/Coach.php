@@ -71,15 +71,17 @@ class Coach extends Model
     {
         if ( trim($valor) != "") {
             $query->where('name','LIKE',"%$valor%");
-         }
+        }
     }
 
     public function scopePhone($query,$valor)
     {
         if ( trim($valor) != "") {
             $query->where('phone','LIKE',"%$valor%");
-         }
+        }
     }
 
+    public function isLinkedCoach($team_id){
+        return $this->teams()->where('id', $team_id);
+    }
 }
-

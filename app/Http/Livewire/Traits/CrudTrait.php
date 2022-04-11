@@ -25,6 +25,8 @@ trait CrudTrait {
     public $confirm_delete =false;
     public $action_form;
     public $show_delete_detail = false;
+    public $only_linked = false;
+    public $show_only_linked = true;
 
     // Permisos
     public $permission_create;

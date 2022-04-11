@@ -2,16 +2,17 @@
 
 namespace App\Http\Livewire;
 
-use App\Excellsus\Models\Role;
-use App\Http\Livewire\Traits\CrudTrait;
-use App\Models\Member;
+
+use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Member;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Livewire\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 
 class Users extends Component {

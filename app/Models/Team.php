@@ -41,7 +41,9 @@ class Team extends Model
     }
 
     public function can_be_delete(){
-        if($this->coaches()->count()) return false;
+       /*  if ($this->coaches()->count()) {
+            return false;
+        } */
         return true;
     }
 
@@ -50,7 +52,7 @@ class Team extends Model
       +-------------------+
     */
 
-    public function scopeUser($query)
+    public function scopeUserId($query)
     {
         $query->where('user_id',Auth::user()->id);
     }
@@ -74,6 +76,7 @@ class Team extends Model
         $query->where('active',1);
     }
 
-
+    public function isLinkedCoach($coach_id){
+        return $this->coaches()->where('id',$coach_id);
+    }
 }
-

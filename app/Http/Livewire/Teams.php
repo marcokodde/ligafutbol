@@ -69,13 +69,13 @@ class Teams extends Component {
 		$this->validate([
             'name'         => 'required|min:3|max:50',
             'category_id'  => 'required|not_in:Elegir|not_in:Choose|exists:categories,id',
-            'user_id'       => Auth::user()->id
 		]);
 
 
 		Team::updateOrCreate(['id' => $this->record_id], [
             'name'         => $this->name,
 			'category_id'   => $this->category_id,
+            'user_id'       => Auth::user()->id,
             'active'        => $this->active ? 1 : 0
 		]);
 
