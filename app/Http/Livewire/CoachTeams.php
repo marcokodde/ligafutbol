@@ -39,6 +39,7 @@ class CoachTeams extends Component
                                 ->paginate($this->pagination)
                 ]);
         }
+
         return view('livewire.coaches.assign_coach_to_team', [
             'records' => Team::Name($this->search)
                                 ->orderby('name')
@@ -49,7 +50,7 @@ class CoachTeams extends Component
     // Lee a los entrenadores
 
     public function read_coaches() {
-        $this->coaches = Coach::where('user_id', Auth::user()->id)->get();
+        $this->coaches = Coach::UserId()->get();
     }
 
     public function selectRecord(){
