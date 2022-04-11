@@ -6,6 +6,7 @@ use App\Http\Livewire\Roles;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Statuses;
 use App\Http\Livewire\Permissions;
+use App\Http\Livewire\Players;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RolePermissions;

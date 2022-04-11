@@ -38,9 +38,10 @@ class Coaches extends Component {
         $this->create_button_label =  $this->record_id ?    __('Update') . ' ' . __('Coach')
                                                         : __('Create') . ' ' . __('Coach');
 
+
         $searchTerm = '%' . $this->search . '%';
         return view('livewire.index', [
-            'records' => Coach::User()->Name($searchTerm)->paginate($this->pagination),
+            'records' => Coach::UserId()->Name($searchTerm)->paginate($this->pagination),
         ]);
 	}
 

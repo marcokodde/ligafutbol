@@ -63,6 +63,23 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
+    /*+-----------------+
+      | Relaciones      |
+      +-----------------+
+     */
+
+        public function teams(){
+            return $this->hasMany(Team::class);
+        }
+
+        public function coaches(){
+            return $this->hasMany(Coach::class);
+        }
+
+        public function players(){
+            return $this->hasMany(Player::class);
+        }
+
     /*+-------------+
       | Apoyo       |
       +-------------+

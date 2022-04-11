@@ -19,6 +19,12 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{url('players')}}">
+                <span>{{__('Players')}}</span>
+            </a>
+        </li>
+
 
     </ul>
 </li>

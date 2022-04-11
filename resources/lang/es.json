@@ -1,5 +1,9 @@
 {
 
+    "Player": "Jugador",
+    "Choose": "Elegir",
+    "Players": "Jugadores",
+    "Birthday": "Fecha Nacimiento",
     "Coach": "Entrenador",
     "Coaches": "Entrenadores",
     "Already registered?": "¿Ya está registrado?",
@@ -14,6 +18,7 @@
     "Date From": "Fecha Desde",
     "Date To": "Fecha Hasta",
     "Gender": "Sexo",
+    "gender": "Sexo",
     "Active": "Activo",
     "Activ?": "¿Activo?",
 

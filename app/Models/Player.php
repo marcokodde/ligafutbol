@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class Coach extends Model
+class Player extends Model
 {
     use HasFactory;
-    protected $table = 'coaches';
-    public $timestamps = false;
+    protected $table = 'players';
     protected $fillable =  [
-        'name',
-        'phone',
+        'first_name',
+        'last_name',
+        'birthday',
+        'gender',
         'user_id'
     ];
 
@@ -23,20 +24,29 @@ class Coach extends Model
         $this->attributes['name'] =  ucwords(strtolower($value));
     }
 
+    public function setLastNameAttribute($value)
+    {
+        $this->attributes['last_name'] =  ucwords(strtolower($value));
+    }
+
+    public function getFullNameAttribute()
+    {
+        return ucwords($this->first_name) . ' ' .  ucwords($this->last_name);
+    }
+
 
     /*+-----------------+
       | Relaciones      |
       +-----------------+
      */
 
-    public function user(){
-        return $this->belongsTo(User::class,'user_id');
+    public function User(){
+        return $this->belongsTo(User::class);
     }
 
     public function teams(){
         return $this->belongsToMany(Team::class);
     }
-
 
 
     /*+-----------------+
@@ -49,6 +59,7 @@ class Coach extends Model
         if($this->teams()->count()) return false;
         return true;
     }
+
     /*+-------------------+
       | Búsquedas         |
       +-------------------+
@@ -59,27 +70,17 @@ class Coach extends Model
     }
 
 
-    public function scopeSearch($query,$valor)
-    {
-        if ( trim($valor) != "") {
-            $query->where('name','LIKE',"%$valor%")
-                ->orwhere('phone','LIKE',"%$valor%");
-         }
-    }
-
     public function scopeName($query,$valor)
     {
         if ( trim($valor) != "") {
-            $query->where('name','LIKE',"%$valor%");
+            $query->where('first_name','LIKE',"%$valor%")
+                ->orwhere('last_name','LIKE',"%$valor%");
          }
     }
 
-    public function scopePhone($query,$valor)
-    {
-        if ( trim($valor) != "") {
-            $query->where('phone','LIKE',"%$valor%");
-         }
-    }
+
+
+
 
 }
 
