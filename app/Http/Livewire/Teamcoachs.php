@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class CoachTeams extends Component
+class Teamcoachs extends Component
 {
     use AuthorizesRequests;
     use WithPagination;
@@ -23,34 +23,21 @@ class CoachTeams extends Component
     public $teams, $team, $team_id;
 
     public function mount() {
-        //$this->authorize('hasaccess', 'role-permissions.index');
-        $this->manage_title = "Assign Coach To Teams";
-        $this->search_label = "Search Team";
         $this->read_teams();
 	}
 
     public function render()
     {
-        if($this->only_linked){
-                return view('livewire.coaches.assign_coach_to_team', [
-                    'records' => $this->team->coaches()
-                                ->Name($this->search)
-                                ->orderby('name')
-                                ->paginate($this->pagination)
-                ]);
-        }
-
-        return view('livewire.coaches.assign_coach_to_team', [
-            'records' => Coach::Name($this->search)
-                                ->orderby('name')
+        return view('livewire.coaches.no_assign_coach_to_team', [
+            'records' => Coach::UserId($this->search)
+                                ->orderby('id')
                                 ->paginate($this->pagination)
         ]);
     }
 
     // Lee a los entrenadores
-
     public function read_teams() {
-        $this->teames = Team::UserId()->get();
+        $this->teams = Team::UserId()->get();
     }
 
     public function selectRecord(){
@@ -62,15 +49,13 @@ class CoachTeams extends Component
     public function read_team(){
         $this->team = null;
         if($this->team_id){
-            $this->team = Team::findOrFail($this->team_id);
+            $this->team = Coach::findOrFail($this->team_id);
         }
     }
-
 
     public function linkRecord($id){
         $this->team->coaches()->detach($id);
         $this->team->coaches()->attach($id);
-
     }
 
     public function unlinkRecord($id){

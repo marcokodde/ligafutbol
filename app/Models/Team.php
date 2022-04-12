@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Team extends Model
 {
@@ -28,7 +29,7 @@ class Team extends Model
 
 
     public function coaches(){
-        return $this->belongsToMany(Team::class);
+        return $this->belongsToMany('App\Models\Coach');
     }
 
     /*+-----------------+
@@ -54,7 +55,7 @@ class Team extends Model
 
     public function scopeUserId($query)
     {
-        $query->where('user_id',Auth::user()->id);
+        $query->where('user_id', Auth::user()->id);
     }
 
     public function scopeName($query,$valor)
@@ -77,6 +78,6 @@ class Team extends Model
     }
 
     public function isLinkedCoach($coach_id){
-        return $this->coaches()->where('id',$coach_id);
+        return $this->belongsToMany('App\Models\Coach')->where('coach_id',$coach_id);
     }
 }

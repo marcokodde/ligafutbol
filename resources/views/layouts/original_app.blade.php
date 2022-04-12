@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Ahava Crm') }}</title>
 
         <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="{{asset('images/logo.png')}}" />
+        <link rel="icon" type="image/x-icon" href="{{asset('images/logo1.png')}}" />
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

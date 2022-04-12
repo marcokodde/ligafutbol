@@ -34,7 +34,7 @@ class Coach extends Model
     }
 
     public function teams(){
-        return $this->belongsToMany(Team::class);
+        return $this->belongsToMany('App\Models\Team');
     }
 
 
@@ -81,7 +81,7 @@ class Coach extends Model
         }
     }
 
-    public function isLinkedCoach($team_id){
-        return $this->teams()->where('id', $team_id);
+    public function isLinkedTeam($team_id){
+        return $this->belongsToMany('App\Models\Team')->where('team_id', $team_id);
     }
 }

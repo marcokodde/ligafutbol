@@ -1,6 +1,6 @@
 <aside class="aside is-placed-left is-expanded">
     <div class="aside-tools">
-        <img src="{{asset('images/logo.png')}}" height="50px" width="50px"  alt="">
+        <img src="{{asset('images/logo1.png')}}" height="50px" width="50px"  alt="">
     </div>
     <div class="menu is-menu-main">
         <ul class="menu-list">

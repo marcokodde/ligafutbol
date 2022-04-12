@@ -3,18 +3,18 @@
     @include('common.crud_message')
         <div class="mb-2">
             <div class="col-span-3 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-3">
-                <select wire:model="coach_id"
-                    wire:change="read_coach()"
+                <select wire:model="team_id"
+                    wire:change="read_team()"
                     class="w-56 bg-white border rounded-b-lg border-white-200 text-gray-700 py-1 px-4 pr-8 mb-4 rounded leading-tight focus:outline-none focus:shadow-outline mx-2">
-                        <option class="block mt-0 text-lg leading-tight font-serif text-gray-900 hover:underline" value="">{{__('Select Coach')}}</option>
-                        @foreach($coaches as $coach)
+                        <option class="block mt-0 text-lg leading-tight font-serif text-gray-900 hover:underline" value="">{{__('Select Team')}}</option>
+                        @foreach($teames as $team)
                             <option class="block mt-0 text-lg leading-tight font-serif text-gray-900 hover:underline"
-                                    value="{{$coach->id}}">
-                                    {{$coach->name}}
+                                    value="{{$team->id}}">
+                                    {{$team->name}}
                             </option>
                         @endforeach
                     </select>
-                    @if($coach_id)
+                    @if($team_id)
                         <div class="inline">
                             <input type="text"
                             wire:model="search"
@@ -25,12 +25,14 @@
                     @endif
                 </div>
             </div>
-            @if($coach && $coach_id)
+            @if($team && $team_id)
                 <div class="mx-4 px-4">
                     @include('common.read_only_linked_records')
                 </div>
-                <div class="grid grid-cols-2 gap-2 mt-1">
-                    <div class="col-span-6 sm:col-span-2 md:col-span-6 lg:col-span-4 xl:col-span-2">
+            @endif
+            <div class="grid grid-cols-2 gap-2 mt-1">
+                @if($team_id)
+                    <div>
                         <table>
                             <thead>
                                 <tr class="bg-gray-100">
@@ -45,13 +47,15 @@
                                     <td class="border leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 px-2 py-1 text-left w-auto">
                                         {{ $record->name}}
                                     </td>
-                                    <td class="border leading-tight font-semibold text-gray-900 hover:underline px-2 py-1 text-center w-32">
-                                        @if($record->isLinkedCoach($record->id))
+                                    @if($record->isLinkedTeam($record->id))
+                                        <td class="text-center border">
                                             <button wire:click="linkRecord({{ $record->id }})" class="bg-indigo-500 hover:bg-indigo-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("To Assign")}}</button>
-                                        @else
-                                            <button wire:click="unlinkRecord({{ $record->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Remove")}}</button>
-                                        @endif
-                                    </td>
+                                        </td>
+                                    @else
+                                        <td class="text-center border">
+                                            <button wire:click="unlinkRecord({{ $record->id }})" class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Remove")}}</button>
+                                        </td>
+                                    @endif
                                 </tr>
                                 @empty
                                     @include('common.no_records_found')
@@ -60,8 +64,8 @@
                         </table>
                         @include('common.pagination')
                     </div>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
     </div>
 </div>

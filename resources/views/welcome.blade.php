@@ -7,7 +7,7 @@
         <title>{{ config('app.name', 'Ahava Crm') }}</title>
 
         <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="{{asset('images/logo.png')}}" />
+        <link rel="icon" type="image/x-icon" href="{{asset('images/logo1.png')}}" />
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0 text-center">
-                    <img src="{{asset('images/logo.png')}}" height="150px" width="150px"  alt="">
+                    <img src="{{asset('images/logo1.png')}}" height="150px" width="150px"  alt="">
                 </div>
             </div>
         </div>

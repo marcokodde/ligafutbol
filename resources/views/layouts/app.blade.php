@@ -12,7 +12,7 @@
         @include('layouts.head_meta_tags')
         
         <!-- Fonts -->
-        <link rel="icon" type="image/x-icon" href="{{asset('images/logo.png')}}" />
+        <link rel="icon" type="image/x-icon" href="{{asset('images/logo1.png')}}" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -48,7 +48,7 @@
         <section class="is-hero-bar">
             <div class="flex flex-col md:flex-row space-y-6 md:space-y-0">
                 <h1 class="title">
-                    {{ $header }}
+                    {{ $header ?? '' }}
                 </h1>
             </div>
         </section>
