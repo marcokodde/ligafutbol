@@ -27,7 +27,7 @@ class TeamSeeder extends Seeder
             ('Cruz Azul 2013',10,3),
             ('Cruz Azul 2014',11,3),
             ('Cruz Azul 2015',12,3),
-            'Cruz Azul Femenil',13,3)";
+            ('Cruz Azul Femenil',13,3)";
 
         DB::update ($sql);
 
