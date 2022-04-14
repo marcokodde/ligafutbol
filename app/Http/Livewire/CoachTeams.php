@@ -25,7 +25,7 @@ class CoachTeams extends Component
     public function mount() {
         //$this->authorize('hasaccess', 'role-permissions.index');
         $this->manage_title = "Assign Coach To Teams";
-        $this->search_label = "Search Team";
+        $this->search_label = "Search Coach";
         $this->read_teams();
 	}
 
@@ -51,7 +51,7 @@ class CoachTeams extends Component
     // Lee a los entrenadores
 
     public function read_teams() {
-        $this->teames = Team::UserId()->get();
+        $this->teams = Team::UserId()->get();
     }
 
     public function selectRecord(){

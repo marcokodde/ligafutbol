@@ -29,7 +29,11 @@ class Team extends Model
 
 
     public function coaches(){
-        return $this->belongsToMany('App\Models\Coach');
+        return $this->belongsToMany(Coach::class);
+    }
+
+    public function total_coaches(){
+        return $this->belongsToMany(Coach::class)->count();
     }
 
     /*+-----------------+
@@ -78,6 +82,6 @@ class Team extends Model
     }
 
     public function isLinkedCoach($coach_id){
-        return $this->belongsToMany('App\Models\Coach')->where('coach_id',$coach_id);
+        return $this->belongsToMany(Coach::class)->where('coach_id',$coach_id)->count();
     }
 }

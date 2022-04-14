@@ -1,4 +1,7 @@
 {
+    "To Assign": "Asignar",
+    "Remove": "Quitar",
+    "Select Team": "Elija Equipo",
     "Show Only Linked Records": "Mostrar solo Registros Asociados",
 
     "Player": "Jugador",
@@ -90,6 +93,7 @@
     "You have not Support Agent access": "Usted no tiene acceso como Agente de Soporte",
     "Assign Coach To Teams":"Asignar Entrenador a Equipos",
     "Search Team":"Buscar Equipo",
+    "Search Coach": "Buscar Entrenador",
     "Select Coach": "Selecionar Entrenador"
 
 }

@@ -82,6 +82,7 @@ class Coach extends Model
     }
 
     public function isLinkedTeam($team_id){
-        return $this->belongsToMany('App\Models\Team')->where('team_id', $team_id);
+        //dd('Hola estas viendo si ' . $this->id . '=' . $this->name . ' Está asignado al equipo ' . $team_id, 'El resultado es' . $this->belongsToMany(Team::class)->where('team_id', $team_id)->count());
+        return $this->belongsToMany(Team::class)->where('team_id', $team_id)->count();
     }
 }
