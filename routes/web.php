@@ -9,6 +9,7 @@ use App\Http\Livewire\Statuses;
 use App\Http\Livewire\Categories;
 use App\Http\Livewire\CoachTeams;
 use App\Http\Livewire\Permissions;
+use App\Http\Livewire\PlayersTeam;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RolePermissions;

@@ -1,4 +1,5 @@
 {
+    "Assign Players To Team": "Asignar Jugadores a Equipo",
     "To Assign": "Asignar",
     "Remove": "Quitar",
     "Select Team": "Elija Equipo",
@@ -91,9 +92,10 @@
     "You have not Admin access":"Usted no tiene acceso como Administrador",
     "You have not Coach Access":"Usted no tiene acceso como Entrenador",
     "You have not Support Agent access": "Usted no tiene acceso como Agente de Soporte",
-    "Assign Coach To Teams":"Asignar Entrenador a Equipos",
+    "Assign Coaches To Team":"Asignar Entrenadores a Equipo",
     "Search Team":"Buscar Equipo",
     "Search Coach": "Buscar Entrenador",
+    "Search Player": "Buscar Jugador",
     "Select Coach": "Selecionar Entrenador"
 
 }

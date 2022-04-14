@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class CoachTeams extends Component
+class PlayersTeam extends Component
 {
     use AuthorizesRequests;
     use WithPagination;
@@ -24,8 +24,8 @@ class CoachTeams extends Component
 
     public function mount() {
         //$this->authorize('hasaccess', 'role-permissions.index');
-        $this->manage_title = "Assign Coach To Teams";
-        $this->search_label = "Search Coach";
+        $this->manage_title = "Assign Players To Team";
+        $this->search_label = "Search Player";
         $this->read_teams();
 	}
 
