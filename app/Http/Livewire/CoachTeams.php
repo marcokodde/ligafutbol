@@ -41,7 +41,8 @@ class CoachTeams extends Component
         }
 
         return view('livewire.coaches.assign_coach_to_team', [
-            'records' => Coach::Name($this->search)
+            'records' => Coach::UserId()
+                                ->Name($this->search)
                                 ->orderby('name')
                                 ->paginate($this->pagination)
         ]);

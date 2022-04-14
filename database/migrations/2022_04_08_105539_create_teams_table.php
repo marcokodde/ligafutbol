@@ -19,6 +19,7 @@ class CreateTeamsTable extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade')->comment('Categoría');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('Usuario que lo crea');
             $table->boolean('active')->default(1)->comment('Activo?');
+            $table->boolean('enabled')->default(0)->comment('Habilitado para toreno?');
         });
     }
 

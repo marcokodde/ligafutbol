@@ -44,7 +44,7 @@ class Teams extends Component {
 
         $searchTerm = '%' . $this->search . '%';
         return view('livewire.index', [
-            'records' => Team::Name($searchTerm)->paginate($this->pagination),
+            'records' => Team::UserId()->Name($searchTerm)->paginate($this->pagination),
         ]);
 	}
 
