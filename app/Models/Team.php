@@ -36,6 +36,15 @@ class Team extends Model
         return $this->belongsToMany(Coach::class)->count();
     }
 
+    public function players(){
+        return $this->belongsToMany(Player::class);
+    }
+
+    public function total_players(){
+        return $this->belongsToMany(Player::class)->count();
+    }
+
+
     /*+-----------------+
       | Funciones Apoyo |
       +-----------------+

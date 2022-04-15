@@ -35,6 +35,7 @@ class Player extends Model
     }
 
 
+
     /*+-----------------+
       | Relaciones      |
       +-----------------+
@@ -60,6 +61,10 @@ class Player extends Model
         return true;
     }
 
+    public function isLinkedTeam($team_id){
+        return $this->belongsToMany(Team::class)->where('team_id', $team_id)->count();
+    }
+
     /*+-------------------+
       | Búsquedas         |
       +-------------------+
@@ -72,10 +77,22 @@ class Player extends Model
 
     public function scopeName($query,$valor)
     {
+
         if ( trim($valor) != "") {
             $query->where('first_name','LIKE',"%$valor%")
                 ->orwhere('last_name','LIKE',"%$valor%");
          }
+    }
+
+    public function scopeGender($query,$gender){
+
+        if ( trim($gender) != "") {
+            $query->where('gender',$gender);
+         }
+    }
+
+    public function scopeBirthDay($query,$from,$to){
+        $query->whereBetween('birtthday',[$from,$to]);
     }
 
 

@@ -49,6 +49,10 @@ class Coach extends Model
         if($this->teams()->count()) return false;
         return true;
     }
+
+    public function isLinkedTeam($team_id){
+        return $this->belongsToMany(Team::class)->where('team_id', $team_id)->count();
+    }
     /*+-------------------+
       | Búsquedas         |
       +-------------------+
@@ -81,8 +85,5 @@ class Coach extends Model
         }
     }
 
-    public function isLinkedTeam($team_id){
-        //dd('Hola estas viendo si ' . $this->id . '=' . $this->name . ' Está asignado al equipo ' . $team_id, 'El resultado es' . $this->belongsToMany(Team::class)->where('team_id', $team_id)->count());
-        return $this->belongsToMany(Team::class)->where('team_id', $team_id)->count();
-    }
+
 }
