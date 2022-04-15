@@ -40,7 +40,7 @@
                         <table>
                             <thead>
                                 <tr class="bg-gray-100">
-                                    <th class="px-2 py-1 w-72">{{__("Description")}}</th>
+                                    <th class="px-2 py-1 w-72">{{__("Name")}}</th>
                                     <th class="px-2 py-1 text-center w-28">{{__("Action")}}</th>
                                 </tr>
                             </thead>
