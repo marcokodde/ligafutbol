@@ -16,7 +16,7 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-bold text-left text-gray-700">{{__("Name")}}</label>
                                 <input type="text" wire:model="name" maxlength="50" placeholder="{{__("Name")}}"
-                                class="w-2/4 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" >
+                                class="block w-2/4 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" >
                                 <div>@error('name') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 

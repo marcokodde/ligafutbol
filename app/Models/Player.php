@@ -92,12 +92,6 @@ class Player extends Model
     }
 
     public function scopeBirthDay($query,$from,$to){
-        $query->whereBetween('birtthday',[$from,$to]);
+        $query->whereBetween('birthday',[$from,$to]);
     }
-
-
-
-
-
 }
-
