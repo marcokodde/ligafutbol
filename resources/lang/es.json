@@ -1,5 +1,8 @@
 {
+    "City": "Ciudad",
+    "Zipcode does not Exists": "Zipcode no existe",
     "Assign Players To Team": "Asignar Jugadores a Equipo",
+    "Team Name": "Nombre Equipo",
     "To Assign": "Asignar",
     "Assign": "Asignar",
     "Remove": "Quitar",

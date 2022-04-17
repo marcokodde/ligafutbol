@@ -38,7 +38,8 @@ class DatabaseSeeder extends Seeder
             RoleUserSeeder::class,
             CategorySeeder::class,
             CoachSeeder::class,
-            TeamSeeder::class,     ]);
+            TeamSeeder::class,
+        ]);
     }
 
     // Limpia las tablas

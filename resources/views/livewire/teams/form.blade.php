@@ -34,6 +34,27 @@
                                 </select>
                                 <div>@error('category_id') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
+
+                            <div class="mb-4">
+                                <label class="block ml-4 mr-5 text-gray-700 text-sm font-bold text-left">{{__("Zipcode")}}</label>
+                                <input type="text"
+                                        wire:model="zipcode"
+                                        wire:change="read_zipcode()"
+                                        maxlength="5"
+                                        placeholder="{{__("Zipcode")}}"
+                                        class="shadow appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                                <div>@error('zipcode') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                                @if(isset($town_state) && strlen($town_state))
+                                    <div>
+                                        <label class="block ml-4 mr-5 text-green-700 font-bold text-center text-2xl">
+                                            {{ $town_state}}
+                                        </label>
+                                    </div>
+                                @endif
+
+                            </div>
+
+
                         </div>
 
                         @include('common.crud_save_cancel')

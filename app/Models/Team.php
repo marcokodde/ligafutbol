@@ -14,8 +14,10 @@ class Team extends Model
     protected $fillable =  [
         'name',
         'category_id',
+        'zipcode',
         'user_id',
-        'active'
+        'active',
+        'enabled'
     ];
 
     /*+-----------------+
@@ -25,6 +27,14 @@ class Team extends Model
 
     public function category(){
         return $this->belongsTo(Category::class,'category_id');
+    }
+
+    public function zipcodex(){
+        return $this->belongsTo(Zipcode::class,'zipcode','zipcode');
+    }
+
+    public function zipcode() {
+        return $this->belongsTo('App\Models\Zipcode', 'zipcode', 'zipcode');
     }
 
 

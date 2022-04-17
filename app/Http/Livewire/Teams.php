@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-
-use App\Http\Livewire\Traits\CrudTrait;
-use App\Models\Category;
 use App\Models\Team;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Auth;
+
+use App\Models\Zipcode;
+use Livewire\Component;
+use App\Models\Category;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\Traits\CrudTrait;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Teams extends Component {
     use AuthorizesRequests;
@@ -17,9 +18,10 @@ class Teams extends Component {
     use CrudTrait;
 
     protected $listeners = ['destroy'];
-    public $name,$category_id;
+    public $name,$category_id,$zipcode;
     public $active = 1;
     public $categories;
+    public $town_state;
 
     public function mount()
     {
@@ -48,7 +50,7 @@ class Teams extends Component {
         ]);
 	}
 
-   /*+------------------------+
+   /*+----------------------+
 	| Inicializa variables  |
 	+-----------------------+
     */
@@ -56,7 +58,7 @@ class Teams extends Component {
 	private function resetInputFields() {
         $this->record_id = null;
         $this->record = null;
-        $this->reset(['name','category_id','active']);
+        $this->reset(['name','category_id','zipcode','active']);
 	}
 
     /*+---------------------------------------------+
@@ -67,14 +69,16 @@ class Teams extends Component {
 	public function store() {
 
 		$this->validate([
-            'name'         => 'required|min:3|max:50',
-            'category_id'  => 'required|not_in:Elegir|not_in:Choose|exists:categories,id',
+            'name'          => 'required|min:3|max:50',
+            'category_id'   => 'required|not_in:Elegir|not_in:Choose|exists:categories,id',
+            'zipcode'       => 'required|digits:5|exists:zipcodes,zipcode',
 		]);
 
 
 		Team::updateOrCreate(['id' => $this->record_id], [
             'name'         => $this->name,
 			'category_id'   => $this->category_id,
+            'zipcode'       => $this->zipcode,
             'user_id'       => Auth::user()->id,
             'active'        => $this->active ? 1 : 0
 		]);
@@ -95,15 +99,38 @@ class Teams extends Component {
 		$this->record_id    = $record->id;
 		$this->name         = $record->name;
 		$this->category_id  = $record->category_id;
+		$this->zipcode      = $record->zipcode;
         $this->active       = $record->active;
+        $this->town_state   = $record->zipcodex->town . ',' . $record->zipcodex->state;
+        // $zipcode = Zipcode::Zipcode($record->zipcode)->first();
+        // $this->town_state = $zipcode->town . ',' . $zipcode->state;
+
 		$this->openModal();
 	}
 
     /*+----------------------------+
-	| Elimina Registro             |
-	+------------------------------+
-	 */
+	  | Elimina Registro             |
+	  +------------------------------+
+    */
 	public function destroy(Team $record) {
         $this->delete_record($record,__('Team') . ' ' . __('Deleted Successfully!!'));
+    }
+
+    /*+---------------------+
+	  | Lee Zonta Postal    |
+	  +---------------------+
+    */
+
+    public function read_zipcode() {
+
+        $this->town_state =Null;
+        if ($this->zipcode) {
+            $zipcode = Zipcode::Zipcode($this->zipcode)->first();
+            if ($zipcode) {
+                $this->town_state = $zipcode->town . ',' . $zipcode->state;
+            } else {
+                $this->town_state = __('Zipcode does not Exists');
+            }
+        }
     }
 }

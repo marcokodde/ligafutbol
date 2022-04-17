@@ -35,7 +35,7 @@ class PlayersTeam extends Component
 
     public function render()
     {
-           $records =  $this->players_to_assign();
+        $records =  $this->players_to_assign();
         return view('livewire.teams.assign_players_to_team', [
             'records' => $records
         ]);
@@ -61,17 +61,21 @@ class PlayersTeam extends Component
 
         if($this->team && $this->team->category->gender != 'Both'){
             if($this->team->category->gender == 'Female'){
-                $date_from = $this->female_birthday_from;
+                $date_from  = $this->female_birthday_from;
                 $date_to    = $this->female_birthday_to;
             }else{
-                $date_from  = $this->male_birthday_from;
-                $date_to    = $this->male_birthday_to;
+                $date_from = $this->male_birthday_from;
+                $date_to   = $this->male_birthday_to;
+
+
             }
 
+
+
             return Player::UserId()
+                    //->whereBetween('birthday',[$date_from,$date_to])
                     ->Name($this->search)
                     ->Gender($this->team->category->gender)
-                    ->BirthDay($date_from,$date_to)
                     ->orderby('last_name')
                     ->orderby('first_name')
                     ->paginate($this->pagination);
@@ -81,14 +85,13 @@ class PlayersTeam extends Component
         return Player::UserId()
                     ->Name($this->search)
                     ->where(function($query){
-                                $query->where(function($query){
-                                                $query->where('gender','Female')
-                                                        ->whereBetween('birthday',[$this->female_birthday_from,$this->female_birthday_to]);
+                                $query->where(function($q){
+                                                $q->where('gender','Female')
+                                                      ->whereBetween('birthday',[$this->female_birthday_from,$this->female_birthday_to]);
                                             })
-                                        ->orWhere(function($query){
-                                        $query->where('gender','Male')
-                                                ->whereBetween('birthday',[$this->male_birthday_from,$this->male_birthday_to]);
-
+                                        ->orWhere(function($q){
+                                                $q->where('gender','Male')
+                                                       ->whereBetween('birthday',[$this->male_birthday_from,$this->male_birthday_to]);
                                         });
                             })
                     ->orderby('last_name')
@@ -141,10 +144,11 @@ class PlayersTeam extends Component
         $date_category_from         = New Carbon($this->team->category->date_from);
         $this->male_birthday_to     = $date_category_from->addYears(3);
 
+        $this->female_birthday_from = $this->female_birthday_from->format('Y-m*d');
+        $this->female_birthday_to = $this->female_birthday_to->format('Y-m*d');
+        $this->male_birthday_from = $this->male_birthday_from->format('Y-m*d');
+        $this->male_birthday_to = $this->male_birthday_to->format('Y-m*d');
 
-        // dd('Categoría:'. $this->team->category->name . ' Fechas:' . $this->team->category->date_from . ' -' . $this->team->category->date_to,
-        //     'Niñas:'   . $this->female_birthday_from . '-' .  $this->female_birthday_to,
-        //     'Niños: '  . $this->male_birthday_from   . '-' .  $this->male_birthday_to);
-    }
+ }
 
 }
