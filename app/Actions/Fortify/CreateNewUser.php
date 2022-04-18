@@ -23,9 +23,9 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'max:15'],
-            'password' => $this->passwordRules(),
+           // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'size:10','unique:users'],
+          //  'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
@@ -33,9 +33,9 @@ class CreateNewUser implements CreatesNewUsers
 
         $user= User::create([
             'name'  => $input['name'],
-            'email' => $input['email'],
+            'email' => $input['phone'],
             'phone' => $input['phone'],
-            'password' => Hash::make($input['password']),
+            'password' => Hash::make($input['phone']),
         ]);
         $role_record = Role::where('name','coach')->first();
         if($role_record){

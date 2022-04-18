@@ -14,25 +14,34 @@
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
 
-            <div class="mt-4">
+            <div>
+                <x-jet-label for="phone" class="mt-5" value="{{ __('Phone') }}" />
+                <x-jet-input id="phone"
+                            class="block mt-1 w-full"
+                            maxlength="10"
+                            type="text"
+                            name="phone"
+                            :value="old('phone')"
+                            required
+                            maxlength="10"
+                            autocomplete="phone" />
+            </div>
+
+            {{-- <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
+            </div> --}}
 
-            <div class="mt-4">
-                <x-jet-label for="phone" value="{{ __('Phone') }}" />
-                <x-jet-input id="phone" class="block mt-1 w-full" type="phone" name="phone" :value="old('phone')" required />
-            </div>
 
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
+            </div> --}}
 
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
+            </div> --}}
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
