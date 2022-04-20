@@ -51,7 +51,7 @@ class Payments extends Component
 
     public $pages = [
         1 => [
-            'heading' => 'Details Check Out',
+            'heading' => 'Detail of equipment and payments',
 
         ],
         2 => [

@@ -103,6 +103,16 @@
     "Search Coach": "Buscar Entrenador",
     "Search Player": "Buscar Jugador",
     "Select Coach": "Selecionar Entrenador",
-    "Enabled":"Habilitado"
-
+    "Enabled":"Habilitado",
+    "Detail of equipment and payments":"Detalle de equipos y pagos",
+    "Payment Details":"Detalles del Pago",
+    "Select Teams to Payment":"Selecciona los Equipos a Pagar",
+    "Total Price:":"Precio Total:",
+    "Name on Card":"Nombre de la Tarjeta",
+    "Address":"Dirección",
+    "Expiration MM":"Expiración MM",
+    "Expiration YYYY":"Expiración YYYY",
+    "Next":"Siguiente",
+    "Back":"Atras",
+    "Confirm Payment":"Confirmar Pago"
 }
