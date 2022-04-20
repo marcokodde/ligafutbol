@@ -64,6 +64,9 @@
                         </x-jet-dropdown>
                     </div>
                 @endif
+                <div>
+                    @include('common.payment')
+                </div>
                 {{--  Vista de Cambios de Idioma  --}}
                 <div>
                     @include('common.language')

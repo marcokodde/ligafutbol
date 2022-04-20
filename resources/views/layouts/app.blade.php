@@ -10,7 +10,7 @@
         @include('layouts.head_links_tags')
 
         @include('layouts.head_meta_tags')
-        
+
         <!-- Fonts -->
         <link rel="icon" type="image/x-icon" href="{{asset('images/logo1.png')}}" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -20,7 +20,7 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
-
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         {{--  Script de Sweet Alert  --}}
         <style>
             .footer2{

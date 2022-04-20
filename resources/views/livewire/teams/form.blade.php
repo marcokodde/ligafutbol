@@ -41,6 +41,7 @@
                                         wire:model="zipcode"
                                         wire:change="read_zipcode()"
                                         maxlength="5"
+                                        minlength="3"
                                         placeholder="{{__("Zipcode")}}"
                                         class="shadow appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <div>@error('zipcode') <span class="text-red-500">{{ $message }}</span>@enderror</div>

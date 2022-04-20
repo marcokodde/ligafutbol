@@ -71,7 +71,7 @@ class Teams extends Component {
 		$this->validate([
             'name'          => 'required|min:3|max:50',
             'category_id'   => 'required|not_in:Elegir|not_in:Choose|exists:categories,id',
-            'zipcode'       => 'required|digits:5|exists:zipcodes,zipcode',
+            'zipcode'       => 'required|min:3|max:5|exists:zipcodes,zipcode',
 		]);
 
 
