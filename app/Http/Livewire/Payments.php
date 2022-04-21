@@ -8,14 +8,16 @@ use App\Models\Team;
 use App\Models\Payment;
 use App\Models\Zipcode;
 use Livewire\Component;
+use App\Models\CostByTeam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class Payments extends Component
 {
-    public $charge;
+
     public $phone;
-    public $price_total;
+    public $price_total=0;
     public $teams;
     public $number;
     public $amount;
@@ -27,11 +29,23 @@ class Payments extends Component
     public $success;
     public $currentPage = 1;
     public $selectedteams = array();
-    public $total;
+    public $total_teams;
+    public $payment_record;
+    public $pages = [];
 
     public function mount() {
         $this->step = 0;
         $this->teams = Team::UserId()->where('enabled', 0)->get();
+        $this->pages = [
+            1 => [
+                'heading' => __('Detail of equipment and payments'),
+
+            ],
+            2 => [
+                'heading' => __('Payment Details'),
+            ]
+        ];
+
     }
  /** Validaciones para Eventos, Usuarios, Payments */
     private $validationRules = [
@@ -49,15 +63,7 @@ class Payments extends Component
             ],
         ];
 
-    public $pages = [
-        1 => [
-            'heading' => 'Detail of equipment and payments',
 
-        ],
-        2 => [
-            'heading' => 'Payment Details',
-        ]
-    ];
 
     public function render()
     {
@@ -76,11 +82,12 @@ class Payments extends Component
         ]);
     }
 
-    private function updateTeams(Request $request) {
+    private function update_Teams(Request $request) {
         $teams = explode(',', $request->selectedteams );
         foreach ($teams as $value) {
             Team::where('id', $value)->update([
-                'enabled' => 1
+                'payment_id' => $this->payment_record->id,
+                'enabled'    => 1
             ]);
         }
     }
@@ -96,8 +103,8 @@ class Payments extends Component
         ]);
 
         if (!is_null($this->charge)) {
-            $this->create_payment($request);
-            $this->updateTeams($request);
+            $this->payment_record = $this->create_payment($request);
+            $this->update_Teams($request);
         } else {
             $this->store_message(__('Error to Process Payment.'));
         }
@@ -143,7 +150,18 @@ class Payments extends Component
     }
 
     public function countCheck() {
-        $this->total = count($this->selectedteams);
-        $this->price_total = $this->total * env('APP_COST_BY_TEAM', 10);
+        $this->reset(['price_total']);
+        $this->total_teams = count($this->selectedteams);
+        if($this->total_teams){
+            $sql ="SELECT cost FROM cost_by_teams WHERE " . $this->total_teams . ' BETWEEN min AND max';
+            $records = DB::select($sql);
+            if ($records) {
+                foreach ($records as $record) {
+                    $this->price_total = round($this->total_teams * $record->cost, 2);
+                }
+            }
+
+
+        }
     }
 }

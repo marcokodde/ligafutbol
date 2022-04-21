@@ -24,10 +24,9 @@ class Payment extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-    //PAgo-->Evento (Un Pago  pertenece a una reservacion)
-
+    // Equipos cubiertos por el pago
     public function teams()
     {
-        return $this->belongsToMany('App\Models\Team', 'team_id','id');
+        return $this->hasMany(Team::class);
     }
 }

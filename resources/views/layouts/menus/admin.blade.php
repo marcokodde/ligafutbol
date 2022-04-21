@@ -35,5 +35,11 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{url('costs-by-team')}}">
+            <span>{{__('Costs By Team')}}</span>
+            </a>
+        </li>
+
     </ul>
 </li>

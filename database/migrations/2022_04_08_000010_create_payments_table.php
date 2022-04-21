@@ -18,11 +18,13 @@ class CreatePaymentsTable extends Migration
             $table->string('description', 80)->comment('Descripcion');
             $table->float('amount', 8, 2)->default('0')->comment('Importe');
             $table->integer('user_id')->comment('User id');
-            $table->string('source', 244)->coment('Source');
-            $table->string('address', 80)->coment('Adress Payment');
-            $table->string('phone', 12)->coment('Phone Payment');
-            $table->string('zipcode', 10)->coment('Zipcode Payment');
+            $table->string('source', 244)->comment('Id de equipos');
+            $table->string('address', 80)->nullable()->default(null)->comment('Dirección');
+            $table->string('phone', 12)->nullable()->default(null)->comment('Teléfono');
+            $table->unsignedInteger('zipcode')->nullable()->comment('Zona postal');
             $table->timestamps();
+            // Llave foránea
+            $table->foreign('zipcode')->references('zipcode')->on('zipcodes');
         });
     }
 

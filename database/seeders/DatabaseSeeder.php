@@ -25,9 +25,10 @@ class DatabaseSeeder extends Seeder
             'permissions',
             'statuses',
             'categories',
+            'cost_by_teams',
             'coaches',
-            'teams'
-
+            'teams',
+           
         ]);
 
         $this->call([
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             RoleUserSeeder::class,
             CategorySeeder::class,
+            CostByTeamSeeder::class,
             CoachSeeder::class,
             TeamSeeder::class,
         ]);

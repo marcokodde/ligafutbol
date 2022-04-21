@@ -3,8 +3,11 @@
     <div class="grid grid-cols-2 auto-cols-auto">
         @foreach($teams as $team_to_assign)
             <label class="block text-sm font-semibold mb-2 mt-2">{{$team_to_assign->name}}</label>
-            <input type="checkbox" class="form-checkbox border-2 h-6 w-6 text-gray-600 border-red-600"
-            wire:model="selectedteams" wire:click="countCheck" value="{{$team_to_assign->id}}">
+            <input type="checkbox"
+                    wire:model="selectedteams"
+                    class="form-checkbox border-2 h-6 w-6 text-gray-600 border-red-600"
+                    wire:click="countCheck"
+                    value="{{$team_to_assign->id}}">
         @endforeach
     </div>
 </div>
