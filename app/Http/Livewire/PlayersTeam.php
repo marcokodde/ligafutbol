@@ -102,7 +102,7 @@ class PlayersTeam extends Component
 
     // Lee Equipos del Usuario Conctado
     public function read_teams() {
-        $this->teams = Team::UserId()->get();
+        $this->teams = Team::UserId()->where('enabled', 1)->get();
     }
 
 
