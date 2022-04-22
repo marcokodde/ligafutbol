@@ -10,6 +10,7 @@ use Livewire\Component;
 use App\Traits\UserTrait;
 use Livewire\WithPagination;
 use App\Http\Livewire\Traits\CrudTrait;
+use App\Http\Livewire\Traits\SettingsTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 
@@ -19,6 +20,7 @@ class PlayersTeam extends Component
     use WithPagination;
     use CrudTrait;
     use UserTrait;
+    use SettingsTrait;
 
 
     private $female_birthday_from,$female_birthday_to;
@@ -30,6 +32,7 @@ class PlayersTeam extends Component
         //$this->authorize('hasaccess', 'role-permissions.index');
         $this->manage_title = "Assign Players To Team";
         $this->search_label = "Search Player";
+        $this->readSettings();
         $this->read_teams();
 	}
 
@@ -102,7 +105,10 @@ class PlayersTeam extends Component
 
     // Lee Equipos del Usuario Conctado
     public function read_teams() {
-        $this->teams = Team::UserId()->where('enabled', 1)->get();
+
+        $this->teams =  $this->general_settings->players_only_available_teams
+                     ? Team::UserId()->where('enabled', 1)->get()
+                     : Team::UserId()->get();
     }
 
 
