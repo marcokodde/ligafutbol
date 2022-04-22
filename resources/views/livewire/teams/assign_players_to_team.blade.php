@@ -55,7 +55,7 @@
                                     <tr>
 
                                         <td class="border leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 px-2 py-1 text-left w-auto">
-                                            {{$record->id . '=' .  __($record->gender)}}
+                                            {{  __($record->gender)}}
                                         </td>
 
                                         <td class="border leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 px-2 py-1 text-left w-auto">
