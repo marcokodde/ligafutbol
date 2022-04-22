@@ -72,6 +72,10 @@ class User extends Authenticatable
             return $this->hasMany(Team::class);
         }
 
+        public function teams_not_enabled(){
+            return $this->hasMany(Team::class)->where('enabled',0);
+        }
+
         public function coaches(){
             return $this->hasMany(Coach::class);
         }
