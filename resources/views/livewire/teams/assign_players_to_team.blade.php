@@ -36,57 +36,47 @@
                 </div>
             @endif
 
-            <div class="grid grid-cols-2 gap-2 mt-1">
-
+            <div class="group flex items-center">
                 @if($team_id)
-                    <div>
-                        <table>
-                            <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="px-2 py-1 w-72">{{__("Sexo")}}</th>
-                                    <th class="px-2 py-1 w-72">{{__("Birthday")}}</th>
-                                    <th class="px-2 py-1 w-72">{{__("Name")}}</th>
-                                    <th class="px-2 py-1 text-center w-28">{{__("Action")}}</th>
-                                </tr>
-                            </thead>
+                    <div class="flex">
+                        @forelse($records as $record)
+                            <div class="card flex-wrap text-center px-4 rounded-lg h-56 w-44 items-center shadow bg-white m-4">
+                                <div class="shrink-0">
+                                    <img class="h-16 w-16 object-cover rounded-full" src="{{asset('images/default.png')}}" alt="photo">
+                                </div>
+                                <label class="block font-bold font-serif text-base">
+                                    {{ $record->full_name}}
+                                </label>
 
-                            <tbody>
-                                @forelse($records as $record)
-                                    <tr>
+                                <label class="block">
+                                    {{ $record->birthday }}
+                                </label>
 
-                                        <td class="border leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 px-2 py-1 text-left w-auto">
-                                            {{  __($record->gender)}}
-                                        </td>
-
-                                        <td class="border leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 px-2 py-1 text-left w-auto">
-                                            {{ $record->birthday }}
-                                        </td>
-
-                                        <td class="border leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 px-2 py-1 text-left w-auto">
-                                            {{ $record->full_name}}
-                                        </td>
-                                        <td class="text-center border">
-                                            @if($record->isLinkedTeam($team_id))
-                                                <button wire:click="unlinkRecord({{ $record->id }})" class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Remove")}}</button>
-                                            @else
-                                                @if($allow_assign)
-                                                    <button wire:click="linkRecord({{ $record->id }})" class="bg-indigo-500 hover:bg-indigo-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Assign")}}</button>
-                                                @else
-                                                    <button class="bg-gray-500 hover:bg-gray-900 text-white font-bold py-1 px-2 rounded-lg text-center text-sm">
-                                                        {{__("Complete Team")}}
-                                                    </button>
-                                                @endif
-
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                    @include('common.no_records_found')
-                                @endforelse
-                            </tbody>
-                        </table>
-                        @include('common.pagination')
+                                <label class="block">
+                                    {{  __($record->gender)}}
+                                </label>
+                                <div class="text-center">
+                                    @if($record->isLinkedTeam($team_id))
+                                        <button wire:click="unlinkRecord({{ $record->id }})" class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Remove Player")}}</button>
+                                    @else
+                                        @if($allow_assign)
+                                            <button wire:click="linkRecord({{ $record->id }})" class="bg-indigo-500 hover:bg-indigo-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Add Player")}}</button>
+                                        @else
+                                            <button class="bg-gray-500 hover:bg-gray-900 text-white font-bold py-1 px-2 rounded-lg text-center text-sm">
+                                                {{__("Complete Team")}}
+                                            </button>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                        @empty
+                            @include('common.no_records_found')
+                        @endforelse
                     </div>
+                </div>
+                <div class="block">
+                    @include('common.pagination')
+                </div>
                 @endif
             </div>
         </div>

@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
+use App\Http\Livewire\Traits\SettingsTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CoachesTeam extends Component
@@ -19,6 +20,7 @@ class CoachesTeam extends Component
     use WithPagination;
     use CrudTrait;
     use UserTrait;
+    use SettingsTrait;
 
     public $teams, $team, $team_id;
 
@@ -26,6 +28,7 @@ class CoachesTeam extends Component
         //$this->authorize('hasaccess', 'role-permissions.index');
         $this->manage_title = "Assign Coach To Teams";
         $this->search_label = "Search Coach";
+        $this->readSettings();
         $this->read_teams();
 	}
 
@@ -51,7 +54,9 @@ class CoachesTeam extends Component
     // Lee a los entrenadores
 
     public function read_teams() {
-        $this->teams = Team::UserId()->get();
+        $this->teams =  $this->general_settings->coaches_only_available_teams
+            ? Team::UserId()->where('enabled', 1)->get()
+            : Team::UserId()->get();
     }
 
     public function selectRecord(){

@@ -28,13 +28,12 @@
                 </div>
             </div>
             @if($team && $team_id &&  $team->total_coaches())
-
                 <div class="mx-4 px-4">
                     <span> {{$team->total_coaches()}}</span>
                     @include('common.read_only_linked_records')
                 </div>
             @endif
-            <div class="grid grid-cols-2 gap-2 mt-1">
+            {{--  <div class="grid grid-cols-2 gap-2 mt-1">
                 @if($team_id)
                     <div>
                         <table>
@@ -67,6 +66,38 @@
                         </table>
                         @include('common.pagination')
                     </div>
+                @endif
+            </div>  --}}
+            <div class="group flex items-center">
+                @if($team_id)
+                    <div class="flex">
+                        @forelse($records as $record)
+                            <div class="card flex-wrap text-center px-4 rounded-lg h-56 w-44 items-center shadow bg-white m-4">
+                                <div class="shrink-0">
+                                    <img class="h-16 w-16 object-cover rounded-full" src="{{asset('images/coach.png')}}" alt="photo">
+                                </div>
+                                <label class="block font-bold font-serif text-base">
+                                    {{ $record->name}}
+                                </label>
+                                <label class="block">
+                                    {{ $record->phone }}
+                                </label>
+                                <div class="text-center">
+                                    @if($record->isLinkedTeam($team_id))
+                                        <button wire:click="unlinkRecord({{ $record->id }})" class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Remove")}}</button>
+                                    @else
+                                        <button wire:click="linkRecord({{ $record->id }})" class="bg-indigo-500 hover:bg-indigo-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("To Assign")}}</button>
+                                    @endif
+                                </div>
+                            </div>
+                        @empty
+                            @include('common.no_records_found')
+                        @endforelse
+                    </div>
+                </div>
+                <div class="block">
+                    @include('common.pagination')
+                </div>
                 @endif
             </div>
         </div>
