@@ -54,6 +54,7 @@ class PlayersTeam extends Component
     {
         // Solo ligados
         if($this->team_id && $this->only_linked){
+            $this->gotoPage(1);
             $this->pagination = $this->general_settings->max_players_by_team;
             return $this->team->players()
                 ->Name($this->search)

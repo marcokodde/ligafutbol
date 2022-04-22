@@ -34,7 +34,9 @@ class CoachesTeam extends Component
 
     public function render()
     {
+
         if($this->only_linked){
+
                 return view('livewire.teams.assign_coaches_to_team', [
                     'records' => $this->team->coaches()
                                 ->Name($this->search)

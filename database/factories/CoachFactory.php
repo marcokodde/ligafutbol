@@ -17,7 +17,8 @@ class CoachFactory extends Factory
         return [
             'name'      => $this->faker->name(),
             'phone'     => $this->faker->e164PhoneNumber(),
-            'user_id'   => User::all()->random()->id,
+          //  'user_id'   => User::all()->random()->id,
+            'user_id'   => 3,
         ];
     }
 }
