@@ -23,7 +23,7 @@ class PlayerFactory extends Factory
             'last_name'  => $this->faker->lastname(),
             'birthday'   => $fecha_final->subDays(random_int(0, 2550))->format('Y/m/d'),
             'gender'     => $gender,
-            'user_id'   => User::all()->random()->id,
+            'user_id'    => 3,
         ];
     }
 

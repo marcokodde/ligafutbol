@@ -35,6 +35,7 @@
                     @include('common.read_only_linked_records')
                 </div>
             @endif
+
             <div class="grid grid-cols-2 gap-2 mt-1">
 
                 @if($team_id)
@@ -54,7 +55,7 @@
                                     <tr>
 
                                         <td class="border leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 px-2 py-1 text-left w-auto">
-                                            {{ __($record->gender)}}
+                                            {{$record->id . '=' .  __($record->gender)}}
                                         </td>
 
                                         <td class="border leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 px-2 py-1 text-left w-auto">
@@ -68,8 +69,14 @@
                                             @if($record->isLinkedTeam($team_id))
                                                 <button wire:click="unlinkRecord({{ $record->id }})" class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Remove")}}</button>
                                             @else
+                                                @if($allow_assign)
+                                                    <button wire:click="linkRecord({{ $record->id }})" class="bg-indigo-500 hover:bg-indigo-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Assign")}}</button>
+                                                @else
+                                                    <button class="bg-gray-500 hover:bg-gray-900 text-white font-bold py-1 px-2 rounded-lg text-center text-sm">
+                                                        {{__("Complete Team")}}
+                                                    </button>
+                                                @endif
 
-                                                <button wire:click="linkRecord({{ $record->id }})" class="bg-indigo-500 hover:bg-indigo-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Assign")}}</button>
                                             @endif
                                         </td>
                                     </tr>

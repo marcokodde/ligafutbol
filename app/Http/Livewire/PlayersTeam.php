@@ -25,7 +25,8 @@ class PlayersTeam extends Component
 
     private $female_birthday_from,$female_birthday_to;
     private $male_birthday_from,$male_birthday_to;
-    public $teams, $team, $team_id;
+    public  $teams, $team, $team_id;
+    public  $allow_assign = true;
 
 
     public function mount() {
@@ -39,6 +40,7 @@ class PlayersTeam extends Component
     public function render()
     {
         $records =  $this->players_to_assign();
+
         return view('livewire.teams.assign_players_to_team', [
             'records' => $records
         ]);
@@ -51,40 +53,55 @@ class PlayersTeam extends Component
     */
     private function players_to_assign()
     {
+
         // Solo ligados
-        if($this->only_linked){
+        if($this->team_id && $this->only_linked){
+            $this->pagination = $this->general_settings->max_players_by_team;
             return $this->team->players()
                     ->Name($this->search)
                     ->orderby('last_name')
                     ->orderby('first_name')
                     ->paginate($this->pagination);
+        }else{
+            $this->pagination = 7;
         }
 
         // Categoría de un solo sexo
-
         if($this->team && $this->team->category->gender != 'Both'){
-            if($this->team->category->gender == 'Female'){
-                $date_from  = $this->female_birthday_from;
-                $date_to    = $this->female_birthday_to;
-            }else{
-                $date_from = $this->male_birthday_from;
-                $date_to   = $this->male_birthday_to;
-
-
-            }
-
-
-
-            return Player::UserId()
-                    //->whereBetween('birthday',[$date_from,$date_to])
-                    ->Name($this->search)
-                    ->Gender($this->team->category->gender)
-                    ->orderby('last_name')
-                    ->orderby('first_name')
-                    ->paginate($this->pagination);
+            return $this->players_to_one_gender();
         }
 
         // Categoría de Ambos sexos
+        // if($this->team_id){
+        //     dd($this->players_to_both_gender());
+        // }
+
+        return $this->players_to_both_gender();
+
+    }
+
+    // Jugadores Categoría un solo sexo
+    private function players_to_one_gender(){
+        if($this->team->category->gender == 'Female'){
+            $date_from  = $this->female_birthday_from;
+            $date_to    = $this->female_birthday_to;
+        }else{
+            $date_from = $this->male_birthday_from;
+            $date_to   = $this->male_birthday_to;
+        }
+
+        return Player::UserId()
+                //->whereBetween('birthday',[$date_from,$date_to])
+                ->Name($this->search)
+                ->Gender($this->team->category->gender)
+                ->orderby('last_name')
+                ->orderby('first_name')
+                ->paginate($this->pagination);
+    }
+
+    // Jugadores para categoría ambos sexos
+
+    private function players_to_both_gender(){
         return Player::UserId()
                     ->Name($this->search)
                     ->where(function($query){
@@ -100,9 +117,7 @@ class PlayersTeam extends Component
                     ->orderby('last_name')
                     ->orderby('first_name')
                     ->paginate($this->pagination);
-
     }
-
     // Lee Equipos del Usuario Conctado
     public function read_teams() {
 
@@ -117,6 +132,7 @@ class PlayersTeam extends Component
         if($this->team_id){
             $this->team = Team::findOrFail($this->team_id);
             $this->calculate_birthday_limits();
+            $this->allow_assign = $this->team->players->count() < $this->general_settings->max_players_by_team;
         }
     }
 

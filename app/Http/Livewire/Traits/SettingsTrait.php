@@ -13,7 +13,6 @@ trait SettingsTrait {
     /** Lee la configuración */
     public function readSettings() {
         $this->general_settings = Setting::first();
-
 	}
 
 }
