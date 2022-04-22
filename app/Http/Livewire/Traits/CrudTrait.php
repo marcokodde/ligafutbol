@@ -45,6 +45,9 @@ trait CrudTrait {
     public $show_header_card = false;
     public $header_card;
 
+    // Mostrar Paginación
+    public $show_pagination = true;
+
    	//permite la búsqueda cuando se navega entre el paginado
 	public function updatingSearch(): void{
 		$this->gotoPage(1);
