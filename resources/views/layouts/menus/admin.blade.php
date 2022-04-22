@@ -41,5 +41,11 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{url('settings')}}">
+            <span>{{__('Settings')}}</span>
+            </a>
+        </li>
+
     </ul>
 </li>

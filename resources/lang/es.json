@@ -1,5 +1,10 @@
 {
-    "'Check Out": "Realizar Pago",
+    "Players Only Enabled Teams": "Jugadores solo a Equipos Habilitados",
+    "Coaches Only Enabled Teams": "Entrenadores solo a Equipos Habilitados",
+    "Players by Team": "Jugadores x Equipo",
+    "Settings": "Configuraciones",
+    "Setting": "Ajuste",
+    "Check Out": "Realizar Pago",
     "From": "Desde",
     "To": "Hasta",
     "Costs By Team": "Costos x Equipo",

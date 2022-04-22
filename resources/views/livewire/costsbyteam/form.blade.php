@@ -12,31 +12,35 @@
                         </p>
                     </header>
                     <form>
+
+                        {{-- Desde --}}
                         <div class="bg-white mx-auto">
                             <div class="mb-4">
-                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Name")}}</label>
-                                <input type="number" 
-                                        wire:model="min" 
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("From")}}</label>
+                                <input type="number"
+                                        wire:model="min"
                                         min="1"
                                         max="99"
                                         class="shadow block appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <div>@error('min') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 
+                            {{-- Hasta --}}
                             <div class="mb-4">
-                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Name")}}</label>
-                                <input type="number" 
-                                        wire:model="max" 
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("To")}}</label>
+                                <input type="number"
+                                        wire:model="max"
                                         min="1"
                                         max="99"
                                         class="shadow block appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <div>@error('max') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 
+                            {{-- Costo x Equipo --}}
                             <div class="mb-4">
-                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Name")}}</label>
-                                <input type="text" 
-                                        wire:model="cost" 
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Cost")}}</label>
+                                <input type="text"
+                                        wire:model="cost"
                                         maxlength="4"
                                         class="shadow block appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <div>@error('cost') <span class="text-red-500">{{ $message }}</span>@enderror</div>

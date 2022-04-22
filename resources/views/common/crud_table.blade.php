@@ -7,7 +7,9 @@
                 @endif
                 @include('livewire.each_record')
             </table>
-            @include('common.crud_pagination')
+            @if($show_pagination)
+                @include('common.crud_pagination')
+            @endif
         @else
             @include('common.no_records_found')
         @endif

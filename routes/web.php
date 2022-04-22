@@ -15,6 +15,7 @@ use App\Http\Livewire\PlayersTeam;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RolePermissions;
+use App\Http\Livewire\Settings;
 
 require 'pruebas.php';
 
@@ -39,6 +40,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users', Users::class)->name('users');                                // Usuarios
     Route::get('categories', Categories::class)->name('categories');                 // Categorías
     Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');           // Costos x Equipo
+
+
+    Route::get('teams', Teams::class)->name('teams');                                // Equipos
+    Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores
+    Route::get('players', Players::class)->name('players');                          // Jugadores
+    Route::get('coaches-team', CoachTeams::class)->name('coaches-team');               // Asignar Coach a Equipos
+    Route::get('players-team', PlayersTeam::class)->name('players-team');               // Asignar Coach a Equipos
+    Route::get('payments', Payments::class)->name('payments');
+    Route::get('permission', Permissions::class)->name('permission');                // Permisos
+    Route::get('role', Roles::class)->name('role');                                  // Roles
+    Route::get('role-permission', RolePermissions::class)->name('role-permission');  // Asignar Permisos al Rol
+    Route::get('users', Users::class)->name('users');                                // Usuarios
+    Route::get('categories', Categories::class)->name('categories');                 // Categorías
+    Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');           // Costos x Equipo
+    Route::get('settings', Settings::class)->name('settings');                    // Configuración
 
 
     Route::get('teams', Teams::class)->name('teams');                                // Equipos
