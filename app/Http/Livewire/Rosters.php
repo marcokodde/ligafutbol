@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\App;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\ZipcodeTrait;
+use App\Http\Livewire\Traits\SettingsTrait;
 use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -19,6 +20,8 @@ class Rosters extends Component {
     use WithPagination;
     use CrudTrait;
     use ZipcodeTrait;
+    use SettingsTrait;
+
 
     protected $listeners = ['destroy'];
 
@@ -46,6 +49,7 @@ class Rosters extends Component {
     {
         //$this->authorize('hasaccess', 'categories.index');
         $this->manage_title = __('Manage') . ' ' . __('Rosters');
+        $this->readSettings();
         $this->categories = Category::Active()->orderby('name')->get();
     }
 
@@ -65,6 +69,7 @@ class Rosters extends Component {
      */
 
     public function calculate_birthday_limits(){
+
         $this->reset(['category']);
         if($this->category_id){
             $this->category = Category::findOrFail($this->category_id);

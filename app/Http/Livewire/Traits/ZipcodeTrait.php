@@ -16,7 +16,6 @@ trait ZipcodeTrait {
 
 
     public function read_zipcode() {
-
         $this->town_state =Null;
         $this->zipcode_exists = false;
         if ($this->zipcode) {
