@@ -16,6 +16,7 @@ use App\Http\Livewire\PlayersTeam;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RolePermissions;
+use App\Http\Livewire\Rosters;
 use App\Http\Livewire\Settings;
 
 require 'pruebas.php';
@@ -43,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
     Route::get('settings', Settings::class)->name('settings');                       // Configuración
 
-
+    // Acciones del usuario Coach
     Route::get('teams', Teams::class)->name('teams');                                // Equipos
     Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores
     Route::get('players', Players::class)->name('players');                          // Jugadores
@@ -51,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('players-team', PlayersTeam::class)->name('players-team');            // Asignar Jugadores a Equipos
     Route::get('payments', Payments::class)->name('payments');
     Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment');
+    Route::get('rosters', Rosters::class)->name('rosters');                          // Rosters
 });
 
 

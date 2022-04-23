@@ -21,7 +21,6 @@ class Teams extends Component {
     public $name,$category_id,$zipcode;
     public $active = 1;
     public $categories;
-    public $town_state;
 
     public function mount()
     {
@@ -102,8 +101,6 @@ class Teams extends Component {
 		$this->zipcode      = $record->zipcode;
         $this->active       = $record->active;
         $this->town_state   = $record->zipcodex->town . ',' . $record->zipcodex->state;
-        // $zipcode = Zipcode::Zipcode($record->zipcode)->first();
-        // $this->town_state = $zipcode->town . ',' . $zipcode->state;
 
 		$this->openModal();
 	}
