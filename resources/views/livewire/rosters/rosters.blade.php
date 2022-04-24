@@ -11,7 +11,7 @@
                         @include('livewire.rosters.category_and_team')
 
 
-                        @if($category_id)
+                        @if($category_id && $this->zipcode_exists)
                             @include('livewire.rosters.fields_to_players')
                         @endif
 

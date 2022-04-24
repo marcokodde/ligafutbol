@@ -28,7 +28,7 @@
             <div class="w-1/8">
                    <input type="radio"
                         wire:model="genders.{{$i}}"
-                        wire:change="calculate_limits_to_birthday"
+                        {{-- wire:change="calculate_limits_to_birthday" --}}
                         class="form-check-input h-4 w-4"
                         value="Female"
                 >
@@ -37,7 +37,7 @@
 
                 <input type="radio"
                         wire:model="genders.{{$i}}"
-                        wire:change="calculate_limits_to_birthday"
+                        {{-- wire:change="calculate_limits_to_birthday" --}}
                         class="form-check-input h-4 w-4 bg-blue-500"
                         value="Male">
 
