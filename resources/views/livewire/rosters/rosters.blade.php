@@ -1,7 +1,7 @@
 @include('common.crud_header')
 
 <div class="py-4 px-4">
-        @include('common.crud_message')
+        @include('livewire.rosters.message')
 
         <div class="md:rounded block bg-white border border-gray-100">
 
@@ -11,9 +11,9 @@
                         @include('livewire.rosters.category_and_team')
 
 
-                        {{-- @if($category_id) --}}
+                        @if($category_id)
                             @include('livewire.rosters.fields_to_players')
-                        {{-- @endif --}}
+                        @endif
 
                 </div>
             </div>

@@ -32,7 +32,7 @@
                     wire:model="name"
                     maxlength="50"
                     placeholder="{{__("Team")}}"
-                    class="w-1/3"
+                    class="w-1/3 {{$error_team ? 'bg-red-500' :''}}"
             >
 
             {{-- Zona Postal --}}

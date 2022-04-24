@@ -92,6 +92,14 @@ class Team extends Model
          }
     }
 
+    public function scopeTeam($query,$valor)
+    {
+        $valor = trim($valor);
+        if ( trim($valor) != "") {
+            $query->where('name',$valor);
+         }
+    }
+
     public function scopeCategory($query,$valor)
     {
         if ( $valor) {

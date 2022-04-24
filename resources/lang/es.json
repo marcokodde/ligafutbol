@@ -1,5 +1,15 @@
 {
 
+    "Missing birthday for to": "Falta fecha de nacimiento para",
+    "Incomplete name to": "Nombre incompleto para",
+    "Missing gender for to": "Falta el género para",
+    "No Players Genders": "No hay Géneros de Jugadores",
+    "No Players Birthdays": "No hay Fechas de Nacimiento de Jugadores",
+    "No Players Names": "No hay nombres de jugadores",
+    "No Players Last Names": "No hay Apellidos de Jugadores",
+    "Zipcode is Required": "Zona Postal es Obligatoria",
+    "Team Name is Required": "Nombre de Equipo es Obligatorio",
+    "The team already exists": "El Equipo ya Existe",
     "Girls": "Niñas",
     "Boys": "Niños",
     "Add Player": "Agregar Jugador",
@@ -45,8 +55,8 @@
     "Both": "Ambos",
     "Date From": "Fecha Desde",
     "Date To": "Fecha Hasta",
-    "Gender": "Sexo",
-    "gender": "Sexo",
+    "Gender": "Género",
+    "gender": "Género",
     "Active": "Activo",
     "Activ?": "¿Activo?",
 
