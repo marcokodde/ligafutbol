@@ -141,10 +141,15 @@ class Rosters extends Component {
         $this->name = trim($this->name);
         $this->error_message = null;
         $this->reset(['error_message','error_team']);
+       // $this->display_data('Antes de validate_team');
 
         if(!$this->validate_team())     return false;
+        $this->display_data('Team Validado');
+
         if(!$this->validate_avoid_all_data())return false;
-        if(!$this->validate_players()) return false;
+        $this->display_data('Validado que todos los campos traen al menos un valor');
+
+          if(!$this->validate_players()) return false;
 
         dd('Pasó validaciones, ahora hay que agregar los registros');
 
@@ -176,7 +181,7 @@ class Rosters extends Component {
             $this->error_team = true;
             return false;
         }
-
+        return true;
 
     }
 
@@ -187,8 +192,8 @@ class Rosters extends Component {
             if(!$this->validate_last_names($i)) return false;       // Apellidos
             if(!$this->validate_genders($i)) return false;          // Géneros
             if(!$this->validate_birthdays($i)) return false;        // Fechas de Nacimiento
-            return true;
-        }
+      }
+    return true;
     }
 
 
@@ -217,6 +222,7 @@ class Rosters extends Component {
             $this->error_message = __('No Players Birthdays');
             return false;
         }
+        return true;
     }
 
     // Valida a partir de que traiga el nombre
@@ -241,9 +247,11 @@ class Rosters extends Component {
                     $this->error_message = __('Missing birthday for to') . ' ' . $this->first_names[$i] . ' ' . $this->last_names[$i];
                     return false;
                 }
-
+                return true;
             }
         }
+        return false;
+
     }
 
         // Valida a partir de que traiga el nombre
@@ -251,14 +259,11 @@ class Rosters extends Component {
         if(count($this->last_names)){
             if(isset($this->last_names[$i])){
                 // ¿Trae Apellido?
-                //if(count($this->last_names)){
                     if(!isset($this->first_names[$i])){
                         $this->error_message = __('Incomplete name to') . ' ' . $this->last_names[$i];
                         return false;
                     }
-                // }
-
-                // ¿Trae Género?
+                 // ¿Trae Género?
                 if(!isset($this->genders[$i])){
                     $this->error_message = __('Missing gender for to') . ' ' . $this->first_names[$i] . ' ' . $this->last_names[$i];
                     return false;
@@ -268,9 +273,11 @@ class Rosters extends Component {
                     $this->error_message = __('Missing birthday for to') . ' ' . $this->first_names[$i] . ' ' . $this->last_names[$i];
                     return false;
                 }
+                return true;
 
             }
         }
+        return false;
     }
 
      // Valida a partir de que traiga el género
@@ -293,12 +300,14 @@ class Rosters extends Component {
                      $this->error_message = __('Missing birthday for to') . ' ' . $this->first_names[$i] . ' ' . $this->last_names[$i];
                      return false;
                  }
-             }
-         }
+                return true;
+            }
+        }
+        return false;
      }
         // Valida a partir de Fecha de Nacimiento
     private function validate_birthdays($i){
-        if(count($this->genders)){
+        if(count($this->birthdays)){
             if(isset($this->birthdays[$i])){
                 // ¿Trae Nombre?
                 if(!isset($this->first_names[$i])){
@@ -316,10 +325,25 @@ class Rosters extends Component {
                     $this->error_message = __('Missing gender for to') . ' ' . $this->first_names[$i] . ' ' . $this->last_names[$i];
                     return false;
                 }
+                return true;
             }
+            return false;
         }
+        return false;
 
     }
 
+    private function display_data($punto_validacion=''){
+
+        dd( $punto_validacion,
+            'Categoría=' . $this->category->name,
+            'Equipo=' . $this->name,
+            'Zipcode=' . $this->zipcode,
+            'Ciudad=' . $this->town_state,
+            'Nombres',$this->first_names,
+            'Apellidos',$this->last_names,
+            'Géneros',$this->genders,
+            'Fechas de nacimiento',$this->birthdays);
+    }
 
 }
