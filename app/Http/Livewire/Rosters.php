@@ -157,7 +157,7 @@ class Rosters extends Component {
 
         if($record_team){
             for($i=1;$i<=$this->general_settings->max_players_by_team;$i++){
-                if(isset($first_names[$i])){
+                if(isset($this->first_names[$i])){
                     $record_player = $this->create_player($i);
                     $record_team->players()->attach($record_player);
 

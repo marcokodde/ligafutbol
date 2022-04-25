@@ -36,11 +36,11 @@
                 </div>
             @endif
 
-            <div class="group flex items-center">
+            <div class="flex flex-wrap justify-between items-center mx-auto">
                 @if($team_id)
                     <div class="flex">
                         @forelse($records as $record)
-                            <div class="card flex-wrap text-center px-4 rounded-lg h-56 w-44 items-center shadow bg-white m-4">
+                            <div class="card font-mono bg-white leading-6 px-4 m-2 mt-2 rounded-lg sm:inline-block">
                                 <div class="shrink-0">
                                     <img class="h-16 w-16 object-cover rounded-full" src="{{asset('images/default.png')}}" alt="photo">
                                 </div>
@@ -49,7 +49,7 @@
                                 </label>
 
                                 <label class="block">
-                                    {{ $record->birthday }}
+                                    {{date("F j Y", strtotime($record->birthday))}}
                                 </label>
 
                                 <label class="block">
