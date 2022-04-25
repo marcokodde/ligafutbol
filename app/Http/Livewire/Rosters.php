@@ -5,15 +5,18 @@ namespace App\Http\Livewire;
 use Carbon\Carbon;
 
 use App\Models\Team;
-use Livewire\Component;
+use App\Models\Player;
 
+use Livewire\Component;
 use App\Models\Category;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use phpDocumentor\Reflection\Types\Null_;
 use App\Http\Livewire\Traits\ZipcodeTrait;
 use App\Http\Livewire\Traits\SettingsTrait;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Rosters extends Component {
@@ -63,6 +66,7 @@ class Rosters extends Component {
         $this->manage_title = __('Manage') . ' ' . __('Rosters');
         $this->readSettings();
         $this->categories = Category::Active()->orderby('name')->get();
+        $this->allow_create = false;
     }
 
 
@@ -72,6 +76,8 @@ class Rosters extends Component {
 	 */
 
 	public function render() {
+
+        $this->allow_create = is_null($this->error_message) ? true : false;
         return view('livewire.rosters.rosters');
 	}
 
@@ -147,8 +153,36 @@ class Rosters extends Component {
         if(!$this->validate_avoid_all_data())return false;
         if(!$this->validate_players()) return false;
 
-        $this->display_data('Pasó validaciones, ahora hay que agregar los registros');
+        $record_team = $this->create_team();
 
+        if($record_team){
+            for($i=1;$i<=$this->general_settings->max_players_by_team;$i++){
+                if(isset($first_names[$i])){
+                    $record_player = $this->create_player($i);
+                    $record_team->players()->attach($record_player);
+
+                }
+             }
+        }
+        $this->clear_all_data();
+
+        session()->flash('message', __('The list has been registered'));
+
+    }
+
+    // Inicializa todos los dato excepto la categoría
+    public function clear_all_data(){
+        $this->reset([
+            'name',
+            'zipcode',
+            'first_names',
+            'last_names',
+            'genders',
+            'birthdays',
+            'zipcode_exists',
+            'town_state',
+            'error_message'
+        ]);
     }
 
     // Datos para el Equipo
@@ -183,7 +217,7 @@ class Rosters extends Component {
 
     // Datos para los jugadores
     private function validate_players(){
-        for($i=1;$this->general_settings->max_players_by_team;$i++){
+        for($i=1;$i<=$this->general_settings->max_players_by_team;$i++){
             if(!$this->validate_first_names($i)) break;      // Nombres
             if(!$this->validate_last_names($i)) break;       // Apellidos
             if(!$this->validate_genders($i)) break;          // Géneros
@@ -343,6 +377,31 @@ class Rosters extends Component {
             'Apellidos',$this->last_names,
             'Géneros',$this->genders,
             'Fechas de nacimiento',$this->birthdays);
+    }
+
+    // Crea Equipo
+    private function create_team(){
+        $this->record_id = null;
+        return Team::updateOrCreate(['id' => $this->record_id], [
+            'name'          => $this->name,
+			'category_id'   => $this->category_id,
+            'zipcode'       => $this->zipcode,
+            'user_id'       => Auth::user()->id,
+            'active'        => 1
+		]);
+    }
+
+    // Crea Jugador
+    private function create_player($i){
+        $this->record_id = null;
+        return Player::updateOrCreate(['id' => $this->record_id], [
+            'first_name'=> $this->first_names[$i],
+			'last_name' => $this->last_names[$i],
+            'birthday'  => $this->birthdays[$i],
+            'gender'    => $this->genders[$i],
+            'user_id'   => Auth::user()->id
+		]);
+
     }
 
 }

@@ -26,6 +26,14 @@
 
             {{-- Sexo --}}
             <div class="w-1/8">
+                <input type="radio"
+                        wire:model="genders.{{$i}}"
+                        {{-- wire:change="calculate_limits_to_birthday" --}}
+                        class="form-check-input h-4 w-4 bg-blue-500"
+                        value="Male">
+
+                <label class="text-blue-500">{{ __('M') }}</label>
+
                    <input type="radio"
                         wire:model="genders.{{$i}}"
                         {{-- wire:change="calculate_limits_to_birthday" --}}
@@ -35,13 +43,7 @@
 
                 <label class="text-pink-500">{{ __('F') }}</label>
 
-                <input type="radio"
-                        wire:model="genders.{{$i}}"
-                        {{-- wire:change="calculate_limits_to_birthday" --}}
-                        class="form-check-input h-4 w-4 bg-blue-500"
-                        value="Male">
 
-                <label class="text-blue-500">{{ __('M') }}</label>
 
             </div>
 

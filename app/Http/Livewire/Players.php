@@ -69,8 +69,7 @@ class Players extends Component {
             'gender'    => 'required|in:Female,Male',
 		]);
 
-        //dd('First Name'. $this->first_name,'Last Name=' . $this->last_name, 'Birtdhay=' . $this->birthday , 'Gender=' . $this->gender);
-		Player::updateOrCreate(['id' => $this->record_id], [
+ 		Player::updateOrCreate(['id' => $this->record_id], [
             'first_name'=> $this->first_name,
 			'last_name' => $this->last_name,
             'birthday'  => $this->birthday,
