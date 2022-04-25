@@ -12,13 +12,13 @@
             </button>
         </span>
         <span class="mx-2">
-            @if(count($first_names) && count($last_names) && count($genders) && count($birthdays) && $allow_create)
+            {{-- @if(count($first_names) && count($last_names) && count($genders) && count($birthdays) && $allow_create) --}}
                 <button wire:click.prevent="store()"
                         type="button"
                         class="button green rounded-lg hover:text-black">
                     {{__("Save")}}
                 </button>
-            @endif
+            {{-- @endif --}}
         </span>
     </div>
 </div>
