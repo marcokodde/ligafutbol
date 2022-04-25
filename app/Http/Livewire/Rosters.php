@@ -3,12 +3,11 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
-
-use App\Models\Team;
+use App\Models\Category;
 use App\Models\Player;
+use App\Models\Team;
 
 use Livewire\Component;
-use App\Models\Category;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -26,9 +25,7 @@ class Rosters extends Component {
     use ZipcodeTrait;
     use SettingsTrait;
 
-
     protected $listeners = ['destroy'];
-
 
     // Taba Equipos (Teams)
     public $name=null;
@@ -76,7 +73,6 @@ class Rosters extends Component {
 	 */
 
 	public function render() {
-
         $this->allow_create = is_null($this->error_message) ? true : false;
         return view('livewire.rosters.rosters');
 	}
@@ -114,14 +110,11 @@ class Rosters extends Component {
      */
 
     public function calculate_limits_to_birthday(){
-
         if(count($this->genders)){
             for($i=1;$this->general_settings->max_players_by_team;$i++){
                 if(isset($this->gender[$i])){
                     dd('$i=' . $i ,'  es= ' . $this->genders[$i]);
-
                 }
-
             }
         }
     }
@@ -160,14 +153,11 @@ class Rosters extends Component {
                 if(isset($this->first_names[$i])){
                     $record_player = $this->create_player($i);
                     $record_team->players()->attach($record_player);
-
                 }
-             }
+            }
         }
         $this->clear_all_data();
-
         session()->flash('message', __('The list has been registered'));
-
     }
 
     // Inicializa todos los dato excepto la categoría
@@ -242,11 +232,9 @@ class Rosters extends Component {
         }
 
         if(!count($this->genders)){
-
             $this->error_message = __('No Players Genders');
             return false;
         }
-
 
         if(!count($this->birthdays)){
             $this->error_message = __('No Players Birthdays');
@@ -311,34 +299,33 @@ class Rosters extends Component {
     }
 
      // Valida a partir de que traiga el género
-     private function validate_genders($i){
-          if (count($this->genders)) {
-             if (isset($this->genders[$i])) {
+    private function validate_genders($i){
+        if (count($this->genders)) {
+            if (isset($this->genders[$i])) {
                  // ¿Trae Nombre?
-                 if (!isset($this->first_names[$i])) {
-                     $this->error_message = __('Incomplete name to') . ' ' . $this->first_names[$i];
-                     return false;
-                 }
+                if (!isset($this->first_names[$i])) {
+                    $this->error_message = __('Incomplete name to') . ' ' . $this->first_names[$i];
+                    return false;
+                }
                  // ¿Trae Apellido?
-                 if (!isset($this->last_names[$i])) {
-                     $this->error_message = __('Incomplete name to') . ' ' . $this->first_names[$i];
-                     return false;
-                 }
+                if (!isset($this->last_names[$i])) {
+                    $this->error_message = __('Incomplete name to') . ' ' . $this->first_names[$i];
+                    return false;
+                }
 
                  // Fecha de nacimiento
-                 if (!isset($this->birthdays[$i])) {
-                     $this->error_message = __('Missing birthday for to') . ' ' . $this->first_names[$i] . ' ' . $this->last_names[$i];
-                     return false;
-                 }
+                if (!isset($this->birthdays[$i])) {
+                    $this->error_message = __('Missing birthday for to') . ' ' . $this->first_names[$i] . ' ' . $this->last_names[$i];
+                    return false;
+                }
                 return true;
             }
         }
         return false;
-     }
+    }
         // Valida a partir de Fecha de Nacimiento
     private function validate_birthdays($i){
         if(count($this->birthdays)){
-
             if(isset($this->birthdays[$i])){
 
                 // ¿Trae Nombre?
@@ -346,28 +333,26 @@ class Rosters extends Component {
                     $this->error_message = __('Incomplete name to') . ' ' . $this->first_names[$i];
                     return false;
                 }
+
                 // ¿Trae Apellido?
                 if(!isset($this->last_names[$i])){
-                        $this->error_message = __('Incomplete name to') . ' ' . $this->first_names[$i];
-                        return false;
-                    }
+                    $this->error_message = __('Incomplete name to') . ' ' . $this->first_names[$i];
+                    return false;
+                }
 
                 // Fecha de nacimiento
                 if(!isset($this->genders[$i])){
                     $this->error_message = __('Missing gender for to') . ' ' . $this->first_names[$i] . ' ' . $this->last_names[$i];
                     return false;
                 }
-
                 return true;
             }
             return false;
         }
         return false;
-
     }
 
     private function display_data($punto_validacion=''){
-
         dd( $punto_validacion,
             'Categoría=' . $this->category->name,
             'Equipo=' . $this->name,
@@ -401,7 +386,5 @@ class Rosters extends Component {
             'gender'    => $this->genders[$i],
             'user_id'   => Auth::user()->id
 		]);
-
     }
-
 }
