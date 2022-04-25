@@ -75,7 +75,7 @@
                     minlength="7" maxlength="12" type='text'
                     wire:model.lazy='phone' name="phone"
                     placeholder="{{__("Phone")}}"
-                >
+                    required>
                     @error('phone') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
             </div>

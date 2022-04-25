@@ -11,7 +11,7 @@
                     @csrf
                         <div class="row mx-auto">
                             <div class="bg-white px-2 pb-2 sm:p-3 sm:pb-2 border-4 border-blue-400 rounded-lg">
-                                @if (Auth::user()->teams()->count() > 1)
+                                @if (Auth::user()->teams()->count() >= 1)
                                     {{-- Paso numero 1 agregando datos de los teams --}}
                                         @if ($currentPage === 1)
                                         @include('livewire.payments.step1')

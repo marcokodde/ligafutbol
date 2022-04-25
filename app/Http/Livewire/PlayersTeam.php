@@ -58,14 +58,14 @@ class PlayersTeam extends Component
             $this->pagination = $this->general_settings->max_players_by_team;
             return $this->team->players()
                 ->Name($this->search)
-                ->orderby('last_name')
+                ->orderby('birthday')
                 ->orderby('first_name')
                 ->paginate($this->pagination);
         }else{
-            $this->pagination = 7;
+            $this->pagination = 12;
             return Player::UserId()
                 ->Name($this->search)
-                ->orderby('last_name')
+                ->orderby('birthday')
                 ->orderby('first_name')
                 ->paginate($this->pagination);
         }
@@ -167,5 +167,4 @@ class PlayersTeam extends Component
         $this->male_birthday_from = $this->male_birthday_from->format('Y-m*d');
         $this->male_birthday_to = $this->male_birthday_to->format('Y-m*d');
     }
-
 }
