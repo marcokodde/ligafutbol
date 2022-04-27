@@ -7,6 +7,7 @@ use Stripe\Charge;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\Coach;
 use App\Models\Payment;
 use App\Models\Zipcode;
 use Livewire\Component;
@@ -189,6 +190,12 @@ class Payments extends Component
             'password'  => Hash::make($request->password),
             'active'    =>$request->active ? 1 : 0,
         ]);
+        $coach = Coach::Create([
+            'name'      => $request->fullname,
+			'phone'     => $request->phone,
+            'user_id'   => $this->user->id
+		]);
+
         $this->user->save();
         $role_record = Role::where('name','coach')->first();
         if($role_record){
@@ -201,7 +208,7 @@ class Payments extends Component
             'description'   => $request->fullname,
             'amount'        => $request->price_total,
             'user_id'       => $this->user->id,
-            'source'        => $this->total_teams,
+            'source'        => $request->total_teams,
         ]);
         $this->create_Teamcategory($request, $this->user->id, $payment);
     }

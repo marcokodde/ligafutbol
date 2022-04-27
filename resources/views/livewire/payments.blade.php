@@ -111,6 +111,8 @@
         <div>
             <label class="block text-xl text-black font-bold mb-2 mt-2 justify-center text-center">{{__("By clicking confirm, I authorize to register")}} {{$total_teams}} {{__('teams, for a total of:')}} ${{number_format($price_total, 2, '.', '')}}</label>
             <input hidden wire:model="price_total" id="price_total" name="price_total">
+            <input hidden wire:model="total_teams" id="total_teams" name="total_teams">
+
             @foreach($categories as $category)
                     @php $k++ @endphp
                 <input class="categoriesIds"
