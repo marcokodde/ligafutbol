@@ -3,7 +3,7 @@
         <div></div>
     @elseif($currentPage === 2)
         <button wire:click="goToPreviousPage" type="button"
-            class="button red rounded-lg hover:text-black">
+            class="button  red mx-2 px-8 py-4 font-semibold rounded-lg hover:text-black">
             {{__("Back")}}
         </button>
     @else
@@ -13,7 +13,7 @@
         </button>
     @endif
     @if ($currentPage === count($pages))
-        <button type="submit" class="button green mx-2 rounded-lg hover:text-black">
+        <button type="submit" class="button blue mx-2 px-8 py-4 font-semibold rounded-lg hover:text-black">
             {{__("Confirm Payment")}}
         </button>
     @elseif($currentPage === 2)
@@ -22,13 +22,13 @@
                 {{__("Confirm")}}
             </button>
         @else
-            <button wire:click="goToNextPage" type="button" class="button blue rounded-lg hover:text-black">
+            <button wire:click="goToNextPage" type="button" class="button blue mx-2 px-8 py-4 font-semibold  rounded-lg hover:text-black">
                 {{__("Next")}}
             </button>
         @endif
     @else
         <button wire:click="goToNextPage" type="button"
-            class="button blue rounded-lg px-12 py-2 hover:text-black">
+            class="button blue rounded-lg mx-2 px-8 py-4 font-semibold hover:text-black">
             {{__("Next")}}
         </button>
     @endif

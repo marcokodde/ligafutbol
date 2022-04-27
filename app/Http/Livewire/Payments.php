@@ -108,7 +108,7 @@ class Payments extends Component
         } else {
             $this->store_message(__('Error to Process Payment.'));
         }
-        return redirect()->route('login');
+        return redirect()->route('rosters');
     }
 
     public function read_zipcode() {
@@ -210,13 +210,13 @@ class Payments extends Component
         $i=0;
         foreach ($request->categoriesIds as $categoryId => $value) {
             $i++;
-            if (isset($request->quantity_teams[$i])) {
-                    $team = TeamCategory::create([
-                        'user_id'     => $user,
-                        'category_id' => $value,
-                        'payment_id'  => $payment->id,
-                        'qty_teams'   => $request->quantity_teams[$i]
-                    ]);
+            if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
+                TeamCategory::create([
+                    'user_id'     => $user,
+                    'category_id' => $value,
+                    'payment_id'  => $payment->id,
+                    'qty_teams'   => $request->quantity_teams[$i]
+                ]);
             }
         }
     }

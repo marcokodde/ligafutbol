@@ -5,19 +5,20 @@ use App\Http\Livewire\Teams;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Coaches;
 use App\Http\Livewire\Players;
+use App\Http\Livewire\Rosters;
 use App\Http\Livewire\Payments;
+use App\Http\Livewire\Settings;
 use App\Http\Livewire\Statuses;
 use App\Http\Livewire\Categories;
-use App\Http\Livewire\CoachesTeam;
 use App\Http\Livewire\CoachTeams;
+use App\Http\Livewire\CoachesTeam;
 use App\Http\Livewire\CostsByTeam;
 use App\Http\Livewire\Permissions;
 use App\Http\Livewire\PlayersTeam;
+use App\Http\Livewire\Confirmation;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RolePermissions;
-use App\Http\Livewire\Rosters;
-use App\Http\Livewire\Settings;
 
 require 'pruebas.php';
 
@@ -43,12 +44,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings', Settings::class)->name('settings');                       // Configuración
 
     // Acciones del usuario Coach
-    Route::get('teams',Teams::class)->name('teams');                                // Equipos
-    Route::get('coaches',Coaches::class)->name('coaches');                          // Entrenadores
-    Route::get('players',Players::class)->name('players');                          // Jugadores
-    Route::get('coaches-team',CoachesTeam::class)->name('coaches-team');             // Asignar Coach a Equipos
-    Route::get('players-team',PlayersTeam::class)->name('players-team');            // Asignar Jugadores a Equipos
-    Route::get('rosters',Rosters::class)->name('rosters');                          // Rosters
+    Route::get('teams', Teams::class)->name('teams');                                // Equipos
+    Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores
+    Route::get('players', Players::class)->name('players');                          // Jugadores
+    Route::get('coaches-team', CoachesTeam::class)->name('coaches-team');             // Asignar Coach a Equipos
+    Route::get('players-team', PlayersTeam::class)->name('players-team');            // Asignar Jugadores a Equipos
+
 });
 
 
@@ -63,13 +64,3 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-<<<<<<< HEAD
-=======
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('payments',Payments::class)->name('payments');
-Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment');
->>>>>>> 5ba39562 (Agregando metodo payment, publico crear pago, usuario y teamcategory pendiente de crear)

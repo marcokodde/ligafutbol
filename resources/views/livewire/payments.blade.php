@@ -106,26 +106,21 @@
                     size='16' maxlength="4" minlength="3" type='password' required>
                     @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
-                <div>
-                    <input hidden wire:model="price_total" id="price_total" name="price_total">
-                    @foreach($categories as $category)
-                            @php $k++ @endphp
-                            <br>
-                    <input class="categoriesIds"
-                            name="categoriesIds[]"
-                            value="{{$categoriesIds[$k]}}"
-                            hidden
-                    >
-                    <span>
-                        <input name="quantity_teams[]"
-                                value="{{$quantity_teams[$k]}}"
-                                hidden
-                            >
-                    </span>
-                    @endforeach
-
-                </div>
             </div>
+        </div>
+        <div>
+            <label class="block text-xl text-black font-bold mb-2 mt-2 justify-center text-center">{{__("By clicking confirm, I authorize to register")}} {{$total_teams}} {{__('teams, for a total of:')}} ${{number_format($price_total, 2, '.', '')}}</label>
+            <input hidden wire:model="price_total" id="price_total" name="price_total">
+            @foreach($categories as $category)
+                    @php $k++ @endphp
+                <input class="categoriesIds"
+                name="categoriesIds[]"
+                value="{{$categoriesIds[$k]}}"
+                hidden>
+                <input name="quantity_teams[]"
+                value="{{$quantity_teams[$k]}}"
+                hidden>
+            @endforeach
         </div>
     </div>
 </div>
