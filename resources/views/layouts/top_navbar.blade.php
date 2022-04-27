@@ -71,6 +71,7 @@
                 <div>
                     @include('common.language')
                 </div>
+                @if (Auth::user())
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
@@ -123,6 +124,8 @@
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
+                @endif
+                
             </div>
         </div>
     </div>

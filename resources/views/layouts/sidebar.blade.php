@@ -12,19 +12,18 @@
             </a>
         </li>
         </ul>
-        <ul class="menu-list">
-            {{-- Menú Configuración --}}
-            @if(Auth::user()->isAdmin())
-                @include('layouts.menus.admin')
-            @endif
+        @if(Auth::user())
+            <ul class="menu-list">
+                {{-- Menú Configuración --}}
+                @if(Auth::user()->isAdmin())
+                    @include('layouts.menus.admin')
+                @endif
 
-            {{-- Menú de Coach --}}
-            @if(Auth::user()->isCoach())
-                @include('layouts.menus.coach')
-            @endif
-
-
-
-        </ul>
+                {{-- Menú de Coach --}}
+                @if(Auth::user()->isCoach())
+                    @include('layouts.menus.coach')
+                @endif
+            </ul>
+        @endif
     </div>
 </aside>

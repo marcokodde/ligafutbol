@@ -1,25 +1,36 @@
-<div class="w-full leading-tight">
-    <label class="block text-base font-bold mb-2 mt-2">{{__("Select Teams to Payment")}}</label>
-    <div class="grid grid-cols-2 auto-cols-auto">
-        @foreach($teams as $team_to_assign)
-            <label class="block text-sm font-semibold mb-2 mt-2">{{$team_to_assign->name}}</label>
-            <input type="checkbox"
-                    wire:model="selectedteams"
-                    class="form-checkbox border-2 h-6 w-6 text-gray-600 border-red-600"
-                    wire:click="countCheck"
-                    value="{{$team_to_assign->id}}">
+<div class="grid grid-cols-3 gap-4">
+    <div>
+        <img src="{{asset('images/galveston2022.png')}}" height="600px" width="400px"  alt="">
+    </div>
+    <div class="col-span-2">
+        <label class="block text-2xl font-bold mb-2 mt-2">{{__("Seleccionar la cantidad de equipos que deseas registrar en cada categoria")}}</label>
+        @foreach($categories as $category)
+            <div class="flex justify-around">
+                <label class="text-xl text-gray-600 font-bold mb-2 mt-2">{{$category->name}}</label>
+                <input  wire:model="quantity_teams.{{ $category->id }}"
+                    wire:change="calculateTeams()"
+                    type="number"
+                    min="0"
+                    max="100"
+                    class="text-left w-32 appearance-none border rounded-lg m-1 text-gray-700 focus:outline-none focus:shadow-outline">
+                <div>
+                    <input class="categoriesIds" wire:model="categoriesIds.{{ $category->id }}" id="categoriesIds" name="categoriesIds.{{ $category->id }}"
+                    value="categoriesIds.{{ $category->id }}" hidden>
+                    <input class="quantity_teams" wire:model="quantity_teams.{{ $category->id }}" id="quantity_teams" name="quantity_teams.{{ $category->id }}"
+                    name="quantity_teams.{{ $category->id }}" hidden>
+                </div>
+            </div>
         @endforeach
     </div>
 </div>
-<div class="flex flex-wrap mb-2">
+<div class="mb-2 items-center text-center align-center">
     <input type="text"
         wire:model.lazy="price_total"
         id="price_total"
         name="price_total" hidden>
-    <div class="mb-2">
+        <label class="inline text-2xl text-black font-bold m-2">{{__('Total Price')}}</label>
         <input type="number"
             placeholder="{{__('Total Price:')}} ${{number_format($price_total, 2, '.', ',')}}"
             disabled
-            class="rounded w-full py-2 px-3 text-gray-700 leading-tight" >
-    </div>
+            class="w-54 inline py-4 px-4 text-black leading-tight rounded-lg">
 </div>

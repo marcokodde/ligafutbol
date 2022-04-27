@@ -25,8 +25,9 @@ class Payment extends Model
     }
 
     // Equipos cubiertos por el pago
-    public function teams()
+    public function team_categories()
     {
-        return $this->hasMany(Team::class);
+        return $this->hasMany(TeamCategory::class);
     }
+
 }

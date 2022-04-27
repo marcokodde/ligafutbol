@@ -15,7 +15,7 @@ class Category extends Model
         'date_from',
         'date_to',
         'gender',
-        'active'
+        'active',
     ];
 
     /*+-----------------+
@@ -27,8 +27,14 @@ class Category extends Model
             return $this->hasMany(Team::class);
         }
 
+        public function payment(){
+            return $this->belongsTo(Payment::class,'payment_id');
+        }
 
-
+         // TeamCategory -> que le pertenecen al usuario
+         public function teams_categories() {
+            return $this->hasMany(TeamCategory::class);
+        }
     /*+-----------------+
       | Funciones Apoyo |
       +-----------------+

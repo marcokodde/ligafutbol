@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
+<div class="flex items-center text-center justify-center px-4 py-3 bg-gray-50  sm:px-6">
     @if ($currentPage === 1)
         <div></div>
     @elseif($currentPage === 2)
@@ -13,7 +13,7 @@
         </button>
     @endif
     @if ($currentPage === count($pages))
-        <button type="submit" class="button green rounded-lg hover:text-black">
+        <button type="submit" class="button green mx-2 rounded-lg hover:text-black">
             {{__("Confirm Payment")}}
         </button>
     @elseif($currentPage === 2)
@@ -28,7 +28,7 @@
         @endif
     @else
         <button wire:click="goToNextPage" type="button"
-            class="button blue rounded-lg hover:text-black">
+            class="button blue rounded-lg px-12 py-2 hover:text-black">
             {{__("Next")}}
         </button>
     @endif

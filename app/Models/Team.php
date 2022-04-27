@@ -17,7 +17,6 @@ class Team extends Model
         'zipcode',
         'user_id',
         'active',
-        'payment_id',
         'amount',
         'enabled'
     ];
@@ -55,9 +54,6 @@ class Team extends Model
         return $this->belongsToMany(Player::class)->count();
     }
 
-    public function payment(){
-        return $this->belongsTo(payment::class,'payment_id');
-    }
 
     /*+-----------------+
       | Funciones Apoyo |

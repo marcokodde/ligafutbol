@@ -4,14 +4,19 @@ namespace App\Http\Livewire;
 
 use Stripe;
 use Stripe\Charge;
+use App\Models\Role;
 use App\Models\Team;
+use App\Models\User;
 use App\Models\Payment;
 use App\Models\Zipcode;
 use Livewire\Component;
+use App\Models\Category;
 use App\Models\CostByTeam;
+use App\Models\TeamCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Payments extends Component
 {
@@ -28,87 +33,86 @@ class Payments extends Component
     public $description;
     public $success;
     public $currentPage = 1;
-    public $selectedteams = array();
-    public $total_teams;
     public $payment_record;
     public $pages = [];
 
+    public $categories;
+    public $values = array();
+    public $quantity_teams = array();
+    public $imports = array();
+    public $categoriesIds = array();
+
+    public $total_teams = 0;
+    public $fullname;
+    public $email;
+    public $password;
+    public $password_confirmation;
+    public $category_id;
+
+    protected $listeners = ['create_Teamcategory'];
+
     public function mount() {
+
         $this->step = 0;
-        $this->teams = Team::UserId()->where('enabled', 0)->get();
+        $this->categories = Category::all();
+        $i=1;
+        foreach($this->categories as $category) {
+            $this->categoriesIds[$i] = $category->id;
+            $i++;
+        }
+
         $this->pages = [
             1 => [
-                'heading' => __('Detail of equipment and payments'),
+                'heading' => __('Galveston Cup Registration System 2022'),
 
             ],
             2 => [
-                'heading' => __('Payment Details'),
+                'heading' => __('Galveston Cup Registration System 2022'),
             ]
         ];
-
     }
+
  /** Validaciones para Eventos, Usuarios, Payments */
     private $validationRules = [
             1 => [
-                'selectedteams' => 'required',
+                'quantity_teams' => 'required',
                 'price_total'   => 'required',
             ],
 
             2 => [
-                'description' =>'required',
-                'amount' =>     'required',
-                'phone' =>      'required|min:10|max:12',
-                'address' =>    'required',
-                'zipcode' =>    'required',
+                'fullname'  =>  'required',
+                'phone'     =>  'required|min:10|max:12|unique:users',
+                'email'     =>  'required|unique:users',
+                'password'  =>  'required',
+                'zipcode'   =>  'required',
             ],
         ];
 
 
 
-    public function render()
-    {
+    public function render() {
         return view('livewire.payments.new_payment');
     }
 
-    private function create_payment(Request $request) {
-        return Payment::create([
-            'description'   => $request->name,
-            'amount'        => $request->price_total,
-            'user_id'       => Auth::user()->id,
-            'source'        => $request->selectedteams,
-            'address'       => $request->address,
-            'zipcode'       => $request->zipcode,
-            'phone'         => $request->phone
-        ]);
-    }
-
-    private function update_Teams(Request $request) {
-        $teams = explode(',', $request->selectedteams );
-        foreach ($teams as $value) {
-            Team::where('id', $value)->update([
-                'payment_id' => $this->payment_record->id,
-                'enabled'    => 1
-            ]);
-        }
-    }
-
     public function makepayment(Request $request) {
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+      /*   Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
                 "amount" => $request->price_total * 100,
                 "currency" => "USD",
                 "source" => $request->stripeToken,
-                "description" => $request->name
-        ]);
-
+                "description" => $request->card_name
+        ]); */
+        $this->charge = 10;
         if (!is_null($this->charge)) {
+            $this->create_Teamcategory();
+            $this->createUser($request);
             $this->payment_record = $this->create_payment($request);
-            $this->update_Teams($request);
+            
         } else {
             $this->store_message(__('Error to Process Payment.'));
         }
-        return redirect()->route('teams');
+        return redirect()->route('login');
     }
 
     public function read_zipcode() {
@@ -135,6 +139,7 @@ class Payments extends Component
     public function goToNextPage() {
         $this->validate($this->validationRules[$this->currentPage]);
         $this->currentPage++;
+        
     }
 
     public function goToPreviousPage() {
@@ -149,9 +154,27 @@ class Payments extends Component
         $this->reset('success');
     }
 
-    public function countCheck() {
-        $this->reset(['price_total']);
-        $this->total_teams = count($this->selectedteams);
+    public function calculateTeams() {
+        $this->reset(['price_total', 'total_teams']);
+        //TODO recorrer cada categoria
+        $i=0;
+        foreach ($this->categoriesIds as $categoryId) {
+            $i++;
+            if(isset($this->quantity_teams[$i])){
+                if(!$this->quantity_teams[$i] || $this->quantity_teams[$i]==''){
+                    $this->quantity_teams[$i] = 0;
+                }
+                $this->total_teams = $this->total_teams + $this->quantity_teams[$i];
+            } else {
+                $this->quantity_teams[$i] = 0;
+            }
+        }
+        if ($this->total_teams) {
+            $this->calculate_prices();
+        }
+    }
+
+    private function calculate_prices() {
         if($this->total_teams){
             $sql ="SELECT cost FROM cost_by_teams WHERE " . $this->total_teams . ' BETWEEN min AND max';
             $records = DB::select($sql);
@@ -160,8 +183,48 @@ class Payments extends Component
                     $this->price_total = round($this->total_teams * $record->cost, 2);
                 }
             }
+        }
+    }
 
+    private function createUser($request){
+        $this->user = User::create([
+			'name'      => $request->fullname,
+			'email'     => $request->email,
+            'phone'     => $request->phone,
+            'password'  => Hash::make($request->password),
+            'active'    =>$request->active ? 1 : 0,
+        ]);
+        $this->user->save();
+        $role_record = Role::where('name','coach')->first();
+        if($role_record){
+            $this->user->roles()->attach($role_record);
+        }
+        return $this->user;
+    }
 
+    private function create_payment(Request $request) {
+        Payment::create([
+            'description'   => $request->fullname,
+            'amount'        => $request->price_total,
+            'user_id'       => $this->user->id,
+            'source'        => $this->total_teams,
+        ]);
+    }
+
+    public function create_Teamcategory(){
+        dd("Si entro", $this->categoriesIds);
+        $j=0;
+        foreach ($this->categoriesIds as $categoryId) {
+            $j++;
+            if(isset($this->quantity_teams[$j])){
+                $team = TeamCategory::create([
+                    'user_id'     => $this->user->id,
+                    'category_id' => $this->categoriesIds[$j],
+                    'payment_id'  => $this->payment_record->id,
+                    'qty_teams'   => $this->quantity_teams[$j]
+                ]);
+            return $team;
+            }
         }
     }
 }

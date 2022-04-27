@@ -84,6 +84,11 @@ class User extends Authenticatable
             return $this->hasMany(Player::class);
         }
 
+         // TeamCategory -> que le pertenecen al usuario
+        public function teams_categories() {
+            return $this->hasMany(TeamCategory::class);
+        }
+
     /*+-------------+
       | Apoyo       |
       +-------------+

@@ -32,9 +32,7 @@ Route::get('language/{locale}', function ($locale) {
 })->name('changelanguage');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+
     Route::get('statuses', Statuses::class)->name('statuses');                      // Estados de registros
     Route::get('permission', Permissions::class)->name('permission');                // Permisos
     Route::get('role', Roles::class)->name('role');                                  // Roles
@@ -45,14 +43,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings', Settings::class)->name('settings');                       // Configuración
 
     // Acciones del usuario Coach
-    Route::get('teams', Teams::class)->name('teams');                                // Equipos
-    Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores
-    Route::get('players', Players::class)->name('players');                          // Jugadores
-    Route::get('coaches-team', CoachesTeam::class)->name('coaches-team');             // Asignar Coach a Equipos
-    Route::get('players-team', PlayersTeam::class)->name('players-team');            // Asignar Jugadores a Equipos
-    Route::get('payments', Payments::class)->name('payments');
-    Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment');
-    Route::get('rosters', Rosters::class)->name('rosters');                          // Rosters
+    Route::get('teams',Teams::class)->name('teams');                                // Equipos
+    Route::get('coaches',Coaches::class)->name('coaches');                          // Entrenadores
+    Route::get('players',Players::class)->name('players');                          // Jugadores
+    Route::get('coaches-team',CoachesTeam::class)->name('coaches-team');             // Asignar Coach a Equipos
+    Route::get('players-team',PlayersTeam::class)->name('players-team');            // Asignar Jugadores a Equipos
+    Route::get('rosters',Rosters::class)->name('rosters');                          // Rosters
 });
 
 
@@ -67,3 +63,13 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+<<<<<<< HEAD
+=======
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('payments',Payments::class)->name('payments');
+Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment');
+>>>>>>> 5ba39562 (Agregando metodo payment, publico crear pago, usuario y teamcategory pendiente de crear)

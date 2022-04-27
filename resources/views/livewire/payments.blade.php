@@ -1,66 +1,82 @@
-<!DOCTYPE html>
-<html>
-<body>
-    <div class="md:grid md:grid-cols-2 md:gap-2 ">
-        <div class="mt-1 md:mt-0 md:col-span-2 " >
-            @if (Session::has('success'))
-                <div class="alert alert-primary text-center">
-                    <p>{{ Session::get('success') }}</p>
-                </div>
-            @endif
-            <div id="card-errors" class="alert-error hide alert-danger text-center text-lg font-semibold px-2 m-2" role="alert">
+<div class="md:grid md:grid-cols-2 md:gap-2 ">
+    <div class="mt-1 md:mt-0 md:col-span-2 " >
+        @if (Session::has('success'))
+            <div class="alert alert-primary text-center">
+                <p>{{ Session::get('success') }}</p>
             </div>
-            <div class="md:grid md:grid-cols-2 gap-2 m-2">
-                <div class='grid-col-1 w-full'>
-                    <input class='ml-4 w-56 form-control card-name rounded'
+        @endif
+        <div id="card-errors" class="alert-error hide alert-danger text-center text-lg font-semibold px-2 m-2" role="alert">
+        </div>
+        <label class="block text-2xl text-gray-500 font-bold mb-2 mt-2 text-center">{{__("Please fill in the information below")}}</label>
+        <div class="grid grid-cols-3 gap-4 mx-auto">
+            <div>
+            </div>
+            {{--  Datos Personales  --}}
+            <div class="mx-auto py-2">
+                <label class="block text-xl text-gray-500 font-bold mb-2 mt-2">{{__("Personal Data")}}:</label>
+                <div class="mt-4">
+                    <x-jet-label for="fullname" value="{{ __('Full Name') }}" />
+                    <x-jet-input id="fullname" wire:model.lazy='fullname' class="block mt-1 w-full" type="text" name="fullname" :value="old('fullname')" required />
+                </div>
+
+                <div class="mt-4">
+                    <x-jet-label for="phone" value="{{ __('Phone') }}" />
+                    <x-jet-input id="phone" wire:model.lazy='phone' class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
+                </div>
+                <div class="mt-4">
+                    <x-jet-label for="email" value="{{ __('Email') }}" />
+                    <x-jet-input id="email" wire:model.lazy='email' class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                </div>
+
+                <div class="mt-4">
+                    <x-jet-label for="password" value="{{ __('Password') }}" />
+                    <x-jet-input id="password"  wire:model.lazy='password' class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                </div>
+
+                <div class="mt-4">
+                    <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                    <x-jet-input id="password_confirmation"  wire:model.lazy='password_confirmation' class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                </div>
+            </div>
+            {{--  Datos de PAgo  --}}
+            <div>
+                <label class="block text-xl text-gray-500 font-bold mb-2 mt-2">{{__("Payment Details")}}:</label>
+                <div class='mb-2 mt-2'>
+                    <x-jet-label for="name" value="{{ __('Card Name') }}" />
+                    <input class='w-56 mt-2 form-control card-name rounded'
                     size='16' maxlength="50" type='text' name='name'
                     placeholder="{{__("Name on Card")}}"
                     required>
                     @error('card-name') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
-                <div class='grid-col-2 w-full'>
-                    <input class='w-56 form-control adress rounded'
-                    size='16' maxlength="50" type='text'
-                    wire:model.lazy='address' name="address"
-                    placeholder="{{__("Address")}}"
+                <div class='mb-2 mt-2'>
+                    <x-jet-label for="name" value="{{ __('Zipcode') }}" />
+                    <input class='form-control w-56 mt-2 zipcode rounded'
+                    maxlength="20" type='text'
+                    placeholder="{{__("Zipcode")}}"
+                    name="zipcode"
+                    wire:model="zipcode" wire:change="read_zipcode()"
+                    placeholder="{{__("Zipcode")}}"
                     required>
-                    @error('address') <span class="text-red-500">{{ $message }}</span>@enderror
-                </div>
-            </div>
-
-            <div class="md:grid md:grid-cols-2 gap-2 m-2">
-                <div class='grid-col-1 w-full'>
-                        <input class='ml-4 form-control w-56 zipcode rounded'
-                        maxlength="20" type='text'
-                        placeholder="{{__("Zipcode")}}"
-                        name="zipcode"
-                        wire:model="zipcode" wire:change="read_zipcode()"
-                        placeholder="{{__("Zipcode")}}"
-                        required>
-                        @error('zipcode') <span class="text-red-500">{{ $message }}</span>@enderror
-                </div>
-                {{-- Select de Ciudades --}}
-                <div class='grid-col-2 w-full'>
+                    @error('zipcode') <span class="text-red-500">{{ $message }}</span>@enderror
                     @if ($zipcode)
-                        <input class='w-56 form-control state rounded' name="state"
+                        <input class='w-44 mt-2 form-control state rounded' name="state"
                         wire:model.lazy='state' disabled placeholder="{{$state}}" id="state"
                         type='text' disabled >
                         @error('state') <span class="text-red-500">{{ $message }}</span>@enderror
                     @endif
                 </div>
-            </div>
-
-            <div class="md:grid md:grid-cols-2 gap-2 m-2">
-                <div class='grid-col-1 w-full'>
+                <div class='mb-2 mt-2'>
+                    <x-jet-label for="name" value="{{ __('Number Card') }}" />
                     <input autocomplete='off' aria-invalid="false"
-                    class='ml-4 form-control card-num w-56 rounded' spellcheck="false"
+                    class='form-control card-num w-56 mt-2 rounded' spellcheck="false"
                     inputmode="numeric"
                     minlength="16"
                     value="4242424242424242"
                     maxlength="16" type='text' placeholder="{{__('Card Number')}}" required>
                     @error('card-num') <span class="text-red-500">{{ $message }}</span>@enderror
 
-                    <div class="ml-4 FormFieldInput-Icons" style="opacity: 1;">
+                    <div class="ml-1FormFieldInput-Icons" style="opacity: 1;">
                         <div style="transform: none;">
                             <span class=" ml-2 FormFieldInput-IconsIcon is-visible">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="42" height="24" viewBox="0 0 42 24" class="inline PaymentLogo variant-- "><title>Visa</title><path fill="var(--paymentLogoColor, #191E70)" d="M20.8 5.31L17.97 18.9h-3.43l2.83-13.58h3.43zm14.23 8.78l1.82-5.12 1.01 5.12h-2.83zm3.84 4.8H42L39.27 5.31h-2.92c-.61 0-1.22.42-1.42 1.05l-5.05 12.53h3.54l.7-1.98h4.35l.4 1.98zm-8.88-4.49c0-3.55-4.75-3.76-4.75-5.33.1-.73.7-1.15 1.41-1.15 1.11-.1 2.33.1 3.34.63l.6-2.92A8.36 8.36 0 0 0 27.46 5c-3.33 0-5.75 1.88-5.75 4.5 0 1.98 1.71 3.02 2.92 3.65 1.32.62 1.82 1.04 1.72 1.67 0 .94-1 1.36-2.02 1.36a8.37 8.37 0 0 1-3.53-.84l-.6 2.92c1.2.53 2.52.74 3.73.74 3.73.1 6.06-1.78 6.06-4.6zM15.95 5.31L10.5 18.9H6.87L4.14 8.03c0-.52-.4-.94-.8-1.15A11.5 11.5 0 0 0 0 5.73l.1-.42h5.76c.8 0 1.4.63 1.51 1.36l1.41 7.83 3.64-9.19h3.53z"></path></svg>
@@ -70,41 +86,30 @@
                         </div>
                     </div>
                 </div>
-                <div class='grid-col-2 w-full'>
-                    <input class='form-control phone w-56 rounded'
-                    minlength="7" maxlength="12" type='text'
-                    wire:model.lazy='phone' name="phone"
-                    placeholder="{{__("Phone")}}"
-                    required>
-                    @error('phone') <span class="text-red-500">{{ $message }}</span>@enderror
+                <x-jet-label for="name" value="{{ __('Expiration Date') }}" />
+                <div class="grid grid-cols-2 gap-2">
+                    <div class='form-group expiration required '>
+                        <input class='mt-4 w-40 align-center form-control rounded card-expiry-month'
+                            placeholder='{{__('Expiration MM')}}' size='8' maxlength="2" type='text'
+                            required>
+                            @error('card-expiry-month') <span class="text-red-500">{{ $message }}</span>@enderror
+                    </div>
+                    <div class="form-group">
+                            <input class='mt-4 w-40 align-center form-control rounded card-expiry-year'
+                            placeholder='{{__('Expiration YYYY')}}' size='8' maxlength="4" type='text'
+                            required>
+                            @error('card-expiry-year') <span class="text-red-500">{{ $message }}</span>@enderror
+                    </div>
                 </div>
-            </div>
-            <div>
-                <input hidden class="price_total" wire:model="price_total" id="price_total" name="price_total">
-                <input hidden class="selectedteams" wire:model="selectedteams" id="selectedteams" name="selectedteams">
-            </div>
-
-            <div class="md:grid md:grid-cols-2 m-2">
-                <div class='grid-col-1 w-full form-group expiration required'>
-                    <input class='mt-2 ml-4 w-56 align-center form-control rounded card-expiry-month'
-                        placeholder='{{__('Expiration MM')}}' size='8' maxlength="2" type='text'
-                        required>
-                        @error('card-expiry-month') <span class="text-red-500">{{ $message }}</span>@enderror
-                </div>
-                <div class= "grid-col-2 w-full">
-                        <input class='mt-2 w-56 align-center form-control rounded card-expiry-year'
-                        placeholder='{{__('Expiration YYYY')}}' size='8' maxlength="4" type='text'
-                        required>
-                        @error('card-expiry-year') <span class="text-red-500">{{ $message }}</span>@enderror
-                </div>
-
-                <div class='grid-col-1 w-56 mt-2 form-group cvc required'>
-                    <input autocomplete='off' class='ml-4 rounded form-control card-cvc' placeholder='CVC'
-                    size='16' maxlength="4" minlength="3" type='text' required>
+                <div class='grid-col-1 w-40 form-group cvc required'>
+                    <input autocomplete='off' class='mt-4 rounded form-control card-cvc' placeholder='CVC'
+                    size='16' maxlength="4" minlength="3" type='password' required>
                     @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
+                </div>
+                <div>
+                    <input hidden wire:model="price_total" id="price_total" name="price_total">
                 </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
