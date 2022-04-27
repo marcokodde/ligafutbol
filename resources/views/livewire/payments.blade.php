@@ -30,12 +30,12 @@
 
                 <div class="mt-4">
                     <x-jet-label for="password" value="{{ __('Password') }}" />
-                    <x-jet-input id="password"  wire:model.lazy='password' class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                    <x-jet-input id="password"  wire:model.lazy='password' class="block mt-1 w-full" type="password" name="password" value="password" required autocomplete="new-password" />
                 </div>
 
                 <div class="mt-4">
                     <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                    <x-jet-input id="password_confirmation"  wire:model.lazy='password_confirmation' class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                    <x-jet-input id="password_confirmation"  wire:model.lazy='password_confirmation' class="block mt-1 w-full" type="password" value="password" name="password_confirmation" required autocomplete="new-password" />
                 </div>
             </div>
             {{--  Datos de PAgo  --}}
@@ -108,6 +108,22 @@
                 </div>
                 <div>
                     <input hidden wire:model="price_total" id="price_total" name="price_total">
+                    @foreach($categories as $category)
+                            @php $k++ @endphp
+                            <br>
+                    <input class="categoriesIds"
+                            name="categoriesIds[]"
+                            value="{{$categoriesIds[$k]}}"
+                            hidden
+                    >
+                    <span>
+                        <input name="quantity_teams[]"
+                                value="{{$quantity_teams[$k]}}"
+                                hidden
+                            >
+                    </span>
+                    @endforeach
+
                 </div>
             </div>
         </div>

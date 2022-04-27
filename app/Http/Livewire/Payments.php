@@ -35,7 +35,7 @@ class Payments extends Component
     public $currentPage = 1;
     public $payment_record;
     public $pages = [];
-
+    public $k;
     public $categories;
     public $values = array();
     public $quantity_teams = array();
@@ -52,8 +52,6 @@ class Payments extends Component
     protected $listeners = ['create_Teamcategory'];
 
     public function mount() {
-
-        $this->step = 0;
         $this->categories = Category::all();
         $i=1;
         foreach($this->categories as $category) {
@@ -95,7 +93,7 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-      /*   Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+      /* Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
                 "amount" => $request->price_total * 100,
@@ -103,12 +101,10 @@ class Payments extends Component
                 "source" => $request->stripeToken,
                 "description" => $request->card_name
         ]); */
-        $this->charge = 10;
+        $this->charge = 12;
         if (!is_null($this->charge)) {
-            $this->create_Teamcategory();
             $this->createUser($request);
-            $this->payment_record = $this->create_payment($request);
-            
+            $payment_record = $this->create_payment($request);
         } else {
             $this->store_message(__('Error to Process Payment.'));
         }
@@ -139,7 +135,6 @@ class Payments extends Component
     public function goToNextPage() {
         $this->validate($this->validationRules[$this->currentPage]);
         $this->currentPage++;
-        
     }
 
     public function goToPreviousPage() {
@@ -199,32 +194,31 @@ class Payments extends Component
         if($role_record){
             $this->user->roles()->attach($role_record);
         }
-        return $this->user;
     }
 
     private function create_payment(Request $request) {
-        Payment::create([
+        $payment= Payment::create([
             'description'   => $request->fullname,
             'amount'        => $request->price_total,
             'user_id'       => $this->user->id,
             'source'        => $this->total_teams,
         ]);
+        $this->create_Teamcategory($request, $this->user->id, $payment);
     }
 
-    public function create_Teamcategory(){
-        dd("Si entro", $this->categoriesIds);
-        $j=0;
-        foreach ($this->categoriesIds as $categoryId) {
-            $j++;
-            if(isset($this->quantity_teams[$j])){
-                $team = TeamCategory::create([
-                    'user_id'     => $this->user->id,
-                    'category_id' => $this->categoriesIds[$j],
-                    'payment_id'  => $this->payment_record->id,
-                    'qty_teams'   => $this->quantity_teams[$j]
-                ]);
-            return $team;
+    public function create_Teamcategory($request, $user, $payment){
+        $i=0;
+        foreach ($request->categoriesIds as $categoryId => $value) {
+            $i++;
+            if (isset($request->quantity_teams[$i])) {
+                    $team = TeamCategory::create([
+                        'user_id'     => $user,
+                        'category_id' => $value,
+                        'payment_id'  => $payment->id,
+                        'qty_teams'   => $request->quantity_teams[$i]
+                    ]);
             }
         }
     }
+
 }
