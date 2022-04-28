@@ -3,11 +3,13 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
-use App\Models\Category;
-use App\Models\Player;
 use App\Models\Team;
+use App\Models\User;
+use App\Models\Player;
 
 use Livewire\Component;
+use App\Models\Category;
+use App\Models\TeamCategory;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +39,7 @@ class Rosters extends Component {
     public $male_birthday_from,$male_birthday_to;
 
     // Categorías.
-    public $categories=null;
+    public $team_categories=null;
     public $category=null;
 
     public $town_state;
@@ -62,7 +64,9 @@ class Rosters extends Component {
         //$this->authorize('hasaccess', 'categories.index');
         $this->manage_title = __('Manage') . ' ' . __('Rosters');
         $this->readSettings();
-        $this->categories = Category::Active()->orderby('name')->get();
+        $this->user = User::latest('id')->first();
+
+        $this->team_categories = TeamCategory::wherehas('category')->where('user_id', $this->user->id)->orderby('id')->get();
         $this->allow_create = false;
     }
 

@@ -44,14 +44,15 @@
         @else
            @include('navigation-menu')
         @endif
-
-        <section class="is-hero-bar">
-            <div class="flex flex-col md:flex-row space-y-6 md:space-y-0">
-                <h1 class="title">
-                    {{ $header ?? '' }}
-                </h1>
-            </div>
-        </section>
+        @if (isset($header))
+            <section class="is-hero-bar">
+                <div class="flex flex-col md:flex-row space-y-6 md:space-y-0">
+                    <h1 class="title">
+                        {{ $header ?? '' }}
+                    </h1>
+                </div>
+            </section>
+        @endif
 
         <section class="section main-section">
             {{ $slot }}
