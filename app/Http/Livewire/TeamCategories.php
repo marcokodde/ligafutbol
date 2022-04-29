@@ -33,7 +33,7 @@ class TeamCategories extends Component {
     public $name        = array();
     public $category_id = array();
     public $zipcode     = array();
-
+    public $categoryteamIds     = array();
     // Categorías.
     public $team_categories=null;
     public $category=null;

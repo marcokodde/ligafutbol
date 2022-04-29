@@ -192,8 +192,6 @@ class Payments extends Component
             'token_register_teams' => bin2hex(random_bytes(20))
         ]);
 
-        dd($this->user);
-
         $coach = Coach::Create([
             'name'      => $request->fullname,
 			'phone'     => $request->phone,

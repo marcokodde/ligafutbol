@@ -20,14 +20,14 @@
                                 placeholder="{{$team_category->category->name}}"
                                 class="block w-1/3 {{$error_team ? 'bg-red-500' :''}}">
                             <input type="text"
-                                wire:model="name.{{ $value }}"
+                                wire:model="name.{{ $i }}"
                                 maxlength="50"
                                 placeholder="{{__("Team")}}"
                                 class="block w-1/3 {{$error_team ? 'bg-red-500' :''}}">
 
                             {{-- Zona Postal --}}
                             <input type="text"
-                                wire:model="zipcode.{{ $value }}"
+                                wire:model="zipcode.{{ $i }}"
                                 wire:change="read_zipcode()"
                                 maxlength="5"
                                 minlength="5"
