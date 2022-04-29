@@ -15,7 +15,6 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $sql= "INSERT INTO categories (name,date_from,date_to,gender) VALUES
-        ('2004', '2004-07-17','2004-12-31','Both'),
         ('2005', '2005-01-01','2005-12-31','Both'),
         ('2006', '2006-01-01','2006-12-31','Both'),
         ('2007', '2007-01-01','2007-12-31','Both'),
@@ -27,7 +26,7 @@ class CategorySeeder extends Seeder
         ('2013', '2013-01-01','2013-12-31','Both'),
         ('2014', '2014-01-01','2014-12-31','Both'),
         ('2015', '2015-01-01','2015-12-31','Both'),
-        ('FEMENIL', '2004-07-17','2015-12-31','Female')";
+        ('FEMENIL', '2005-07-17','2015-12-31','Female')";
         DB::update ($sql);
     }
 }

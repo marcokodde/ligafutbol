@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->boolean('active')->default(1)->comment('¿Está activo?');
+            $table->string('token_register_teams',191)->nullable()->default(null);
             $table->timestamps();
         });
     }

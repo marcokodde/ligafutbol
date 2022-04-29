@@ -16,6 +16,7 @@ use App\Http\Livewire\CostsByTeam;
 use App\Http\Livewire\Permissions;
 use App\Http\Livewire\PlayersTeam;
 use App\Http\Livewire\Confirmation;
+use App\Http\Livewire\RegisterTeams;
 use Illuminate\Support\Facades\App;
 use App\Http\Livewire\TeamCategories;
 use Illuminate\Support\Facades\Route;
@@ -76,3 +77,5 @@ Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment'
 Route::get('rosters', Rosters::class)->name('rosters');
 Route::get('team-categories', TeamCategories::class)->name('team-categories');
 Route::get('confirmation', Confirmation::class)->name('confirmation');
+
+Route::get('register_teams/{token?}', RegisterTeams::class)->name('register_teams');

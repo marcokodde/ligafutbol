@@ -31,6 +31,8 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'token_register_teams',
+        'active'
     ];
 
     /**

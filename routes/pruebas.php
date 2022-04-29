@@ -5,6 +5,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('pruebax',function(){
+    $token = bin2hex(random_bytes(40));
+    echo 'Token=' . $token . '<br>';
+    echo 'Largo=' . strlen($token);
+});
+
+Route::get('costo_x_equipo',function(){
     echo 'Tabla de importe según cantidad de equipos' . '<br>';
     echo '<table border="1">';
     echo '<thead>

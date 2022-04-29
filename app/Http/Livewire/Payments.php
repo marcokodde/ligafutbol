@@ -189,7 +189,11 @@ class Payments extends Component
             'phone'     => $request->phone,
             'password'  => Hash::make($request->password),
             'active'    =>$request->active ? 1 : 0,
+            'token_register_teams' => bin2hex(random_bytes(20))
         ]);
+
+        dd($this->user);
+
         $coach = Coach::Create([
             'name'      => $request->fullname,
 			'phone'     => $request->phone,

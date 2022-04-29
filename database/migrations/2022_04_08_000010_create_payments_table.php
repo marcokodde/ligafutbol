@@ -17,11 +17,10 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->string('description', 80)->comment('Descripcion');
             $table->float('amount', 8, 2)->default('0')->comment('Importe');
-            $table->integer('user_id')->comment('User id');
+            $table->foreignId('user_id')->constrained('users')->comment('Usuario que creó el pago');
             $table->string('source', 244)->comment('Id de equipos');
             $table->timestamps();
-            // Llave foránea
-            $table->foreign('user_id')->references('users')->on('id');
+
         });
     }
 

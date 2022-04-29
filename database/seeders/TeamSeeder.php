@@ -35,19 +35,18 @@ class TeamSeeder extends Seeder
         DB::table('teams')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
         $sql = "INSERT INTO teams (name,category_id,zipcode,user_id) VALUES
-            ('Cruz Azul 2004',1,78201,3),
-            ('Cruz Azul 2005',2,78201,3),
-            ('Cruz Azul 2006',3,78201,3),
-            ('Cruz Azul 2007',4,78701,3),
-            ('Cruz Azul 2008',5,75201,3),
-            ('Cruz Azul 2009',6,77001,3),
-            ('Cruz Azul 2010',7,77498,3),
-            ('Cruz Azul 2011',8,75032,3),
-            ('Cruz Azul 2012',9,76301,3),
-            ('Cruz Azul 2013',10,76501,3),
-            ('Cruz Azul 2014',11,77960,3),
-            ('Cruz Azul 2015',12,78010,3),
-            ('Cruz Azul Femenil',13,78520,3)";
+            ('Cruz Azul 2005',1,78201,3),
+            ('Cruz Azul 2006',2,78201,3),
+            ('Cruz Azul 2007',3,78701,3),
+            ('Cruz Azul 2008',4,75201,3),
+            ('Cruz Azul 2009',5,77001,3),
+            ('Cruz Azul 2010',6,77498,3),
+            ('Cruz Azul 2011',7,75032,3),
+            ('Cruz Azul 2012',8,76301,3),
+            ('Cruz Azul 2013',9,76501,3),
+            ('Cruz Azul 2014',10,77960,3),
+            ('Cruz Azul 2015',11,78010,3),
+            ('Cruz Azul Femenil',12,78520,3)";
         DB::update ($sql);
 
     }
