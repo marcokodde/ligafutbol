@@ -15,9 +15,11 @@ use App\Models\Category;
 use App\Models\CostByTeam;
 use App\Models\TeamCategory;
 use Illuminate\Http\Request;
+use App\Mail\ConfirmationMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class Payments extends Component
 {
@@ -94,22 +96,22 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-       /*  Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
                 "amount" => $request->price_total * 100,
                 "currency" => "USD",
                 "source" => $request->stripeToken,
                 "description" => $request->card_name
-        ]); */
-        $this->charge = 12;
+        ]);
         if (!is_null($this->charge)) {
             $this->createUser($request);
             $payment_record = $this->create_payment($request);
+            $this->sendMail($request);
         } else {
             $this->store_message(__('Error to Process Payment.'));
         }
-        return redirect()->route('team-categories');
+        return redirect()->route('confirmation');
     }
 
     public function read_zipcode() {
@@ -229,5 +231,10 @@ class Payments extends Component
             }
         }
     }
-
+    public function sendMail($request) {
+        $email  = $request->email;
+        return Mail::to('markoavt10@gmail.com')
+            ->send(new ConfirmationMail
+            ($email));
+    }
 }

@@ -5,17 +5,16 @@
 <div class="grid lg:grid-cols-3 lg:gap-4 sm:grid-cols-1 sm:gap-1">
     <div>
     </div>
-        <div class="grid grid-cols-2">
+        <div class="grid grid-cols-2 gap-2 ">
             @foreach($categories as $category)
-
                 <div class="flex mx-auto items-center text-center">
-                    <label class="text-xl text-center text-gray-700 font-bold mb-2 mt-2">{{$category->name}}</label>
+                    <label class="text-xl text-center text-gray-700 font-bold mb-2 mt-2 mr-2">{{$category->name}}</label>
                     <input  wire:model="quantity_teams.{{ $category->id }}"
                     wire:change="calculateTeams()"
                     type="number"
                     min="0"
                     max="100"
-                    class="w-32 m-2 p-2 mx-auto text-center items-center appearance-none border rounded-full text-gray-700 focus:outline-none focus:shadow-outline">
+                    class="lg:w-32 sm:w-24 m-2 p-2 mx-auto text-center items-center appearance-none border rounded-full text-gray-700 focus:outline-none focus:shadow-outline">
                     <div>
                         <input class="categoriesIds" wire:model="categoriesIds.{{ $category->id }}" id="categoriesIds" name="categoriesIds.{{ $category->id }}"
                         value="categoriesIds.{{ $category->id }}" hidden>
