@@ -18,7 +18,8 @@ class CreateTeamCategoriesTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('Usuario que lo crea');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade')->comment('Id de Categoría');
             $table->foreignId('payment_id')->constrained('payments')->onDelete('cascade')->comment('Id del pago');
-            $table->string('qty_teams',100)->comment('Equipos Agregados');
+            $table->integer('qty_teams')->unsigned()->comment('Equipos Pagados');
+            $table->integer('registered_teams')->unsigned()->nullable()->default(0)->comment('Equipos Registrados');
             $table->timestamps();
         });
     }

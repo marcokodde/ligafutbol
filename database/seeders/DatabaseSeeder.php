@@ -40,9 +40,7 @@ class DatabaseSeeder extends Seeder
             RoleUserSeeder::class,
             CategorySeeder::class,
             SettingSeeder::class,
-            CostByTeamSeeder::class,
-            CoachSeeder::class,
-            TeamSeeder::class,
+            CostByTeamSeeder::class
         ]);
     }
 

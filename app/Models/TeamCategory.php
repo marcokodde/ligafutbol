@@ -16,8 +16,9 @@ class TeamCategory extends Model
         'qty_teams',
     ];
 
-     //  Pago-->Usuario (Un Pago pertenece a un usuario)
-     public function user() {
+    //  Pago-->Usuario (Un Pago pertenece a un usuario)
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -27,12 +28,17 @@ class TeamCategory extends Model
         return $this->belongsTo(Category::class);
     }
 
-      // Un pago pertenece a
+    // Un pago pertenece a
     public function payment()
     {
         return $this->belongsTo(payment::class);
     }
-    public function can_be_delete(){
+    public function can_be_delete()
+    {
         return false;
+    }
+    public function scopeUserId($query, $user_id)
+    {
+        $query->where('user_id', $user_id);
     }
 }

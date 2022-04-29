@@ -188,7 +188,7 @@ class Payments extends Component
 			'email'     => $request->email,
             'phone'     => $request->phone,
             'password'  => Hash::make($request->password),
-            'active'    =>$request->active ? 1 : 0,
+            'active'    =>  1,
             'token_register_teams' => bin2hex(random_bytes(20))
         ]);
 
