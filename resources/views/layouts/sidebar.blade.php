@@ -1,3 +1,4 @@
+@if(Auth::user())
 <aside class="aside is-placed-left is-expanded">
     <div class="aside-tools">
         <img src="{{asset('images/logo1.png')}}" height="50px" width="50px"  alt="">
@@ -12,18 +13,17 @@
             </a>
         </li>
         </ul>
-        @if(Auth::user())
-            <ul class="menu-list">
-                {{-- Menú Configuración --}}
-                @if(Auth::user()->isAdmin())
-                    @include('layouts.menus.admin')
-                @endif
+        <ul class="menu-list">
+            {{-- Menú Configuración --}}
+            @if(Auth::user()->isAdmin())
+                @include('layouts.menus.admin')
+            @endif
 
-                {{-- Menú de Coach --}}
-                @if(Auth::user()->isCoach())
-                    @include('layouts.menus.coach')
-                @endif
-            </ul>
-        @endif
+            {{-- Menú de Coach --}}
+            @if(Auth::user()->isCoach())
+                @include('layouts.menus.coach')
+            @endif
+        </ul>
     </div>
 </aside>
+@endif

@@ -58,6 +58,7 @@ class TeamCategories extends Component {
         $this->team_categories = TeamCategory::wherehas('category')->where('user_id', $this->user->id)->orderby('id')->get();
             foreach($this->team_categories as $team_category) {
                 for ($i=1; $i<=$team_category->qty_teams; $i++) {
+                    $this->categoryteamIds[$i] = $team_category->category->id;  
                     $this->team_categoriesIds[$i] = $team_category->qty_teams;
                     $this->name[$i] = 0;
                     $this->zipcode[$i] = 0;

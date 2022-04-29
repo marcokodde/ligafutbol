@@ -1,4 +1,4 @@
-<div class="py-2">
+<div class="py-0">
     <div class="max-w-7xl">
         @include('livewire.payments.header_payment')
         <form wire:submit.prevent="submit" action="{{route('makepayment')}}" method="post" role="form"
@@ -7,7 +7,7 @@
         id="stripe-payment">
         @csrf
             <div class="row">
-                <div class="py-2">
+                <div class="py-1">
                     {{-- Paso numero 1 agregando datos de los teams --}}
                     @if ($currentPage === 1)
                         @include('livewire.payments.step1')

@@ -144,5 +144,13 @@
     "Confirm Payment":"Confirmar Pago",
     "Make Payment":"Realizar Pago",
     "By clicking confirm, I authorize to register":"Al dar clic en confirmar, autorizo a registrar",
-    "teams, for a total of:":"equipos por un total de:"
+    "teams, for a total of:":"equipos por un total de:",
+    "Select the number of teams you want to register in each category":"Seleccionar la cantidad de equipos que deseas registrar en cada categoria",
+    "Full Name":"Nombre Completo",
+    "Card Name":"Nombre de Tarjeta",
+    "Number Card":"Numero de la Tarjeta",
+    "Expiration Date":"Fecha de Expiración",
+    "Total teams #":"Total de Equipos #",
+    "Price for Teams":"Precio por Equipos",
+    "Please fill in the information below":"Por favor complete la información a continuación."
 }
