@@ -128,4 +128,8 @@ class User extends Authenticatable
          }
     }
 
+    public function scopeTokenRegisterTeams($query,$token){
+        $query->where('token_register_teams',trim($token));
+    }
+
 }
