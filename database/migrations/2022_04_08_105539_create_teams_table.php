@@ -17,14 +17,14 @@ class CreateTeamsTable extends Migration
             $table->id();
             $table->string('name',50)->comment('Equipo');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade')->comment('Categoría');
-            $table->Integer('zipcode')->nullable()->comment('Zona postal');
+            $table->unsignedInteger('zipcode')->nullable()->comment('Zona postal');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('Usuario que lo crea');
             $table->boolean('active')->default(1)->comment('Activo?');
             $table->boolean('enabled')->default(0)->comment('Habilitado para toreno?');
             $table->foreignId('payment_id')->nullable()->constrained('payments')->comment('Id del pago');
             $table->float('amount', 8, 2)->default(0)->comment('Importe de inscripción'); // Importe para abrir
             // Llave foránea
-           //$table->foreign('zipcode')->references('zipcode')->on('zipcodes');
+            $table->foreign('zipcode')->references('zipcode')->on('zipcodes');
         });
     }
 
