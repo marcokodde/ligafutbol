@@ -10,25 +10,25 @@ use phpDocumentor\Reflection\Types\Null_;
 trait ZipcodeTrait {
 
     // Variables de la configuración
-    public $zipcode=null;
-    public $town_state = null;
+    public $zipcode     = array();
+    public $town_state  = null;
     public $zipcode_exists = false;
 
 
     public function read_zipcode() {
         $this->town_state =Null;
         $this->zipcode_exists = false;
-        if ($this->zipcode) {
-            $zipcode = Zipcode::Zipcode($this->zipcode)->first();
-            if ($zipcode) {
-                $this->town_state = $zipcode->town . ',' . $zipcode->state;
-                $this->zipcode_exists = true;
-            } else {
-                $this->town_state = __('Zipcode does not Exists');
+        foreach($this->zipcode as $zipcod) {
+            $value = (explode("-", $zipcod));
+            if ($this->zipcode) {
+                $zipcode = Zipcode::Zipcode($value[0])->first();
+                if ($zipcode) {
+                    $this->town_state = $zipcode->town . ',' . $zipcode->state;
+                    $this->zipcode_exists = true;
+                } else {
+                    $this->town_state = __('Zipcode does not Exists');
+                }
             }
         }
     }
-
-
-
 }

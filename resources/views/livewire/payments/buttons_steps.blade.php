@@ -1,10 +1,10 @@
-<div class="flex items-center text-center justify-center px-4 py-3 bg-gray-50  sm:px-6">
+<div class="flex text-left justify-start px-4 py-3 bg-gray-50  sm:px-6">
     @if ($currentPage === 1)
         <div></div>
     @elseif($currentPage === 2)
-        <button wire:click="goToPreviousPage" type="button"
-            class="button  red mx-2 px-8 py-4 font-semibold rounded-lg hover:text-black">
-            {{__("Back")}}
+        <button wire:click="goToPreviousPage" type="button" style="background-color: #DCC742"
+            class="button mx-2 px-8 py-4 font-semibold rounded-lg hover:text-black">
+            {{__("Go Back")}}
         </button>
     @else
         <button wire:click="goToPreviousPage" type="button"
@@ -22,14 +22,14 @@
                 {{__("Confirm")}}
             </button>
         @else
-            <button wire:click="goToNextPage" type="button" class="button blue mx-2 px-8 py-4 font-semibold  rounded-lg hover:text-black">
+            <button wire:click="goToNextPage" type="button" class="button blue mx-2 px-8 py-4  font-semibold  rounded-lg hover:text-black">
                 {{__("Next")}}
             </button>
         @endif
     @else
         <button wire:click="goToNextPage" type="button"
-            class="button blue rounded-lg mx-2 px-8 py-4 font-semibold hover:text-black">
-            {{__("Next")}}
+            class="button blue rounded-lg mx-2 px-8 py-4 lg:ml-96 font-semibold hover:text-black">
+            {{__("NextA")}}
         </button>
     @endif
 </div>

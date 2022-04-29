@@ -94,7 +94,7 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-      /* Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+       /*  Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
                 "amount" => $request->price_total * 100,
