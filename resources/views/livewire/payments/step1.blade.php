@@ -5,25 +5,27 @@
 <div class="grid lg:grid-cols-3 lg:gap-4 sm:grid-cols-1 sm:gap-1">
     <div>
     </div>
-    <div>
-        @foreach($categories as $category)
-            <div class="flex mx-auto items-center text-center">
-                <label class="text-xl text-center text-gray-700 font-bold mb-2 mt-2">{{$category->name}}</label>
-                <input  wire:model="quantity_teams.{{ $category->id }}"
-                wire:change="calculateTeams()"
-                type="number"
-                min="0"
-                max="100"
-                class="w-32 m-2 p-2 mx-auto text-center items-center appearance-none border rounded-full text-gray-700 focus:outline-none focus:shadow-outline">
-                <div>
-                    <input class="categoriesIds" wire:model="categoriesIds.{{ $category->id }}" id="categoriesIds" name="categoriesIds.{{ $category->id }}"
-                    value="categoriesIds.{{ $category->id }}" hidden>
-                    <input class="quantity_teams" wire:model="quantity_teams.{{ $category->id }}" id="quantity_teams" name="quantity_teams.{{ $category->id }}"
-                    name="quantity_teams.{{ $category->id }}" hidden>
+        <div class="grid grid-cols-2">
+            @foreach($categories as $category)
+
+                <div class="flex mx-auto items-center text-center">
+                    <label class="text-xl text-center text-gray-700 font-bold mb-2 mt-2">{{$category->name}}</label>
+                    <input  wire:model="quantity_teams.{{ $category->id }}"
+                    wire:change="calculateTeams()"
+                    type="number"
+                    min="0"
+                    max="100"
+                    class="w-32 m-2 p-2 mx-auto text-center items-center appearance-none border rounded-full text-gray-700 focus:outline-none focus:shadow-outline">
+                    <div>
+                        <input class="categoriesIds" wire:model="categoriesIds.{{ $category->id }}" id="categoriesIds" name="categoriesIds.{{ $category->id }}"
+                        value="categoriesIds.{{ $category->id }}" hidden>
+                        <input class="quantity_teams" wire:model="quantity_teams.{{ $category->id }}" id="quantity_teams" name="quantity_teams.{{ $category->id }}"
+                        name="quantity_teams.{{ $category->id }}" hidden>
+                    </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
+
+            @endforeach
+        </div>
     <div>
 
     </div>
