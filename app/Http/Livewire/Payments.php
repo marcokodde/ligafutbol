@@ -109,7 +109,7 @@ class Payments extends Component
         } else {
             $this->store_message(__('Error to Process Payment.'));
         }
-        return redirect()->route('rosters');
+        return redirect()->route('team-categories');
     }
 
     public function read_zipcode() {

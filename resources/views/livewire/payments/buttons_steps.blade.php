@@ -29,7 +29,7 @@
     @else
         <button wire:click="goToNextPage" type="button"
             class="button blue rounded-lg mx-2 px-8 py-4 lg:ml-96 font-semibold hover:text-black">
-            {{__("NextA")}}
+            {{__("Next")}}
         </button>
     @endif
 </div>

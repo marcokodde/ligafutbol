@@ -26,16 +26,16 @@
                                 $values = (explode("-", $value));
                             @endphp
                             @if($value && $values[0] == $category->id && $values[1] == $i)
-                                <div class="flex mt-4" wire:key="bar{{ $i }}">
+                                <div class="flex mt-4" wire:key="bar{{ $loop->index }}">
                                     <input type="text"
-                                        wire:model="name.{{$value}}"
+                                        wire:model="name.{{ $value }}"
                                         maxlength="50"
                                         placeholder="{{__("Team")}}"
                                         class="block w-1/3 {{$error_team ? 'bg-red-500' :''}}">
 
                                     {{-- Zona Postal --}}
                                     <input type="text"
-                                        wire:model="zipcode.{{$value}}"
+                                        wire:model="zipcode.{{ $value }}"
                                         wire:change="read_zipcode()"
                                         maxlength="5"
                                         minlength="5"
@@ -59,16 +59,3 @@
         @endfor
     @endforeach
 </div>
-
-{{-- Controles para Categoría y Equipo --}}
-{{--<select wire:model="category_id"
-        wire:change="calculate_birthday_limits"
-        class="w-1/6">
-        <option value="" selected>{{__('Choose')}}</option>
-        @foreach($team_categories as $team_category)
-            <option value="{{ $team_category->id }}">
-            {{ $team_category->category->name }}
-            {{__('teams:')}}{{ $team_category->qty_teams }}</option>
-        @endforeach
-    </select>
---}}
