@@ -17,6 +17,7 @@ use App\Http\Livewire\Permissions;
 use App\Http\Livewire\PlayersTeam;
 use App\Http\Livewire\Confirmation;
 use Illuminate\Support\Facades\App;
+use App\Http\Livewire\TeamCategories;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RolePermissions;
 
@@ -64,3 +65,14 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('payments', Payments::class)->name('payments');
+Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment');
+
+Route::get('rosters', Rosters::class)->name('rosters');
+Route::get('team-categories', TeamCategories::class)->name('team-categories');
+Route::get('confirmation', Confirmation::class)->name('confirmation');

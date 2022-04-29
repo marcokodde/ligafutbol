@@ -3,19 +3,17 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
-use App\Models\Team;
-use App\Models\User;
+use App\Models\Category;
 use App\Models\Player;
+use App\Models\Team;
 
 use Livewire\Component;
-use App\Models\Category;
-use App\Models\TeamCategory;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use phpDocumentor\Reflection\Types\Null_;
-use App\Http\Livewire\Traits\ZipcodeTrait;
+//use App\Http\Livewire\Traits\ZipcodeTrait;
 use App\Http\Livewire\Traits\SettingsTrait;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -24,22 +22,22 @@ class Rosters extends Component {
     use AuthorizesRequests;
     use WithPagination;
     use CrudTrait;
-    use ZipcodeTrait;
+   // use ZipcodeTrait;
     use SettingsTrait;
 
     protected $listeners = ['destroy'];
 
     // Taba Equipos (Teams)
-    public $name        = array();
-    public $category_id = array();
-    public $zipcode     = array();
+    public $name=null;
+    public $category_id=null;
+    public $zipcode=null;
 
     // Fechas mínimas y máximas según sexo del jugador
     public $female_birthday_from,$female_birthday_to;
     public $male_birthday_from,$male_birthday_to;
 
     // Categorías.
-    public $team_categories=null;
+    public $categories=null;
     public $category=null;
 
     public $town_state;
@@ -52,9 +50,7 @@ class Rosters extends Component {
     public $birthdays   = array();
     public $min_birthday= array();
     public $max_birthdat= array();
-    public $values      = array();
-    public $team_categoriesIds = array();
-    public $i = 0;
+
     // Errores
     public $error_message   = null;
     public $error_team      = false;
@@ -66,17 +62,7 @@ class Rosters extends Component {
         //$this->authorize('hasaccess', 'categories.index');
         $this->manage_title = __('Manage') . ' ' . __('Rosters');
         $this->readSettings();
-        $this->user = User::latest('id')->first();
-
-        $this->team_categories = TeamCategory::wherehas('category')->where('user_id', $this->user->id)->orderby('id')->get();
-            foreach($this->team_categories as $team_category) {
-                for ($i=1; $i<=$team_category->qty_teams; $i++) {
-                    $this->team_categoriesIds[$i] = $team_category->qty_teams;
-                    $this->name[$i] = 0;
-                    $this->zipcode[$i] = 0;
-                    $this->category_id[$i] = 0;
-                }
-            }
+        $this->categories = Category::Active()->orderby('name')->get();
         $this->allow_create = false;
     }
 
@@ -97,22 +83,25 @@ class Rosters extends Component {
      */
 
     public function calculate_birthday_limits(){
+
         $this->reset(['category']);
-            if($this->category_id){
-                $this->category = Category::findOrFail($this->category_id);
-                $date_category_from         = New Carbon($this->category->date_from);
-                $this->female_birthday_from = $date_category_from->subYear();
-                $this->female_birthday_to   = New Carbon($this->category->date_to);
+        if($this->category_id){
+            $this->category = Category::findOrFail($this->category_id);
 
-                $this->male_birthday_from   = New Carbon($this->category->date_from);
-                $date_category_from         = New Carbon($this->category->date_from);
-                $this->male_birthday_to     = $date_category_from->addYears(3);
+            $date_category_from         = New Carbon($this->category->date_from);
+            $this->female_birthday_from = $date_category_from->subYear();
+            $this->female_birthday_to   = New Carbon($this->category->date_to);
 
-                $this->female_birthday_from = $this->female_birthday_from->format('Y-m-d');
-                $this->female_birthday_to   = $this->female_birthday_to->format('Y-m-d');
-                $this->male_birthday_from   = $this->male_birthday_from->format('Y-m-d');
-                $this->male_birthday_to     = $this->male_birthday_to->format('Y-m-d');
-            }
+            $this->male_birthday_from   = New Carbon($this->category->date_from);
+            $date_category_from         = New Carbon($this->category->date_from);
+            $this->male_birthday_to     = $date_category_from->addYears(3);
+
+            $this->female_birthday_from = $this->female_birthday_from->format('Y-m-d');
+            $this->female_birthday_to   = $this->female_birthday_to->format('Y-m-d');
+            $this->male_birthday_from   = $this->male_birthday_from->format('Y-m-d');
+            $this->male_birthday_to     = $this->male_birthday_to->format('Y-m-d');
+        }
+
     }
 
      /*+---------------------------------------------+
@@ -188,39 +177,32 @@ class Rosters extends Component {
 
     // Datos para el Equipo
     private function validate_team(){
-        dd($this->category_id, $this->name, $this->zipcode);
-        foreach($this->team_categories as $team_category) {
-            for ($i=1; $i<=$team_category->qty_teams; $i++) {
-                foreach ($this->name as $key => $value) {
-                    dd($key, $value);
-                    if(isset($nombre)) {
-                        $this->error_message = __('Team Name is Required');
-                        $this->error_team = true;
-                        return false;
-                    }
-                }
-
-                $team_exists = Team::UserId()->Team($this->name[$i])->Category($this->category_id[$i])->first();
-                if($team_exists){
-                    $this->error_message = __('The team already exists');
-                    $this->error_team = true;
-                    return false;
-                }
-
-                if(!$this->zipcode[$i] || strlen($this->zipcode[$i]) == 0){
-                    $this->error_message = __('Zipcode is Required');
-                    $this->error_team = true;
-                    return false;
-                }
-
-                if(!$this->zipcode_exists){
-                    $this->error_message = __('Zipcode does not Exists');
-                    $this->error_team = true;
-                    return false;
-                }
-                return true;
-            }
+        if(!$this->name || strlen(trim($this->name)) == 0  ){
+            $this->error_message = __('Team Name is Required');
+            $this->error_team = true;
+            return false;
         }
+
+        $team_exists = Team::UserId()->Team($this->name)->Category($this->category_id)->first();
+        if($team_exists){
+            $this->error_message = __('The team already exists');
+            $this->error_team = true;
+            return false;
+        }
+
+        if(!$this->zipcode || strlen($this->zipcode) == 0){
+            $this->error_message = __('Zipcode is Required');
+            $this->error_team = true;
+            return false;
+        }
+
+        if(! $this->zipcode_exists){
+            $this->error_message = __('Zipcode does not Exists');
+            $this->error_team = true;
+            return false;
+        }
+        return true;
+
     }
 
     // Datos para los jugadores
@@ -234,6 +216,7 @@ class Rosters extends Component {
         if($this->error_message) return false;
         return true;
     }
+
 
     // ¿Hay algún dato o todo está vacío?
     private function validate_avoid_all_data(){
@@ -371,9 +354,9 @@ class Rosters extends Component {
 
     private function display_data($punto_validacion=''){
         dd( $punto_validacion,
-            'Categoría=' .  $this->category->name,
-            'Equipo=' .     $this->name,
-            'Zipcode=' .    $this->zipcode,
+            'Categoría=' . $this->category->name,
+            'Equipo=' . $this->name,
+            'Zipcode=' . $this->zipcode,
             'Ciudad=' . $this->town_state,
             'Nombres',$this->first_names,
             'Apellidos',$this->last_names,
@@ -382,19 +365,15 @@ class Rosters extends Component {
     }
 
     // Crea Equipo
-    public function create_team(){
-        if(!$this->validate_team()) return false;
-        foreach($this->team_categories as $team_category) {
-            for ($i=1; $i<=$team_category->qty_teams; $i++) {
-                return Team::Create([
-                    'name'          => $this->name[$i],
-                    'category_id'   => $this->category_id[$i],
-                    'zipcode'       => $this->zipcode[$i],
-                    'user_id'       => $this->user->id,
-                    'active'        => 1
-                ]);
-            }
-        }
+    private function create_team(){
+        $this->record_id = null;
+        return Team::updateOrCreate(['id' => $this->record_id], [
+            'name'          => $this->name,
+			'category_id'   => $this->category_id,
+            'zipcode'       => $this->zipcode,
+            'user_id'       => Auth::user()->id,
+            'active'        => 1
+		]);
     }
 
     // Crea Jugador
