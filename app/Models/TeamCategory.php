@@ -32,7 +32,7 @@ class TeamCategory extends Model
     // Un pago pertenece a
     public function payment()
     {
-        return $this->belongsTo(payment::class);
+        return $this->belongsTo(Payment::class);
     }
     public function can_be_delete()
     {
