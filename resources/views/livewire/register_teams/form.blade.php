@@ -2,9 +2,18 @@
     <div>
         <div class="sm:px-0 mx-auto text-center items-center">
             <img src="{{asset('images/galveston2022.png')}}" height="100px" width="100px" class="inline" alt="">
-            <h3 class="lg:text-2xl sm:text-lg font-bold leading-6 text-black p-4 uppercase inline text-center items-center">
-                {{__("Introduce the Team Name and Zipcode")}}
-            </h3>
+
+            @if($finish)
+                <h3 class="lg:text-5xl sm:text-lg font-bold leading-6 text-green-400 p-4 uppercase inline text-center items-center">
+                    {{__("Your Teams has been Registered")}}
+                </h3>
+            @else
+                <h3 class="lg:text-2xl sm:text-lg font-bold leading-6 text-black p-4 uppercase inline text-center items-center">
+                    {{__("Introduce the Team Name and Zipcode")}}
+                </h3>
+
+            @endif
+
         </div>
         <hr class="border-2 border-gray-500">
     </div>
@@ -19,16 +28,9 @@
 
             <div class="grid">
                 @if($error_message)
-
-                    @if($finish)
-                        <label class=" text-3xl text-green-500 text-center font-bold mb-2 mt-2">
-                            {{ $error_message}}
-                        </label>
-                    @else
-                        <label class=" text-3xl text-red-500 text-center font-bold mb-2 mt-2">
-                            {{ $error_message}}
-                        </label>
-                    @endif
+                    <label class=" text-3xl text-red-500 text-center font-bold mb-2 mt-2">
+                        {{ $error_message}}
+                    </label>
                 @endif
 
             </div>
@@ -80,8 +82,7 @@
     @if(!$finish)
         <div class="row mt-5">
             <div class="flex text-center items-center justify-center bg-gray-50  sm:px-6">
-                <button wire:click="show_data"
-                        type="submit"
+                <button wire:click="review_data"
                         class="button green mx-2 px-8 py-4  font-semibold  rounded-lg hover:text-black"
                     >
                     {{__("Save")}}

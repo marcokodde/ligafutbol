@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
+use App\Http\livewire\Traits\ZipcodeTrait;
 use App\Models\Team;
 use App\Models\TeamCategory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -16,6 +17,7 @@ class RegisterTeams extends Component
     use AuthorizesRequests;
     use WithPagination;
     use CrudTrait;
+    use ZipcodeTrait;
 
     public $user;
     public $teams_category_user;
@@ -28,14 +30,6 @@ class RegisterTeams extends Component
     public $error_message   = null;
     public $finish          = false;
 
-<<<<<<< HEAD
-    public function mount($token = null)
-    {
-        if (!Auth::user()) {
-            if (!$token) {
-                dd('No trae token, está mal la ruta');
-            }
-=======
     public function mount($token=null){
         if(!Auth::user()){
 
@@ -47,7 +41,6 @@ class RegisterTeams extends Component
                $i=0;
                foreach($this->teams_category_user as $category) {
                     $i = $this->add_category_id($category,$i);
->>>>>>> 60dcca62 (Register Teams: Error cuando no trae token en la ruta)
 
             $this->user = User::TokenRegisterTeams($token)->first();
             if ($this->user) {
@@ -91,15 +84,18 @@ class RegisterTeams extends Component
     }
 
 
-    public function show_data()
-    {
+    public function review_data(){
 
         $this->validate_fill_arrays();
         if (!$this->error_message) {
             $this->validate_not_duplicate_name_in_array();
         }
 
-        if (!$this->error_message) {
+        if(!$this->error_message){
+            $this->validate_zipcodes();
+        }
+
+        if(!$this->error_message){
             $this->validate_not_duplicate_name_in_database();
         }
 
@@ -107,10 +103,6 @@ class RegisterTeams extends Component
             $this->create_teams();
         }
 
-        //dd($this->team_names,$this->team_zipcodes,$this->error_names,$this->error_zipcodes,$this->error_message);
-        if (!$this->error_message) {
-            $this->error_message = 'Ahora a validar que no estén duplicados';
-        }
     }
 
 
@@ -135,8 +127,8 @@ class RegisterTeams extends Component
     {
         for ($i = 0; $i < count($this->categoriesIds); $i++) {
             $this->error_names[$i] = false;
-            for ($j = $i + 1; $j < count($this->categoriesIds) - 1; $j++) {
-                if ($this->team_names[$i] == $this->team_names[$j]) {
+            for($j=$i+1;$j<count($this->categoriesIds)-1;$j++){
+                if($this->team_names[$i] == $this->team_names[$j] && $this->categoriesIds[$i] == $this->categoriesIds[$j] ){
                     $this->error_message = __('There are duplicate name team');
                     $this->error_names[$i] = true;
                     break;
@@ -145,6 +137,21 @@ class RegisterTeams extends Component
             }
         }
     }
+
+    /** Valida que los Zipcode Existan  */
+    private function validate_zipcodes(){
+        for ($i=0;$i < count($this->categoriesIds);$i++) {
+            $this->error_zipcodes[$i] = false;
+            $record_zipcode = $this->read_this_zipcode($this->team_zipcodes[$i]);
+            if(!$record_zipcode){
+                $this->error_zipcodes[$i] = true;
+                $this->error_message = __('Zipcode does not Exists');
+                break;
+            }
+       }
+
+    }
+
 
     /** Valida que no existan en base de datos */
     private function validate_not_duplicate_name_in_database()
@@ -184,8 +191,15 @@ class RegisterTeams extends Component
             $record_team_category->update_registered_teams();
         }
 
-        $this->error_message = __('Your Teams has been Registered');
+        $this->error_message = null;
         $this->finish = true;
         $this->user->delete_token_to_register_teams();
+
+        for ($i=0;$i < count($this->categoriesIds);$i++) {
+            $this->error_names[$i]      = false;
+            $this->error_zipcodes[$i]   = false;
+        }
+
+
     }
 }
