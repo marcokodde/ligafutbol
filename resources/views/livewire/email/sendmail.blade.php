@@ -12,24 +12,32 @@
 
     <img style="display:block;margin-left:auto;margin-right:auto;width:150px;" src="https://i0.wp.com/galvestoncup.com/wp-content/uploads/2022/04/small-logo.png?w=400&ssl=1">
 
-    <h1>{{__('Thank you for register the Galveston Cup.  Below are the registration details:')}}</h1>
-
+    <h1>{{__('Thank you for register the Galveston Cup 2022')}}</h1>
     <div>
-        <h4 class="bg-blue-700 text-base">{{__('Name Payment:')}}</h4>
+        <h4 class="bg-blue-700 text-base">
+            {{__('This email is a confirmation of your registration #')}}
+            {{$total_teams}}
+            {{__('teams with a total of')}} ${{number_format($total, 2, '.', '')}}</h4>
     </div>
 
     <div>
-        <h4 class="bg-blue-700 text-base">{{__('Phone ')}}</h4>
-    </div>
-
-    <div>
-        <h4 class="bg-blue-700 text-base">{{__('Total Price:')}}</h4>
+        <p class="bg-blue-700 text-base">{{__('You will receive another email in the next few days so that you can complete your team data and upload your player roster for each team.')}}</p>
     </div>
     <div>
-        <h4 class="bg-blue-700 text-base">{{__('Total Teams:')}}</h4>
+        @php
+            $url = "https://equipos.galvestoncup.com/register_teams/";
+        @endphp
+        <p class="bg-blue-700 text-base">{{__('Enter this link, if you want to add your teams ')}} {{$url.''.$token}}</p>
+    </div>
+    <div>
+        <h4 class="bg-blue-700 text-base">{{__('Thank you for your registration!')}}</h4>
+    </div>
+    <div>
+        <h4 class="bg-blue-700 text-base">{{__('Galveston Cup')}}</h4>
     </div>
 
-    <span>{{__('If you have ay questions, call us')}}</span>
-    <span class="bg-blue-700">208 005 152 749</span>
+    <span>{{__('www.GalvestonCup.com')}}</span>
+    <p></p>
+    <span class="bg-blue-700">1-800-515-2749</span>
 </body>
 </html>

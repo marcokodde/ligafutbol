@@ -11,9 +11,17 @@ class ConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $email;
-    public function __construct($email)
+    public $total;
+    public $total_teams;
+    public $token;
+
+    public function __construct($email, $total, $total_teams, $token)
     {
         $this->email = $email;
+        $this->total = $total;
+        $this->total_teams = $total_teams;
+        $this->token = $token;
+
     }
 
 
@@ -21,6 +29,6 @@ class ConfirmationMail extends Mailable
     {
         $this->from($this->email)
         ->subject('A Registration Was Added!')
-        ->view('livewire.email.sendmail');
+        ->view('livewire.email.sendmail')->with($this->total, $this->total_teams, $this->token);
     }
 }

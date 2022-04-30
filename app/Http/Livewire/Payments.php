@@ -96,14 +96,15 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        /* Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
                 "amount" => $request->price_total * 100,
                 "currency" => "USD",
                 "source" => $request->stripeToken,
                 "description" => $request->card_name
-        ]);
+        ]); */
+        $this->charge = 12;
         if (!is_null($this->charge)) {
             $this->createUser($request);
             $payment_record = $this->create_payment($request);
@@ -232,9 +233,12 @@ class Payments extends Component
         }
     }
     public function sendMail($request) {
-        $email  = $request->email;
+        $email      = $request->email;
+        $total      = $request->price_total;
+        $total_teams=$request->total_teams;
+        $token      =$this->user->token_register_teams;
         return Mail::to($email)
             ->send(new ConfirmationMail
-            ($email));
+            ($email, $total, $total_teams, $token));
     }
 }
