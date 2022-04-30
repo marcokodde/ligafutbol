@@ -5,7 +5,7 @@
 
             @if($finish)
                 <h3 class="lg:text-5xl sm:text-lg font-bold leading-6 text-green-400 p-4 uppercase inline text-center items-center">
-                    {{__("Your Teams has been Registered")}}
+                    {{__("Your Players has been Registered")}}
                 </h3>
             @else
                 <h3 class="lg:text-2xl sm:text-lg font-bold leading-6 text-black p-4 uppercase inline text-center items-center">

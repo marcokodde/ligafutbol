@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Team;
 use App\Models\User;
+use App\Models\Coach;
 use Livewire\Component;
+use App\Models\TeamCategory;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\livewire\Traits\ZipcodeTrait;
-use App\Models\Team;
-use App\Models\TeamCategory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class RegisterTeams extends Component
@@ -177,7 +178,7 @@ class RegisterTeams extends Component
         for ($i = 0; $i < count($this->categoriesIds); $i++) {
             $record_team_category = TeamCategory::findOrFail($this->teamsCategoriesIds[$i]);
 
-            Team::create([
+            $record_team = Team::create([
                 'name'          => $this->team_names[$i],
                 'category_id'   => $this->categoriesIds[$i],
                 'zipcode'       => $this->team_zipcodes[$i],
@@ -188,7 +189,15 @@ class RegisterTeams extends Component
                 'amount'        => round($record_team_category->payment->amount / $record_team_category->payment->source, 2),
             ]);
 
+
             $record_team_category->update_registered_teams();
+            $record_coach = Coach::where('name',$this->user->name)
+                                ->where('phone',$this->user->phone)
+                                ->where('user_id',$this->user->id)
+                                ->first();
+
+            $record_team->coaches()->attach( $record_coach);
+
         }
 
         $this->error_message = null;
