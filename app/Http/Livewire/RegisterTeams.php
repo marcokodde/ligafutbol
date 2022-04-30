@@ -28,12 +28,26 @@ class RegisterTeams extends Component
     public $error_message   = null;
     public $finish          = false;
 
+<<<<<<< HEAD
     public function mount($token = null)
     {
         if (!Auth::user()) {
             if (!$token) {
                 dd('No trae token, está mal la ruta');
             }
+=======
+    public function mount($token=null){
+        if(!Auth::user()){
+
+           $this->user = User::TokenRegisterTeams($token)->first();
+           if($this->user){
+               $this->teams_category_user = TeamCategory::UserId($this->user->id)
+                                                        ->WithPendingTeams()
+                                                        ->get();
+               $i=0;
+               foreach($this->teams_category_user as $category) {
+                    $i = $this->add_category_id($category,$i);
+>>>>>>> 60dcca62 (Register Teams: Error cuando no trae token en la ruta)
 
             $this->user = User::TokenRegisterTeams($token)->first();
             if ($this->user) {
