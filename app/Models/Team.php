@@ -17,8 +17,10 @@ class Team extends Model
         'zipcode',
         'user_id',
         'active',
+        'enabled',
+        'payment_id',
         'amount',
-        'enabled'
+
     ];
 
     /*+-----------------+
@@ -96,7 +98,7 @@ class Team extends Model
          }
     }
 
-    public function scopeCategory($query,$valor)
+    public function scopeByCategory($query,$valor)
     {
         if ( $valor) {
             $query->where('category_id',$valor);

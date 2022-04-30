@@ -70,66 +70,82 @@ class User extends Authenticatable
       +-----------------+
      */
 
-        public function teams(){
-            return $this->hasMany(Team::class);
-        }
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
 
-        public function teams_not_enabled(){
-            return $this->hasMany(Team::class)->where('enabled',0);
-        }
+    public function teams_not_enabled()
+    {
+        return $this->hasMany(Team::class)->where('enabled', 0);
+    }
 
-        public function coaches(){
-            return $this->hasMany(Coach::class);
-        }
+    public function coaches()
+    {
+        return $this->hasMany(Coach::class);
+    }
 
-        public function players(){
-            return $this->hasMany(Player::class);
-        }
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
 
-         // TeamCategory -> que le pertenecen al usuario
-        public function teams_categories() {
-            return $this->hasMany(TeamCategory::class);
-        }
+    // TeamCategory -> que le pertenecen al usuario
+    public function teams_categories()
+    {
+        return $this->hasMany(TeamCategory::class);
+    }
 
     /*+-------------+
       | Apoyo       |
       +-------------+
      */
 
-     public function isActive(){
-         return $this->active;
-     }
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    public function delete_token_to_register_teams()
+    {
+        $this->token_register_teams = null;
+        $this->save();
+    }
 
     /*+-------------+
       | Búsquedas   |
       +-------------+
      */
-    public function scopeSearch($query,$valor){
-        $query->where('name','LIKE',"%$valor%")
-              ->orwhere('email','LIKE',"%$valor%")
-              ->orwhere('phone','LIKE',"%$valor%");
+    public function scopeSearch($query, $valor)
+    {
+        $query->where('name', 'LIKE', "%$valor%")
+            ->orwhere('email', 'LIKE', "%$valor%")
+            ->orwhere('phone', 'LIKE', "%$valor%");
     }
 
-    public function scopeName($query,$valor){
-        if ( trim($valor) != "") {
-            $query->where('name','LIKE',"%$valor%");
-         }
+    public function scopeName($query, $valor)
+    {
+        if (trim($valor) != "") {
+            $query->where('name', 'LIKE', "%$valor%");
+        }
     }
 
-    public function scopeEmail($query,$valor){
-        if ( trim($valor) != "") {
-            $query->where('email','LIKE',"%$valor%");
-         }
+    public function scopeEmail($query, $valor)
+    {
+        if (trim($valor) != "") {
+            $query->where('email', 'LIKE', "%$valor%");
+        }
     }
 
-    public function scopePhone($query,$valor){
-        if ( trim($valor) != "") {
-            $query->where('phone','LIKE',"%$valor%");
-         }
+    public function scopePhone($query, $valor)
+    {
+        if (trim($valor) != "") {
+            $query->where('phone', 'LIKE', "%$valor%");
+        }
     }
 
-    public function scopeTokenRegisterTeams($query,$token){
-        $query->where('token_register_teams',trim($token));
+    public function scopeTokenRegisterTeams($query, $token)
+    {
+        $query->where('token_register_teams', trim($token));
     }
-
 }

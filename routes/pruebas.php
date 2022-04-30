@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\TestController;
 use App\Models\CostByTeam;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +41,5 @@ Route::get('costo_x_equipo',function(){
 
 });
 
+Route::get('test_controller',TestController::class)->name('test_controller');
 

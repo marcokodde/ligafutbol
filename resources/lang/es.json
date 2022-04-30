@@ -1,4 +1,10 @@
 {
+
+    "Your Teams has been Registered":"Tus equipos han sido registrados",
+    "The team already exists in category": "Equipo ya existe en la categoría",
+    "There are duplicate name team": "Hay nombres de equpo duplicados",
+    "Please fill al input boxes": "Por favor llene todos los cuadros",
+    "Introduce the Team Name and Zipcode": "Introduzca Nombre de Equipo y Zona Postal",
     "The list has been registered": "La Lista ha Sido Registrada",
     "Missing birthday for to": "Falta fecha de nacimiento para",
     "Incomplete name to": "Nombre incompleto para",

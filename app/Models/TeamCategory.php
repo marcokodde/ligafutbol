@@ -14,6 +14,7 @@ class TeamCategory extends Model
         'category_id',
         'payment_id',
         'qty_teams',
+        'registered_teams'
     ];
 
     //  Pago-->Usuario (Un Pago pertenece a un usuario)
@@ -40,5 +41,18 @@ class TeamCategory extends Model
     public function scopeUserId($query, $user_id)
     {
         $query->where('user_id', $user_id);
+    }
+
+    // Con equipos pendientes
+    public function scopeWithPendingTeams($query)
+    {
+        $query->where('qty_teams', '>', 'registered_teams');
+    }
+
+    // De apoyo
+    public function update_registered_teams()
+    {
+        $this->registered_teams++;
+        $this->save();
     }
 }
