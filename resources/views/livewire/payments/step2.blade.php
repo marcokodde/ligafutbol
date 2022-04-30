@@ -1,3 +1,3 @@
-<div class="flex flex-wrap -mx-3 mb-2">
+<div>
     @include('livewire.payments')
 </div>

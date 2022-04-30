@@ -164,7 +164,7 @@ class Payments extends Component
                 }
                 $this->total_teams = $this->total_teams + $this->quantity_teams[$i];
             } else {
-                $this->quantity_teams[$i] = 0;
+                $this->quantity_teams[$i]= null;
             }
         }
         if ($this->total_teams) {
@@ -233,7 +233,7 @@ class Payments extends Component
     }
     public function sendMail($request) {
         $email  = $request->email;
-        return Mail::to('markoavt10@gmail.com')
+        return Mail::to($email)
             ->send(new ConfirmationMail
             ($email));
     }

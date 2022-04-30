@@ -14,7 +14,7 @@
                     type="number"
                     min="0"
                     max="100"
-                    class="lg:w-32 sm:w-24 m-2 p-2 mx-auto text-center items-center appearance-none border rounded-full text-gray-700 focus:outline-none focus:shadow-outline">
+                    class="lg:w-32 sm:w-32 m-2 p-2 mx-auto text-right items-right appearance-none border rounded-lg text-gray-700 focus:outline-none focus:shadow-outline">
                     <div>
                         <input class="categoriesIds" wire:model="categoriesIds.{{ $category->id }}" id="categoriesIds" name="categoriesIds.{{ $category->id }}"
                         value="categoriesIds.{{ $category->id }}" hidden>
@@ -35,7 +35,8 @@
         id="price_total"
         name="price_total" hidden>
         @if ($total_teams)
-            <label class="block text-xl text-black font-bold mt-2 justify-center text-center lg:-ml-12">{{__('Total teams #')}}  {{$total_teams}}, {{__('Price for Teams')}} ${{number_format($price_total, 2, '.', '')}}</label>
+            <label class="block text-xl text-black font-bold mt-2 justify-center text-center lg:-ml-12">
+                {{__('Price per team:')}} ${{number_format($price_total, 2, '.', '')}} {{__("(Total #$total_teams")}} {{__("teams)")}}</label>
         @endif
         <label class="inline text-2xl text-black font-bold mt-2 m-2 lg:-ml-28">{{__('Total')}}</label>
         <input type="number"

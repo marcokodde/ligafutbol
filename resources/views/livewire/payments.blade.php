@@ -90,8 +90,8 @@
                 </div>
             </div>
             <div class='grid-col-1 lg:w-40 form-group cvc required'>
-                <x-jet-label for="name" value="{{ __('CVC') }}" />
-                <input autocomplete='off' class='mt-4 sm:32 sm:mt-0 rounded form-control card-cvc' placeholder='CVC'
+                <x-jet-label for="name" value="{{ __('CVV') }}" />
+                <input autocomplete='off' class='mt-4 sm:32 sm:mt-0 rounded form-control card-cvc' placeholder='CVV'
                 size='16' maxlength="4" minlength="3" type='password' required>
                 @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>

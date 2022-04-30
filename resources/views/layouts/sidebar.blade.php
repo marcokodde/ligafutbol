@@ -1,18 +1,19 @@
-@if(Auth::user())
+
 <aside class="aside is-placed-left is-expanded">
-    <div class="aside-tools">
-        <img src="{{asset('images/logo1.png')}}" height="50px" width="50px"  alt="">
+    <div class="aside-tools h-24 mx-auto mt-4 text-center items-center">
+        <img src="{{asset('images/galveston2022.png')}}" height="70px" width="70px"  alt="">
     </div>
-    <div class="menu is-menu-main">
+    <div class="menu is-menu-main mt-4">
         <ul class="menu-list">
         <li class="active">
             <a href="index.html">
                 <span class="menu-item-label text-center">
-                    <a href="{{url('dashboard')}}">{{__('Dashboard')}}</a>
+                    <a href="{{url('#')}}">{{__('Dashboard')}}</a>
                 </span>
             </a>
         </li>
         </ul>
+        @if (Auth::user())
         <ul class="menu-list">
             {{-- Menú Configuración --}}
             @if(Auth::user()->isAdmin())
@@ -24,6 +25,10 @@
                 @include('layouts.menus.coach')
             @endif
         </ul>
+        @else
+        <div class="mt-4 mx-4">
+            @include('common.language')
+        </div>
+        @endif
     </div>
 </aside>
-@endif

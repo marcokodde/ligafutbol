@@ -24,7 +24,7 @@ class CreateTeamsTable extends Migration
             $table->foreignId('payment_id')->nullable()->constrained('payments')->comment('Id del pago');
             $table->float('amount', 8, 2)->default(0)->comment('Importe de inscripción'); // Importe para abrir
             // Llave foránea
-            $table->foreign('zipcode')->references('zipcode')->on('zipcodes');
+            //$table->foreign('zipcode')->references('zipcode')->on('zipcodes');
         });
     }
 

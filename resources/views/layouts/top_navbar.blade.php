@@ -1,3 +1,4 @@
+@if (Auth::user())
 <nav id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">
         <a class="navbar-item mobile-aside-button">
@@ -125,8 +126,8 @@
                     </x-jet-dropdown>
                 </div>
                 @endif
-                
             </div>
         </div>
     </div>
 </nav>
+@endif

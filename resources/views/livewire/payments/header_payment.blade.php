@@ -1,7 +1,7 @@
 <div>
     <div class="sm:px-0 mx-auto text-center items-center">
         <img src="{{asset('images/galveston2022.png')}}" height="100px" width="100px" class="inline" alt="">
-        <h3 class="lg:text-2xl sm:text-lg font-bold leading-6 text-black p-4 uppercase inline text-center items-center">{{__($pages[$currentPage]['heading']) }}</h3>
+        <h3 class="block mt-4 lg:text-2xl sm:text-base font-bold leading-6 text-black p-4 uppercase text-center items-center">{{__($pages[$currentPage]['heading']) }}</h3>
     </div>
     <hr class="border-2 border-gray-500">
 </div>
