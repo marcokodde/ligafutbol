@@ -83,6 +83,11 @@ class Team extends Model
         $query->where('user_id', Auth::user()->id);
     }
 
+    public function scopeThisUserId($query,$user_id){
+        $query->where('user_id', $user_id);
+
+    }
+
     public function scopeName($query,$valor)
     {
         if ( trim($valor) != "") {

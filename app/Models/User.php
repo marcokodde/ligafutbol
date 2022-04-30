@@ -97,6 +97,12 @@ class User extends Authenticatable
         return $this->hasMany(TeamCategory::class);
     }
 
+    public function teams_categories_with_pending_teams()
+    {
+        return $this->hasMany(TeamCategory::class)->where('qty_teams', '>', 'registered_teams');
+    }
+
+
     /*+-------------+
       | Apoyo       |
       +-------------+
@@ -153,8 +159,15 @@ class User extends Authenticatable
         }
     }
 
+    // Busca el token para registro de equipos
     public function scopeTokenRegisterTeams($query, $token)
     {
         $query->where('token_register_teams', trim($token));
+    }
+
+    // Busca el token para registro de equipos
+    public function scopeTokenRegisterPlayers($query, $token)
+    {
+        $query->where('token_register_players', trim($token));
     }
 }

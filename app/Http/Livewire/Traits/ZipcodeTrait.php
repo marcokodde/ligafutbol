@@ -30,4 +30,8 @@ trait ZipcodeTrait
             }
         }
     }
+
+    public function read_this_zipcode($zipcode){
+        return Zipcode::Zipcode($zipcode)->first();
+    }
 }

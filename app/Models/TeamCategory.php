@@ -26,7 +26,7 @@ class TeamCategory extends Model
     // Categorias cubiertas por el pago
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class,'category_id');
     }
 
     // Un pago pertenece a

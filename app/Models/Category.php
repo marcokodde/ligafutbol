@@ -33,7 +33,7 @@ class Category extends Model
 
          // TeamCategory -> que le pertenecen al usuario
          public function teams_categories() {
-            return $this->hasMany(TeamCategory::class);
+            return $this->hasMany(TeamCategory::class,'category_id');
         }
     /*+-----------------+
       | Funciones Apoyo |
