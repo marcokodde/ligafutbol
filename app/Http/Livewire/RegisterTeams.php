@@ -71,8 +71,6 @@ class RegisterTeams extends Component
             $this->teamsCategoriesIds[$indice]  = $category->id;
             $this->error_names[$indice]         = false;
             $this->error_zipcodes[$indice]      = false;
-            $this->team_names[$indice]          = 'Cruz Azul-' . $category->category_id;
-            $this->team_zipcodes[$indice]       =  77498 +  $category->category_id;
             $indice++;
         }
         return $indice;
