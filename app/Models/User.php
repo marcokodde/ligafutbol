@@ -32,6 +32,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'token_register_teams',
+        'token_register_players',
         'active'
     ];
 
@@ -106,9 +107,17 @@ class User extends Authenticatable
         return $this->active;
     }
 
+    // Borra token para registro de equipos
     public function delete_token_to_register_teams()
     {
         $this->token_register_teams = null;
+        $this->save();
+    }
+
+    //  Borra token para registro de jugadores
+    public function delete_token_to_register_players()
+    {
+        $this->token_register_players = null;
         $this->save();
     }
 
