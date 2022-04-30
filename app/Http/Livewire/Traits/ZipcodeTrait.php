@@ -18,18 +18,17 @@ trait ZipcodeTrait {
     public function read_zipcode() {
         $this->town_state =Null;
         $this->zipcode_exists = false;
-        foreach($this->zipcode as $zipcod) {
-            $value = (explode("-", $zipcod));
-            if ($this->zipcode) {
-                $zipcode = Zipcode::Zipcode($value[0])->first();
-                if ($zipcode) {
-                    $this->town_state = $zipcode->town . ',' . $zipcode->state;
-                    $this->zipcode_exists = true;
-                } else {
-                    $this->town_state = __('Zipcode does not Exists');
-                }
+
+        if ($this->zipcode) {
+            $zipcode = Zipcode::Zipcode($this->zipcode)->first();
+            if ($zipcode) {
+                $this->town_state = $zipcode->town . ',' . $zipcode->state;
+                $this->zipcode_exists = true;
+            } else {
+                $this->town_state = __('Zipcode does not Exists');
             }
         }
+
     }
 
     public function read_this_zipcode($zipcode){

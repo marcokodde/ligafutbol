@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use phpDocumentor\Reflection\Types\Null_;
-//use App\Http\Livewire\Traits\ZipcodeTrait;
+use App\Http\Livewire\Traits\ZipcodeTrait;
 use App\Http\Livewire\Traits\SettingsTrait;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -22,7 +22,7 @@ class Rosters extends Component {
     use AuthorizesRequests;
     use WithPagination;
     use CrudTrait;
-   // use ZipcodeTrait;
+    use ZipcodeTrait;
     use SettingsTrait;
 
     protected $listeners = ['destroy'];
@@ -30,7 +30,7 @@ class Rosters extends Component {
     // Taba Equipos (Teams)
     public $name=null;
     public $category_id=null;
-    public $zipcode=null;
+
 
     // Fechas mínimas y máximas según sexo del jugador
     public $female_birthday_from,$female_birthday_to;
