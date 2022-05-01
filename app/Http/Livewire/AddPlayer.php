@@ -22,7 +22,7 @@ class AddPlayer extends Component
 
     public function render()
     {
-        return view('livewire.add-player');
+        return view('livewire.register_players.add-player');
     }
 
 
@@ -37,7 +37,6 @@ class AddPlayer extends Component
 
     public function addPlayer(){
 
-
         $this->validate([
             'first_name'=> 'required|min:3|max:30',
             'last_name' => 'required|min:3|max:30',
@@ -45,16 +44,32 @@ class AddPlayer extends Component
             'gender'    => 'required|in:Female,Male',
 		]);
 
-        Player::Create([
-            'first_name'=> $this->first_name,
-			'last_name' => $this->last_name,
-            'birthday'  => $this->birthday,
-            'gender'    => $this->gender,
-            'user_id'   => $this->user->id
-		])->teams()->attach($this->team);
+        $this->first_name = ucwords(strtolower(trim($this->first_name)));
+        $this->last_name = ucwords(strtolower(trim($this->last_name)));
 
+        // ¿Existe el jugador?
+        $record_player = Player::ThisUserId($this->user->id)
+                                ->FirstName($this->first_name)
+                                ->LastName($this->last_name)
+                                ->Gender($this->gender)
+                                ->Birthday($this->birthday)
+                                ->first();
+        if(!$record_player){
+            Player::Create([
+                'first_name'=> $this->first_name,
+                'last_name' => $this->last_name,
+                'birthday'  => $this->birthday,
+                'gender'    => $this->gender,
+                'user_id'   => $this->user->id
+            ])->teams()->attach($this->team);
+        }else{
+            $record_player->teams()->detach($this->team);
+            $record_player->teams()->attach($this->team);
+        }
+        $this->team->load('players');
         $this->resetInputFields();
-
-
+        $this->emit('reload_players');
     }
+
+
 }

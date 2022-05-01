@@ -84,6 +84,21 @@ class Player extends Model
          }
     }
 
+    public function scopeFirstName($query,$valor)
+    {
+        if ( trim($valor) != "") {
+            $query->where('first_name',$valor);
+         }
+    }
+
+    public function scopeLastName($query,$valor)
+    {
+        if ( trim($valor) != "") {
+            $query->where('last_name',$valor);
+         }
+    }
+
+
     public function scopeGender($query,$gender){
 
         if ( trim($gender) != "") {
@@ -91,7 +106,14 @@ class Player extends Model
          }
     }
 
-    public function scopeBirthDay($query,$from,$to){
+    public function scopeBirthDay($query,$birthday){
+        $query->where('birthday',$birthday);
+    }
+
+    public function scopeBirthDayFromTo($query,$from,$to){
         $query->whereBetween('birthday',[$from,$to]);
+    }
+    public function scopeThisUserId($query,$user_id){
+        $query->where('user_id',$user_id);
     }
 }

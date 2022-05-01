@@ -4,9 +4,7 @@
             {{ __('You Do Not Have Players to Register') }}
         </label>
     @else
-    {{$user->name}}
         @include('livewire.register_players.form')
-
     @endif
 
 
