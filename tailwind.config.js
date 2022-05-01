@@ -12,6 +12,7 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                pop:['Poppins'],
             },
             backgroundImage: {
                 'confirmation': "url('/images/Confirmation_page.png')",

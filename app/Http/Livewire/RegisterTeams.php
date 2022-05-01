@@ -10,7 +10,9 @@ use App\Models\TeamCategory;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
-use App\Http\livewire\Traits\ZipcodeTrait;
+//use App\Http\livewire\Traits\ZipcodeTrait;
+use App\Models\Team;
+use App\Models\TeamCategory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class RegisterTeams extends Component
@@ -18,7 +20,7 @@ class RegisterTeams extends Component
     use AuthorizesRequests;
     use WithPagination;
     use CrudTrait;
-    use ZipcodeTrait;
+    //use ZipcodeTrait;
 
     public $user;
     public $teams_category_user;

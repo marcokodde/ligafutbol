@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use phpDocumentor\Reflection\Types\Null_;
-use App\Http\Livewire\Traits\ZipcodeTrait;
+//use App\Http\Livewire\Traits\ZipcodeTrait;
 use App\Http\Livewire\Traits\SettingsTrait;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -24,7 +24,7 @@ class TeamCategories extends Component {
     use AuthorizesRequests;
     use WithPagination;
     use CrudTrait;
-    use ZipcodeTrait;
+    //use ZipcodeTrait;
     use SettingsTrait;
 
     protected $listeners = ['destroy'];
