@@ -81,6 +81,6 @@ class AddPlayer extends Component
     public function birthday_limits(){
         $this->birthday_min = $this->team->category->birthday_limits($this->gender,'from');
         $this->birthday_max = $this->team->category->birthday_limits($this->gender,'to');
-      }
+    }
 
 }
