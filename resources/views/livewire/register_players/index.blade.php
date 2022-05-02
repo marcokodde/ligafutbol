@@ -6,11 +6,4 @@
     @else
         @include('livewire.register_players.form')
     @endif
-
-
 </div>
-
-
-
-
-
