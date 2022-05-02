@@ -13,8 +13,8 @@
     <div>
         <label class="block text-xl text-gray-500 font-bold mb-2 mt-2">{{__("Coach Data")}}:</label>
         <div class="mt-4 sm:mt-0">
-            <label class="font-pop font-bold text-gray-600" for="fullname">{{ __('Full Name') }}</label>
-            <input class="form-control block mt-1 w-full sm:w-32"
+            <label class="font-pop font-medium text-gray-600" for="fullname">{{ __('Full Name') }}</label>
+            <input class="form-control block mt-1 lg:w-56 sm:w-32"
                 type="text"
                 wire:model.lazy="fullname"
                 placeholder="{{ __('Full Name') }}"
@@ -25,8 +25,8 @@
         </div>
 
         <div class="mt-4 sm:mt-0">
-            <label class="font-pop font-bold text-gray-600" for="phone">{{ __('Phone') }}</label>
-            <input class="form-control block mt-1 w-full sm:w-32"
+            <label class="font-pop font-medium text-gray-600" for="phone">{{ __('Phone') }}</label>
+            <input class="form-control block mt-1 lg:w-56 sm:w-32"
                 type="text"
                 wire:model.lazy="phone"
                 placeholder="{{ __('Phone') }}"
@@ -36,8 +36,8 @@
             @error('phone') <span class="text-red-500">{{ $message }}</span>@enderror
         </div>
         <div class="mt-4 sm:mt-0">
-            <label class="font-pop font-bold text-gray-600" for="email">{{ __('Email') }}</label>
-            <input class="form-control block mt-1 w-full sm:w-32"
+            <label class="font-pop font-medium text-gray-600" for="email">{{ __('Email') }}</label>
+            <input class="form-control block mt-1 lg:w-56 sm:w-32"
                 type="email"
                 wire:model.lazy="email"
                 placeholder="{{ __('Email') }}"
@@ -48,8 +48,8 @@
         </div>
 
         <div class="mt-4 sm:mt-0">
-            <label class="font-pop font-bold text-gray-600" for="password">{{ __('Password') }}</label>
-            <input class="form-control block mt-1 w-full sm:w-32"
+            <label class="font-pop font-medium text-gray-600" for="password">{{ __('Password') }}</label>
+            <input class="form-control block mt-1 lg:w-56 sm:w-32"
                 type="password"
                 wire:model.lazy="password"
                 placeholder="{{ __('Password') }}"
@@ -60,8 +60,8 @@
         </div>
 
         <div class="mt-4 sm:mt-0">
-            <label class="font-pop font-bold text-gray-600" for="password_confirmation">{{ __('Confirm Password') }}</label>
-            <input class="form-control block mt-1 w-full sm:w-32"
+            <label class="font-pop font-medium text-gray-600" for="password_confirmation">{{ __('Confirm Password') }}</label>
+            <input class="form-control block mt-1 lg:w-56 sm:w-32"
                 type="password"
                 wire:model.lazy="password_confirmation"
                 placeholder="{{ __('Confirm Password') }}"
@@ -74,7 +74,7 @@
     <div class="lg:ml-8 lg:mt-8">
         <label class="block text-xl text-gray-500 font-bold mt-2">{{__("Payment Details")}}:</label>
         <div class='mb-1'>
-            <label class="font-pop font-bold text-gray-600" for="name">{{ __('Card Name') }}</label>
+            <label class="font-pop font-medium text-gray-600" for="name">{{ __('Card Name') }}</label>
             <input class='block lg:w-56 sm:w-32 mt-2 form-control card-name rounded'
             size='16' maxlength="50" type='text' name='name'
             placeholder="{{__("Name on Card")}}"
@@ -82,7 +82,7 @@
             @error('card-name') <span class="text-red-500">{{ $message }}</span>@enderror
         </div>
         <div class='mb-1'>
-            <label class="font-pop font-bold text-gray-600" for="name">{{ __('Number Card') }}</label>
+            <label class="font-pop font-medium text-gray-600" for="name">{{ __('Number Card') }}</label>
             <input autocomplete='off' aria-invalid="false"
             class='block form-control card-num lg:w-56 sm:w-32 mt-1 rounded' spellcheck="false"
             inputmode="numeric"
@@ -101,7 +101,7 @@
                 </div>
             </div>
         </div>
-        <label class="font-pop font-bold text-gray-600" for="name">{{ __('Expiration Date') }}</label>
+        <label class="font-pop font-medium text-gray-600" for="name">{{ __('Expiration Date') }}</label>
         <div class="grid grid-cols-2">
             <div class='form-group expiration required'>
                 <input class='mt-2 sm:mt-0 lg:w-40 sm:w-32 align-center form-control rounded card-expiry-month'
@@ -117,14 +117,14 @@
             </div>
         </div>
         <div class='grid-col-1 lg:w-40 sm:w-24'>
-            <label class="font-pop font-bold text-gray-600" for="name">{{ __('CVV') }}</label>
+            <label class="font-pop font-medium text-gray-600" for="name">{{ __('CVV') }}</label>
             <input autocomplete='off' class='block mt-4 sm:32 sm:mt-0 rounded form-control card-cvc' placeholder='CVV'
             size='16' maxlength="4" minlength="3" type='password' required>
             @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
         </div>
         <div class="grid grid-cols-2">
             <div class="form-group">
-                <label class="font-pop font-bold text-gray-600" for="name">{{ __('Zipcode') }}</label>
+                <label class="font-pop font-medium text-gray-600" for="name">{{ __('Zipcode') }}</label>
                 <input class='block form-control lg:w-32 sm:w-20 mt-2 zipcode rounded'
                 maxlength="20" type='text'
                 placeholder="{{__("Zipcode")}}"
@@ -147,7 +147,7 @@
 </div>
 
 <div class="mx-auto items-center text-center">
-    <label class="block text-xl text-black font-bold mb-2 mt-2 justify-center text-center">{{__("By clicking confirm, I authorize to register")}} {{$total_teams}} {{__('teams, for a total of:')}} ${{number_format($price_total, 2, '.', '')}}</label>
+    <label class="block text-xl text-black font-medium mb-2 mt-2 justify-center text-center">{{__("By clicking confirm, I authorize to register")}} {{$total_teams}} {{__('teams, for a total of:')}} ${{number_format($price_total, 2, '.', '')}}</label>
 </div>
 <div>
     <input hidden wire:model="price_total" id="price_total" name="price_total">

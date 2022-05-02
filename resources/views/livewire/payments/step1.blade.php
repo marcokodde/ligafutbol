@@ -8,7 +8,7 @@
         <div class="grid grid-cols-2 gap-2 ">
             @foreach($categories as $category)
                 <div class="flex mx-auto items-center text-center">
-                    <label class="text-2xl text-center text-gray-600 font-pop  font-extrabold mb-2 mt-2 mr-2">{{$category->name}}</label>
+                    <label class="text-2xl text-center text-gray-600 font-pop font-medium mb-2 mt-2 mr-2">{{$category->name}}</label>
                     <input  wire:model="quantity_teams.{{ $category->id }}"
                     wire:change="calculateTeams()"
                     type="number"

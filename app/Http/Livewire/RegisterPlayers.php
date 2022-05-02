@@ -9,16 +9,16 @@ use App\Models\Category;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-//use App\Http\Livewire\Traits\CrudTrait;
-use App\Http\livewire\Traits\ZipcodeTrait;
+use App\Http\Livewire\Traits\CrudTrait;
+//use App\Http\livewire\Traits\ZipcodeTrait;
 use App\Http\Livewire\Traits\SettingsTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class RegisterPlayers extends Component {
     use AuthorizesRequests;
     use WithPagination;
-   // use CrudTrait;
-    use ZipcodeTrait;
+    use CrudTrait;
+    //use ZipcodeTrait;
     use SettingsTrait;
 
     public $user;
