@@ -13,11 +13,14 @@ class AddPlayer extends Component
 
 
     public $team,$user;
-    public $message;
+    public $birthday_min,$birthday_max;
 
     public function mount(Team $team,User $user){
         $this->team = $team;
         $this->user = $user;
+        $this->birthday_min = now();
+        $this->birthday_max = now();
+
     }
 
     public function render()
@@ -71,5 +74,13 @@ class AddPlayer extends Component
         $this->emit('reload_players');
     }
 
+      /*+-----------------------+
+	    | Fechas Límite         |
+	    +-----------------------+
+    */
+    public function birthday_limits(){
+        $this->birthday_min = $this->team->category->birthday_limits($this->gender,'from');
+        $this->birthday_max = $this->team->category->birthday_limits($this->gender,'to');
+      }
 
 }

@@ -38,6 +38,7 @@
                     <td>
                         <input type="radio"
                                 wire:model="gender"
+                                wire:change="birthday_limits"
                                 class="form-check-input h-4 w-4 bg-blue-500"
                                 value="Male">
 
@@ -45,6 +46,7 @@
 
                         <input type="radio"
                                 wire:model="gender"
+                                wire:change="birthday_limits"
                                 class="form-check-input h-4 w-4"
                                 value="Female"
                         >
@@ -54,13 +56,11 @@
                     <td>
                         <input type="date"
                                 wire:model="birthday"
-                                min=""
-                                max=""
+                                min="{{$birthday_min}}"
+                                max="{{$birthday_max}}"
                                 placeholder="{{__("Birthday")}}"
                                 class=" w-1/8"
-                    >
-
-
+                        >
                     </td>
                     <td>
                         <button wire:click="addPlayer" class=" bg-green-400">

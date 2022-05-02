@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,6 +49,42 @@ class Category extends Model
         if($this->teams()->count()) return false;
         return true;
     }
+
+    public function birthday_limits($gender,$limit){
+        $date_from  = New Carbon($this->date_from);
+        $date_to    = New Carbon($this->date_to);
+
+        if($gender == 'Female'){
+            $date_from = $date_from->subYear();
+            return $limit == 'from'  ? $date_from->format('Y-m-d')
+                                    : $date_to->format('Y-m-d');
+        }
+
+        $date_to = $date_from->addYears(3)->subday();
+        $date_from = New Carbon($this->date_to);
+
+        return $limit == 'from' ? $date_from->format('Y-m-d')
+                                : $date_to->format('Y-m-d');
+
+    }
+
+    public function birthday_female_from(){
+       return New Carbon($this->date_from->subYear()->format('Y-m-d'));
+
+    }
+
+    public function birthday_female_to(){
+       return   New Carbon($this->date_to->format('Y-m-d'));
+    }
+
+    public function birthday_male_from(){
+        return $this->date_from->format('Y-m-d');
+     }
+
+     public function birthday_male_to(){
+        return New Carbon($this->date_date_from->addYears(3)->format('Y-m-d'));
+        $date_category_from         = New Carbon($this->team->category->date_from);
+     }
 
     /*+-------------------+
       | Búsquedas         |
