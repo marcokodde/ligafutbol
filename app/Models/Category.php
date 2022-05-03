@@ -61,30 +61,13 @@ class Category extends Model
         }
 
         $date_to = $date_from->addYears(3)->subday();
-        $date_from = New Carbon($this->date_to);
+        $date_from = New Carbon($this->date_from);
 
         return $limit == 'from' ? $date_from->format('Y-m-d')
                                 : $date_to->format('Y-m-d');
 
     }
 
-    public function birthday_female_from(){
-       return New Carbon($this->date_from->subYear()->format('Y-m-d'));
-
-    }
-
-    public function birthday_female_to(){
-       return   New Carbon($this->date_to->format('Y-m-d'));
-    }
-
-    public function birthday_male_from(){
-        return $this->date_from->format('Y-m-d');
-     }
-
-     public function birthday_male_to(){
-        return New Carbon($this->date_date_from->addYears(3)->format('Y-m-d'));
-        $date_category_from         = New Carbon($this->team->category->date_from);
-     }
 
     /*+-------------------+
       | Búsquedas         |

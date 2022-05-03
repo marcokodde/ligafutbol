@@ -25,7 +25,7 @@
         <label class="block font-pop text-base">{{__('Gender')}}</label>
         <div class="flex justify-between">
             <div class="mt-1 px-2">
-                <label class="text-blue-500">{{ __('M') }}</label>
+                <label class="text-blue-500">{{ __('Boy') }}</label>
                 <input type="radio"
                 wire:model="gender"
                 wire:change="birthday_limits"
@@ -34,7 +34,7 @@
             </div>
 
             <div class="mt-1 ml-4 px-4">
-                <label class="text-blue-500">{{ __('F') }}</label>
+                <label class="text-pink-500">{{ __('Girl') }}</label>
                 <input type="radio"
                 wire:model="gender"
                 wire:change="birthday_limits"

@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class AddPlayer extends Component
@@ -39,11 +40,16 @@ class AddPlayer extends Component
 	}
 
     public function addPlayer(){
+        $max_birthday = New Carbon($this->birthday_max);
+        $min_birthday = New Carbon($this->birthday_min);
+
+        $max_birthday=$max_birthday->format('Y-m-d');
+        $min_birthday=$min_birthday->format('Y-m-d');
 
         $this->validate([
             'first_name'=> 'required|min:3|max:30',
             'last_name' => 'required|min:3|max:30',
-            'birthday'  => 'required',
+            'birthday'  => 'required|date|before:' .  $max_birthday .'|after:' . $min_birthday . '',
             'gender'    => 'required|in:Female,Male',
 		]);
 
