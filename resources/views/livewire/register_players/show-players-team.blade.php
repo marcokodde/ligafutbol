@@ -4,20 +4,28 @@
             {{$team->category->name .'-' . $team->name}}
         </label>
     </div>
-    <table class="border-collapse table-auto w-auto text-sm">
+    <table class="border-collapse w-full">
         <thead>
-            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3 text-gray-700 text-left sm:text-right font-pop">{{__('First Name')}}</th>
-            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3 text-gray-700 text-left sm:text-right font-pop">{{__('Last Name')}}</th>
-            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3 text-gray-700 text-left sm:text-right font-pop">{{__('Gender')}}</th>
-            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3 text-gray-700 text-left sm:text-right font-pop">{{__('Birthday')}}</th>
+            <th class="border-b font-medium border text-gray-700 lg:table-cell font-pop">{{__('First Name')}}</th>
+            <th class="border-b font-medium border text-gray-700 lg:table-cell font-pop">{{__('Last Name')}}</th>
+            <th class="border-b font-medium border text-gray-700 lg:table-cell font-pop">{{__('Gender')}}</th>
+            <th class="border-b font-medium border text-gray-700 lg:table-cell font-pop">{{__('Birthday')}}</th>
         </thead>
-        <tbody class="bg-white">
+        <body>
             @foreach($team->players as $team_player)
                 <tr>
-                    <td class="text-gray-600 text-left sm:text-right font-pop">{{$team_player->first_name}}</td>
-                    <td class="text-gray-600 text-left sm:text-right font-pop">{{$team_player->last_name}}</td>
-                    <td class="text-gray-600 text-left sm:text-right font-pop">{{$team_player->gender}}</td>
-                    <td class="text-gray-600 text-left sm:text-right font-pop">{{date("F j Y", strtotime($team_player->birthday))}}</td>
+                    <td>
+                        <span class="lg:hidden absolute top-4 left-0 px-2 py-1 text-xs font-bold">First Name</span>
+                        {{$team_player->first_name}}</td>
+                    <td>
+                        <span class="lg:hidden absolute top-16 left-0 px-2 py-1 text-xs font-bold">Last Name</span>
+                        {{$team_player->last_name}}</td>
+                    <td>
+                        <span class="lg:hidden absolute top-28 left-0 px-2 py-1 text-xs font-bold">Gender</span>
+                        {{$team_player->gender}}</td>
+                    <td>
+                        <span class="lg:hidden absolute top-40 left-0 px-2 py-1 text-xs font-bold">Birthday</span>
+                        {{date("F j Y", strtotime($team_player->birthday))}}</td>
                     <td> <button wire:click="removePlayer({{ $team_player->pivot->player_id }})" class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">{{__("Remove")}}</button></td>
                 </tr>
             @endforeach

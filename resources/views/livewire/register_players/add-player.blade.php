@@ -11,7 +11,7 @@
         @error('first_name') <span class="text-red-500">{{ $message }}</span>@enderror
     </div>
 
-    <div class="ml-2">
+    <div class="lg:ml-2 sm:ml-0">
         <label class="block font-pop text-base">{{__('Last Name')}}</label>
         <input type="text"
                 wire:model="last_name"
@@ -52,7 +52,7 @@
                 min="{{$birthday_min}}"
                 max="{{$birthday_max}}"
                 placeholder="{{__("Birthday")}}"
-                class="w-1/8 block"
+                class="block"
         >
         @error('birthday') <span class="text-red-500">{{ $message }}</span>@enderror
     </div>
