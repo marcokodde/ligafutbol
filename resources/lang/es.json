@@ -170,8 +170,9 @@
     "This email is a confirmation of your registration #":"Este correo es una confirmación de tu registro de #",
     "teams with a total of":"equipos con un total de",
     "You will receive another email in the next few days so that you can complete your team data and upload your player roster for each team.":"Recibirás otro correo electrónico en los próximos días para que puedas completar los datos de tus equipos y subir tu roster de jugadores para cada equipo.",
-    "Enter this link, if you want to add your teams":"Ingresa a este link, si deseas agregar tus equipos",
+    "Enter this link, if you want to add your Teams":"Ingresa a este link, si deseas agregar tus Equipos",
     "Thank you for your registration!":"Gracias por tu registro",
-    "Action":"Acción"
+    "Action":"Acción",
+    "Enter the link once you entered the name of your Teams, enter link if you want to add your Players":"Ingrese el enlace una vez que ingresó el nombre de sus equipos, ingrese el enlace si desea agregar sus jugadores"
 
 }

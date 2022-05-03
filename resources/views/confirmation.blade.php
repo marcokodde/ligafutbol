@@ -26,7 +26,11 @@
     </head>
     <body class="antialiased">
         <div class="relative overflow-auto max-w-max max-h-max">
-            <img src="{{asset('images/Confirmation_page.png')}}" class="object-cover" alt="">
+            @if(App::isLocale('en'))
+                <img src="{{asset('images/en_confirmation.png')}}" class="object-cover" alt="">
+            @else
+                <img src="{{asset('images/confimation_es.png')}}" class="object-cover" alt="">
+            @endif
         </div>
     </body>
 </html>

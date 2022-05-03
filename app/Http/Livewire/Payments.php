@@ -238,8 +238,9 @@ class Payments extends Component
         $total      = $request->price_total;
         $total_teams=$request->total_teams;
         $token      =$this->user->token_register_teams;
+        $token_player = $this->user->token_register_players;
         return Mail::to($email)
             ->send(new ConfirmationMail
-            ($email, $total, $total_teams, $token));
+            ($email, $total, $total_teams, $token, $token_player));
     }
 }

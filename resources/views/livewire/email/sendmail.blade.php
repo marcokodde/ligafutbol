@@ -25,10 +25,18 @@
     </div>
     <div>
         @php
-            $url = "https://equipos.galvestoncup.com/register_teams/";
+            $url_team = "https://equipos.galvestoncup.com/register_teams/";
         @endphp
-        <p class="bg-blue-700 text-base">{{__('Enter this link, if you want to add your teams ')}} {{$url.''.$token}}</p>
+        <p class="bg-blue-700 text-base">{{__('Enter this link, if you want to add your Teams')}} {{$url_team.''.$token}}</p>
     </div>
+
+    <div>
+        @php
+            $url_player = "https://equipos.galvestoncup.com/register_players/";
+        @endphp
+        <p class="bg-blue-700 text-base">{{__('Enter the link once you entered the name of your Teams, enter link if you want to add your Players')}} {{$url_player.''.$token_player}}</p>
+    </div>
+
     <div>
         <h4 class="bg-blue-700 text-base">{{__('Thank you for your registration!')}}</h4>
     </div>
