@@ -62,9 +62,9 @@ class Payments extends Component
     public function mount() {
         $this->readSettings();
         $this->fill_categories_and_max_allowed();
-        $this->categories = Category::whereIn('id',$this->categoriesIds)
-                                    ->OrwhereDoesntHave('teams_categories')
-                                    ->get();
+
+
+
         $this->pages = [
             1 => [
                 'heading' => __('Galveston Cup Registration System 2022'),
@@ -158,7 +158,7 @@ class Payments extends Component
     public function countTeams() {
         $this->reset(['price_total', 'total_teams']);
 
-        for($i=0;$i<=count($this->quantity_teams)-1;$i++){
+        for($i=1;$i<=count($this->quantity_teams);$i++){
             if (isset($this->quantity_teams[$i])) {
                 $this->total_teams = $this->total_teams + $this->quantity_teams[$i];
             }
@@ -243,15 +243,32 @@ class Payments extends Component
 
     /** Ve que categorías tienen disponbilidad de equipos y calcula el máximo */
     private function fill_categories_and_max_allowed(){
+        $this->filter_categories();
+        $this->read_categories();
+
+        // Llena arreglo para la vista
+        $i=0;
+        foreach($this->categories as $record){
+            $this->categoriesIds[$i] = $record->id;
+            $this->quantity_teams[$i] = 0;
+            $i++;
+        }
+
+        //$this->read_categories();
+    }
+
+    // Cuenta equipos por categoría y agrega a array las que tengan disponbilidad
+    private function filter_categories(){
+               // Primero
         $teams_by_category = TeamCategory::groupBy('category_id')
                                         ->select('category_id')
                                         ->selectRaw('sum(qty_teams) as teams')
                                         ->get();
 
-        if($teams_by_category){
-            $i=1;
-            foreach($teams_by_category as $team_by_category){
-                if(  $team_by_category->teams < $this->general_settings->max_teams_by_category){
+        if ($teams_by_category) {
+            $i=0;
+            foreach ($teams_by_category as $team_by_category) {
+                if ($team_by_category->teams < $this->general_settings->max_teams_by_category) {
                     $this->categoriesIds[$i] = $team_by_category->category_id;
                     $this->max_by_category[$i] = $this->general_settings->max_teams_by_category - $team_by_category->teams;
                     $i++;
@@ -260,4 +277,12 @@ class Payments extends Component
         }
 
     }
+
+    private function read_categories(){
+        $this->categories = Category::whereIn('id',$this->categoriesIds)
+                                    ->OrwhereDoesntHave('teams_categories')
+                                    ->get();
+    }
+
+
 }
