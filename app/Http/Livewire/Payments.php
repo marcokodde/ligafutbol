@@ -62,7 +62,9 @@ class Payments extends Component
     public function mount() {
         $this->readSettings();
         $this->fill_categories_and_max_allowed();
-        $this->categories = Category::whereIn('id',$this->categoriesIds)->get();
+        $this->categories = Category::whereIn('id',$this->categoriesIds)
+                                    ->OrwhereDoesntHave('teams_categories')
+                                    ->get();
         $this->pages = [
             1 => [
                 'heading' => __('Galveston Cup Registration System 2022'),
