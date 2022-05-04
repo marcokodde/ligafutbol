@@ -16,6 +16,7 @@ use App\Models\CostByTeam;
 use App\Models\TeamCategory;
 use Illuminate\Http\Request;
 use App\Mail\ConfirmationMail;
+use App\Http\Livewire\Traits\SettingsTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +24,8 @@ use Illuminate\Support\Facades\Mail;
 
 class Payments extends Component
 {
+    use SettingsTrait;
+
 
     public $phone;
     public $price_total=0;
@@ -44,6 +47,8 @@ class Payments extends Component
     public $quantity_teams = array();
     public $imports = array();
     public $categoriesIds = array();
+    public $max_by_category = array();
+
     public $records;
     public $total_teams = 0;
     public $fullname;
@@ -55,13 +60,9 @@ class Payments extends Component
     protected $listeners = ['create_Teamcategory'];
 
     public function mount() {
-        $this->categories = Category::all();
-        $i=1;
-        foreach($this->categories as $category) {
-            $this->categoriesIds[$i] = $category->id;
-            $i++;
-        }
-
+        $this->readSettings();
+        $this->fill_categories_and_max_allowed();
+        $this->categories = Category::whereIn('id',$this->categoriesIds)->get();
         $this->pages = [
             1 => [
                 'heading' => __('Galveston Cup Registration System 2022'),
@@ -241,5 +242,25 @@ class Payments extends Component
         return Mail::to($email)
             ->send(new ConfirmationMail
             ($email, $total, $total_teams, $token, $token_player));
+    }
+
+    /** Ve que categorías tienen disponbilidad de equipos y calcula el máximo */
+    private function fill_categories_and_max_allowed(){
+        $teams_by_category = TeamCategory::groupBy('category_id')
+                                        ->select('category_id')
+                                        ->selectRaw('sum(qty_teams) as teams')
+                                        ->get();
+
+        if($teams_by_category){
+            $i=1;
+            foreach($teams_by_category as $team_by_category){
+                if(  $team_by_category->teams < $this->general_settings->max_teams_by_category){
+                    $this->categoriesIds[$i] = $team_by_category->category_id;
+                    $this->max_by_category[$i] = $this->general_settings->max_teams_by_category - $team_by_category->teams;
+                    $i++;
+                }
+            }
+        }
+
     }
 }
