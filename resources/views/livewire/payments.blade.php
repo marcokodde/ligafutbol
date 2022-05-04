@@ -138,7 +138,6 @@
     <input hidden wire:model="total_teams" id="total_teams" name="total_teams">
     @php $k=0 @endphp
     @foreach($categories as $category)
-
         <input class="categoriesIds"
             name="categoriesIds[]"
             value="{{$categoriesIds[$k]}}"

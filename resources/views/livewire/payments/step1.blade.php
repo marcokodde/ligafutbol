@@ -25,14 +25,7 @@
 
                         class="appearance-none border rounded-lg text-gray-700 focus:outline-none focus:shadow-outline">
                     </div>
-
-                    <div>
-                        <input class="categoriesIds"
-                                wire:model="categoriesIds.{{ $loop->index}}"
-                                value="categoriesIds.{{ $category->id }}" hidden
-                        >
-
-                    </div>
+                    
                 </div>
 
             @endforeach
@@ -51,16 +44,16 @@
         <label class="block lg:text-xl sm:text-base font-medium text-black font-pop mt-2 justify-center text-center lg:-ml-12">
         @foreach ($records as $record)
             @if (isset($record->cost))
-                {{__('Price per team:')}} ${{number_format($record->cost, 2, '.', '')}}</label>
+                {{__('Price per team:')}} ${{$record->cost}}</label>
             @endif
         @endforeach
 
     <br>
-    <label class="inline text-2xl text-gray-700 font-bold font-pop mt-2 m-2 lg:-ml-28">{{__('Total')}} {{$total_teams}} {{__('Teams')}}</label>
-    <input type="number"
-        placeholder="${{number_format($price_total, 2, '.', ',')}}"
-        disabled
-        style="border-color:rgba(31,41,55,var(--tw-bg-opacity))"
-        class="w-auto px-12 py-2 border-2 inline text-black leading-tight rounded-lg">
+    <label class="inline text-2xl text-gray-700 font-bold font-pop justify-center text-center mt-2 m-2 lg:-ml-28">{{__('Total')}} {{$total_teams}} 
+        @if ($total_teams == 1)
+        {{__('Team')}}
+        @else
+        {{__('Teams')}}
+    @endif  ${{$price_total}}</label>
     @endif
 </div>
