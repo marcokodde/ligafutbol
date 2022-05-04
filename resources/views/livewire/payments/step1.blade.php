@@ -6,7 +6,9 @@
     <div>
     </div>
         <div class="grid grid-cols-2 gap-8 2xl:gap-4">
+            @php $i=0 @endphp
             @foreach($categories as $category)
+                @php  $i++ @endphp
                 <div class="flex items-center text-center md:justify-between">
                     <label class="text-gray-600 font-pop font-medium 2xl:text-2xl lg:text-lg">{{$category->name}}</label>
                     <div class="mx-auto px-auto">
@@ -14,7 +16,12 @@
                         wire:change="calculateTeams()"
                         type="number"
                         min="0"
-                        max="100"
+                        @if(isset($max_by_category[$i]))
+                            max="{{$max_by_category[$i]}}"
+                        @else
+                            max="16"
+                        @endif
+
                         class="appearance-none border rounded-lg text-gray-700 focus:outline-none focus:shadow-outline">
                     </div>
 
