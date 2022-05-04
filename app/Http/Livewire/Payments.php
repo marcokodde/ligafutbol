@@ -159,7 +159,7 @@ class Payments extends Component
         $this->reset(['price_total', 'total_teams']);
         //TODO recorrer cada categoria
         $i=0;
-        foreach ($this->categoriesIds as $categoryId) {
+        foreach ($this->categories as $categoryId) {
             $i++;
             if(isset($this->quantity_teams[$i])){
                 if(!$this->quantity_teams[$i] || $this->quantity_teams[$i]==''){
