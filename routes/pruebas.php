@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Livewire\TestController;
+use App\Models\Category;
 use App\Models\CostByTeam;
+use App\Models\TeamCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -43,3 +45,19 @@ Route::get('costo_x_equipo',function(){
 
 Route::get('test_controller',TestController::class)->name('test_controller');
 
+Route::get('teams_by_category',function(){
+
+    $teams_by_category = TeamCategory::groupBy('category_id')
+            ->select('category_id')
+            ->selectRaw('sum(qty_teams) as teams')
+            ->get();
+    if($teams_by_category){
+        echo '<table boards="2">';
+        echo '<thead><th>Categoría</th><th>Equipos</th>';
+        foreach($teams_by_category as $team_by_category){
+            $category = Category::findOrFail($team_by_category->category_id);
+            echo '<tr><td>' .  $category->name . '</td><td>' .  $team_by_category->teams . '</td></tr>';
+        }
+        echo '</table';
+    }
+})->name('teams_by_category');
