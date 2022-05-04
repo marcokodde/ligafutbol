@@ -118,21 +118,6 @@ class Payments extends Component
         return redirect()->route('confirmation');
     }
 
-    public function read_zipcode() {
-        $this->state ='';
-        if ($this->zipcode) {
-            $zipcode = Zipcode::where('zipcode','=',$this->zipcode)->first();
-            if ($zipcode) {
-                $this->state = $zipcode->town . ',' . $zipcode->state;
-            } else {
-                $this->zipcode = 0;
-                $this->state = __('Zipcode does not Exists');
-            }
-        } else {
-            $this->zipcode = 0;
-            $this->state = __('Zipcode does not Exists');
-        }
-    }
 
     /** Funciones para multi steps */
     public function updated($propertyName) {
