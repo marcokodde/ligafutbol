@@ -51,15 +51,16 @@
         <label class="block lg:text-xl sm:text-base font-medium text-black font-pop mt-2 justify-center text-center lg:-ml-12">
         @foreach ($records as $record)
             @if (isset($record->cost))
-                {{__('Price per team:')}} ${{number_format($record->cost, 2, '.', '')}} {{__("(Total $total_teams")}} {{__("teams)")}}</label>
+                {{__('Price per team:')}} ${{number_format($record->cost, 2, '.', '')}}</label>
             @endif
         @endforeach
-    @endif
+
     <br>
-    <label class="inline text-2xl text-gray-700 font-extrabold font-pop mt-2 m-2 lg:-ml-28">{{__('Total')}}</label>
+    <label class="inline text-2xl text-gray-700 font-bold font-pop mt-2 m-2 lg:-ml-28">{{__('Total')}} {{$total_teams}} {{__('Teams')}}</label>
     <input type="number"
-        placeholder="{{$total_teams}} {{__('Teams per')}} ${{number_format($price_total, 2, '.', ',')}}"
+        placeholder="${{number_format($price_total, 2, '.', ',')}}"
         disabled
         style="border-color:rgba(31,41,55,var(--tw-bg-opacity))"
         class="w-auto px-12 py-2 border-2 inline text-black leading-tight rounded-lg">
+    @endif
 </div>
