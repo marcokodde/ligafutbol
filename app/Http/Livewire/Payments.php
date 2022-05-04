@@ -100,14 +100,16 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $this->charge = null;
-        $this->charge = Stripe\Charge::create ([
-                "amount" => $request->price_total * 100,
-                "currency" => "USD",
-                "source" => $request->stripeToken,
-                "description" => $request->card_name
-        ]);
+        // Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        // $this->charge = null;
+        // $this->charge = Stripe\Charge::create ([
+        //         "amount" => $request->price_total * 100,
+        //         "currency" => "USD",
+        //         "source" => $request->stripeToken,
+        //         "description" => $request->card_name
+        // ]);
+        $this->charge = Payment::max('id')+1;
+
         if (!is_null($this->charge)) {
             $this->createUser($request);
             $payment_record = $this->create_payment($request);
@@ -205,8 +207,7 @@ class Payments extends Component
     public function create_Teamcategory($request, $user, $payment){
         $i=0;
         foreach ($request->categoriesIds as $categoryId => $value) {
-            $i++;
-            if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
+              if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
                 TeamCategory::create([
                     'user_id'     => $user,
                     'category_id' => $value,
@@ -214,8 +215,10 @@ class Payments extends Component
                     'qty_teams'   => $request->quantity_teams[$i]
                 ]);
             }
+            $i++;
         }
     }
+
     public function sendMail($request) {
         $email      = $request->email;
         $total      = $request->price_total;
