@@ -16,7 +16,7 @@ class Settings extends Component {
     use WithPagination;
     use CrudTrait;
 
-    public $name,$max_players_by_team,$players_only_available_teams,$coaches_only_available_teams;
+    public $name,$max_players_by_team,$max_teams_by_category,$players_only_available_teams,$coaches_only_available_teams;
     protected $listeners = ['destroy'];
 
 
@@ -60,7 +60,7 @@ class Settings extends Component {
 	private function resetInputFields() {
         $this->record_id = null;
         $this->record = null;
-        $this->reset(['name','max_players_by_team','players_only_available_teams','coaches_only_available_teams']);
+        $this->reset(['name','max_players_by_team','max_teams_by_category','players_only_available_teams','coaches_only_available_teams']);
 	}
 
     /*+---------------------------------------------+
@@ -73,11 +73,13 @@ class Settings extends Component {
         $this->validate([
             'name'                  => 'required|min:4|max:50|unique:settings,name,' . $this->record_id,
             'max_players_by_team'   => 'required',
+            'max_teams_by_category' => 'required'
 		]);
 
 		Setting::updateOrCreate(['id' => $this->record_id], [
             'name'                          => $this->name,
 			'max_players_by_team'           => $this->max_players_by_team,
+			'max_teams_by_category'         => $this->max_teams_by_category,
             'players_only_available_teams'  => $this->players_only_available_teams ? 1 : 0,
             'coaches_only_available_teams'  => $this->coaches_only_available_teams ? 1 : 0,
     	]);
@@ -98,6 +100,7 @@ class Settings extends Component {
 		$this->record_id                    = $record->id;
 		$this->name                         = $record->name;
 		$this->max_players_by_team          = $record->max_players_by_team;
+		$this->max_teams_by_category        = $record->max_teams_by_category;
         $this->players_only_available_teams = $record->players_only_available_teams;
         $this->coaches_only_available_teams = $record->coaches_only_available_teams;
 		$this->openModal();

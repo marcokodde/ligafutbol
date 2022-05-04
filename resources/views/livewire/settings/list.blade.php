@@ -1,6 +1,7 @@
 <tr>
     <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600">{{ $record->name }}</td>
     <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600">{{ $record->max_players_by_team }}</td>
+    <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600">{{ $record->max_teams_by_category }}</td>
 
     <td class="border px-4 py-1 w-20 text-center">
         <input type="checkbox" disabled

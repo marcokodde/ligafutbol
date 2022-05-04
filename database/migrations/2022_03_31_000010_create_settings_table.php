@@ -17,6 +17,7 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->string('name',150)->comment('Nombre del torneo');
             $table->tinyInteger('max_players_by_team')->default(6)->comment('Máximo de jugadores x Equipo');
+            $table->tinyInteger('max_teams_by_category')->default(6)->comment('Máximo de equipos x Categoría');
             $table->boolean('players_only_available_teams')->default(0)->comment('Asignar jugadores solo a equipoos habilitados');
             $table->boolean('coaches_only_available_teams')->default(1)->comment('Asignar entrenadores solo a equipoos habilitados');
 

@@ -30,6 +30,16 @@
                                 <div>@error('max_players_by_team') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Teams by Category")}}</label>
+                                <input type="number"
+                                        wire:model="max_teams_by_category"
+                                        min="1"
+                                        max="25"
+                                        class="shadow block appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                                <div>@error('max_teams_by_category') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                            </div>
+
                             <div class="p-2 rounded-lg">
                                 <label class="flex text-gray-700 justify-start font-semibold items-start mr-2 mt-4">
                                     <div class="bg-white border-2 rounded border-gray-400 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">

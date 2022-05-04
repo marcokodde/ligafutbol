@@ -1,0 +1,24 @@
+1.- Pantalla inicial
+    (a) Poner precio x equipo
+    (b) Total agregar número de equipos y quitarlo de la línea del precio x equipo
+    (c) En la caja de texto quitar "total"
+    (d) Botón de SIGUIENTE sólo cuando haya equipos.
+    (e) Permitir sólo el máximo de equipos por categoría (16 x categoría)
+    (f) En el correo:
+        (i) Quitar el signo de "#" antes de la cantidad de equipos
+        (ii) Poner por pasos los accesos 1) registrar equipos  1) Registrar Rosters
+2.- Datos del entrenador y de pago:
+    (a) Encabezado: Por favor complete la siguiente información
+    (a) Teléfono a 10 carácteres numéricos
+    (b) Clave y confirmación deben ser iguales (Falta traducción)
+    (c) Quitar zipcode
+3.- Registro de equipos
+    (a) Centrar
+    (b) Asegurar que el nombre del equipo no se REPITA en una categoría
+
+4.- Registro de jugadores
+    (a) En la lista de inscritos sólo dejar NOMBRE y botón para Quitar
+    (b) Cambiar el orden primero el formulario y abajo la lista de inscritos
+    (c) Validar fechas de nacimiento según el sexo.
+    (d) Mostrar mensaje de "Roster Lleno" cuando se haya llegado al límite
+

@@ -13,6 +13,7 @@ class Setting extends Model
     protected $fillable =  [
         'name',
         'max_players_by_team',
+        'max_teams_by_category',
         'players_only_available_teams',
         'coaches_only_available_teams',
     ];
