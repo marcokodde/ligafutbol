@@ -24,10 +24,14 @@ class Payment extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-    // Equipos cubiertos por el pago
+    // Total de equipos cubiertos por el pago
     public function team_categories()
     {
         return $this->hasMany(TeamCategory::class);
+    }
+
+    public function teams(){
+        return $this->hasMany(Team::class);
     }
 
 }

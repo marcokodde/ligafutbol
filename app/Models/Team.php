@@ -56,6 +56,9 @@ class Team extends Model
         return $this->belongsToMany(Player::class)->count();
     }
 
+    public function payment(){
+        return $this->belongsTo(Payment::class,'payment_id');
+    }
 
     /*+-----------------+
       | Funciones Apoyo |
