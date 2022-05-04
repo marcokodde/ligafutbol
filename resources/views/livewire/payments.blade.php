@@ -11,8 +11,8 @@
 <div class="relative rounded-xl overflow-auto">
     <div class="flex flex-wrap items-center justify-center sm:flex-wrap-reverse">
         {{--  Datos Personales  --}}
-        <div class="sm:justify-start lg:justify-center md:justify-center">
-            <label class="block text-xl text-gray-500 font-bold mb-2 mt-2">{{__("Coach Data")}}:</label>
+        <div class="sm:justify-start lg:justify-center md:justify-center lg:mt-12">
+            <label class="block text-xl text-gray-500 font-bold mb-2">{{__("Coach Data")}}:</label>
             <div>
                 <label class="font-pop font-medium text-gray-600" for="fullname">{{ __('Full Name') }}</label>
                 <input class="block mt-1 lg:w-56 sm:w-32"
@@ -24,7 +24,7 @@
                 required>
                 @error('fullname') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
-    
+
             <div>
                 <label class="font-pop font-medium text-gray-600" for="phone">{{ __('Phone') }}</label>
                 <input class="block mt-1 lg:w-56 sm:w-32"
@@ -33,6 +33,8 @@
                     placeholder="{{ __('Phone') }}"
                     name="phone"
                     id="phone"
+                    maxlength="10"
+                    minlength="7"
                 required>
                 @error('phone') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
@@ -47,7 +49,7 @@
                 required>
                 @error('email') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
-    
+
             <div>
                 <label class="font-pop font-medium text-gray-600" for="password">{{ __('Password') }}</label>
                 <input class="block mt-1 lg:w-56 sm:w-32"
@@ -59,7 +61,7 @@
                 required>
                 @error('password') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
-    
+
             <div>
                 <label class="font-pop font-medium text-gray-600" for="password_confirmation">{{ __('Confirm Password') }}</label>
                 <input class="block mt-1 lg:w-56 sm:w-32"
@@ -73,8 +75,8 @@
             </div>
         </div>
         {{--  Datos de PAgo  --}}
-        <div class="lg:ml-20 mt-2">
-            <label class="block text-xl text-gray-500 font-bold mb-2 mt-2">{{__("Payment Details")}}:</label>
+        <div class="lg:ml-20">
+            <label class="block text-xl text-gray-500 font-bold mb-2">{{__("Payment Details")}}:</label>
             <div>
                 <label class="font-pop font-medium text-gray-600" for="name">{{ __('Card Name') }}</label>
                 <input class='block lg:w-56 sm:w-32 card-name'

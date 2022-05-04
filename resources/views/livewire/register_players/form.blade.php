@@ -1,8 +1,8 @@
 <div>
-    <div class="sm:px-0 mx-auto text-center items-center">
+    <div class="sm:px-0 mx-auto text-center items-center -mt-12">
         <img src="{{asset('images/galveston2022.png')}}" height="100px" width="100px" class="inline" alt="">
-        <h3 class="lg:text-2xl sm:text-lg font-bold leading-6 text-black p-4 uppercase inline text-center items-center">
-            {{__("Select Category and Team")}}
+        <h3 class="block mt-1 lg:text-2xl sm:text-base font-semibold leading-6 text-gray-600 p-4 uppercase text-center items-center font-pop">
+            {{__("Add players to rosters")}}
         </h3>
     </div>
     <hr class="border-2 border-gray-500">

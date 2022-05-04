@@ -1,25 +1,19 @@
 
-    <div>
-        <div class="sm:px-0 mx-auto text-center items-center">
-            <img src="{{asset('images/galveston2022.png')}}" height="100px" width="100px" class="inline" alt="">
-
+<div>
+    <div class="sm:px-0 mx-auto text-center items-center -mt-12">
+        <img src="{{asset('images/galveston2022.png')}}" height="100px" width="100px" class="inline" alt="">
+        <h3 class="block mt-4 lg:text-2xl sm:text-base font-semibold leading-6 text-gray-600 p-4 uppercase text-center items-center font-pop">
             @if($finish)
-                <h3 class="lg:text-5xl sm:text-lg font-bold leading-6 text-green-400 p-4 uppercase inline text-center items-center">
-                    {{__("Your Teams has been Registered")}}
-                </h3>
+            {{__("Your Teams has been Registered")}}
             @else
-                <h3 class="lg:text-2xl sm:text-lg font-bold leading-6 text-black p-4 uppercase inline text-center items-center">
-                    {{__("Introduce the Team Name and Zipcode")}}
-                </h3>
-
+            {{__("Introduce the Team Name and Zip Code")}}
             @endif
-
-        </div>
-        <hr class="border-2 border-gray-500">
+        </h3>
     </div>
+    <hr class="border-2 border-gray-500">
+</div>
 
-
-   <div class="grid lg:grid-cols-3 lg:gap-4 sm:grid-cols-1 sm:gap-1">
+<div class="grid lg:grid-cols-3 lg:gap-4 sm:grid-cols-1 sm:gap-1">
 
         <div></div>
 
@@ -38,7 +32,7 @@
             <div class="grid grid-cols-3">
                 <label class="text-xl text-center text-gray-700 font-bold mb-2 mt-2">{{__('Category')}}</label>
                 <label class="text-xl text-center text-gray-700 font-bold mb-2 mt-2">{{__('Team')}}</label>
-                <label class="text-xl text-center text-gray-700 font-bold mb-2 mt-2">{{__('ZipCode')}}</label>
+                <label class="text-xl text-center text-gray-700 font-bold mb-2 mt-2">{{__('Zip Code')}}</label>
             </div>
             @php $indice = 0 @endphp
 

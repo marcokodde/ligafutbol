@@ -1,5 +1,5 @@
 {{-- Seleccionar Categoría y luego Equipo  --}}
-<div class="flex justify-between">
+<div class="flex justify-center items-center gap-4">
     <div>
         <label class="block text-xl text-gray-700 font-bold mt-2">{{__('Category')}}</label>
         <select wire:model="category_id"

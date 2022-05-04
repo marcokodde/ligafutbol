@@ -110,7 +110,7 @@ trait CrudTrait {
     }
 
     private function store_message($message){
-        $action_message = $this->record_id ? __('Updateted Successfully!!') : __('Created Successfully!!');
+        $action_message = $this->record_id ? __('Updated Successfully!!') : __('Created Successfully!!');
 
         $message.= ' ' . $action_message;
         $this->show_alert('success',$message);

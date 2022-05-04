@@ -21,13 +21,45 @@
     </div>
 
     <div>
-        <p class="bg-blue-700 text-base">{{__('You will receive another email in the next few days so that you can complete your team data and upload your player roster for each team.')}}</p>
+        <p class="bg-blue-700 text-base">{{__('Siga las indicaciones siguientes para que pueda concluir el registro de sus equipos y de jugadores.')}}</p>
+    </div>
+    <div>
+        <h4 class="bg-blue-700 text-base">{{__('1: Registro de Equipos: Tome  en consideración lo siguiente')}}</h4>
+        <ul>
+            <li>
+                {{__('El nombre y zona postal son obligatorios.')}}
+            </li>
+            <li>
+                {{__('El nombre del equipo no se puede repetir en una misma categoría, aunque haya sido registrado previamente por algún otro entrenador.')}}
+            </li>
+        </ul>
     </div>
     <div>
         @php
             $url_team = "https://equipos.galvestoncup.com/register_teams/";
         @endphp
         <p class="bg-blue-700 text-base">{{__('Step one: Enter this link if you want to add your Teams')}} {{$url_team.''.$token}}</p>
+    </div>
+
+    <div>
+        <p class="bg-blue-700 text-base">{{__('Siga las indicaciones siguientes para que pueda concluir el registro de sus jugadores.')}}</p>
+    </div>
+    <div>
+        <h4 class="bg-blue-700 text-base">{{__('2. Registro de Jugadores en Roster: Consideraciones:')}}</h4>
+        <ul>
+            <li>
+                {{__('Todos los datos del jugador son obligatorios.')}}
+            </li>
+            <li>
+                {{__('Cuando agregue un jugador a su equipo aparecerá en la lista de jugadores.')}}
+            </li>
+            <li>
+                {{__('Puede agregar hasta un total de 06 jugadores a su equipo.')}}
+            </li>
+            <li>
+                {{__('Si desea eliminar un jugador del equipo puede hacerlo dando clic en el botón rojo que aparece al lado del nombre del jugador.')}}
+            </li>
+        </ul>
     </div>
 
     <div>

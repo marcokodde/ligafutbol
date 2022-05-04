@@ -20,7 +20,17 @@
         >
         @error('last_name') <span class="text-red-500">{{ $message }}</span>@enderror
     </div>
-
+    <div>
+        <label class="block font-pop text-base">{{__('Birthday')}}</label>
+        <input type="date"
+                wire:model="birthday"
+                min="{{$birthday_min}}"
+                max="{{$birthday_max}}"
+                placeholder="{{__("Birthday")}}"
+                class="block w-11/12"
+        >
+        @error('birthday') <span class="text-red-500">{{ $message }}</span>@enderror
+    </div>
     <div>
         <label class="block font-pop text-base">{{__('Gender')}}</label>
         <div class="flex justify-between">
@@ -33,7 +43,7 @@
                 value="Male">
             </div>
 
-            <div class="mt-1 ml-4 px-4">
+            <div class="mt-1 ml-2">
                 <label class="text-pink-500">{{ __('Girl') }}</label>
                 <input type="radio"
                 wire:model="gender"
@@ -44,22 +54,9 @@
         </div>
         @error('gender') <span class="text-red-500">{{ $message }}</span>@enderror
     </div>
-
-    <div>
-        <label class="block font-pop text-base">{{__('Birthday')}}</label>
-        <input type="date"
-                wire:model="birthday"
-                min="{{$birthday_min}}"
-                max="{{$birthday_max}}"
-                placeholder="{{__("Birthday")}}"
-                class="block"
-        >
-        @error('birthday') <span class="text-red-500">{{ $message }}</span>@enderror
-    </div>
-
     <div class="ml-2">
-        <label class="block font-pop text-base">{{__('Action')}}</label>
-        <button wire:click="addPlayer" class="block bg-green-500 px-2 py-2 rounded-lg  text-black hover:text-white">
+        <label class="block font-pop text-base">&nbsp;</label>
+        <button wire:click="addPlayer" class="block bg-green-500 px-4 py-2 rounded-lg  text-black hover:text-white">
             {{ __('Add')}}
         </button>
     </div>

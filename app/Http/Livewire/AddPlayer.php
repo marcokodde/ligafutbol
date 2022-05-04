@@ -2,14 +2,16 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Player;
+use Carbon\Carbon;
 use App\Models\Team;
 use App\Models\User;
-use Carbon\Carbon;
+use App\Models\Player;
 use Livewire\Component;
+use App\Http\Livewire\Traits\CrudTrait;
 
 class AddPlayer extends Component
 {
+    use CrudTrait;
     public $first_name,$last_name,$birthday,$gender;
 
 
@@ -78,6 +80,7 @@ class AddPlayer extends Component
         $this->team->load('players');
         $this->resetInputFields();
         $this->emit('reload_players');
+        $this->store_message(__('Create Players'));
     }
 
       /*+-----------------------+
