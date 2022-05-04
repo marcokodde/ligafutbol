@@ -29,17 +29,9 @@
                     <div>
                         <input class="categoriesIds"
                                 wire:model="categoriesIds.{{ $loop->index}}"
-                                id="categoriesIds"
-                                name="categoriesIds.{{ $category->id }}"
                                 value="categoriesIds.{{ $category->id }}" hidden
                         >
-                        {{-- <input class="quantity_teams"
-                                wire:model="quantity_teams.{{ $category->id }}"
-                                id="quantity_teams"
-                                name="quantity_teams.{{ $category->id }}"
-                                name="quantity_teams.{{ $category->id }}"
-                                hidden
-                        > --}}
+
                     </div>
                 </div>
 

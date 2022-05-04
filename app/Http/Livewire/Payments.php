@@ -158,7 +158,7 @@ class Payments extends Component
     public function countTeams() {
         $this->reset(['price_total', 'total_teams']);
 
-        for($i=1;$i<=count($this->quantity_teams);$i++){
+        for($i=0;$i<=count($this->quantity_teams);$i++){
             if (isset($this->quantity_teams[$i])) {
                 $this->total_teams = $this->total_teams + $this->quantity_teams[$i];
             }
@@ -250,11 +250,17 @@ class Payments extends Component
         $i=0;
         foreach($this->categories as $record){
             $this->categoriesIds[$i] = $record->id;
+            $i++;
+        }
+
+        // Llena array de cantidades
+        $i=0;
+
+        foreach($this->categories as $record){
             $this->quantity_teams[$i] = 0;
             $i++;
         }
 
-        //$this->read_categories();
     }
 
     // Cuenta equipos por categoría y agrega a array las que tengan disponbilidad
