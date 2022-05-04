@@ -15,7 +15,7 @@
     <h1>{{__('Thank you for register the Galveston Cup 2022')}}</h1>
     <div>
         <h4 class="bg-blue-700 text-base">
-            {{__('This email is a confirmation of your registration #')}}
+            {{__('This email is a confirmation of your registration')}}
             {{$total_teams}}
             {{__('teams with a total of')}} ${{number_format($total, 2, '.', '')}}</h4>
     </div>
@@ -27,14 +27,14 @@
         @php
             $url_team = "https://equipos.galvestoncup.com/register_teams/";
         @endphp
-        <p class="bg-blue-700 text-base">{{__('Enter this link, if you want to add your Teams')}} {{$url_team.''.$token}}</p>
+        <p class="bg-blue-700 text-base">{{__('Step one: Enter this link if you want to add your Teams')}} {{$url_team.''.$token}}</p>
     </div>
 
     <div>
         @php
             $url_player = "https://equipos.galvestoncup.com/register_players/";
         @endphp
-        <p class="bg-blue-700 text-base">{{__('Enter the link once you entered the name of your Teams, enter link if you want to add your Players')}} {{$url_player.''.$token_player}}</p>
+        <p class="bg-blue-700 text-base">{{__('Step Two: Go to this link to add your players')}} {{$url_player.''.$token_player}}</p>
     </div>
 
     <div>

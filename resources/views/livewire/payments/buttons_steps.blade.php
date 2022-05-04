@@ -27,10 +27,12 @@
             </button>
         @endif
     @else
-        <button wire:click="goToNextPage" type="button"
+        @if ($total_teams)
+            <button wire:click="goToNextPage" type="button"
             class="button blue rounded-lg mx-2 px-8 py-4 mt-4 font-semibold hover:text-black">
-            {{__("Next")}}
-        </button>
+                {{__("Next")}}
+            </button>
+        @endif
     @endif
 </div>
 

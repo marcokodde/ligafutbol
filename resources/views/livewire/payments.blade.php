@@ -69,6 +69,7 @@
                     name="password_confirmation"
                     id="password_confirmation"
                 required>
+                @error('password_confirmation') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
         </div>
         {{--  Datos de PAgo  --}}
@@ -122,34 +123,13 @@
                 size='16' maxlength="4" minlength="3" type='password' required>
                 @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
-            <div class="grid lg:grid-cols-2">
-                <div class="form-group">
-                    <label class="font-pop font-medium text-gray-600" for="name">{{ __('Zipcode') }}</label>
-                    <input class='block lg:w-32 zipcode'
-                    maxlength="20" type='text'
-                    placeholder="{{__("Zipcode")}}"
-                    name="zipcode"
-                    wire:model.debounce.2000ms="zipcode" wire:change.prevent="read_zipcode()"
-                    placeholder="{{__("Zipcode")}}"
-                    required>
-                    @error('zipcode') <span class="text-red-500">{{ $message }}</span>@enderror
-                </div>
-                <div class="form-group">
-                    @if ($zipcode)
-                        <input class='block lg:w-32 state' name="state"
-                        wire:model.lazy='state' disabled placeholder="{{$state}}" id="state"
-                        type='text' disabled >
-                        @error('state') <span class="text-red-500">{{ $message }}</span>@enderror
-                    @endif
-                </div>
-            </div>
         </div>
     </div>
 </div>
 
 
 <div class="mx-auto items-center text-center">
-    <label class="block text-lg text-gray-500 font-pop mb-2 mt-2 justify-center text-center">{{__("By clicking confirm, I authorize to register")}} {{$total_teams}} {{__('teams, for a total of:')}} ${{number_format($price_total, 2, '.', '')}}</label>
+    <label class="block text-lg text-black font-semibold font-pop mb-2 mt-2 justify-center text-center">{{__("By clicking confirm, I authorize to register")}} {{$total_teams}} {{__('teams, for a total of:')}} ${{number_format($price_total, 2, '.', '')}}</label>
 </div>
 <div>
     <input hidden wire:model="price_total" id="price_total" name="price_total">

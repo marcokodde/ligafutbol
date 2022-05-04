@@ -30,7 +30,7 @@ class Payments extends Component
     public $number;
     public $amount;
     public $state;
-    public $zipcode;
+
     public $address;
     public $user_id;
     public $description;
@@ -44,7 +44,7 @@ class Payments extends Component
     public $quantity_teams = array();
     public $imports = array();
     public $categoriesIds = array();
-
+    public $records;
     public $total_teams = 0;
     public $fullname;
     public $email;
@@ -84,8 +84,8 @@ class Payments extends Component
                 'fullname'  =>  'required',
                 'phone'     =>  'required|min:10|max:12|unique:users',
                 'email'     =>  'required|unique:users',
-                'password'  =>  'required',
-                'zipcode'   =>  'required',
+                'password'  =>  'required|min:6',
+                "password_confirmation" => "required|min:6|max:50|same:password",
             ],
         ];
 
@@ -96,15 +96,14 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-        /* Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
                 "amount" => $request->price_total * 100,
                 "currency" => "USD",
                 "source" => $request->stripeToken,
                 "description" => $request->card_name
-        ]); */
-        $this->charge = 12;
+        ]);
         if (!is_null($this->charge)) {
             $this->createUser($request);
             $payment_record = $this->create_payment($request);
@@ -176,9 +175,9 @@ class Payments extends Component
     private function calculate_prices() {
         if($this->total_teams){
             $sql ="SELECT cost FROM cost_by_teams WHERE " . $this->total_teams . ' BETWEEN min AND max';
-            $records = DB::select($sql);
-            if ($records) {
-                foreach ($records as $record) {
+            $this->records = DB::select($sql);
+            if ($this->records) {
+                foreach ($this->records as $record) {
                     $this->price_total = round($this->total_teams * $record->cost, 2);
                 }
             }

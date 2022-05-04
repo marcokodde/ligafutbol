@@ -164,17 +164,17 @@
     "Expiration Date":"Fecha de Expiración",
     "Total teams #":"Total de equipos #",
     "Price per team:":"Precio por equipo:",
-    "Please fill in the information below":"Por favor complete la información a continuación.",
+    "Please fill in the information below":"Por favor complete la siguiente información.",
     "Galveston Cup Registration System 2022":"Sistema de Registro de Galveston Cup 2022",
     "teams)":"equipos)",
     "Coach Data":"Datos del entrenador",
     "Thank you for register the Galveston Cup 2022":"Gracias por tu registro en Galveston Cup 2022",
-    "This email is a confirmation of your registration #":"Este correo es una confirmación de tu registro de #",
+    "This email is a confirmation of your registration":"Este correo es una confirmación de tu registro de",
     "teams with a total of":"equipos con un total de",
     "You will receive another email in the next few days so that you can complete your team data and upload your player roster for each team.":"Recibirás otro correo electrónico en los próximos días para que puedas completar los datos de tus equipos y subir tu roster de jugadores para cada equipo.",
-    "Enter this link, if you want to add your Teams":"Ingresa a este link, si deseas agregar tus Equipos",
+    "Step one: Enter this link if you want to add your Teams":"Paso uno: Ingrese a este enlace si desea agregar sus Equipos",
     "Thank you for your registration!":"Gracias por tu registro",
     "Action":"Acción",
-    "Enter the link once you entered the name of your Teams, enter link if you want to add your Players":"Ingrese el enlace una vez que ingresó el nombre de sus equipos, ingrese el enlace si desea agregar sus jugadores"
-
+    "Step Two: Go to this link to add your players":"Paso dos: Ingrese a este enlace para agregar sus jugadores",
+    "Teams per":"Equipos por"
 }
