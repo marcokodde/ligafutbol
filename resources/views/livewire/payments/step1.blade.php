@@ -6,9 +6,9 @@
     <div>
     </div>
         <div class="grid grid-cols-2 gap-8 2xl:gap-4">
-            @php $i=0 @endphp
+
             @foreach($categories as $category)
-                @php  $i++ @endphp
+
                 <div class="flex items-center text-center md:justify-between">
                     <label class="text-gray-600 font-pop font-medium 2xl:text-2xl lg:text-lg">{{$category->name}}</label>
 
@@ -17,8 +17,8 @@
                                 wire:change="countTeams()"
                                 type="number"
                                 min="0"
-                        @if(isset($max_by_category[$i]))
-                            max="{{$max_by_category[$i]}}"
+                        @if(isset($max_by_category[$loop->index]))
+                            max="{{$max_by_category[$loop->index]}}"
                         @else
                             max="16"
                         @endif

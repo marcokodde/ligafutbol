@@ -62,6 +62,7 @@ class Payments extends Component
     public function mount() {
         $this->readSettings();
         $this->fill_categories_and_max_allowed();
+        //dd('Categorieas',$this->categories,'Ids Categorías',$this->categoriesIds,'Equipos máximo x Categoria',$this->max_by_category);
 
 
 
@@ -269,6 +270,7 @@ class Payments extends Component
         $teams_by_category = TeamCategory::groupBy('category_id')
                                         ->select('category_id')
                                         ->selectRaw('sum(qty_teams) as teams')
+                                        ->orderby('category_id')
                                         ->get();
 
         if ($teams_by_category) {

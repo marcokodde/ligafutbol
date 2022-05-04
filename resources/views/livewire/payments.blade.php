@@ -136,16 +136,19 @@
 <div>
     <input hidden wire:model="price_total" id="price_total" name="price_total">
     <input hidden wire:model="total_teams" id="total_teams" name="total_teams">
-
+    @php $k=0 @endphp
     @foreach($categories as $category)
-            @php $k++ @endphp
+
         <input class="categoriesIds"
-        name="categoriesIds[]"
-        value="{{$categoriesIds[$k]}}"
-        hidden>
+            name="categoriesIds[]"
+            value="{{$categoriesIds[$k]}}"
+            hidden
+        >
         <input name="quantity_teams[]"
-        value="{{$quantity_teams[$k]}}"
-        hidden>
+            value="{{$quantity_teams[$k]}}"
+            hidden
+        >
+        @php $k++ @endphp
     @endforeach
 </div>
 {{--  <div class="grid lg:grid-cols-3 gap-4 sm:gap-1 mx-auto md:grid-cols-2 sm:flex">  --}}
