@@ -155,21 +155,16 @@ class Payments extends Component
         $this->reset('success');
     }
 
-    public function calculateTeams() {
+    public function countTeams() {
         $this->reset(['price_total', 'total_teams']);
-        //TODO recorrer cada categoria
-        $i=0;
-        foreach ($this->categories as $categoryId) {
-            $i++;
-            if(isset($this->quantity_teams[$i])){
-                if(!$this->quantity_teams[$i] || $this->quantity_teams[$i]==''){
-                    $this->quantity_teams[$i] = 0;
-                }
+
+        for($i=0;$i<=count($this->quantity_teams)-1;$i++){
+            if (isset($this->quantity_teams[$i])) {
                 $this->total_teams = $this->total_teams + $this->quantity_teams[$i];
-            } else {
-                $this->quantity_teams[$i]= null;
             }
+
         }
+
         if ($this->total_teams) {
             $this->calculate_prices();
         }

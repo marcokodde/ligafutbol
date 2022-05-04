@@ -11,11 +11,12 @@
                 @php  $i++ @endphp
                 <div class="flex items-center text-center md:justify-between">
                     <label class="text-gray-600 font-pop font-medium 2xl:text-2xl lg:text-lg">{{$category->name}}</label>
+
                     <div class="mx-auto px-auto">
-                        <input wire:model="quantity_teams.{{ $category->id }}"
-                        wire:change="calculateTeams()"
-                        type="number"
-                        min="0"
+                        <input wire:model="quantity_teams.{{ $loop->index }}"
+                                wire:change="countTeams()"
+                                type="number"
+                                min="0"
                         @if(isset($max_by_category[$i]))
                             max="{{$max_by_category[$i]}}"
                         @else
@@ -26,10 +27,19 @@
                     </div>
 
                     <div>
-                        <input class="categoriesIds" wire:model="categoriesIds.{{ $category->id }}" id="categoriesIds" name="categoriesIds.{{ $category->id }}"
-                        value="categoriesIds.{{ $category->id }}" hidden>
-                        <input class="quantity_teams" wire:model="quantity_teams.{{ $category->id }}" id="quantity_teams" name="quantity_teams.{{ $category->id }}"
-                        name="quantity_teams.{{ $category->id }}" hidden>
+                        <input class="categoriesIds"
+                                wire:model="categoriesIds.{{ $loop->index}}"
+                                id="categoriesIds"
+                                name="categoriesIds.{{ $category->id }}"
+                                value="categoriesIds.{{ $category->id }}" hidden
+                        >
+                        {{-- <input class="quantity_teams"
+                                wire:model="quantity_teams.{{ $category->id }}"
+                                id="quantity_teams"
+                                name="quantity_teams.{{ $category->id }}"
+                                name="quantity_teams.{{ $category->id }}"
+                                hidden
+                        > --}}
                     </div>
                 </div>
 
