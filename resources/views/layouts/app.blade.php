@@ -85,11 +85,12 @@
         })
     })
 
+
     {{--  function confirm_modal(id) {
         var record = id;
         Swal.fire({
             title: "{{__('Are you sure?')}}",
-            text: "{{__('You wo not be able to revert this!')}}",
+            text: "{{__('You wont be able to revert this!!')}}",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -112,7 +113,7 @@
         var record = id;
         Swal.fire({
             title: "{{__('Are you sure?')}}",
-            text: "{{__('You wo not be able to revert this!')}}",
+            text: "{{__(' You wont be able to revert this!!')}}",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

@@ -54,14 +54,14 @@ class Category extends Model
         $date_from  = New Carbon($this->date_from);
         $date_to    = New Carbon($this->date_to);
 
+        $date_from = $date_from->subDay();
+        $date_to = $date_to->addDay();
         if($gender == 'Female'){
             $date_from = $date_from->subYear();
-            return $limit == 'from'  ? $date_from->format('Y-m-d')
+            return $limit == 'from' ? $date_from->format('Y-m-d')
                                     : $date_to->format('Y-m-d');
         }
 
-        $date_to = $date_from->addYears(3)->subday();
-        $date_from = New Carbon($this->date_from);
 
         return $limit == 'from' ? $date_from->format('Y-m-d')
                                 : $date_to->format('Y-m-d');

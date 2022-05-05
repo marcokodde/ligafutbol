@@ -194,6 +194,5 @@ class RegisterTeams extends Component
             $this->error_names[$i]      = false;
             $this->error_zipcodes[$i]   = false;
         }
-        $this->refresh();
     }
 }
