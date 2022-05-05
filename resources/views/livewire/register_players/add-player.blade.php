@@ -6,9 +6,9 @@
                 maxlength="30"
                 minlength="5"
                 placeholder="{{__('First Name')}}"
-                class="block"
+                class="block  @error('first_name')  bg-red-500  @enderror"
         >
-        @error('first_name') <span class="text-red-500">{{ $message }}</span>@enderror
+
     </div>
 
     <div class="lg:ml-2 sm:ml-0">
@@ -16,24 +16,23 @@
         <input type="text"
                 wire:model="last_name"
                 placeholder="{{__('Last Name')}}"
-                class="block"
+                class="block  @error('last_name')  bg-red-500  @enderror"
         >
-        @error('last_name') <span class="text-red-500">{{ $message }}</span>@enderror
+
     </div>
-    <div>
-        <label class="block font-pop text-base">{{__('Birthday')}}</label>
-        <input type="date"
-                wire:model="birthday"
-                min="{{$birthday_min}}"
-                max="{{$birthday_max}}"
-                placeholder="{{__("Birthday")}}"
-                class="block w-11/12"
-        >
-        @error('birthday') <span class="text-red-500">{{ $message }}</span>@enderror
-    </div>
+        <div>
+            <label class="block font-pop text-base">{{__('Birthday')}}</label>
+            <input type="date"
+                    wire:model="birthday"
+                    min="{{$birthday_min}}"
+                    max="{{$birthday_max}}"
+                    placeholder="{{__("Birthday")}}"
+                    class="block  w-11/12 @error('birthday')  bg-red-500  @enderror"
+            >
+        </div>
     <div>
         <label class="block font-pop text-base">{{__('Gender')}}</label>
-        <div class="flex justify-between">
+        <div class="flex justify-between @error('gender') bg-red-500 @enderror">
             <div class="mt-1 px-2">
                 <label class="text-blue-500">{{ __('Boy') }}</label>
                 <input type="radio"
@@ -52,9 +51,10 @@
                 value="Female">
             </div>
         </div>
-        @error('gender') <span class="text-red-500">{{ $message }}</span>@enderror
+
     </div>
     <div class="ml-2">
+
         <label class="block font-pop text-base">&nbsp;</label>
         <button wire:click="addingPlayer" @if ($team->players->count()+1 == $general_settings->max_players_by_team) onclick="players_full()" @endif class="block bg-green-500 px-4 py-2 rounded-lg  text-black hover:text-white">
             {{ __('Add')}}
