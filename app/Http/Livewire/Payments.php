@@ -113,7 +113,7 @@ class Payments extends Component
         if (!is_null($this->charge)) {
             $this->createUser($request);
             $payment_record = $this->create_payment($request);
-            $this->sendMail($request);
+            //$this->sendMail($request);
         } else {
             $this->store_message(__('Error to Process Payment.'));
         }

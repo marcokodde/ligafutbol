@@ -80,7 +80,7 @@ class AddPlayer extends Component
         $this->team->load('players');
         $this->resetInputFields();
         $this->emit('reload_players');
-        $this->store_message(__('Create Players'));
+        $this->store_players(__('Players'));
     }
 
       /*+-----------------------+

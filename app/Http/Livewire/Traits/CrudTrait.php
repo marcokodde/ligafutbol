@@ -89,12 +89,6 @@ trait CrudTrait {
 
 	}
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-
 	public function closeModal() {
         $this->isOpen = false;
         $this->isOpen2 = false;
@@ -102,11 +96,22 @@ trait CrudTrait {
         $this->resetInputFields();
     }
 
+    public function closeModalstore() {
+        $this->isOpen = false;
+        $this->isOpen2 = false;
+        $this->confirm_delete = false;
+    }
 
     private function delete_record($record,$message){
         $record->delete();
         $this->show_alert('success',$message);
         $this->closeModal();
+    }
+
+    private function delete_record_player($player, $message){
+        $player->delete();
+        $this->show_alert('success',$message);
+        $this->closeModalstore();
     }
 
     private function store_message($message){
@@ -116,6 +121,14 @@ trait CrudTrait {
         $this->show_alert('success',$message);
         $this->closeModal();
         $this->resetInputFields();
+    }
+
+    private function store_players($message){
+        $action_message = $this->record_id ? __('Updated Successfully!!') : __('Adding Successfully!!');
+
+        $message.= ' ' . $action_message;
+        $this->show_alert('success',$message);
+        $this->closeModalstore();
     }
 
     // Alerta

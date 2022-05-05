@@ -184,6 +184,7 @@ class RegisterTeams extends Component
                 ->first();
 
             $record_team->coaches()->attach($record_coach);
+            $this->store_players(__('Teams'));
         }
 
         $this->error_message = null;
@@ -193,5 +194,6 @@ class RegisterTeams extends Component
             $this->error_names[$i]      = false;
             $this->error_zipcodes[$i]   = false;
         }
+        $this->refresh();
     }
 }

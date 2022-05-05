@@ -1,5 +1,5 @@
-<div class="lg:mt-5 w-auto md:mt-8 sm:mt-32">
-    <div class="sm:px-0 sm:mt-12 mx-auto text-center items-center">
+<div>
+    <div class="mx-auto text-center items-center ">
         <label class="text-center text-2xl font-bold mb-10 sm:text-left">
             {{$team->category->name .'-' . $team->name}}
         </label>
@@ -18,7 +18,7 @@
                     <td>
                         <span class="lg:hidden absolute top-4 left-0 px-2 py-1 text-xs font-bold">Name</span>
                     </td>
-                     {{--<td>
+                        {{--<td>
                         <span class="lg:hidden absolute top-16 left-0 px-2 py-1 text-xs font-bold">Last Name</span>
                         {{$team_player->last_name}}</td>
                     <td>
@@ -27,9 +27,9 @@
                     <td>
                         <span class="lg:hidden absolute top-40 left-0 px-2 py-1 text-xs font-bold">Birthday</span>
                         {{date("F j Y", strtotime($team_player->birthday))}}</td>
-                     --}}
+                        --}}
                     <td>
-                         <button wire:click="removePlayer({{ $team_player->pivot->player_id }})" class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">
+                        <button wire:click="removePlayer({{ $team_player->pivot->player_id }})" class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">
                             {{__("Remove")}}
                         </button>
                     </td>

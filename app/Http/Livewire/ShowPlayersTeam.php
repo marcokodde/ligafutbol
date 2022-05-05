@@ -2,13 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Player;
 use App\Models\Team;
+use App\Models\Player;
 use Livewire\Component;
 
 class ShowPlayersTeam extends Component
 {
-
     public $team;
 
     protected $listeners = ['reload_players'];
@@ -36,6 +35,4 @@ class ShowPlayersTeam extends Component
         $this->team = Team::findOrFail($this->team->id);
         $this->team->load('players');
     }
-
-
 }
