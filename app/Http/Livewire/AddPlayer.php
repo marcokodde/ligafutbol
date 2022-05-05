@@ -19,7 +19,7 @@ class AddPlayer extends Component
 
     public $team,$user;
     public $birthday_min,$birthday_max;
-    public $show_max_players = false;
+    public $show_max_players;
 
     public function mount(Team $team,User $user){
         $this->team = $team;
@@ -27,6 +27,7 @@ class AddPlayer extends Component
         $this->birthday_min = now();
         $this->birthday_max = now();
         $this->readSettings();
+        $this->show_max_players = false;
     }
 
     public function render()
@@ -86,6 +87,7 @@ class AddPlayer extends Component
         }
         $this->resetInputFields();
         $this->emit('reload_players');
+        $this->show_max_players = true;
     }
 
       /*+-----------------------+

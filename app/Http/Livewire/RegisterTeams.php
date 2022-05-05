@@ -30,6 +30,7 @@ class RegisterTeams extends Component
     public $error_zipcodes  = array();
     public $error_message   = null;
     public $finish          = false;
+    public $show_team;
 
     public function mount($token = null)
     {
@@ -45,6 +46,7 @@ class RegisterTeams extends Component
                 }
             }
         }
+        $this->show_team = false;
     }
 
     /*+----------------------------------------------+
@@ -194,5 +196,6 @@ class RegisterTeams extends Component
             $this->error_names[$i]      = false;
             $this->error_zipcodes[$i]   = false;
         }
+        $this->show_team = true;
     }
 }

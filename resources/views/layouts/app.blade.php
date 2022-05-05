@@ -149,6 +149,24 @@
                 max-width`
         });
     }
+
+    function adding_teams() {
+        Swal.fire({
+            title: "{{__('Congratulations you added your teams, now configure your player rosters. Entering step 2 of your email.')}}",
+            width: 450,
+            padding: '3em',
+            width: 400,
+            padding: 50,
+            background: '#fff url(//bit.ly/1Nqn9HU)',
+            color: '#fff',
+            radius:'24px',
+            backdrop: `rgba(0,0,123,0.4)
+                url("https://media.giphy.com/media/5tvYIpoFPpqxLKPucc/giphy.gif")
+                top center
+                no-repeat
+                max-width`
+        });
+    }
 </script>
 
 </body>

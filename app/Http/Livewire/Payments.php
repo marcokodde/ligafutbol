@@ -135,10 +135,6 @@ class Payments extends Component
         $this->currentPage--;
     }
 
-    public function submit(Request $request) {
-        $rules = collect($this->validationRules)->collapse()->toArray();
-    }
-
     public function resetSuccess() {
         $this->reset('success');
     }
@@ -150,7 +146,6 @@ class Payments extends Component
             if (isset($this->quantity_teams[$i])) {
                 $this->total_teams = $this->total_teams + $this->quantity_teams[$i];
             }
-
         }
 
         if ($this->total_teams) {
@@ -271,7 +266,6 @@ class Payments extends Component
                 }
             }
         }
-
     }
 
     private function read_categories(){
@@ -279,6 +273,4 @@ class Payments extends Component
                                     ->OrwhereDoesntHave('teams_categories')
                                     ->get();
     }
-
-
 }
