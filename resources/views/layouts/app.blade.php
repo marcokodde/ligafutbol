@@ -5,12 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title> {{ config('app.name', 'Laravel') }}</title>
-
-
         @include('layouts.head_links_tags')
-
         @include('layouts.head_meta_tags')
-
         <!-- Fonts -->
         <link rel="icon" type="image/x-icon" href="{{asset('images/logo1.png')}}" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -89,7 +85,7 @@
         })
     })
 
-    function confirm_modal(id) {
+    {{--  function confirm_modal(id) {
         var record = id;
         Swal.fire({
             title: "{{__('Are you sure?')}}",
@@ -110,6 +106,47 @@
                 )
             }
         })
+    }  --}}
+
+    function confirm_modal_player(id) {
+        var record = id;
+        Swal.fire({
+            title: "{{__('Are you sure?')}}",
+            text: "{{__('You wo not be able to revert this!')}}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "{{__('Yes, remove it!')}}",
+            cancelButtonText: "{{__('Cancel')}}",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.livewire.emit('removePlayer', record);
+                Swal.fire(
+                'Removed!',
+                "{{__('Your player has been removed.')}}",
+                'success'
+                )
+            }
+        })
+    }
+
+    function players_full() {
+        Swal.fire({
+            title: "{{__('You added the maximum number of players, if you want to add a new player. You have to remove one of the aggregates.')}}",
+            width: 450,
+            padding: '3em',
+            width: 400,
+            padding: 50,
+            background: '#fff url(//bit.ly/1Nqn9HU)',
+            color: '#fff',
+            radius:'24px',
+            backdrop: `rgba(0,0,123,0.4)
+                url("https://media.giphy.com/media/5tvYIpoFPpqxLKPucc/giphy.gif")
+                top center
+                no-repeat
+                max-width`
+        });
     }
 </script>
 

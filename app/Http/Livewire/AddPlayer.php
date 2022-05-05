@@ -8,22 +8,25 @@ use App\Models\User;
 use App\Models\Player;
 use Livewire\Component;
 use App\Http\Livewire\Traits\CrudTrait;
+use App\Http\Livewire\Traits\SettingsTrait;
 
 class AddPlayer extends Component
 {
     use CrudTrait;
+    use SettingsTrait;
     public $first_name,$last_name,$birthday,$gender;
 
 
     public $team,$user;
     public $birthday_min,$birthday_max;
+    public $show_max_players = false;
 
     public function mount(Team $team,User $user){
         $this->team = $team;
         $this->user = $user;
         $this->birthday_min = now();
         $this->birthday_max = now();
-
+        $this->readSettings();
     }
 
     public function render()
@@ -41,7 +44,7 @@ class AddPlayer extends Component
         $this->reset(['first_name','last_name','birthday','gender']);
 	}
 
-    public function addPlayer(){
+    public function addingPlayer(){
         $max_birthday = New Carbon($this->birthday_max);
         $min_birthday = New Carbon($this->birthday_min);
 
@@ -78,9 +81,11 @@ class AddPlayer extends Component
             $record_player->teams()->attach($this->team);
         }
         $this->team->load('players');
+        if($this->team->players->count()+1 < $this->general_settings->max_players_by_team) {
+            $this->store_players(__('Player'));
+        }
         $this->resetInputFields();
         $this->emit('reload_players');
-        $this->store_players(__('Players'));
     }
 
       /*+-----------------------+

@@ -124,7 +124,7 @@ trait CrudTrait {
     }
 
     private function store_players($message){
-        $action_message = $this->record_id ? __('Updated Successfully!!') : __('Adding Successfully!!');
+        $action_message = $this->record_id ? __('Updated Successfully!!') : __('Created Successfully!!');
 
         $message.= ' ' . $action_message;
         $this->show_alert('success',$message);

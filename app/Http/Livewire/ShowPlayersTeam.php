@@ -5,15 +5,19 @@ namespace App\Http\Livewire;
 use App\Models\Team;
 use App\Models\Player;
 use Livewire\Component;
+use App\Http\Livewire\Traits\SettingsTrait;
 
 class ShowPlayersTeam extends Component
 {
+    use SettingsTrait;
     public $team;
 
-    protected $listeners = ['reload_players'];
+    protected $listeners = ['removePlayer',
+                            'reload_players'];
 
     public function mount(Team $team){
         $this->team = $team;
+        $this->readSettings();
     }
 
     public function render()
@@ -27,9 +31,9 @@ class ShowPlayersTeam extends Component
         $this->emit('reload_players');
     }
 
-    /*+--------------------+
-	  | Recarga jugadores  |
-	  +--------------------+
+    /*  +--------------------+
+	    | Recarga jugadores  |
+	    +--------------------+
     */
     public function reload_players(){
         $this->team = Team::findOrFail($this->team->id);

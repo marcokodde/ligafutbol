@@ -29,7 +29,8 @@
                         {{date("F j Y", strtotime($team_player->birthday))}}</td>
                         --}}
                     <td>
-                        <button wire:click="removePlayer({{ $team_player->pivot->player_id }})" class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">
+                        <button onclick="confirm_modal_player({{$team_player->pivot->player_id}})"
+                            class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-2 rounded-lg text-center">
                             {{__("Remove")}}
                         </button>
                     </td>
