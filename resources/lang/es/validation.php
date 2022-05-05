@@ -95,7 +95,7 @@ return [
 	'password' => 'La contraseña es incorrecta.',
 	'present' => 'El campo :attribute debe estar presente.',
 	'regex' => 'El formato del campo :attribute es inválido.',
-	'required' => 'El campo :attribute es obligatorio.',
+	'required' => ':attribute es obligatorio.',
 	'required_if' => 'El campo :attribute es obligatorio cuando el campo :other es :value.',
 	'required_unless' => 'El campo :attribute es requerido a menos que :other se encuentre en :values.',
 	'required_with' => 'El campo :attribute es obligatorio cuando :values está presente.',
@@ -164,6 +164,7 @@ return [
 		'zipcode'       => 'Código Postal',
         'first_name'    => 'Nombre',
         'last_name'     => 'Apellido',
+        'gender'        => 'Sexo',
 	]
 
 ];
