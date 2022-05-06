@@ -181,6 +181,9 @@
     "Teams per":"Equipos por",
     "Add players to rosters":"Agregando jugadores a rosters",
     "You added the maximum number of players, if you want to add a new player. You have to remove one of the aggregates.":"Agregó el número máximo de jugadores, si desea agregar un nuevo jugador. Tienes que quitar uno de los agregados.",
+    "You added the maximum number of players, if you want to add a new player": "Ha llegado al límite de jugadores por equipo",
+    "You have reached the limit of players per team.": "Ha llegado al límite de jugadores por equipo.",
+    "You can remove some and add new ones.": "Puede eliminar algunos y agregar nuevos",
     "Yes, remove it!":"Si, quítalo",
     "Your player has been removed.":"Su jugador ha sido eliminado.",
     "Congratulations you added your teams, now configure your player rosters. Entering step 2 of your email.":"Felicitaciones, agregó sus equipos, ahora configure sus listas de jugadores. Ingresando el paso 2 de tu correo electrónico."

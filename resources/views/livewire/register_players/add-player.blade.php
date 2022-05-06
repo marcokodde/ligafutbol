@@ -56,11 +56,8 @@
     <div class="ml-2">
 
         <label class="block font-pop text-base">&nbsp;</label>
-        <button wire:click="addingPlayer" 
-                @if ($team->players->count()+1 == $general_settings->max_players_by_team) 
-                    onclick="players_full()"
-                @endif 
-            class="block bg-green-500 px-4 py-2 rounded-lg  text-black hover:text-white"
+        <button wire:click="addingPlayer"
+                class="block bg-green-500 px-4 py-2 rounded-lg  text-black hover:text-white"
         >
             {{ __('Add')}}
         </button>

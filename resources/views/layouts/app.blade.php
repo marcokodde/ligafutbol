@@ -167,6 +167,16 @@
                 max-width`
         });
     }
+
+    window.addEventListener('fill_roster',event =>{
+        Swal.fire({
+                title:  event.detail.title,
+                text:   event.detail.text,
+                icon:   event.detail.type
+            }
+        )
+    })
+
 </script>
 
 </body>

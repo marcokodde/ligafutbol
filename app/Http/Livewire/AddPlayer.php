@@ -82,9 +82,20 @@ class AddPlayer extends Component
             $record_player->teams()->attach($this->team);
         }
         $this->team->load('players');
-        if($this->team->players->count()+1 < $this->general_settings->max_players_by_team) {
+
+        if($this->team->players->count() < $this->general_settings->max_players_by_team) {
             $this->store_players(__('Player'));
+
+        }else{
+            $this->dispatchBrowserEvent('fill_roster',[
+                'title' => __('You have reached the limit of players per team.'),
+                'text'  => __('You can remove some and add new ones.'),
+                'type'  => 'success'
+            ]);
         }
+
+
+
         $this->resetInputFields();
         $this->emit('reload_players');
         $this->show_max_players = true;
