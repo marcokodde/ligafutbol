@@ -74,12 +74,21 @@ class RegisterPlayers extends Component {
                                 ->distinct('category_id')
                                 ->where('user_id',$this->user->id)
                                 ->get();
+
         $categoriesIds = array();
 
         foreach($categories_user_ids as $category_user_id){
             array_push($categoriesIds,$category_user_id->category_id);
         }
         $this->categories = Category::whereIn('id',$categoriesIds)->get();
+
+        if($this->categories->count() == 1){
+            foreach($this->categories as $category_read){
+                $this->category_id = $category_read->id;
+                $this->read_category();
+            }
+
+        }
 
     }
 
@@ -95,6 +104,12 @@ class RegisterPlayers extends Component {
             $this->teams    = Team::ThisUserId($this->user->id)
                                 ->ByCategory($this->category_id)
                                 ->get();
+            if($this->teams->count() == 1){
+                foreach($this->teams as $team_read){
+                    $this->team_id = $team_read->id;
+                    $this->read_team();
+                }
+            }
         }
     }
 
