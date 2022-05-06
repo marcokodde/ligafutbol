@@ -113,7 +113,7 @@
         var record = id;
         Swal.fire({
             title: "{{__('Are you sure?')}}",
-            text: "{{__(' You wont be able to revert this!!')}}",
+            text: "{{__('You wont be able to revert this!!')}}",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -124,7 +124,7 @@
             if (result.isConfirmed) {
                 window.livewire.emit('removePlayer', record);
                 Swal.fire(
-                'Removed!',
+                "{{__('Removed!')}}",
                 "{{__('Your player has been removed.')}}",
                 'success'
                 )

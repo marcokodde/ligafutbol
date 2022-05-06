@@ -131,7 +131,7 @@
     "Updateted Successfully!!": "Actualizado Correctamente",
     "Created Successfully!!": "Creado Satisfactoriamente",
     "Are you sure?":"¿Estas seguro?",
-    " You wont be able to revert this!":"¡No podrás revertir esto!",
+    "You wont be able to revert this!!":"¡No podrás revertir esto!",
     "Yes, delete it":"Si, Eliminarlo",
     "Your record has been deleted.":"Su registro ha sido eliminado.",
 
@@ -181,5 +181,6 @@
     "Add players to rosters":"Agregando jugadores a rosters",
     "You added the maximum number of players, if you want to add a new player. You have to remove one of the aggregates.":"Agregó el número máximo de jugadores, si desea agregar un nuevo jugador. Tienes que quitar uno de los agregados.",
     "Yes, remove it!":"Si, quítalo",
-    "Your player has been removed.":"Su jugador ha sido eliminado."
+    "Your player has been removed.":"Su jugador ha sido eliminado.",
+    "Removed!": "Eliminado!"
 }
