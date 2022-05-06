@@ -202,5 +202,6 @@ class RegisterTeams extends Component
             'text'  => __('Follow the next step in your email to register your player rosters.'),
             'type'  => 'success'
         ]);
+        return redirect()->route('register_teams');
     }
 }

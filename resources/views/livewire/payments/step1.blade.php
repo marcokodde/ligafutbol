@@ -10,7 +10,7 @@
             @foreach($categories as $category)
 
                 <div class="flex items-center text-center md:justify-between">
-                    <label class="text-gray-600 font-pop font-medium 2xl:text-2xl lg:text-lg">{{$category->name}}</label>
+                    <label class="text-gray-600 font-pop font-medium 2xl:text-2xl lg:text-lg mr-4">{{$category->name}}</label>
 
                     <div class="mx-auto px-auto">
                         <input wire:model="quantity_teams.{{ $loop->index }}"
@@ -23,7 +23,7 @@
                             max="16"
                         @endif
 
-                        class="appearance-none border rounded-lg text-gray-700 focus:outline-none focus:shadow-outline">
+                        class="w-auto appearance-none border rounded-lg text-gray-700 focus:outline-none focus:shadow-outline">
                     </div>
                     
                 </div>

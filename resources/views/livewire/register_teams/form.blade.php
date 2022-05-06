@@ -37,7 +37,7 @@
                             <label class="text-xl text-center text-gray-700 font-bold mb-2 mt-2">{{$category->category->name}}</label>
                             {{-- Equipo --}}
                             <input  type="text"
-                                wire:model="team_names.{{ $indice }}"
+                                wire:model.debounce.1000ms="team_names.{{ $indice }}"
                                 class="w-full mt-2"
                                 @if($error_names[$indice])
                                     style="background-color: red"
