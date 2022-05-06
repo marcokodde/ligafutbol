@@ -132,23 +132,7 @@
         })
     }
 
-    function players_full() {
-        Swal.fire({
-            title: "{{__('You added the maximum number of players, if you want to add a new player. You have to remove one of the aggregates.')}}",
-            width: 450,
-            padding: '3em',
-            width: 400,
-            padding: 50,
-            background: '#fff url(//bit.ly/1Nqn9HU)',
-            color: '#fff',
-            radius:'24px',
-            backdrop: `rgba(0,0,123,0.4)
-                url("https://media.giphy.com/media/5tvYIpoFPpqxLKPucc/giphy.gif")
-                top center
-                no-repeat
-                max-width`
-        });
-    }
+
 
     function adding_teams() {
         Swal.fire({
