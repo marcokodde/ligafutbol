@@ -196,6 +196,11 @@ class RegisterTeams extends Component
             $this->error_names[$i]      = false;
             $this->error_zipcodes[$i]   = false;
         }
-        $this->show_team = true;
+        sleep(1);
+        $this->dispatchBrowserEvent('fill_roster',[
+            'title' => __('You have successfully registered your equipment.'),
+            'text'  => __('Follow the next step in your email to register your player rosters.'),
+            'type'  => 'success'
+        ]);
     }
 }
