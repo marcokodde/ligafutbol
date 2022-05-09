@@ -20,6 +20,11 @@ class AddPlayer extends Component
     public $team,$user;
     public $birthday_min,$birthday_max;
 
+    protected $rules = [
+        'first_name'=> 'required|min:3|max:30',
+        'last_name' => 'required|min:3|max:30',
+        'gender'    => 'required|in:Female,Male',
+    ];
 
     public function mount(Team $team,User $user){
         $this->team = $team;
@@ -32,6 +37,9 @@ class AddPlayer extends Component
         return view('livewire.register_players.add-player');
     }
 
+    public function updated($propertyName){
+        $this->validateOnly($propertyName);
+    }
 
     /*+------------------------+
 	  | Inicializa variables  |
@@ -43,18 +51,18 @@ class AddPlayer extends Component
 	}
 
     public function addingPlayer(){
+
+
+        $this->validate();
         $max_birthday = New Carbon($this->birthday_max);
         $min_birthday = New Carbon($this->birthday_min);
-
         $max_birthday=$max_birthday->format('Y-m-d');
         $min_birthday=$min_birthday->format('Y-m-d');
 
         $this->validate([
-            'first_name'=> 'required|min:3|max:30',
-            'last_name' => 'required|min:3|max:30',
             'birthday'  => 'required|date|before:' .  $max_birthday .'|after:' . $min_birthday . '',
-            'gender'    => 'required|in:Female,Male',
 		]);
+
 
         $this->first_name = ucwords(strtolower(trim($this->first_name)));
         $this->last_name = ucwords(strtolower(trim($this->last_name)));
@@ -78,6 +86,7 @@ class AddPlayer extends Component
             $record_player->teams()->detach($this->team);
             $record_player->teams()->attach($this->team);
         }
+
         $this->team->load('players');
 
         if ($this->team->players->count() < $this->general_settings->max_players_by_team) {

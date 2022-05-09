@@ -21,12 +21,12 @@ class Player extends Model
     // Setters
     public function setNamehAttribute($value)
     {
-        $this->attributes['name'] =  ucwords(strtolower($value));
+        $this->attributes['name'] =  ucwords(strtolower(trim($value)));
     }
 
     public function setLastNameAttribute($value)
     {
-        $this->attributes['last_name'] =  ucwords(strtolower($value));
+        $this->attributes['last_name'] =  ucwords(strtolower(trim($value)));
     }
 
     public function getFullNameAttribute()
