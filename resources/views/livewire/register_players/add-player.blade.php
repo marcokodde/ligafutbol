@@ -1,13 +1,4 @@
 <div>
-    <div wire:loading.delay wire:target="addingPlayer" class="flex items-center justify-center mx-auto">
-        <button type="button" class="items-center justify-center px-2 py-2 text-2xl font-semibold leading-6 text-center text-white transition duration-150 ease-in-out bg-indigo-500 rounded-md shadow cursor-not-allowed font-pop hover:bg-indigo-400" disabled="">
-            <svg class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            {{__('Adding Player at Team')}}
-        </button>
-    </div>
     <div class="flex flex-wrap mt-2">
         <div>
             <label class="block text-base font-pop">{{__('First Name')}} @error('first_name') <label class="inline text-xl text-red-500" >*</label>@enderror</label>
@@ -71,19 +62,25 @@
                 max="{{$birthday_max}}"
                 placeholder="{{__("Birthday")}}"
                 class="block ml-1 w-11/12 @error('birthday')  border-red-600 border-collapse border-2 @enderror">
-                @error('birthday')
-                    <label class="bg-pink-100 text-pink-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-pink-200 dark:text-pink-900">
-                        {{$message}}
-                    </label>
-                @enderror
-        </div>
-
-        <div class="ml-2">
-            <label class="block text-base font-pop">&nbsp;</label>
-            <button wire:click="addingPlayer"
-                class="block px-4 py-2 text-black bg-green-500 rounded-lg hover:text-white">
-                {{ __('Add')}}
-            </button>
-        </div>
+                @error('birthday') <label class="text-sm text-red-500" >{{$message}}</label>@enderror
+            </div>
+            @if ($errors->count())
+                <div class="ml-2">
+                    <label class="block text-base font-pop">&nbsp;</label>
+                    <button wire:click="addingPlayer"
+                        class="block px-4 py-2 text-black bg-green-500 rounded-lg hover:text-white">
+                        {{ __('Add')}}
+                    </button>
+                </div>
+            @endif
+    </div>
+    <div wire:loading.delay wire:target="addingPlayer" class="px-4 mx-4 mt-2 ">
+        <button type="button" class="text-2xl font-semibold text-white transition duration-150 ease-in-out bg-indigo-500 rounded-lg cursor-not-allowed font-pop hover:bg-indigo-400" disabled="">
+            <svg class="inline w-6 h-6 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            {{__('Adding Player at Team')}}
+        </button>
     </div>
 </div

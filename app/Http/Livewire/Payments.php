@@ -144,6 +144,9 @@ class Payments extends Component
 
         for($i=0;$i<=count($this->quantity_teams);$i++){
             if (isset($this->quantity_teams[$i])) {
+                if(!$this->quantity_teams[$i] || $this->quantity_teams[$i]==''){
+                    $this->quantity_teams[$i] = null;
+                }
                 $this->total_teams = $this->total_teams + $this->quantity_teams[$i];
             }
         }
