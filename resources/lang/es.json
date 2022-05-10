@@ -190,5 +190,8 @@
     "Congratulations you added your teams, now configure your player rosters. Entering step 2 of your email.":"Felicitaciones, agregó sus equipos, ahora configure sus listas de jugadores. Ingresando el paso 2 de tu correo electrónico.",
     "Follow the next step in your email to register your player rosters":"Siga el siguiente paso en su correo electrónico para registrar sus listas de jugadores",
     "You have successfully registered your equipment.":"Has registrado correctamente tu equipo.",
-    "Now enter the link in the email to enter your roster of players.":"Ahora ingresa al link de tu correo electronico, para ingresar tu roster de jugadores."
+    "Now enter the link in the email to enter your roster of players.":"Ahora ingresa al link de tu correo electronico, para ingresar tu roster de jugadores.",
+    "Your teams cannot be called the same in the same category.":"Tus equipos no pueden llamarse igual en la misma categoria.",
+    "That team name is already being used in that category. Please change the team name.":"Ese nombre de equipo ya esta siendo usando en esa categoria. Favor de cambiar el nombre de equipo.",
+    "Introduce the Team Name and Zip Code":"Introduzca el Nombre del Equipo y el Código Postal"
 }

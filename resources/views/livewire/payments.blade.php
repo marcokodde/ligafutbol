@@ -131,7 +131,7 @@
 
 
 <div class="mx-auto items-center text-center">
-    <label class="block text-lg text-black font-semibold font-pop mb-2 mt-2 justify-center text-center">{{__("By clicking confirm, I authorize to register")}} {{$total_teams}} {{__('teams, for a total of:')}} ${{number_format($price_total, 2, '.', '')}}</label>
+    <label class="block text-lg text-black font-semibold font-pop mb-2 mt-2 justify-center text-center">{{__("By clicking confirm, I authorize to register")}} {{$total_teams}} {{__('teams, for a total of:')}} ${{number_format($price_total)}}</label>
 </div>
 <div>
     <input hidden wire:model="price_total" id="price_total" name="price_total">
@@ -150,4 +150,3 @@
         @php $k++ @endphp
     @endforeach
 </div>
-{{--  <div class="grid lg:grid-cols-3 gap-4 sm:gap-1 mx-auto md:grid-cols-2 sm:flex">  --}}

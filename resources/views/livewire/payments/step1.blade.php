@@ -51,9 +51,9 @@
     <br>
     <label class="inline text-2xl text-gray-700 font-bold font-pop justify-center text-center mt-2 m-2 lg:-ml-28">{{__('Total')}} {{$total_teams}} 
         @if ($total_teams == 1)
-        {{__('Team')}}
+            {{__('Team')}}
         @else
-        {{__('Teams')}}
-    @endif  ${{$price_total}}</label>
+            {{__('Teams')}}
+        @endif  ${{number_format($price_total)}}</label>
     @endif
 </div>

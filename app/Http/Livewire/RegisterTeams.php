@@ -122,7 +122,7 @@ class RegisterTeams extends Component
             $this->error_names[$i] = false;
             for ($j = $i + 1; $j < count($this->categoriesIds) - 1; $j++) {
                 if ($this->team_names[$i] == $this->team_names[$j] && $this->categoriesIds[$i] == $this->categoriesIds[$j]) {
-                    $this->error_message = __('There are duplicate name team');
+                    $this->error_message = __('Your teams cannot be called the same in the same category.');
                     $this->error_names[$i] = true;
                     break;
                 }
@@ -156,7 +156,7 @@ class RegisterTeams extends Component
             $record_team = Team::ByCategory($this->categoriesIds[$i])->Team($this->team_names[$i])->first();
             if ($record_team) {
                 $this->error_names[$i] = true;
-                $this->error_message = __('The team already exists in category');
+                $this->error_message = __('That team name is already being used in that category. Please change the team name.');
                 break;
             }
         }
@@ -197,7 +197,7 @@ class RegisterTeams extends Component
             $this->error_zipcodes[$i]   = false;
         }
         sleep(1);
-        $this->dispatchBrowserEvent('fill_roster',[
+        $this->dispatchBrowserEvent('fill_roster', [
             'title' => __('You have successfully registered your equipment.'),
             'text'  => __('Follow the next step in your email to register your player rosters.'),
             'type'  => 'success'

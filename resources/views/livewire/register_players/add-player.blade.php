@@ -64,15 +64,13 @@
                 class="block ml-1 w-11/12 @error('birthday')  border-red-600 border-collapse border-2 @enderror">
                 @error('birthday') <label class="text-sm text-red-500" >{{$message}}</label>@enderror
             </div>
-            @if ($errors->count())
-                <div class="ml-2">
-                    <label class="block text-base font-pop">&nbsp;</label>
-                    <button wire:click="addingPlayer"
-                        class="block px-4 py-2 text-black bg-green-500 rounded-lg hover:text-white">
-                        {{ __('Add')}}
-                    </button>
-                </div>
-            @endif
+            <div class="ml-2">
+                <label class="block text-base font-pop">&nbsp;</label>
+                <button wire:click="addingPlayer"
+                    class="block px-4 py-2 text-black bg-green-500 rounded-lg hover:text-white">
+                    {{ __('Add')}}
+                </button>
+            </div>
     </div>
     <div wire:loading.delay wire:target="addingPlayer" class="px-4 mx-4 mt-2 ">
         <button type="button" class="text-2xl font-semibold text-white transition duration-150 ease-in-out bg-indigo-500 rounded-lg cursor-not-allowed font-pop hover:bg-indigo-400" disabled="">

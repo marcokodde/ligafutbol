@@ -1,3 +1,4 @@
+
 <div>
     <div class="mx-auto text-center items-center ">
         <label class="text-center text-2xl font-bold mb-10 sm:text-left">
@@ -14,10 +15,11 @@
         <body>
             @foreach($team->players as $team_player)
                 <tr>
-                    <td>{{$team_player->fullName}}</td>
-                    <td>
+                    <td>{{$loop->index+1}}</td>
+                    <td><label class="font-bold text-sm">{{$team_player->fullName}}</label>, {{date("F j Y", strtotime($team_player->birthday))}}</td>
+                    {{--  <td>
                         <span class="lg:hidden absolute top-4 left-0 px-2 py-1 text-xs font-bold">Name</span>
-                    </td>
+                    </td>  --}}
                         {{--<td>
                         <span class="lg:hidden absolute top-16 left-0 px-2 py-1 text-xs font-bold">Last Name</span>
                         {{$team_player->last_name}}</td>
