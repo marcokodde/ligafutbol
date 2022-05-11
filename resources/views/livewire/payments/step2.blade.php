@@ -1,5 +1,10 @@
 <div class="mx-auto text-center items-center">
-    <label class="lg:text-2xl sm:text-base font-medium text-gray-500 font-pop mt-2 mb-4">{{__("Select the number of teams you want to register in each category")}}</label>
+    <label class="block lg:text-xl sm:text-sm text-gray-600 font-bold mb-2">
+        {{__("Step 2 of 3")}}
+    </label>
+    <label class="lg:text-2xl sm:text-base font-normal text-gray-500 font-pop mt-4 mb-4">
+        {{__("Select how many teams you want to register for each category")}}:
+    </label>
 </div>
 <br>
 <div class="grid lg:grid-cols-3 lg:gap-4 sm:grid-cols-1 sm:gap-1 md:grid-cols-2 md:gap-2">

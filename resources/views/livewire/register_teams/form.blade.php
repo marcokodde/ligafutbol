@@ -38,20 +38,21 @@
                             {{-- Equipo --}}
                             <input  type="text"
                                 wire:model.debounce.1000ms="team_names.{{ $indice }}"
-                                class="w-full mt-2"
+                                class="w-full mt-2
                                 @if($error_names[$indice])
-                                    style="background-color: red"
-                                @endif
+                                border-red-600 border-2 border-collapse
+                                @endif "
                                 @if($finish) disabled @endif
                             >
 
                             {{-- Zipcode --}}
                             <input  type="text"
                                 wire:model="team_zipcodes.{{ $indice }}"
-                                class="w-full ml-5 mt-2"
+                                class="w-full ml-5 mt-2
                                 @if($error_zipcodes[$indice])
-                                    style="background-color: red"
+                                    border-red-600 border-2 border-collapse
                                 @endif
+                                "
                                 @if($finish) disabled @endif
                             >
                         </div>
@@ -61,7 +62,6 @@
             @endforeach
         </div>
     </div>
-
     @if(!$finish)
         <div class="row mt-5">
             <div class="flex text-center items-center justify-center bg-gray-50  sm:px-6">

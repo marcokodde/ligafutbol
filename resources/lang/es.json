@@ -1,4 +1,11 @@
 {
+    "Step 1 of 3":"Paso 1 de 3",
+    "Step 2 of 3":"Paso 2 de 3",
+    "Step 3 of 3":"Paso 3 de 3",
+    "Welcome! to start, please fill in the information below:":"¡Bienvenido! Para comenzar, por favor complete la siguiente información:",
+    "Trainer personal data":"Datos personales del entrenador",
+    "Select how many teams you want to register for each category":"Selecciona cuantos equipos quieres inscribir para cada categoría",
+    "Payments and security":"Pagos y seguridad",
     "Adding Player at Team": "Agregando Jugador Al Equipo",
     "Removed!": "Eliminado",
     "Teams by Category": "Equipos x Categoría",
@@ -152,8 +159,8 @@
     "Total Price:":"Precio Total:",
     "Name on Card":"Nombre de la Tarjeta",
     "Address":"Dirección",
-    "Month MM":"Mes MM",
-    "Year YYYY":"Año YYYY",
+    "Month":"Mes",
+    "Year":"Año",
     "Next":"Siguiente",
     "Go Back":"Atras",
     "Confirm Payment":"Confirmar Pago",
@@ -194,6 +201,11 @@
     "Your teams cannot be called the same in the same category.":"Tus equipos no pueden llamarse igual en la misma categoria.",
     "That team name is already being used in that category. Please change the team name.":"Ese nombre de equipo ya esta siendo usando en esa categoria. Favor de cambiar el nombre de equipo.",
     "Introduce the Team Name and Zip Code":"Introduzca el Nombre del Equipo y el Código Postal",
-    "Add personal data":"Agrega tu información personal",
-    "Add your login password":"Detalle de acceso al sistema"
+    "Create a new password":"Crear nueva contraseña",
+    "Confirm a new password":"Confirmar nueva contraseña",
+    "Name on card":"Nombre en la tarjeta",
+    "Add Roster to players":"Agregar rosters de jugadores",
+    "Your teams have been successfully registered.":"Tus equipos han sido registrados con éxito.",
+    "It is time to add your roster of players click on Add Players.":"Es hora de agregar su lista de jugadores, haga clic en Agregar jugadores",
+    "Confirmation":"Confirmación"
 }

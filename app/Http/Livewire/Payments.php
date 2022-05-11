@@ -26,7 +26,6 @@ class Payments extends Component
 {
     use SettingsTrait;
 
-
     public $phone;
     public $price_total=0;
     public $teams;
@@ -48,7 +47,6 @@ class Payments extends Component
     public $imports = array();
     public $categoriesIds = array();
     public $max_by_category = array();
-
     public $records;
     public $total_teams = 0;
     public $fullname;
@@ -56,8 +54,9 @@ class Payments extends Component
     public $password;
     public $password_confirmation;
     public $category_id;
+    public $useradd;
 
-    protected $listeners = ['create_Teamcategory'];
+    protected $listeners = ['AddUser'];
 
     public function mount() {
         $this->readSettings();
@@ -84,8 +83,6 @@ class Payments extends Component
                 'fullname'  =>  'required',
                 'phone'     =>  'required|min:7|max:10|unique:users',
                 'email'     =>  'required|unique:users',
-                'quantity_teams' => 'required',
-                'price_total'   => 'required',
             ],
             2 => [
                 'quantity_teams' => 'required',
@@ -171,46 +168,51 @@ class Payments extends Component
         }
     }
 
-    private function createUser($request){
-        $this->user = User::updateOrCreate(['id' => $this->record_id],[
-			'name'      => $request->fullname,
-			'email'     => $request->email,
-            'phone'     => $request->phone,
-            'password'  => Hash::make($request->password),
-            'active'    =>  1,
-            'token_register_teams'  => bin2hex(random_bytes(25)),
-            'token_register_players'=> bin2hex(random_bytes(25)),
+    public function AddUser() {
+        $this->useradd = User::updateOrCreate(['id' => $this->record_id], [
+			'name'      => $this->fullname,
+			'email'     => $this->email,
+            'phone'     => $this->phone,
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //password
         ]);
-
-        $coach = Coach::Create([
-            'name'      => $request->fullname,
-			'phone'     => $request->phone,
-            'user_id'   => $this->user->id
+        $coach = Coach::updateOrCreate(['id' => $this->record_id], [
+            'name'      => $this->fullname,
+			'phone'     => $this->phone,
+            'user_id'   => $this->useradd->id
 		]);
 
-        $this->user->save();
         $role_record = Role::where('name','coach')->first();
         if($role_record){
-            $this->user->roles()->attach($role_record);
+            $this->useradd->roles()->attach($role_record);
         }
+    }
+
+    private function createUser($request){
+        $this->user = User::where('id','=', $request->id)
+                            ->update([
+                                'password'  => Hash::make($request->password),
+                                'active'    =>  1,
+                                'token_register_teams'  => bin2hex(random_bytes(25)),
+                                'token_register_players'=> bin2hex(random_bytes(25)),
+                            ]);
     }
 
     private function create_payment(Request $request) {
         $payment= Payment::create([
-            'description'   => $request->fullname,
+            'description'   => $request->name,
             'amount'        => $request->price_total,
-            'user_id'       => $this->user->id,
+            'user_id'       => $request->id,
             'source'        => $request->total_teams,
         ]);
-        $this->create_Teamcategory($request, $this->user->id, $payment);
+        $this->create_Teamcategory($request, $payment);
     }
 
-    public function create_Teamcategory($request, $user, $payment){
+    public function create_Teamcategory($request, $payment){
         $i=0;
         foreach ($request->categoriesIds as $categoryId => $value) {
               if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
                 TeamCategory::create([
-                    'user_id'     => $user,
+                    'user_id'     => $request->id,
                     'category_id' => $value,
                     'payment_id'  => $payment->id,
                     'qty_teams'   => $request->quantity_teams[$i]

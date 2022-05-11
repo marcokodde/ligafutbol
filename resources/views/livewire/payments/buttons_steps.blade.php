@@ -2,10 +2,10 @@
     @if ($currentPage === 1)
         <div></div>
     @elseif($currentPage === 2)
-        <button wire:click="goToPreviousPage" type="button" style="background-color: #DCC742"
+        {{--  <button wire:click="goToPreviousPage" type="button" style="background-color: #DCC742"
             class="button mx-2 px-8 py-4 mt-4 text-black font-semibold rounded-lg hover:text-white">
             {{__("Go Back")}}
-        </button>
+        </button>  --}}
     @else
         <button wire:click="goToPreviousPage"  type="button" style="background-color: #DCC742"
             class="button mx-2 px-8 py-4 mt-4  text-black font-semibold rounded-lg hover:text-white">
@@ -23,9 +23,16 @@
             </button>
         @endif
     @else
-        <button wire:click="goToNextPage" type="button"
+        @if ($fullname && $phone && $email)
+        <button wire:click="goToNextPage" onclick="add_user()" type="button"
             class="block button blue rounded-lg mx-2 px-8 py-4 mt-4 font-semibold hover:text-black">
             {{__("Next")}}
         </button>
+        @endif
     @endif
 </div>
+<script>
+    function add_user() {
+        Livewire.emit('AddUser')
+    }
+</script>

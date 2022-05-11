@@ -20,7 +20,7 @@ class RegisterTeams extends Component
     use CrudTrait;
     use ZipcodeTrait;
 
-    public $user;
+    public $user, $user_token;
     public $teams_category_user;
     public $teamsCategoriesIds = array();
     public $categoriesIds   = array();
@@ -31,6 +31,7 @@ class RegisterTeams extends Component
     public $error_message   = null;
     public $finish          = false;
     public $show_team;
+    public $show_token;
 
     public function mount($token = null)
     {
@@ -47,6 +48,7 @@ class RegisterTeams extends Component
             }
         }
         $this->show_team = false;
+        $this->show_token = false;
     }
 
     /*+----------------------------------------------+
@@ -202,6 +204,7 @@ class RegisterTeams extends Component
             'text'  => __('Follow the next step in your email to register your player rosters.'),
             'type'  => 'success'
         ]);
-        return redirect()->route('register_teams');
+        $this->user_token = User::findOrFail($this->user->id);
+        $this->show_token = true;
     }
 }
