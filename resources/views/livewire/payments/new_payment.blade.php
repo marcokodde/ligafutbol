@@ -8,6 +8,10 @@
         @csrf
             <div class="row mx-auto">
                 <div class="py-2">
+                    <div class="mx-auto text-center text-2xl font-semibold">
+                        <x-jet-validation-errors/>
+                    </div>
+
                     {{-- Paso numero 1 agregando datos de los teams --}}
                     @if ($currentPage === 1)
                         @include('livewire.payments.step1')
