@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\UserTrait;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
-use App\Traits\UserTrait;
 
 class User extends Authenticatable
 {
@@ -103,6 +104,7 @@ class User extends Authenticatable
     }
 
 
+
     /*+-------------+
       | Apoyo       |
       +-------------+
@@ -111,6 +113,28 @@ class User extends Authenticatable
     public function isActive()
     {
         return $this->active;
+    }
+
+    // Update Password
+    public function update_password($password)
+    {
+        $this->password = Hash::make($password);
+        $this->save();
+    }
+
+    //  Actualiza Token registrar Equipos
+
+    public function update_token_register_teams()
+    {
+        $this->token_register_teams = bin2hex(random_bytes(25));
+        $this->save();
+    }
+
+    // Actualiza token registro jugadores
+    public function update_token_register_players()
+    {
+        $this->token_register_players = bin2hex(random_bytes(25));
+        $this->save();
     }
 
     // Borra token para registro de equipos

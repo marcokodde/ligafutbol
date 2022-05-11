@@ -101,7 +101,7 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-        dd($request->stripeToken);
+
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
@@ -188,13 +188,11 @@ class Payments extends Component
     }
 
     private function updateUser($request){
-        $this->user = User::where('id','=', $request->id_user)
-                            ->update([
-                                'password'  => Hash::make($request->password),
-                                'active'    =>  1,
-                                'token_register_teams'  => bin2hex(random_bytes(25)),
-                                'token_register_players'=> bin2hex(random_bytes(25)),
-                            ]);
+        $this->user = User::findOrFail( $request->id_user);
+        // TODO: Atrapar excepción
+        $this->user->update_password($request->password);
+         $this->user->update_token_register_teams();
+        $this->user->update_token_register_players();
     }
 
     private function create_payment(Request $request) {
@@ -223,6 +221,7 @@ class Payments extends Component
     }
 
     public function sendMail($request) {
+
         $email      = $request->email;
         $total      = $request->price_total;
         $total_teams=$request->total_teams;
