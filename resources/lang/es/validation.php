@@ -165,6 +165,9 @@ return [
         'first_name'    => 'Nombre',
         'last_name'     => 'Apellido',
         'gender'        => 'Sexo',
+		'password'		=> 'Contraseña',
+		"password_confirmation" =>"Confirmar_contraseña",
+		"phone"			=> "Telefono"
 	]
 
 ];

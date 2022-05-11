@@ -33,7 +33,7 @@ class Payments extends Component
     public $number;
     public $amount;
     public $state;
-
+    public $record_id,$record;
     public $address;
     public $user_id;
     public $description;
@@ -63,15 +63,16 @@ class Payments extends Component
         $this->readSettings();
         $this->fill_categories_and_max_allowed();
         //dd('Categorieas',$this->categories,'Ids Categorías',$this->categoriesIds,'Equipos máximo x Categoria',$this->max_by_category);
-
-
-
+        $this->step = 0;
         $this->pages = [
             1 => [
                 'heading' => __('Galveston Cup Registration System 2022'),
 
             ],
             2 => [
+                'heading' => __('Galveston Cup Registration System 2022'),
+            ],
+            3 => [
                 'heading' => __('Galveston Cup Registration System 2022'),
             ]
         ];
@@ -80,16 +81,19 @@ class Payments extends Component
  /** Validaciones para Eventos, Usuarios, Payments */
     private $validationRules = [
             1 => [
+                'fullname'  =>  'required',
+                'phone'     =>  'required|min:7|max:10|unique:users',
+                'email'     =>  'required|unique:users',
                 'quantity_teams' => 'required',
                 'price_total'   => 'required',
             ],
-
             2 => [
-                'fullname'  =>  'required',
-                'phone'     =>  'required|min:10|max:12|unique:users',
-                'email'     =>  'required|unique:users',
-                'password'  =>  'required|min:6',
-                "password_confirmation" => "required|min:6|max:50|same:password",
+                'quantity_teams' => 'required',
+                'price_total'   => 'required',
+            ],
+            3 => [
+                'password'  =>  'nullable|min:6',
+                "password_confirmation" => "nullable|min:6|max:50|same:password",
             ],
         ];
 
@@ -168,7 +172,7 @@ class Payments extends Component
     }
 
     private function createUser($request){
-        $this->user = User::create([
+        $this->user = User::updateOrCreate(['id' => $this->record_id],[
 			'name'      => $request->fullname,
 			'email'     => $request->email,
             'phone'     => $request->phone,

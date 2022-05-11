@@ -12,7 +12,7 @@
     "Your Teams has been Registered":"Tus equipos han sido registrados",
     "The team already exists in category": "Equipo ya existe en la categoría",
     "There are duplicate name team": "Hay nombres de equpo duplicados",
-    "Please fill al input boxes": "Por favor llene todos los cuadros",
+    "Please fill al inputs": "Por favor ingrese todos los datos",
     "Introduce the Team Name and Zipcode": "Introduzca Nombre de Equipo y Zona Postal",
     "The list has been registered": "La Lista ha Sido Registrada",
     "Missing birthday for to": "Falta fecha de nacimiento para",
@@ -60,10 +60,10 @@
     "Coach": "Entrenador",
     "Coaches": "Entrenadores",
     "Already registered?": "¿Ya está registrado?",
-    "Password": "Clave",
-    "Confirm Password": "Confirme Clave",
+    "Password": "Contraseña",
+    "Confirm Password": "Confirme Contraseña",
     "Register": "Registrarse",
-    "Forgot your password?": "¿Olvidó su Clave?",
+    "Forgot your password?": "¿Olvidó su Contraseña?",
     "Log in": "Ingresar",
     "Female": "Femenino",
     "Male": "Masculino",
@@ -193,5 +193,7 @@
     "Now enter the link in the email to enter your roster of players.":"Ahora ingresa al link de tu correo electronico, para ingresar tu roster de jugadores.",
     "Your teams cannot be called the same in the same category.":"Tus equipos no pueden llamarse igual en la misma categoria.",
     "That team name is already being used in that category. Please change the team name.":"Ese nombre de equipo ya esta siendo usando en esa categoria. Favor de cambiar el nombre de equipo.",
-    "Introduce the Team Name and Zip Code":"Introduzca el Nombre del Equipo y el Código Postal"
+    "Introduce the Team Name and Zip Code":"Introduzca el Nombre del Equipo y el Código Postal",
+    "Add personal data":"Agrega tu información personal",
+    "Add your login password":"Detalle de acceso al sistema"
 }

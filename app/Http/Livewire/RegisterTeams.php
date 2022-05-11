@@ -110,7 +110,7 @@ class RegisterTeams extends Component
         $this->error_message = null;
         for ($i = 0; $i < count($this->categoriesIds); $i++) {
             if ($this->error_names[$i] || $this->error_zipcodes[$i]) {
-                $this->error_message = __('Please fill al input boxes');
+                $this->error_message = __('Please fill al inputs');
             }
         }
     }

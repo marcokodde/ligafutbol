@@ -14,6 +14,8 @@
                     {{-- Paso tres, se detalla el detalle de la reservacion --}}
                     @elseif ($currentPage === 2)
                         @include('livewire.payments.step2')
+                    @elseif ($currentPage === 3)
+                        @include('livewire.payments.step3')
                     @endif
                     <div>
                         @include('livewire.payments.buttons_steps')

@@ -22,6 +22,7 @@ class ShowPlayersTeam extends Component
 
     public function render()
     {
+        $this->team = Team::findOrFail($this->team->id);
         return view('livewire.register_players.show-players-team');
     }
 

@@ -20,16 +20,29 @@
 
         <style>
             body {
-                font-family: 'Poppins';
+                background-color: white;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: bottom;
+            }
+            @media only screen and (max-width: 320px) {
+                img {
+                    width: 100%;
+                    height: 500px;
+                }
             }
         </style>
     </head>
     <body class="antialiased">
         <div class="relative overflow-auto max-w-max max-h-max">
             @if(App::isLocale('en'))
-                <img src="{{asset('images/en_confirmation.png')}}" class="object-cover" alt="">
+                <img src="{{asset('images/en_confirmation.png')}}" alt="">
             @else
-                <img src="{{asset('images/confimation_es.png')}}" class="object-cover" alt="">
+                <img src="{{asset('images/confimation_es.png')}}" alt="">
             @endif
         </div>
     </body>
