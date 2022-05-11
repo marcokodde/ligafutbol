@@ -111,7 +111,7 @@ class Payments extends Component
         ]);
 
         if (!is_null($this->charge)) {
-            $this->createUser($request);
+            $this->updateUser($request);
             $payment_record = $this->create_payment($request);
             $this->sendMail($request);
         } else {
@@ -172,7 +172,7 @@ class Payments extends Component
 			'name'      => $this->fullname,
 			'email'     => $this->email,
             'phone'     => $this->phone,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //password
+            'password' => $this->phone,
         ]);
         $coach = Coach::updateOrCreate(['id' => $this->record_id], [
             'name'      => $this->fullname,
@@ -186,7 +186,7 @@ class Payments extends Component
         }
     }
 
-    private function createUser($request){
+    private function updateUser($request){
         $this->user = User::where('id','=', $request->id)
                             ->update([
                                 'password'  => Hash::make($request->password),
