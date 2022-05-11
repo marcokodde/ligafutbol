@@ -101,6 +101,7 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
+        dd($request->stripeToken);
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
@@ -187,7 +188,7 @@ class Payments extends Component
     }
 
     private function updateUser($request){
-        $this->user = User::where('id','=', $request->id)
+        $this->user = User::where('id','=', $request->id_user)
                             ->update([
                                 'password'  => Hash::make($request->password),
                                 'active'    =>  1,
@@ -200,7 +201,7 @@ class Payments extends Component
         $payment= Payment::create([
             'description'   => $request->name,
             'amount'        => $request->price_total,
-            'user_id'       => $request->id,
+            'user_id'       => $request->id_user,
             'source'        => $request->total_teams,
         ]);
         $this->create_Teamcategory($request, $payment);
@@ -211,7 +212,7 @@ class Payments extends Component
         foreach ($request->categoriesIds as $categoryId => $value) {
               if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
                 TeamCategory::create([
-                    'user_id'     => $request->id,
+                    'user_id'     => $request->id_user,
                     'category_id' => $value,
                     'payment_id'  => $payment->id,
                     'qty_teams'   => $request->quantity_teams[$i]
