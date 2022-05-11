@@ -101,20 +101,19 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-        // Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        // $this->charge = null;
-        // $this->charge = Stripe\Charge::create ([
-        //         "amount" => $request->price_total * 100,
-        //         "currency" => "USD",
-        //         "source" => $request->stripeToken,
-        //         "description" => $request->card_name
-        // ]);
-        $this->charge = Payment::max('id')+1;
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $this->charge = null;
+        $this->charge = Stripe\Charge::create ([
+                "amount" => $request->price_total * 100,
+                "currency" => "USD",
+                "source" => $request->stripeToken,
+                "description" => "Test de Prueba",
+        ]);
 
         if (!is_null($this->charge)) {
             $this->createUser($request);
             $payment_record = $this->create_payment($request);
-            //$this->sendMail($request);
+            $this->sendMail($request);
         } else {
             $this->store_message(__('Error to Process Payment.'));
         }
