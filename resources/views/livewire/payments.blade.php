@@ -28,6 +28,8 @@
     <div class="flex flex-wrap items-center justify-center sm:flex-wrap-reverse">
         {{--  Datos Personales  --}}
         <div class="sm:justify-start lg:justify-center md:justify-center">
+
+           {{-- Password --}}
             <div class="sm:mt-0">
                 <label class="mb-2 font-normal text-gray-600 font-pop" for="password">{{ __('Create a new password') }}</label>
                 <input class="block mt-2 lg:w-56 sm:w-32 mb-2
@@ -42,6 +44,7 @@
                 required>
             </div>
 
+            {{-- Confirmación Password --}}
             <div class="lg:mt-8">
                 <label class="mt-6 font-normal text-gray-600 font-pop" for="password_confirmation">{{ __('Confirm a new password') }}</label>
                 <input class="block lg:w-56 sm:w-32 mt-2 mb-2
@@ -55,16 +58,24 @@
                     id="password_confirmation"
                 required>
             </div>
+
+            {{-- Nombre de la tarjeta --}}
             <div>
                 <label class="mt-2 font-normal text-gray-600 font-pop" for="name">{{ __('Name on card') }}</label>
-                <input class='block lg:w-56 sm:w-32 card-name
-                @error('name')
-                    border-red-600 border-2 border-collapse
-                @enderror'
-                size='16' maxlength="50" type='text' name='name'
-                placeholder="{{__("Name on Card")}}"
-                required>
-                @error('name') <span class="text-red-500">{{ $message }}</span>@enderror
+                <input type='text'
+                    name='name'
+                    class='block lg:w-56 sm:w-32 card-name
+                    @error('name')
+                        border-red-600 border-2 border-collapse
+                    @enderror'
+                    size='16'
+                    maxlength="50"
+                    minlength="5"
+                    placeholder="{{__("Name on Card")}}"
+                    required
+                    pattern="[a-zA-Z\s]*"
+
+                >
             </div>
         </div>
         {{--  Datos de PAgo  --}}
