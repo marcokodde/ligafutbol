@@ -7,13 +7,19 @@
             {{__("Go Back")}}
         </button>  --}}
     @else
-        <button wire:click="goToPreviousPage"  type="button" style="background-color: #DCC742"
-            class="button mx-2 px-8 py-4 mt-4  text-black font-semibold rounded-lg hover:text-white">
+        <button type="button"
+                wire:click="goToPreviousPage"
+                id="go_back"
+                style="background-color: #DCC742"
+                class="button mx-2 px-8 py-4 mt-4  text-black font-semibold rounded-lg hover:text-white"
+            >
         {{__("Go Back")}}
     </button>
     @endif
     @if ($currentPage === count($pages))
-        <button type="submit" class="button blue mx-2 px-8 py-4 mt-4 font-semibold rounded-lg hover:text-black">
+        <button type="submit"
+                id="submit_form"
+                class="button blue mx-2 px-8 py-4 mt-4 font-semibold rounded-lg hover:text-black">
             {{__("Confirm Payment")}}
         </button>
     @elseif($currentPage === 2)
