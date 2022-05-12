@@ -15,11 +15,11 @@
         <body>
             @foreach($team->players as $team_player)
                 <tr>
-                    <td>{{$loop->index+1}}</td>
                     @if(App::isLocale('en'))
-                        <td><label class="font-bold text-sm">{{$team_player->fullName}}</label>, {{date("F j Y", strtotime($team_player->birthday))}}</td>
+                        <td><label class="font-bold text-sm"><span class="inline left-0 mr-2">{{$loop->index+1}}</span>{{$team_player->fullName}}</label>,
+                            {{date("F j Y", strtotime($team_player->birthday))}}</td>
                     @else
-                        <td><label class="font-bold text-sm">{{$team_player->fullName}}</label>,
+                        <td><label class="font-bold text-sm"><span class="inline left-0 mr-2">{{$loop->index+1}}</span>{{$team_player->fullName}}</label>,
                             {{date('d',strtotime($team_player->birthday)) . '-' .
                             $meses[date('n',strtotime($team_player->birthday))-1]  . '-' .
                             date('Y',strtotime($team_player->birthday)) }}

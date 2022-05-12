@@ -101,7 +101,6 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
@@ -110,14 +109,14 @@ class Payments extends Component
                 "source" => $request->stripeToken,
                 "description" => $request->name,
         ]);
-
         if (!is_null($this->charge)) {
             $this->updateUser($request);
             $payment_record = $this->create_payment($request);
-            $this->sendMail($request);
+            //$this->sendMail($request);
         } else {
             $this->store_message(__('Error to Process Payment.'));
         }
+        sleep(2);
         return redirect()->route('confirmation');
     }
 
