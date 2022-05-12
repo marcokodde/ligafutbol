@@ -20,7 +20,10 @@
         <div class="sm:justify-start lg:justify-center md:justify-center">
             <div class="sm:mt-0">
                 <label class="font-pop font-normal text-gray-600 mb-2" for="password">{{ __('Create a new password') }}</label>
-                <input class="block mt-2 lg:w-56 sm:w-32 mb-2"
+                <input class="block mt-2 lg:w-56 sm:w-32 mb-2
+                    @error('password')
+                        border-red-600 border-2 border-collapse
+                    @enderror "
                     type="password"
                     wire:model.lazy="password"
                     placeholder="{{ __('Password') }}"
