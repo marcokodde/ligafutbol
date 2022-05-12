@@ -140,16 +140,23 @@ class Payments extends Component
         $this->reset('success');
     }
 
+    // Cuenta y calcula el total de equipos
     public function countTeams() {
         $this->reset(['price_total', 'total_teams']);
 
         for($i=0;$i<=count($this->quantity_teams);$i++) {
 
             if (isset($this->quantity_teams[$i])) {
-                if(isset($this->max_by_category[$i]) && $this->quantity_teams[$i] > $this->max_by_category[$i]){
-                    $this->quantity_teams[$i] = $this->max_by_category[$i];
-                }
 
+                if(isset($this->max_by_category[$i])){
+                    if($this->quantity_teams[$i] > $this->max_by_category[$i]){
+                        $this->quantity_teams[$i] = $this->max_by_category[$i];
+                    }
+                }else{
+                    if($this->quantity_teams[$i] > $this->general_settings->max_teams_by_category){
+                        $this->quantity_teams[$i] = $this->general_settings->max_teams_by_category;
+                    }
+                }
 
                 if(!$this->quantity_teams[$i] || $this->quantity_teams[$i]=='') {
                     $this->quantity_teams[$i] = null;
