@@ -94,6 +94,10 @@
                 var token = response['id'];
                 $form.find('input[type=text]').empty();
                 $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+
+                var msg_processing_payment = document.getElementById("msg_processing_payment");
+                msg_processing_payment.style.display = "block";
+
                 $form.get(0).submit();
             }
         }
