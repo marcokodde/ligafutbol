@@ -182,6 +182,12 @@ class Payments extends Component
     }
 
     public function AddUser() {
+        $this->validate([
+            'fullname'  =>  'required|min:3|max:50',
+            'phone'     =>  'required|unique:users',
+            'email'     =>  'required|unique:users',
+		]);
+
         $this->useradd = User::updateOrCreate(['id' => $this->record_id], [
 			'name'      => $this->fullname,
 			'email'     => $this->email,

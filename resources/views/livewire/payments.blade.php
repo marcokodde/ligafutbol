@@ -18,7 +18,7 @@
     <div class="flex flex-wrap items-center justify-center sm:flex-wrap-reverse">
         {{--  Datos Personales  --}}
         <div class="sm:justify-start lg:justify-center md:justify-center">
-            <div>
+            <div class="sm:mt-0">
                 <label class="font-pop font-normal text-gray-600 mb-2" for="password">{{ __('Create a new password') }}</label>
                 <input class="block mt-2 lg:w-56 sm:w-32 mb-2"
                     type="password"
@@ -30,7 +30,7 @@
                 @error('password') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
 
-            <div class="mt-8">
+            <div class="lg:mt-8">
                 <label class="font-pop font-normal text-gray-600 mt-6" for="password_confirmation">{{ __('Confirm a new password') }}</label>
                 <input class="block lg:w-56 sm:w-32 mt-2 mb-2"
                     type="password"
@@ -80,17 +80,19 @@
                         @error('card-expiry-month') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
                 <div class="form-group lg:ml-2 sm:ml-0 mb-2 mt-2">
-                        <input class='lg:w-40 card-expiry-year'
+                    <input class='lg:w-40 card-expiry-year'
                         placeholder='{{__('Year')}}' size='8' maxlength="4" type='text' inputmode="numeric"
                         required>
                         @error('card-expiry-year') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
             </div>
             <div class='grid grid-col-1'>
-                <label class="font-pop font-normal text-gray-600" for="name">{{ __('CVV') }}</label>
-                <input autocomplete='off' class='block lg:w-40 card-cvc' placeholder='CVV'
-                size='16' maxlength="4" minlength="3" type='password' inputmode="numeric" required>
-                @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
+                <div class="form-group sm:ml-0 mb-2 mt-2">
+                    <label class="font-pop font-normal text-gray-600" for="card-cvc">{{ __('CVV') }}</label>
+                    <input autocomplete='off' class='block lg:w-40 sm:w-32 card-cvc' placeholder='CVV'
+                    size='8' maxlength="4" minlength="3" type='password' inputmode="numeric" required>
+                    @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
+                </div>
             </div>
         </div>
     </div>

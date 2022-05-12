@@ -28,8 +28,14 @@ class ConfirmationMail extends Mailable
 
     public function build()
     {
-        $this->from($this->email)
-        ->subject('A Registration Was Added!')
+        if(App::isLocale('en')) {
+            $this->from($this->email)
+        ->subject('Welcome to Galveston Cup 2022')
         ->view('livewire.email.sendmail')->with($this->total, $this->total_teams, $this->token, $this->token_player);
+        }else {
+            $this->from($this->email)
+            ->subject('Bienvenido a la Galveston Cup 2022')
+            ->view('livewire.email.sendmail')->with($this->total, $this->total_teams, $this->token, $this->token_player);
+        }
     }
 }
