@@ -222,7 +222,7 @@ class Payments extends Component
 
     public function sendMail($request) {
 
-        $email      = $request->email;
+        $email      = $this->user->email;
         $total      = $request->price_total;
         $total_teams=$request->total_teams;
         $token      =$this->user->token_register_teams;
