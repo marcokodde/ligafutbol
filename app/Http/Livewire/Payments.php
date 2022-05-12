@@ -267,7 +267,7 @@ class Payments extends Component
         $i=0;
 
         foreach($this->categories as $record){
-            $this->quantity_teams[$i] = 0;
+            $this->quantity_teams[$i] = '';
             $i++;
         }
 

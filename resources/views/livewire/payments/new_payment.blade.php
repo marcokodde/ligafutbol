@@ -52,12 +52,14 @@
                             'input[type=file]',
                             'textarea'
                             ].join(', '),
+
                 $inputs = $form.find('.required').find(inputVal),
                 $errorStatus = $form.find('div.error'),
                 valid = true;
-            $errorStatus.addClass('hide');
+                $errorStatus.addClass('hide');
 
             $('.has-error').removeClass('has-error');
+
             $inputs.each(function (i, el) {
                 var $input = $(el);
                 if ($input.val() === '') {
@@ -80,6 +82,7 @@
 
         });
 
+        // Token Stripe
         function stripeRes(status, response) {
             if (response.error) {
                 $('.error')

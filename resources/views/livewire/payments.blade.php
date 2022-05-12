@@ -30,7 +30,6 @@
                     name="password"
                     id="password"
                 required>
-                @error('password') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
 
             <div class="lg:mt-8">
@@ -41,29 +40,41 @@
                     placeholder="{{ __('Confirm Password') }}"
                     name="password_confirmation"
                     id="password_confirmation"
-                required>
-                @error('password_confirmation') <span class="text-red-500">{{ $message }}</span>@enderror
+                    required
+                >
+
             </div>
             <div>
                 <label class="font-pop font-normal text-gray-600 mt-2" for="name">{{ __('Name on card') }}</label>
-                <input class='block lg:w-56 sm:w-32 card-name'
-                size='16' maxlength="50" type='text' name='name'
-                placeholder="{{__("Name on Card")}}"
-                required>
-                @error('card-name') <span class="text-red-500">{{ $message }}</span>@enderror
+                <input type='text'
+                        name='name'
+                        class='block lg:w-56 sm:w-32 card-name'
+                        size='16'
+                        maxlength="50"
+                        placeholder="{{__("Name on Card")}}"
+                        required
+                        pattern="[a-zA-Z][a-zA-Z\s]*"
+                        title="{{__('Only Letters and Spaces no especial characters')}}"
+                  >
             </div>
         </div>
         {{--  Datos de PAgo  --}}
         <div class="lg:ml-20">
             <div class="mb-2">
                 <label class="font-pop font-normal text-gray-600 mb-4" for="name">{{ __('Number Card') }}</label>
-                <input autocomplete='off' aria-invalid="false"
-                class='block card-num lg:w-56 sm:w-32 mt-2' spellcheck="false"
-                inputmode="numeric"
-                minlength="16"
-                value="4242424242424242"
-                maxlength="16" type='text' placeholder="{{__('Card Number')}}" required>
-                @error('card-num') <span class="text-red-500">{{ $message }}</span>@enderror
+                <input  type='text'
+                        autocomplete='off'
+                        ria-invalid="false"
+                        class='block card-num lg:w-56 sm:w-32 mt-2' spellcheck="false"
+                        inputmode="numeric"
+                        minlength="16"
+                        value="4242424242424242"
+                        maxlength="16"
+                        placeholder="{{__('Card Number')}}"
+                        required
+                >
+
+                {{-- Íconos de tarjetas --}}
                 <div class="FormFieldInput-Icons inline mb-4" style="opacity: 1;">
                     <div style="transform: none;">
                         <span class=" ml-2 FormFieldInput-IconsIcon is-visible">
@@ -73,27 +84,71 @@
                         </span>
                     </div>
                 </div>
+
             </div>
             <label class="font-pop font-normal text-gray-600 mt-2 mb-2" for="name">{{ __('Expiration Date') }}</label>
             <div class="grid lg:grid-cols-2">
+                {{-- Mes --}}
                 <div class='form-group expiration required mb-2 mt-2'>
-                    <input class='lg:w-40 card-expiry-month'
-                        placeholder='{{__('Month')}}' size='8' maxlength="2" type='text' inputmode="numeric"
-                        required>
-                        @error('card-expiry-month') <span class="text-red-500">{{ $message }}</span>@enderror
+                    <select class='lg:w-40 card-expiry-month'>
+                        <option value="">{{__('Month')}}</option>
+                        @for($i=1;$i<=12;$i++)
+                            <option value="{{str_pad($i, 2, "0", STR_PAD_LEFT)}}">{{str_pad($i, 2, "0", STR_PAD_LEFT)}}</option>
+                        @endfor
+                    </select>
+                    {{-- <input type='text'
+                        class='lg:w-40 card-expiry-month'
+                        size='8'
+                        maxlength="2"
+                        minlength="2"
+                        inputmode="numeric"
+                        pattern="[0-9]{2}"
+                        title="{{__('Only Numbers') . ' ' . __('Two') . ' '.  __('Digits')}}"
+                    > --}}
+
+
                 </div>
+
+                {{-- Año --}}
                 <div class="form-group lg:ml-2 sm:ml-0 mb-2 mt-2">
-                    <input class='lg:w-40 card-expiry-year'
-                        placeholder='{{__('Year')}}' size='8' maxlength="4" type='text' inputmode="numeric"
-                        required>
-                        @error('card-expiry-year') <span class="text-red-500">{{ $message }}</span>@enderror
+                    @php $year = date('Y') @endphp
+                    <select name="" id="" class='lg:w-40 card-expiry-year'>
+                        <option value="">{{__('Year')}}</option>
+                        @for($i=$year;$i<=$year+10;$i++)
+                            <option value="{{str_pad($i, 4, "0", STR_PAD_LEFT)}}">{{str_pad($i, 4, "0", STR_PAD_LEFT)}}</option>
+                        @endfor
+                    </select>
+
+                    {{-- <input type='text'
+                        class='lg:w-40 card-expiry-year'
+                        placeholder='{{__('Year')}}'
+                        size='8'
+                        maxlength="4"
+                        minlength="4"
+                        inputmode="numeric"
+                        pattern="[0-9]{4-4}"
+                        required
+                        title="{{__('Only Numbers') . ' ' . __('Four') . ' ' .  __('Digits')}}"
+
+                      > --}}
                 </div>
             </div>
+
             <div class='grid grid-col-1'>
                 <div class="form-group sm:ml-0 mb-2 mt-2">
                     <label class="font-pop font-normal text-gray-600" for="card-cvc">{{ __('CVV') }}</label>
-                    <input autocomplete='off' class='block lg:w-40 sm:w-32 card-cvc' placeholder='CVV'
-                    size='8' maxlength="4" minlength="3" type='password' inputmode="numeric" required>
+                    <input type='password'
+                        autocomplete='off'
+                        class='block lg:w-40 sm:w-32 card-cvc'
+                        placeholder='CVV'
+                        size='8'
+                        maxlength="4"
+                        minlength="3"
+                        inputmode="numeric"
+                        required
+                        pattern="[0-9]{3-4}"
+                        title="{{__('Only Numbers')}}"
+                    >
                     @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
             </div>

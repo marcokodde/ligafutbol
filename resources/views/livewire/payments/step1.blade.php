@@ -14,6 +14,7 @@
         <div class="card lg:w-1/4 sm:w-1/2 mx-auto justify-center">
             <label class="block lg:text-2xl sm:text-base text-gray-500 mb-4">{{__("Trainer personal data")}}</label>
             <div class="mb-4 mt-2">
+                {{ env('APP_ENV')}}
                 <label class="block font-pop lg:text-left lg:ml-24 sm:text-center font-medium text-gray-600" for="fullname">{{ __('Full Name') }}</label>
                 <input class="lg:w-56 sm:w-32
                     @error('fullname')
@@ -25,7 +26,7 @@
                     name="fullname"
                     id="fullname"
                     required
-                    >
+                >
 
             </div>
 
