@@ -22,3 +22,16 @@
     (c) Validar fechas de nacimiento según el sexo.
     (d) Mostrar mensaje de "Roster Lleno" cuando se haya llegado al límite
 
+12-MAYO-2025
+1.- Letras y números en los campos
+2.- Alertas en plural/singular
+3.- Alertas siempre tratar de TU
+4.- Probar con nuevo correo que mandó Karen
+5.- FAQ
+6.- Se ha llegado al límite de jugadores ¿cómo indicarle que continúe?
+7.- Formato de la fecha, según el idioma de la sesión
+8.- Número antes del nombre en móvil
+9.- Hacer una corrida todo en inglés.
+10. "Sí, quítalo" ¿lo vamos a cambiar?
+11.- FUNCION DE AGREGAR MAS EQUIPOS
+	(a) Lógica cuando ya está registrado
