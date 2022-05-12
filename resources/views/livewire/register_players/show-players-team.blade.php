@@ -16,8 +16,16 @@
             @foreach($team->players as $team_player)
                 <tr>
                     <td>{{$loop->index+1}}</td>
-                    <td><label class="font-bold text-sm">{{$team_player->fullName}}</label>, {{date("F j Y", strtotime($team_player->birthday))}}</td>
-                    {{--  <td>
+                    @if(App::isLocale('en'))
+                        <td><label class="font-bold text-sm">{{$team_player->fullName}}</label>, {{date("F j Y", strtotime($team_player->birthday))}}</td>
+                    @else
+                        <td><label class="font-bold text-sm">{{$team_player->fullName}}</label>,
+                            {{date('d',strtotime($team_player->birthday)) . '-' .
+                            $meses[date('n',strtotime($team_player->birthday))-1]  . '-' .
+                            date('Y',strtotime($team_player->birthday)) }}
+                        </td>
+                    @endif
+                        {{--  <td>
                         <span class="lg:hidden absolute top-4 left-0 px-2 py-1 text-xs font-bold">Name</span>
                     </td>  --}}
                         {{--<td>

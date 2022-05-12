@@ -11,6 +11,7 @@ class ShowPlayersTeam extends Component
 {
     use SettingsTrait;
     public $team;
+    public $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
     protected $listeners = ['removePlayer',
                             'reload_players'];
