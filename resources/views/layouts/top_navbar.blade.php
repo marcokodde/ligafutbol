@@ -130,4 +130,8 @@
         </div>
     </div>
 </nav>
+@else
+<div class="sm:visible lg:hidden">
+    @include('common.language')
+</div>
 @endif
