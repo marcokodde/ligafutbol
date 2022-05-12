@@ -66,9 +66,6 @@
         <div class="row mt-5">
             <div class="flex text-center items-center justify-center bg-gray-50  sm:px-6">
                 <button wire:click="review_data"
-                    @if ($show_team)
-                        onclick="adding_teams()"
-                    @endif
                     class="button green mx-2 px-8 py-4  font-semibold  rounded-lg hover:text-black">
                     {{__("Save")}}
                 </button>

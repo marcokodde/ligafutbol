@@ -199,11 +199,19 @@ class RegisterTeams extends Component
             $this->error_zipcodes[$i]   = false;
         }
         sleep(1);
-        $this->dispatchBrowserEvent('fill_roster', [
-            'title' => __('You have successfully registered your equipment.'),
-            'text'  => __('Follow the next step in your email to register your player rosters.'),
-            'type'  => 'success'
-        ]);
+        if (count($this->categoriesIds) > 1) {
+            $this->dispatchBrowserEvent('fill_roster', [
+                'title' => __('You have successfully registered your equipments.'),
+                'text'  => __(''),
+                'type'  => 'success'
+            ]);
+        } else {
+            $this->dispatchBrowserEvent('fill_roster', [
+                'title' => __('You have successfully registered your equipment.'),
+                'text'  => __(''),
+                'type'  => 'success'
+            ]);
+        }
         $this->user_token = User::findOrFail($this->user->id);
         $this->show_token = true;
     }
