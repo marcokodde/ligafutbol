@@ -24,7 +24,7 @@
                         @else
                             max="16"
                         @endif
-                        class="w-auto appearance-none border rounded-lg text-gray-700 focus:outline-none focus:shadow-outline">
+                        class="w-auto appearance-none border text-gray-700 focus:outline-none focus:shadow-outline">
                     </div>
                     @error('quantity_teams') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>

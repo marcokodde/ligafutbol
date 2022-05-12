@@ -75,13 +75,13 @@
             <div class="grid lg:grid-cols-2">
                 <div class='form-group expiration required mb-2 mt-2'>
                     <input class='lg:w-40 card-expiry-month'
-                        placeholder='{{__('Month')}}' size='8' maxlength="2" type='text'
+                        placeholder='{{__('Month')}}' size='8' maxlength="2" type='text' inputmode="numeric"
                         required>
                         @error('card-expiry-month') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
                 <div class="form-group lg:ml-2 sm:ml-0 mb-2 mt-2">
                         <input class='lg:w-40 card-expiry-year'
-                        placeholder='{{__('Year')}}' size='8' maxlength="4" type='text'
+                        placeholder='{{__('Year')}}' size='8' maxlength="4" type='text' inputmode="numeric"
                         required>
                         @error('card-expiry-year') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
@@ -89,7 +89,7 @@
             <div class='grid grid-col-1'>
                 <label class="font-pop font-normal text-gray-600" for="name">{{ __('CVV') }}</label>
                 <input autocomplete='off' class='block lg:w-40 card-cvc' placeholder='CVV'
-                size='16' maxlength="4" minlength="3" type='password' required>
+                size='16' maxlength="4" minlength="3" type='password' inputmode="numeric" required>
                 @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
         </div>

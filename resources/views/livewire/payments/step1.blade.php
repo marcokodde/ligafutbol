@@ -16,9 +16,9 @@
             <div class="mb-4 mt-2">
                 <label class="block font-pop lg:text-left lg:ml-24 sm:text-center font-medium text-gray-600" for="fullname">{{ __('Full Name') }}</label>
                 <input class="lg:w-56 sm:w-32
-                        @error('full_name')
-                         border-red-600 border-2 border-collapse
-                        @enderror "
+                    @error('fullname')
+                        border-red-600 border-2 border-collapse
+                    @enderror "
                     type="text"
                     wire:model.lazy="fullname"
                     placeholder="{{ __('Full Name') }}"
@@ -32,9 +32,9 @@
             <div class="mb-4">
                 <label class="block lg:text-left lg:ml-24 sm:text-center font-pop font-medium text-gray-600" for="phone">{{ __('Phone') }}</label>
                 <input class="lg:w-56 sm:w-32
-                            @error('phone')
-                                border-red-600 border-2 border-collapse
-                             @enderror"
+                    @error('phone')
+                        border-red-600 border-2 border-collapse
+                    @enderror"
                     type="text"
                     wire:model.lazy="phone"
                     placeholder="{{ __('Phone') }}"
@@ -48,9 +48,9 @@
             <div class="mb-4">
                 <label class="block lg:text-left lg:ml-24 sm:text-center font-pop font-medium text-gray-600" for="email">{{ __('Email') }}</label>
                 <input class="lg:w-56 sm:w-32
-                            @error('email')
-                                border-red-600 border-4 border-collapse
-                            @enderror"
+                    @error('email')
+                        border-red-600 border-2 border-collapse
+                    @enderror"
                     type="email"
                     wire:model.lazy="email"
                     placeholder="{{ __('Email') }}"

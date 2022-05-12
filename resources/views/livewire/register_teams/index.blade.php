@@ -24,7 +24,7 @@
                     $url_test = "http://galvestoncup.test/register_players/";
                 @endphp
                 <button style="background-color:rgba(31,41,55,var(--tw-bg-opacity))" class="px-12 py-4 font-semibold text-sm text-white  rounded-md shadow-sm ring-1 ring-slate-900/5 border-green-500 border-2 border-solid hover:text-green-500" title="Add Rosters">
-                    <a href="{{$url_test.''.$user_token->token_register_players}}">
+                    <a href="{{$url_player.''.$user_token->token_register_players}}">
                         {{__('Add Roster to players')}}
                     </a>
                 </button>

@@ -108,7 +108,7 @@ class Payments extends Component
                 "amount" => $request->price_total * 100,
                 "currency" => "USD",
                 "source" => $request->stripeToken,
-                "description" => "Test de Prueba",
+                "description" => $request->name,
         ]);
 
         if (!is_null($this->charge)) {
