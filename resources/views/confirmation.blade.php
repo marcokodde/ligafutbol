@@ -25,21 +25,38 @@
 
             img {
                 width: 100%;
-                height: 100%;
                 object-fit: cover;
                 object-position: bottom;
             }
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative overflow-auto max-w-max max-h-max">
+        
             @if(App::isLocale('en'))
-                <img src="{{asset('images/en_confirmation.png')}}" alt="">
-                {{--  <img class="sm:visible" src="{{asset('images/movil.png')}}" />  --}}
-            @else
-                <img src="{{asset('images/confimation_es.png')}}" alt="">
-                {{--  <img class="sm:visible" src="{{asset('images/movil.png')}}" />  --}}
+               {{--   <img srcset="{{asset('images/en_confirmation.png')}}  1240w,
+                {{asset('images/movil.png')}}  640w,
+                {{asset('images/movil.png')}}  320w,"
+                />  --}}
+                <div class="sm:hidden lg:block">
+                    <img src="{{asset('images/en_confirmation.png')}}" alt="Web">
+                </div>
+                <div class="lg:hidden sm:block ">
+                    <img src="{{asset('images/movil.png')}}" alt="movil">
+                </div>
+           @else
+            {{--  <img srcset="{{asset('images/confimation_es.png')}} 1240w,
+            {{asset('images/movil.png')}} 640w,
+            {{asset('images/movil.png')}} 320w,"
+            />  --}}
+            <div class="sm:hidden lg:block">
+                <img src="{{asset('images/confimation_es.png')}}" alt="Web">
+            </div>
+            <div class="lg:hidden">
+                <img src="{{asset('images/movil.png')}}" alt="movil">
+            </div>
+           {{--   <img class="sm:hidden lg:block" src="{{asset('images/confimation_es.png')}}" alt="Web">
+            <img class="lg:hidden sm:block" src="{{asset('images/movil.png')}}" alt="movil">  --}}
             @endif
-        </div>
+        
     </body>
 </html>
