@@ -1,6 +1,6 @@
 <div>
     @if($month)
-        <p>Mes: {{ $month . '=' . $short_months[$month-1] . ' =>' .  $large_months[$month-1]}} </p>
+        <p>Mes: {{ $month . '=' . __($short_months[$month-1]) . ' =>' .  __($large_months[$month-1])}} </p>
         <p>Dia: {{ $day}}</p>
         <p>Año: {{ $year}}</p>
     @endif
