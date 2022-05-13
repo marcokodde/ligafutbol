@@ -45,6 +45,7 @@ class RegisterPlayers extends Component {
         if(Auth::user()){
             $this->user = Auth::user();
         }else{
+
             $this->user = User::TokenRegisterPlayers($token)->first();
             if($this->user){
                 $this->read_categories_to_user();

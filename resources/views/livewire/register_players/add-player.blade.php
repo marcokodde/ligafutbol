@@ -1,5 +1,20 @@
 <div>
+    <div class="flex text-center">
+        <div wire:loading.delay wire:target="addingPlayer" class="px-4 mx-4 mt-2 ">
+            <button type="button" class="text-2xl font-semibold text-white transition duration-150 ease-in-out bg-indigo-500 rounded-lg cursor-not-allowed font-pop hover:bg-indigo-400" disabled="">
+                <svg class="inline w-6 h-6 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                {{__('Adding Player at Team')}}
+            </button>
+        </div>
+    </div>
+
+    {{-- Formulario: Nombre - Apellido - Sexo - Fecha de nacimiento --}}
     <div class="flex flex-wrap mt-2">
+
+        {{-- Nombre(s) --}}
         <div>
             <label class="block text-base font-pop">{{__('First Name')}} @error('first_name') <label class="inline text-xl text-red-500" >*</label>@enderror</label>
             <input type="text"
@@ -15,6 +30,7 @@
                 @enderror
         </div>
 
+        {{-- Apellido(s) --}}
         <div class="lg:ml-2 sm:ml-0">
             <label class="block text-base font-pop">{{__('Last Name')}} @error('last_name') <label class="inline text-xl text-red-500" >*</label>@enderror</label>
             <input type="text"
@@ -27,6 +43,8 @@
                 </span>
             @enderror
         </div>
+
+        {{-- Sexo --}}
         <div class="ml-1">
             <label class="block text-base font-pop">{{__('Gender')}}@error('gender') <label class="text-xl text-red-500" >*</label>@enderror</label>
             <div class="flex justify-between @error('gender') border-red-600 border-collapse border-2 @enderror">
@@ -54,8 +72,11 @@
                 </span>
              @enderror
         </div>
-        <div>
+
+        {{-- Fecha de nacimiento --}}
+        <div class="text-center">
             <label class="block text-base font-pop">{{__('Birthday')}}</label>
+
             <input type="date"
                 wire:model="birthday"
                 min="{{$birthday_min}}"
@@ -63,22 +84,21 @@
                 placeholder="{{__("Birthday")}}"
                 class="block ml-1 w-11/12 @error('birthday')  border-red-600 border-collapse border-2 @enderror">
                 @error('birthday') <label class="text-sm text-red-500" >{{$message}}</label>@enderror
-            </div>
-            <div class="ml-2">
-                <label class="block text-base font-pop">&nbsp;</label>
-                <button wire:click="addingPlayer"
-                    class="block px-4 py-2 text-black bg-green-500 rounded-lg hover:text-white">
-                    {{ __('Add')}}
-                </button>
-            </div>
+
+
+            {{-- Botón Para Agregar --}}
+            @if($first_name && $last_name && $gender && $birth_year && $birth_month && $birth_day)
+                <span>
+                    <div class="ml-2">
+                        <label class="block text-base font-pop">&nbsp;</label>
+                        <button wire:click="addingPlayer"
+                            class="block px-4 py-2 text-black bg-green-500 rounded-lg hover:text-white">
+                            {{ __('Add')}}
+                        </button>
+                    </div>
+                </span>
+            @endif
+        </div>
     </div>
-    <div wire:loading.delay wire:target="addingPlayer" class="px-4 mx-4 mt-2 ">
-        <button type="button" class="text-2xl font-semibold text-white transition duration-150 ease-in-out bg-indigo-500 rounded-lg cursor-not-allowed font-pop hover:bg-indigo-400" disabled="">
-            <svg class="inline w-6 h-6 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            {{__('Adding Player at Team')}}
-        </button>
-    </div>
+
 </div

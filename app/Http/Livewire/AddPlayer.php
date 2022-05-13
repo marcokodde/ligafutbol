@@ -9,17 +9,20 @@ use App\Models\Player;
 use Livewire\Component;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\SettingsTrait;
+use App\Http\Livewire\Traits\DatesTrait;
+
 
 class AddPlayer extends Component
 {
     use CrudTrait;
     use SettingsTrait;
+    use DatesTrait;
     public $first_name,$last_name,$birthday,$gender;
 
 
     public $team,$user;
     public $birthday_min,$birthday_max;
-
+    public $birth_year,$birth_month,$birth_day;
     protected $rules = [
         'first_name'=> 'required|min:3|max:30',
         'last_name' => 'required|min:3|max:30',
@@ -52,17 +55,17 @@ class AddPlayer extends Component
 
     public function addingPlayer(){
 
+        $this->birthday     = $this->birth_year . '-' . $this->birth_month . '-' . $this->birth_day;
 
-        $this->validate();
+
         $max_birthday = New Carbon($this->birthday_max);
         $min_birthday = New Carbon($this->birthday_min);
         $max_birthday=$max_birthday->format('Y-m-d');
         $min_birthday=$min_birthday->format('Y-m-d');
-
+        // dd('Antes de validar fecha nacimiento dropdwons= ' . $this->birthday2, 'Desde calendario=' . $this->birthday);
         $this->validate([
             'birthday'  => 'required|date|before:' .  $max_birthday .'|after:' . $min_birthday . '',
 		]);
-
 
         $this->first_name = ucwords(strtolower(trim($this->first_name)));
         $this->last_name = ucwords(strtolower(trim($this->last_name)));

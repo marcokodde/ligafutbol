@@ -16,7 +16,7 @@ trait DatesTrait {
     public $date_day,$date_month,$date_year;
     public $date_full_date;
 
-    public function createDate(){
+    public function create_full_date(){
         if($this->date_day && $this->date_month && $this->date_year){
             $this->date_full_date = $this->date_year . '-' . $this->date_month . '-' . $this->date_day;
         }
