@@ -44,15 +44,28 @@
                 document.body.appendChild(a);
             }
         if (screen.width < 1024)
-            display_image('{{asset('images/movil.png')}}',
-            276,
-            110,
-            'JavaScriptImage');
+            @if(App::isLocale('en'))
+                display_image('{{asset('images/movil_en.png')}}',
+                276,
+                110,
+                'JavaScriptImage');
+            @else
+                display_image('{{asset('images/movil_es.png')}}',
+                276,
+                110,
+                'JavaScriptImage');
+            @endif
         else
-            display_image('{{asset('images/confimation_es.png')}}',
-            276,
-            110,
-            'JavaScriptImage');
-
+            @if (App::isLocale('en'))
+                display_image('{{asset('images/en_confirmation.png')}}',
+                276,
+                110,
+                'JavaScriptImage');
+            @else
+                display_image('{{asset('images/confimation_es.png')}}',
+                276,
+                110,
+                'JavaScriptImage');
+            @endif
         </script>
 </html>
