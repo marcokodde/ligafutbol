@@ -55,9 +55,7 @@ class AddPlayer extends Component
 
     public function addingPlayer(){
 
-       // $this->birthday     = $this->birth_year . '-' . $this->birth_month . '-' . $this->birth_day;
-
-
+        $this->birthday     = $this->birth_year . '-' . $this->birth_month . '-' . $this->birth_day;
         $max_birthday = New Carbon($this->birthday_max);
         $min_birthday = New Carbon($this->birthday_min);
         $max_birthday=$max_birthday->format('Y-m-d');

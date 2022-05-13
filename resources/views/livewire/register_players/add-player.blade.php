@@ -75,6 +75,7 @@
 
         {{-- Fecha de nacimiento --}}
         <div class="text-center">
+<<<<<<< HEAD
             <label class="block text-base font-pop">{{__('Birthday')}}</label>
 
             <input type="date"
@@ -98,7 +99,26 @@
                     </div>
                 </span>
             @endif
+=======
+            <label class="block font-pop text-base">{{__('Birthday')}}</label>
+             @include('livewire.register_players.birthday_dropdowns')
+             @error('birthday') <label class="text-red-500 text-sm" >{{$message}}</label>@enderror
+>>>>>>> 028c5feb (Registrar Jugadores: Fecha de nacimiento se pone en listas desplegables)
         </div>
+
+        {{-- Botón Para Agregar --}}
+        @if($first_name && $last_name && $gender && $birth_year && $birth_month && $birth_day)
+            <span>
+                <div class="ml-2">
+                    <label class="block font-pop text-base">&nbsp;</label>
+                    <button wire:click="addingPlayer"
+                        class="block bg-green-500 px-4 py-2 rounded-lg  text-black hover:text-white">
+                        {{ __('Add')}}
+                    </button>
+                </div>
+            </span>
+        @endif
+
     </div>
 
 </div
