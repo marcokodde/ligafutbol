@@ -32,7 +32,7 @@
         </style>
     </head>
     <body class="antialiased">
-        <p id="demo"></p>
+        <div id="imagen"></div>
     </body>
         <script>
             function display_image(src, width, height, alt) {
