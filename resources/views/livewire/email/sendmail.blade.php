@@ -47,8 +47,14 @@
         <h4 class="text-gray-600">{{__('Please follow the instructions below so that you can complete the registration of your players.')}}</p>
     </div>
     <div>
-        <h4 class="text-blue-600">{{__('If you have any questions you can visit www.galvestoncup.com/faq for our frequently asked questions section where you can also contact our team to answer your questions.')}}</h4>
+        @php
+            $url_player = "https://equipos.galvestoncup.com/register_players/";
+        @endphp
+    <p class="bg-blue-700 text-base">{{__('This link will be to add or update your player list. As long as you have your teams added.')}} {{$url_player.''.$token_player}}</p>
+    </div>
 
+    <div>
+        <h4 class="text-blue-600">{{__('If you have any questions you can visit www.galvestoncup.com/faq for our frequently asked questions section where you can also contact our team to answer your questions.')}}</h4>
     </div>
     <div>
         <h4 class="bg-blue-700 text-base">{{__('Welcome to the Galveston Cup!!')}}</h4>
@@ -58,6 +64,6 @@
     <span class="bg-blue-700">1-800-515-2749</span>
     <p></p>
     <span>{{__('www.GalvestonCup.com')}}</span>
-  
+
 </body>
 </html>
