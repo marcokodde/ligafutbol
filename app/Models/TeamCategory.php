@@ -36,8 +36,9 @@ class TeamCategory extends Model
     }
     public function can_be_delete()
     {
-        return false;
+        return true;
     }
+
     public function scopeUserId($query, $user_id)
     {
         $query->where('user_id', $user_id);
