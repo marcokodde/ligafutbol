@@ -25,38 +25,34 @@
 
             img {
                 width: 100%;
+                height: 100%;
                 object-fit: cover;
                 object-position: bottom;
             }
         </style>
     </head>
     <body class="antialiased">
-        
-            @if(App::isLocale('en'))
-               {{--   <img srcset="{{asset('images/en_confirmation.png')}}  1240w,
-                {{asset('images/movil.png')}}  640w,
-                {{asset('images/movil.png')}}  320w,"
-                />  --}}
-                <div class="sm:hidden lg:block">
-                    <img src="{{asset('images/en_confirmation.png')}}" alt="Web">
-                </div>
-                <div class="lg:hidden sm:block ">
-                    <img src="{{asset('images/movil.png')}}" alt="movil">
-                </div>
-           @else
-            {{--  <img srcset="{{asset('images/confimation_es.png')}} 1240w,
-            {{asset('images/movil.png')}} 640w,
-            {{asset('images/movil.png')}} 320w,"
-            />  --}}
-            <div class="sm:hidden lg:block">
-                <img src="{{asset('images/confimation_es.png')}}" alt="Web">
-            </div>
-            <div class="lg:hidden">
-                <img src="{{asset('images/movil.png')}}" alt="movil">
-            </div>
-           {{--   <img class="sm:hidden lg:block" src="{{asset('images/confimation_es.png')}}" alt="Web">
-            <img class="lg:hidden sm:block" src="{{asset('images/movil.png')}}" alt="movil">  --}}
-            @endif
-        
+        <p id="demo"></p>
     </body>
+        <script>
+            function display_image(src, width, height, alt) {
+                var a = document.createElement("img");
+                a.src = src;
+                a.width = width;
+                a.height = height;
+                a.alt = alt;
+                document.body.appendChild(a);
+            }
+        if (screen.width < 1024)
+            display_image('{{asset('images/movil.png')}}',
+            276,
+            110,
+            'JavaScriptImage');
+        else
+            display_image('{{asset('images/confimation_es.png')}}',
+            276,
+            110,
+            'JavaScriptImage');
+
+        </script>
 </html>
