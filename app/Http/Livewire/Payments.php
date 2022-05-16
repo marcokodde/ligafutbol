@@ -101,6 +101,10 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
+        $this->read_user($request);
+        if($this->user){
+            $this->user->update_password($request->password);
+        }
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
         $this->charge = Stripe\Charge::create ([
@@ -109,6 +113,7 @@ class Payments extends Component
                 "source" => $request->stripeToken,
                 "description" => $request->name,
         ]);
+
         if (!is_null($this->charge)) {
             $this->updateUser($request);
             $payment_record = $this->create_payment($request);
@@ -205,10 +210,15 @@ class Payments extends Component
         }
     }
 
-    private function updateUser($request){
+
+    // Lee el usuario
+
+    private function read_user($request){
         $this->user = User::findOrFail( $request->id_user);
+    }
+
+    private function updateUser($request){
         // TODO: Atrapar excepción
-        $this->user->update_password($request->password);
          $this->user->update_token_register_teams();
         $this->user->update_token_register_players();
     }
