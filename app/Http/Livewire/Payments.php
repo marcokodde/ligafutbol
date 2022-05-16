@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Stripe;
+use Throwable;
 use Stripe\Charge;
 use App\Models\Role;
 use App\Models\Team;
@@ -16,11 +17,11 @@ use App\Models\CostByTeam;
 use App\Models\TeamCategory;
 use Illuminate\Http\Request;
 use App\Mail\ConfirmationMail;
-use App\Http\Livewire\Traits\SettingsTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Livewire\Traits\SettingsTrait;
 
 class Payments extends Component
 {
@@ -55,6 +56,7 @@ class Payments extends Component
     public $password_confirmation;
     public $category_id;
     public $useradd;
+    public $error_stripe;
 
     protected $listeners = ['AddUser'];
 
@@ -102,11 +104,10 @@ class Payments extends Component
 
     public function makepayment(Request $request) {
         $this->charge = null;
-
+        $this->error_stripe = null;
         $this->read_user($request);
         if ($this->user) {
             $this->user->update_password($request->password);
-
             // Procesa el pago
             try {
 
@@ -125,7 +126,8 @@ class Payments extends Component
             } catch (\Throwable $exception) {
                // Presentar página con el mensaje de rror y con un botón para que vaya al login
                // Gestionar el LOGIN: Cuando sea "coach" enviarlo a  la ruta payments
-                return redirect()->route('login');
+                $this->error_stripe = $exception->getMessage();
+                $this->emit('exceptionError', $this->error_stripe);
                //throw new \Ankurk91\StripeExceptions\ApiException($exception);
             }
 
