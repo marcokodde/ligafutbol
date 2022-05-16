@@ -101,25 +101,34 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-        $this->read_user($request);
-        if($this->user){
-            $this->user->update_password($request->password);
-        }
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $this->charge = null;
-        $this->charge = Stripe\Charge::create ([
-                "amount" => $request->price_total * 100,
-                "currency" => "USD",
-                "source" => $request->stripeToken,
-                "description" => $request->name,
-        ]);
 
-        if (!is_null($this->charge)) {
-            $this->updateUser($request);
-            $payment_record = $this->create_payment($request);
-            $this->sendMail($request);
-        } else {
-            $this->store_message(__('Error to Process Payment.'));
+        $this->read_user($request);
+        if ($this->user) {
+            $this->user->update_password($request->password);
+
+            // Procesa el pago
+            try {
+
+                Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                $this->charge = Stripe\Charge::create([
+                        "amount" => $request->price_total * 100,
+                        "currency" => "USD",
+                        "source" => $request->stripeToken,
+                        "description" => $request->name,
+                ]);
+
+                $this->updateUserTokens();
+                $this->create_payment($request);
+                $this->sendMail($request);
+
+            } catch (\Throwable $exception) {
+                // send back an errored JSON response to browser
+               dd($exception->getMessage());
+                dd('Algo anda mal compa', $exception->message);
+               //throw new \Ankurk91\StripeExceptions\ApiException($exception);
+            }
+
         }
         sleep(1);
         return redirect()->route('confirmation');
@@ -217,9 +226,8 @@ class Payments extends Component
         $this->user = User::findOrFail( $request->id_user);
     }
 
-    private function updateUser($request){
-        // TODO: Atrapar excepción
-         $this->user->update_token_register_teams();
+    private function updateUserTokens($request){
+        $this->user->update_token_register_teams();
         $this->user->update_token_register_players();
     }
 
