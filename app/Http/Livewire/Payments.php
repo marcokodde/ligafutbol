@@ -123,9 +123,9 @@ class Payments extends Component
                 $this->sendMail($request);
 
             } catch (\Throwable $exception) {
-                // send back an errored JSON response to browser
-               dd($exception->getMessage());
-                dd('Algo anda mal compa', $exception->message);
+               // Presentar página con el mensaje de rror y con un botón para que vaya al login
+               // Gestionar el LOGIN: Cuando sea "coach" enviarlo a  la ruta payments
+                return redirect()->route('login');
                //throw new \Ankurk91\StripeExceptions\ApiException($exception);
             }
 
