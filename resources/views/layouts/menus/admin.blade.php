@@ -12,7 +12,7 @@
         </li>
 
         <li>
-            <a href="{{url('Users')}}">
+            <a href="{{url('users')}}">
             <span>{{__('users')}}</span>
             </a>
         </li>

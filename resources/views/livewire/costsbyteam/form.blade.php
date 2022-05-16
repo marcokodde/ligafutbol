@@ -38,7 +38,7 @@
 
                             {{-- Costo x Equipo --}}
                             <div class="mb-4">
-                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Cost")}}</label>
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Costs By Team")}}</label>
                                 <input type="text"
                                         wire:model="cost"
                                         maxlength="4"

@@ -27,6 +27,7 @@ class Categories extends Component {
         $this->view_form = 'livewire.categories.form';
         $this->view_table = 'livewire.categories.table';
         $this->view_list  = 'livewire.categories.list';
+        $this->pagination = 12;
     }
 
 

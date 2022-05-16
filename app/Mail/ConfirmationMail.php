@@ -29,12 +29,13 @@ class ConfirmationMail extends Mailable
 
     public function build()
     {
+
         if(App::isLocale('en')) {
-            $this->from($this->email)
-        ->subject('Welcome to Galveston Cup 2022')
-        ->view('livewire.email.sendmail')->with($this->total, $this->total_teams, $this->token, $this->token_player);
+            $this->from($this->email,env('MAIL_FROM_NAME'))
+                ->subject('Welcome to Galveston Cup 2022')
+                ->view('livewire.email.sendmail')->with($this->total, $this->total_teams, $this->token, $this->token_player);
         }else {
-            $this->from($this->email)
+            $this->from($this->email,env('MAIL_FROM_NAME'))
             ->subject('Bienvenido a la Galveston Cup 2022')
             ->view('livewire.email.sendmail')->with($this->total, $this->total_teams, $this->token, $this->token_player);
         }
