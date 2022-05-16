@@ -1,5 +1,14 @@
 <div class="max-w-full">
     <div>
+
+        {{-- ¿Hubo error en el proceso del pago? 
+            
+            // Presentar la página de error al procesar el pago
+
+        --}}
+
+        {{-- SI: Mandar la página de rror --}}
+
         @include('livewire.payments.header_payment')
         <form action="{{route('makepayment')}}" method="post" role="form"
         class="stripe-payment"
@@ -29,6 +38,7 @@
         </form>
     </div>
 </div>
+
 <div wire:loading wire:target="submit" class="flex justify-around h-full w-full">
     <span class="inline-flex rounded-md shadow-sm">
         <span class="inline-flex items-center px-8 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-black bg-red-600 hover:bg-red-500 focus:border-red-700 active:bg-red-700 transition ease-in-out duration-150 cursor-not-allowed" disabled="">
