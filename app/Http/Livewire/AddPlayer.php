@@ -50,7 +50,7 @@ class AddPlayer extends Component
     */
 
 	private function resetInputFields() {
-        $this->reset(['first_name','last_name','birthday','gender']);
+        $this->reset(['first_name','last_name','birthday','gender','birth_year','birth_month','birth_day']);
 	}
 
     public function addingPlayer(){
