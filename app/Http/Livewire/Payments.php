@@ -118,7 +118,7 @@ class Payments extends Component
                         "description" => $request->name,
                 ]);
 
-                $this->updateUserTokens();
+                $this->updateUserTokens($request);
                 $this->create_payment($request);
                 $this->sendMail($request);
 
