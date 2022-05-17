@@ -26,7 +26,7 @@
 </div>
 <div class="relative mt-4 overflow-auto rounded-xl">
     <div class="flex flex-wrap items-center justify-center sm:flex-wrap-reverse">
-        @if (! Auth::user() && Auth::user()->isCoach())
+        @if (!Auth::user() && !Auth::user()->isCoach())
             {{--  Datos Personales  --}}
         <div class="sm:justify-start lg:justify-center md:justify-center">
 
