@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Livewire\Traits\SettingsTrait;
+use App\Models\UserWithoutPayments;
 
 class Payments extends Component
 {
@@ -41,7 +42,6 @@ class Payments extends Component
     public $currentPage = 1;
     public $payment_record;
     public $pages = [];
-    public $validationRules = [];
     public $k;
     public $categories;
     public $values = array();
@@ -66,80 +66,52 @@ class Payments extends Component
         $this->fill_categories_and_max_allowed();
         //dd('Categorieas',$this->categories,'Ids Categorías',$this->categoriesIds,'Equipos máximo x Categoria',$this->max_by_category);
         $this->step = 0;
+        $this->pages = [
+            1 => [
+                'heading' => __('Galveston Cup Registration System 2022'),
 
-        /** Paginas Steps */
-        if(Auth::user()) {
-            $this->pages = [
-                1 => [
-                    'heading' => __('Galveston Cup Registration System 2022'),
-                ],
-                2 => [
-                    'heading' => __('Galveston Cup Registration System 2022'),
-                ]
-            ];
-        } else {
-            $this->pages = [
-                1 => [
-                    'heading' => __('Galveston Cup Registration System 2022'),
-                ],
-                2 => [
-                    'heading' => __('Galveston Cup Registration System 2022'),
-                ],
-                3 => [
-                    'heading' => __('Galveston Cup Registration System 2022'),
-                ]
-            ];
-        }
-
-         /** Validaciones para Eventos, Usuarios, Payments */
-        if(Auth::user()) {
-            $this->validationRules = [
-                1 => [
-                    'quantity_teams' => 'required',
-                    'price_total'   => 'required',
-                ],
-                2 => [
-                    'password'  =>  'nullable|min:6',
-                    "password_confirmation" => "nullable|min:6|max:50|same:password",
-                ],
-            ];
-        } else {
-            $this->validationRules = [
-                1 => [
-                    'fullname'  =>  'required',
-                    'phone'     =>  'required|min:7|max:10|unique:users',
-                    'email'     =>  'required|unique:users',
-                ],
-                2 => [
-                    'quantity_teams' => 'required',
-                    'price_total'   => 'required',
-                ],
-                3 => [
-                    'password'  =>  'nullable|min:6',
-                    "password_confirmation" => "nullable|min:6|max:50|same:password",
-                ],
-            ];
-        }
+            ],
+            2 => [
+                'heading' => __('Galveston Cup Registration System 2022'),
+            ],
+            3 => [
+                'heading' => __('Galveston Cup Registration System 2022'),
+            ]
+        ];
     }
+
+ /** Validaciones para Eventos, Usuarios, Payments */
+    private $validationRules = [
+            1 => [
+                'fullname'  =>  'required',
+                'phone'     =>  'required|min:7|max:10|unique:users',
+                'email'     =>  'required|unique:users',
+            ],
+            2 => [
+                'quantity_teams' => 'required',
+                'price_total'   => 'required',
+            ],
+            3 => [
+                'password'  =>  'nullable|min:6',
+                "password_confirmation" => "nullable|min:6|max:50|same:password",
+            ],
+        ];
+
+
 
     public function render() {
         return view('livewire.payments.new_payment');
     }
 
     public function makepayment(Request $request) {
-
         $this->charge = null;
         $this->error_stripe = null;
-        if(Auth::user()){
-            $this->user = Auth::user()->id;
-        } else {
-            $this->read_user($request);
-        }
-
+        $this->read_user($request);
         if ($this->user) {
             $this->user->update_password($request->password);
             // Procesa el pago
             try {
+
                 Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
                 $this->charge = Stripe\Charge::create([
                         "amount" => $request->price_total * 100,
@@ -153,6 +125,9 @@ class Payments extends Component
                 $this->sendMail($request);
 
             } catch (\Throwable $exception) {
+
+                $this->crate_user_without_payments();   // Inserta el usuario en la tabla nueva
+                $this->user->delete();                  // Borra usuario
                 $this->error_stripe = $exception->getMessage();
                 return redirect()->route('error', [$this->error_stripe]);
             }
@@ -161,6 +136,14 @@ class Payments extends Component
         return redirect()->route('confirmation');
     }
 
+    /** Graba registro en tabla de Usuarios Sin pagos */
+    private function crate_user_without_payments(){
+        UserWithoutPayments::create([
+            'name'  => $this->user->name,
+            'phone' => $this->user->phone,
+            'email' => $this->user->email,
+        ]);
+    }
 
     /** Funciones para multi steps */
     public function updated($propertyName) {
@@ -232,7 +215,7 @@ class Payments extends Component
 			'name'      => $this->fullname,
 			'email'     => $this->email,
             'phone'     => $this->phone,
-            'password' => Hash::make($this->phone)
+            'password' => $this->phone,
         ]);
         $coach = Coach::updateOrCreate(['id' => $this->record_id], [
             'name'      => $this->fullname,
