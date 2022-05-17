@@ -120,8 +120,13 @@ class Payments extends Component
                         "description" => $request->name,
                 ]);
 
-                $this->updateUserTokens($request);
-                $this->create_payment($request);
+
+                $payment = $this->create_payment($request);
+                if($payment){
+                    $this->updateUserTokens($request);
+                    $this->create_Teamcategory($request, $payment);
+                    $this->sendMail($request);
+                }
                 $this->sendMail($request);
 
             } catch (\Throwable $exception) {
@@ -242,13 +247,13 @@ class Payments extends Component
     }
 
     private function create_payment(Request $request) {
-        $payment= Payment::create([
+        return Payment::create([
             'description'   => $request->name,
             'amount'        => $request->price_total,
             'user_id'       => $request->id_user,
             'source'        => $request->total_teams,
         ]);
-        $this->create_Teamcategory($request, $payment);
+
     }
 
     public function create_Teamcategory($request, $payment){
