@@ -57,7 +57,8 @@ class Payments extends Component
     public $category_id;
     public $useradd;
     public $error_stripe;
-
+    public $validationRules=array();
+    
     protected $listeners = ['AddUser'];
 
     public function mount() {
@@ -77,35 +78,51 @@ class Payments extends Component
                 'heading' => __('Galveston Cup Registration System 2022'),
             ]
         ];
+
+         /** Validaciones para Eventos, Usuarios, Payments */
+        if (Auth::user() && Auth::user()->isCoach()) {
+            $this->validationRules = [
+                1 => [
+                    'quantity_teams' => 'required',
+                    'price_total'   => 'required',
+                ],
+                2 => [
+                    'password'  =>  'nullable|min:6',
+                    "password_confirmation" => "nullable|min:6|max:50|same:password",
+                ],
+            ];
+        } else {
+            $this->validationRules = [
+                1 => [
+                    'fullname'  =>  'required',
+                    'phone'     =>  'required|min:7|max:10|unique:users',
+                    'email'     =>  'required|unique:users',
+                ],
+                2 => [
+                    'quantity_teams' => 'required',
+                    'price_total'   => 'required',
+                ],
+                3 => [
+                    'password'  =>  'nullable|min:6',
+                    "password_confirmation" => "nullable|min:6|max:50|same:password",
+                ],
+            ];
+        }
     }
-
- /** Validaciones para Eventos, Usuarios, Payments */
-    private $validationRules = [
-            1 => [
-                'fullname'  =>  'required',
-                'phone'     =>  'required|min:7|max:10|unique:users',
-                'email'     =>  'required|unique:users',
-            ],
-            2 => [
-                'quantity_teams' => 'required',
-                'price_total'   => 'required',
-            ],
-            3 => [
-                'password'  =>  'nullable|min:6',
-                "password_confirmation" => "nullable|min:6|max:50|same:password",
-            ],
-        ];
-
-
 
     public function render() {
         return view('livewire.payments.new_payment');
     }
 
     public function makepayment(Request $request) {
+        dd($request->all());
         $this->charge = null;
         $this->error_stripe = null;
-        $this->read_user($request);
+        if(Auth::user()){
+            $this->user == Auth::user()->id;
+        } else {
+            $this->read_user($request);
+        }
         if ($this->user) {
             $this->user->update_password($request->password);
             // Procesa el pago
@@ -203,7 +220,7 @@ class Payments extends Component
 			'name'      => $this->fullname,
 			'email'     => $this->email,
             'phone'     => $this->phone,
-            'password' => $this->phone,
+            'password' => Hash::make($this->phone)
         ]);
         $coach = Coach::updateOrCreate(['id' => $this->record_id], [
             'name'      => $this->fullname,

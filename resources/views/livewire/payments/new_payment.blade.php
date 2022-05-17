@@ -15,15 +15,22 @@
                             <div class="mx-auto text-center text-2xl font-semibold">
                                 <x-jet-validation-errors/>
                             </div>
-        
                             {{-- Paso numero 1 agregando datos de los teams --}}
-                            @if ($currentPage === 1)
-                                @include('livewire.payments.step1')
-                            {{-- Paso tres, se detalla el detalle de la reservacion --}}
-                            @elseif ($currentPage === 2)
-                                @include('livewire.payments.step2')
-                            @elseif ($currentPage === 3)
-                                @include('livewire.payments.step3')
+                            @if (Auth::user() && Auth::user()->isCoach())
+                                @if ($currentPage === 1)
+                                    @include('livewire.payments.step2')
+                                @elseif ($currentPage === 2)
+                                    @include('livewire.payments.step3')
+                                @endif
+                            @else
+                                @if ($currentPage === 1)
+                                    @include('livewire.payments.step1')
+                                {{-- Paso tres, se detalla el detalle de la reservacion --}}
+                                @elseif ($currentPage === 2)
+                                    @include('livewire.payments.step2')
+                                @elseif ($currentPage === 3)
+                                    @include('livewire.payments.step3')
+                                @endif
                             @endif
                             <div>
                                 @include('livewire.payments.buttons_steps')

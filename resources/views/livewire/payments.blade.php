@@ -26,10 +26,11 @@
 </div>
 <div class="relative mt-4 overflow-auto rounded-xl">
     <div class="flex flex-wrap items-center justify-center sm:flex-wrap-reverse">
-        {{--  Datos Personales  --}}
+        @if (!Auth::user()->isCoach())
+            {{--  Datos Personales  --}}
         <div class="sm:justify-start lg:justify-center md:justify-center">
 
-           {{-- Password --}}
+            {{-- Password --}}
             <div class="sm:mt-0">
                 <label class="mb-2 font-normal text-gray-600 font-pop" for="password">{{ __('Create a new password') }}</label>
                 <input class="block mt-2 lg:w-56 sm:w-32 mb-2
@@ -78,8 +79,30 @@
                 >
             </div>
         </div>
+        @endif
+        
         {{--  Datos de PAgo  --}}
         <div class="lg:ml-20">
+            @if(Auth::user()->isCoach())
+            {{-- Nombre de la tarjeta --}}
+            <div>
+                <label class="font-pop font-normal text-gray-600 mt-2" for="name">{{ __('Name on card') }}</label>
+                <input type='text'
+                    name='name'
+                    class='block lg:w-56 sm:w-32 card-name
+                    @error('name')
+                        border-red-600 border-2 border-collapse
+                    @enderror'
+                    size='16'
+                    maxlength="50"
+                    minlength="5"
+                    placeholder="{{__("Name on Card")}}"
+                    required
+                    pattern="[a-zA-Z\s]*"
+
+                >
+            </div>
+            @endif
             <div class="mb-2">
 <<<<<<< HEAD
                 <label class="mb-4 font-normal text-gray-600 font-pop" for="name">{{ __('Number Card') }}</label>
@@ -173,7 +196,9 @@
 <div>
     <input hidden wire:model="price_total" id="price_total" name="price_total">
     <input hidden wire:model="total_teams" id="total_teams" name="total_teams">
-    <input hidden id="id_user" name="id_user" value="{{$useradd->id}}">
+    @if (!Auth::user())
+        <input hidden id="id_user" name="id_user" value="{{$useradd->id}}">
+    @endif
 
     @php $k=0 @endphp
     @foreach($categories as $category)
