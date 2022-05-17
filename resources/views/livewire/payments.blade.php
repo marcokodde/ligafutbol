@@ -26,7 +26,7 @@
 </div>
 <div class="relative mt-4 overflow-auto rounded-xl">
     <div class="flex flex-wrap items-center justify-center sm:flex-wrap-reverse">
-        @if (!Auth::user()->isCoach())
+        @if (! Auth::user() && Auth::user()->isCoach())
             {{--  Datos Personales  --}}
         <div class="sm:justify-start lg:justify-center md:justify-center">
 
@@ -83,7 +83,7 @@
         
         {{--  Datos de PAgo  --}}
         <div class="lg:ml-20">
-            @if(Auth::user()->isCoach())
+            @if(Auth::user() && Auth::user()->isCoach())
             {{-- Nombre de la tarjeta --}}
             <div>
                 <label class="font-pop font-normal text-gray-600 mt-2" for="name">{{ __('Name on card') }}</label>
