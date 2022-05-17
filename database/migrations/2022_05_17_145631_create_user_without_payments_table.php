@@ -17,7 +17,7 @@ class CreateUserWithoutPaymentsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->nullable();
-            $table->string('phone',15)->nullable();
+            $table->string('phone', 10)->nullable();
             $table->timestamps();
         });
     }
