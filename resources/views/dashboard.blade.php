@@ -5,6 +5,9 @@
         </h2>
     </x-slot>
 
+    @if(Auth::user()->isCoach())
+        <script>window.location = "/payments";</script>
+    @endif
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

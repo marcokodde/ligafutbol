@@ -58,14 +58,7 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-
-
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -81,3 +74,8 @@ Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment'
 Route::get('rosters', Rosters::class)->name('rosters');
 Route::get('team-categories', TeamCategories::class)->name('team-categories');
 Route::get('confirmation', [ConfirmationController::class, 'confirmation'])->name('confirmation');
+
+Route::get('register_teams/{token?}', RegisterTeams::class)->name('register_teams');
+Route::get('register_players/{token?}', RegisterPlayers::class)->name('register_players');
+Route::get('clear_tables', ClearTables::class)->name('clear_tables');
+Route::get('error/{message}', Exceptions::class)->name('error');
