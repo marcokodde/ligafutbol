@@ -41,6 +41,7 @@ Route::get('language/{locale}', function ($locale) {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('statuses', Statuses::class)->name('statuses');                      // Estados de registros
+<<<<<<< HEAD
     Route::get('permission', Permissions::class)->name('permission');                // Permisos
     Route::get('role', Roles::class)->name('role');                                  // Roles
     Route::get('role-permission', RolePermissions::class)->name('role-permission');  // Asignar Permisos al Rol
@@ -49,6 +50,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
     Route::get('settings', Settings::class)->name('settings');                       // Configuración
     Route::post('payment_coach', [Payments::class, 'payment_coach'])->name('payment_coach');
+=======
+    Route::get('permission',Permissions::class)->name('permission');                // Permisos
+    Route::get('role',Roles::class)->name('role');                                  // Roles
+    Route::get('role-permission',RolePermissions::class)->name('role-permission');  // Asignar Permisos al Rol
+    Route::get('users',Users::class)->name('users');                                // Usuarios
+    Route::get('categories',Categories::class)->name('categories');                 // Categorías
+    Route::get('costs-by-team',CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
+    Route::get('settings',Settings::class)->name('settings');                       // Configuración
+>>>>>>> 1a2c4e21 (Agregando redireccion a pagina payments)
     // Acciones del usuario Coach
     Route::get('teams', Teams::class)->name('teams');                                // Equipos
     Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores

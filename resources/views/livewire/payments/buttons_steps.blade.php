@@ -37,8 +37,6 @@
         @endif
     @endif
 </div>
-
-
 <script>
     function add_user() {
         Livewire.emit('AddUser')

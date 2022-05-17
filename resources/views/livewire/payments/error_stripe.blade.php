@@ -13,7 +13,7 @@
 
         <button  style="background-color:rgba(31,41,55,var(--tw-bg-opacity))"
             class="px-12 py-2 m-4 font-semibold text-sm text-white rounded-md shadow-sm ring-1 ring-slate-900/5 border-indigo-500 border-2 border-solid hover:text-blue-500">
-            <a href="{{ route('login') }}">{{__('Login')}}</a>
+            <a href="{{ route('payments') }}">{{__('Login')}}</a>
         </button>
     </div>
 </div>
