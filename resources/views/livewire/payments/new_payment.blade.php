@@ -1,57 +1,48 @@
 <div class="max-w-full">
     <div>
-        
-            @if (isset($error_stripe))
-                @include('livewire.payments.error_stripe')
-            @else
-                @include('livewire.payments.header_payment')
-                <form action="{{route('makepayment')}}" method="post" role="form"
-                    class="stripe-payment"
-                    data-cc-on-file="false" data-stripe-token-public="{{env('STRIPE_KEY')}}"
-                    id="stripe-payment">
-                    @csrf
-                    <div class="row mx-auto">
-                        <div class="py-2">
-                            <div class="mx-auto text-center text-2xl font-semibold">
-                                <x-jet-validation-errors/>
-                            </div>
-                            {{-- Paso numero 1 agregando datos de los teams --}}
-                            @if (Auth::user() && Auth::user()->isCoach())
-                                @if ($currentPage === 1)
-                                    @include('livewire.payments.step2')
-                                @elseif ($currentPage === 2)
-                                    @include('livewire.payments.step3')
-                                @endif
-                            @else
-                                @if ($currentPage === 1)
-                                    @include('livewire.payments.step1')
-                                {{-- Paso tres, se detalla el detalle de la reservacion --}}
-                                @elseif ($currentPage === 2)
-                                    @include('livewire.payments.step2')
-                                @elseif ($currentPage === 3)
-                                    @include('livewire.payments.step3')
-                                @endif
+        @if (isset($error_stripe))
+            @include('livewire.payments.error_stripe')
+        @else
+            @include('livewire.payments.header_payment')
+            <form action="{{route('makepayment')}}" method="post" role="form"
+                class="stripe-payment"
+                data-cc-on-file="false" data-stripe-token-public="{{env('STRIPE_KEY')}}"
+                id="stripe-payment">
+                @csrf
+                <div class="row mx-auto">
+                    <div class="py-2">
+                        <div class="mx-auto text-center text-2xl font-semibold">
+                            <x-jet-validation-errors/>
+                        </div>
+    
+                        @if (Auth::user() && Auth::user()->isCoach())
+                            @if ($currentPage === 1)
+                                @include('livewire.payment_coach.step1')
+                            @elseif ($currentPage === 2)
+                                @include('livewire.payment_coach.payment_coach')
                             @endif
-                            <div>
+                        @else
+                            @if ($currentPage === 1)
+                                @include('livewire.payments.step1')
+                            {{-- Paso tres, se detalla el detalle de la reservacion --}}
+                            @elseif ($currentPage === 2)
+                                @include('livewire.payments.step2')
+                            @elseif ($currentPage === 3)
+                                @include('livewire.payments.step3')
+                            @endif
+                        @endif
+                        <div>
+                            @if (Auth::user() && Auth::user()->isCoach())
+                                @include('livewire.payment_coach.buttons_coach')
+                            @else
                                 @include('livewire.payments.buttons_steps')
-                            </div>
+                            @endif
                         </div>
                     </div>
-                </form>
-            @endif
+                </div>
+            </form>
+        @endif
     </div>
-</div>
-
-<div wire:loading wire:target="submit" class="flex justify-around h-full w-full">
-    <span class="inline-flex rounded-md shadow-sm">
-        <span class="inline-flex items-center px-8 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-black bg-red-600 hover:bg-red-500 focus:border-red-700 active:bg-red-700 transition ease-in-out duration-150 cursor-not-allowed" disabled="">
-            <svg class="animate-spin -ml-1 mr-3 h-12 w-12 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            {{__("Processing Payment...")}}
-        </span>
-    </span>
 </div>
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>

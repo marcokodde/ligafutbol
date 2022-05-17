@@ -1,6 +1,6 @@
 <div class="mx-auto text-center items-center">
     <label class="block lg:text-xl sm:text-sm text-gray-600 font-bold mb-2">
-        {{__("Step 2 of 3")}}
+        {{__("Step 1 of 2")}}
     </label>
     <label class="lg:text-2xl sm:text-base font-normal text-gray-500 font-pop mt-4 mb-4">
         {{__("Select how many teams you want to register for each category")}}:

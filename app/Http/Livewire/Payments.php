@@ -41,6 +41,7 @@ class Payments extends Component
     public $currentPage = 1;
     public $payment_record;
     public $pages = [];
+    public $validationRules = [];
     public $k;
     public $categories;
     public $values = array();
@@ -57,8 +58,7 @@ class Payments extends Component
     public $category_id;
     public $useradd;
     public $error_stripe;
-    public $validationRules=array();
-    
+
     protected $listeners = ['AddUser'];
 
     public function mount() {
@@ -66,21 +66,33 @@ class Payments extends Component
         $this->fill_categories_and_max_allowed();
         //dd('Categorieas',$this->categories,'Ids Categorías',$this->categoriesIds,'Equipos máximo x Categoria',$this->max_by_category);
         $this->step = 0;
-        $this->pages = [
-            1 => [
-                'heading' => __('Galveston Cup Registration System 2022'),
 
-            ],
-            2 => [
-                'heading' => __('Galveston Cup Registration System 2022'),
-            ],
-            3 => [
-                'heading' => __('Galveston Cup Registration System 2022'),
-            ]
-        ];
+        /** Paginas Steps */
+        if(Auth::user()) {
+            $this->pages = [
+                1 => [
+                    'heading' => __('Galveston Cup Registration System 2022'),
+                ],
+                2 => [
+                    'heading' => __('Galveston Cup Registration System 2022'),
+                ]
+            ];
+        } else {
+            $this->pages = [
+                1 => [
+                    'heading' => __('Galveston Cup Registration System 2022'),
+                ],
+                2 => [
+                    'heading' => __('Galveston Cup Registration System 2022'),
+                ],
+                3 => [
+                    'heading' => __('Galveston Cup Registration System 2022'),
+                ]
+            ];
+        }
 
          /** Validaciones para Eventos, Usuarios, Payments */
-        if (Auth::user() && Auth::user()->isCoach()) {
+        if(Auth::user()) {
             $this->validationRules = [
                 1 => [
                     'quantity_teams' => 'required',
@@ -115,19 +127,19 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
-        dd($request->all());
+
         $this->charge = null;
         $this->error_stripe = null;
         if(Auth::user()){
-            $this->user == Auth::user()->id;
+            $this->user = Auth::user()->id;
         } else {
             $this->read_user($request);
         }
+
         if ($this->user) {
             $this->user->update_password($request->password);
             // Procesa el pago
             try {
-
                 Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
                 $this->charge = Stripe\Charge::create([
                         "amount" => $request->price_total * 100,

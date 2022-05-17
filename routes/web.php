@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('categories', Categories::class)->name('categories');                 // Categorías
     Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
     Route::get('settings', Settings::class)->name('settings');                       // Configuración
-
+    Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment');
     // Acciones del usuario Coach
     Route::get('teams', Teams::class)->name('teams');                                // Equipos
     Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores
