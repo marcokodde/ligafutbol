@@ -174,9 +174,8 @@
 <div>
     <input hidden wire:model="price_total" id="price_total" name="price_total">
     <input hidden wire:model="total_teams" id="total_teams" name="total_teams">
-    @if (!Auth::user())
-        <input hidden id="id_user" name="id_user" value="{{$useradd->id}}">
-    @endif
+    <input hidden id="id_user" name="id_user" value="{{$useradd->id}}">
+
 
     @php $k=0 @endphp
     @foreach($categories as $category)

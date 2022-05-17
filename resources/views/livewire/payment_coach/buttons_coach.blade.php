@@ -12,18 +12,12 @@
             <img class="h-5 w-5" src="{{ asset('image/icon_back.png') }}"  />
         </button>
     @endif
-    @if ($currentPage === count($pages))
-        <button type="submit" class="button blue mx-2 px-8 py-4 mt-4 font-semibold rounded-lg hover:text-black">
+    @if ($currentPage === 2)
+            <button type="submit"
+            id="submit_form"
+            class="button blue mx-2 px-8 py-4 mt-4 font-semibold rounded-lg hover:text-black">
             {{__("Confirm Payment")}}
         </button>
-    @elseif($currentPage === 2)
-        @if(Auth::user())
-            <button type="submit"
-                    id="submit_form"
-                    class="button blue mx-2 px-8 py-4 mt-4 font-semibold rounded-lg hover:text-black">
-                {{__("Confirm Payment")}}
-            </button>
-        @endif
     @else
         @if ($total_teams)
             <button wire:click="goToNextPage" type="button"
