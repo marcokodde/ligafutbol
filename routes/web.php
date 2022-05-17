@@ -11,6 +11,8 @@ use App\Http\Livewire\Settings;
 use App\Http\Livewire\Statuses;
 use App\Http\Livewire\Categories;
 use App\Http\Livewire\CoachTeams;
+use App\Http\Livewire\Exceptions;
+use App\Http\Livewire\ClearTables;
 use App\Http\Livewire\CoachesTeam;
 use App\Http\Livewire\CostsByTeam;
 use App\Http\Livewire\Permissions;
@@ -23,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RegisterPlayers;
 use App\Http\Livewire\RolePermissions;
 use App\Http\Controllers\ConfirmationController;
-use App\Http\Livewire\ClearTables;
 
 require 'pruebas.php';
 
@@ -80,12 +81,3 @@ Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment'
 Route::get('rosters', Rosters::class)->name('rosters');
 Route::get('team-categories', TeamCategories::class)->name('team-categories');
 Route::get('confirmation', [ConfirmationController::class, 'confirmation'])->name('confirmation');
-
-<<<<<<< HEAD
-Route::get('register_teams/{token?}', RegisterTeams::class)->name('register_teams');
-Route::get('register_players/{token?}', RegisterPlayers::class)->name('register_players');
-=======
-Route::get('register_teams/{token?}',RegisterTeams::class)->name('register_teams');
-Route::get('register_players/{token?}',RegisterPlayers::class)->name('register_players');
-Route::get('clear_tables',ClearTables::class)->name('clear_tables');
->>>>>>> 81dc6162 (Limpiar datos de prueba (ruta clear_tables))

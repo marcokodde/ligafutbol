@@ -124,13 +124,9 @@ class Payments extends Component
                 $this->sendMail($request);
 
             } catch (\Throwable $exception) {
-               // Presentar página con el mensaje de rror y con un botón para que vaya al login
-               // Gestionar el LOGIN: Cuando sea "coach" enviarlo a  la ruta payments
                 $this->error_stripe = $exception->getMessage();
-                $this->emit('exceptionError', $this->error_stripe);
-               //throw new \Ankurk91\StripeExceptions\ApiException($exception);
+                return redirect()->route('error', [$this->error_stripe]);
             }
-
         }
         sleep(1);
         return redirect()->route('confirmation');
