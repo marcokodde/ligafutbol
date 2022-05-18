@@ -47,5 +47,11 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{url('email_notifications')}}">
+            <span>{{__('Notifications')}}</span>
+            </a>
+        </li>
+
     </ul>
 </li>
