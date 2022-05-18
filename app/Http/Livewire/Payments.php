@@ -127,7 +127,6 @@ class Payments extends Component
                     $this->create_Teamcategory($request, $payment);
                     $this->sendMail($request);
                 }
-                $this->sendMail($request);
 
             } catch (\Throwable $exception) {
 
@@ -220,7 +219,7 @@ class Payments extends Component
 			'name'      => $this->fullname,
 			'email'     => $this->email,
             'phone'     => $this->phone,
-            'password' => Hash::make($this->phone)
+            'password'  => Hash::make($this->phone)
         ]);
         $coach = Coach::updateOrCreate(['id' => $this->record_id], [
             'name'      => $this->fullname,
