@@ -75,44 +75,18 @@
 
         {{-- Fecha de nacimiento --}}
         <div class="text-center">
-<<<<<<< HEAD
             <label class="block text-base font-pop">{{__('Birthday')}}</label>
-
-            <input type="date"
-                wire:model="birthday"
-                min="{{$birthday_min}}"
-                max="{{$birthday_max}}"
-                placeholder="{{__("Birthday")}}"
-                class="block ml-1 w-11/12 @error('birthday')  border-red-600 border-collapse border-2 @enderror">
-                @error('birthday') <label class="text-sm text-red-500" >{{$message}}</label>@enderror
-
-
-            {{-- Botón Para Agregar --}}
-            @if($first_name && $last_name && $gender && $birth_year && $birth_month && $birth_day)
-                <span>
-                    <div class="ml-2">
-                        <label class="block text-base font-pop">&nbsp;</label>
-                        <button wire:click="addingPlayer"
-                            class="block px-4 py-2 text-black bg-green-500 rounded-lg hover:text-white">
-                            {{ __('Add')}}
-                        </button>
-                    </div>
-                </span>
-            @endif
-=======
-            <label class="block font-pop text-base">{{__('Birthday')}}</label>
              @include('livewire.register_players.birthday_dropdowns')
-             @error('birthday') <label class="text-red-500 text-sm" >{{$message}}</label>@enderror
->>>>>>> 028c5feb (Registrar Jugadores: Fecha de nacimiento se pone en listas desplegables)
+             @error('birthday') <label class="text-sm text-red-500" >{{$message}}</label>@enderror
         </div>
 
         {{-- Botón Para Agregar --}}
         @if($first_name && $last_name && $gender && $birth_year && $birth_month && $birth_day)
             <span>
                 <div class="ml-2">
-                    <label class="block font-pop text-base">&nbsp;</label>
+                    <label class="block text-base font-pop">&nbsp;</label>
                     <button wire:click="addingPlayer"
-                        class="block bg-green-500 px-4 py-2 rounded-lg  text-black hover:text-white">
+                        class="block px-4 py-2 text-black bg-green-500 rounded-lg hover:text-white">
                         {{ __('Add')}}
                     </button>
                 </div>

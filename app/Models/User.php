@@ -67,6 +67,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    // Setters
+    public function setNamehAttribute($value)
+    {
+        $this->attributes['email'] =  ucwords(strtolower(trim($value)));
+    }
     /*+-----------------+
       | Relaciones      |
       +-----------------+
