@@ -8,6 +8,7 @@ use App\Models\Coach;
 use Livewire\Component;
 use App\Models\TeamCategory;
 use Livewire\WithPagination;
+use App\Models\EmailNotification;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\ZipcodeTrait;
@@ -198,6 +199,9 @@ class RegisterTeams extends Component
             $this->error_names[$i]      = false;
             $this->error_zipcodes[$i]   = false;
         }
+        $email_notify = EmailNotification::where('user_id', $this->user->id)
+                                        ->update(['noty_register_teams' => 1
+                                        ]);
         sleep(1);
         if (count($this->categoriesIds) > 1) {
             $this->dispatchBrowserEvent('fill_roster', [

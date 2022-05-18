@@ -17,12 +17,13 @@ use App\Models\CostByTeam;
 use App\Models\TeamCategory;
 use Illuminate\Http\Request;
 use App\Mail\ConfirmationMail;
+use App\Models\EmailNotification;
 use Illuminate\Support\Facades\DB;
+use App\Models\UserWithoutPayments;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Livewire\Traits\SettingsTrait;
-use App\Models\UserWithoutPayments;
 
 class Payments extends Component
 {
@@ -58,6 +59,7 @@ class Payments extends Component
     public $category_id;
     public $useradd;
     public $error_stripe;
+    public $emailnoti_add;
 
     protected $listeners = ['AddUser'];
 
@@ -228,9 +230,17 @@ class Payments extends Component
 		]);
 
         $role_record = Role::where('name','coach')->first();
-        if($role_record){
+        if ($role_record) {
             $this->useradd->roles()->attach($role_record);
         }
+
+        $this->emailnoti_add = EmailNotification::updateOrCreate(['id' => $this->record_id], [
+            'name'                  => $this->fullname,
+			'email'                 => $this->email,
+            'user_id'               => $this->useradd->id,
+            'noty_create_user'      => 1,
+            'noty_without_payment'  => 1,
+		]);
     }
 
 
@@ -246,6 +256,11 @@ class Payments extends Component
     }
 
     private function create_payment(Request $request) {
+        $email_notify = EmailNotification::where('user_id', $request->id_user)
+                                        ->update(['noty_payment' => 1,
+                                                'noty_without_payment' => 0
+                                        ]);
+
         return Payment::create([
             'description'   => $request->name,
             'amount'        => $request->price_total,

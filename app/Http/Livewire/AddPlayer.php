@@ -7,9 +7,10 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\Player;
 use Livewire\Component;
+use App\Models\EmailNotification;
 use App\Http\Livewire\Traits\CrudTrait;
-use App\Http\Livewire\Traits\SettingsTrait;
 use App\Http\Livewire\Traits\DatesTrait;
+use App\Http\Livewire\Traits\SettingsTrait;
 
 
 class AddPlayer extends Component
@@ -92,6 +93,9 @@ class AddPlayer extends Component
 
         if ($this->team->players->count() < $this->general_settings->max_players_by_team) {
         } else {
+            $email_notify = EmailNotification::where('user_id', $this->user->id)
+            ->update(['noty_register_players' => 1
+            ]);
             $this->dispatchBrowserEvent('fill_roster',[
                 'title' => __('You have reached the limit of players per team.'),
                 'text'  => __('You can remove some and add new ones.'),
