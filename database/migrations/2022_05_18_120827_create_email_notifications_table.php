@@ -19,6 +19,8 @@ class CreateEmailNotificationsTable extends Migration
             $table->string('email')->unique()->comment('correo electrónico');
             $table->boolean('noty_payment')->default(0)->comment('Notificar cuando alguien hizo un pago');
             $table->boolean('noty_without_payment')->default(0)->comment('Notificar cuando alguien no pudo realizar pago');
+            $table->boolean('noty_register_teams')->default(0)->comment('Notificar cuando registren equipos');
+            $table->boolean('noty_register_players')->default(0)->comment('Notificar cuando registren jugadores');
         });
     }
 

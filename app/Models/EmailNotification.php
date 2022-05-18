@@ -15,7 +15,9 @@ class EmailNotification extends Model
         'name',
         'email',
         'noty_payment',
-        'noty_without_payment'
+        'noty_without_payment',
+        'noty_register_teams',
+        'noty_register_players'
     ];
 
 
