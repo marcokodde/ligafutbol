@@ -14,6 +14,7 @@ class EmailNotification extends Model
     protected $fillable =  [
         'name',
         'email',
+        'noty_create_user',
         'noty_payment',
         'noty_without_payment',
         'noty_register_teams',
