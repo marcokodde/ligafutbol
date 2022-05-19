@@ -2,10 +2,10 @@
     @if ($currentPage === 1)
         <div></div>
     @elseif($currentPage === 2)
-        {{--  <button wire:click="goToPreviousPage" type="button" style="background-color: #DCC742"
+        <button wire:click="goToPreviousPage" type="button" style="background-color: #DCC742"
             class="button mx-2 px-8 py-4 mt-4 text-black font-semibold rounded-lg hover:text-white">
             {{__("Go Back")}}
-        </button>  --}}
+        </button>
     @else
         <button type="button"
                 wire:click="goToPreviousPage"

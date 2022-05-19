@@ -3,7 +3,10 @@
         {{__("Step 3 of 3")}}
     </label>
     <label class="mt-4 mb-4 font-normal text-center text-gray-500 lg:text-2xl sm:text-base font-pop">
-        {{__("Payments and security")}}:
+        {{__("In order to complete your registration, you need to process the payment.")}}
+    </label>
+    <label class="block mt-2 mb-2 font-normal text-center text-gray-500 lg:text-2xl sm:text-base font-pop">
+        {{__("Your teams won't be registered without payment.")}}
     </label>
 </div>
 <br>
@@ -73,8 +76,6 @@
                     minlength="5"
                     placeholder="{{__("Name on Card")}}"
                     required
-                    pattern="[a-zA-Z\s]*"
-
                 >
             </div>
         </div>
@@ -82,22 +83,7 @@
         {{--  Datos de PAgo  --}}
         <div class="lg:ml-20">
             <div class="mb-2">
-<<<<<<< HEAD
                 <label class="mb-4 font-normal text-gray-600 font-pop" for="name">{{ __('Number Card') }}</label>
-                <input autocomplete='off' aria-invalid="false"
-                class='block card-num lg:w-56 sm:w-32 mt-2
-                @error('card-num')
-                    border-red-600 border-2 border-collapse
-                @enderror'
-                spellcheck="false"
-                inputmode="numeric"
-                minlength="16"
-                value="4242424242424242"
-                maxlength="16" type='text' placeholder="{{__('Card Number')}}" required>
-                @error('card-num') <span class="text-red-500">{{ $message }}</span>@enderror
-                <div class="inline mb-4 FormFieldInput-Icons" style="opacity: 1;">
-=======
-                <label class="font-pop font-normal text-gray-600 mb-4" for="name">{{ __('Number Card') }}</label>
                 <input type='text'
                         autocomplete='off'
                         aria-invalid="false"
@@ -114,8 +100,7 @@
                 >
 
                 {{-- íconos de Tarjetas --}}
-                <div class="FormFieldInput-Icons inline mb-4" style="opacity: 1;">
->>>>>>> 5f55f71a (Correo y algunos cambios ligeros)
+                <div class="inline mb-4 FormFieldInput-Icons" style="opacity: 1;">
                     <div style="transform: none;">
                         <span class="ml-2 FormFieldInput-IconsIcon is-visible">
                             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="24" viewBox="0 0 42 24" class="inline PaymentLogo variant-- "><title>Visa</title><path fill="var(--paymentLogoColor, #191E70)" d="M20.8 5.31L17.97 18.9h-3.43l2.83-13.58h3.43zm14.23 8.78l1.82-5.12 1.01 5.12h-2.83zm3.84 4.8H42L39.27 5.31h-2.92c-.61 0-1.22.42-1.42 1.05l-5.05 12.53h3.54l.7-1.98h4.35l.4 1.98zm-8.88-4.49c0-3.55-4.75-3.76-4.75-5.33.1-.73.7-1.15 1.41-1.15 1.11-.1 2.33.1 3.34.63l.6-2.92A8.36 8.36 0 0 0 27.46 5c-3.33 0-5.75 1.88-5.75 4.5 0 1.98 1.71 3.02 2.92 3.65 1.32.62 1.82 1.04 1.72 1.67 0 .94-1 1.36-2.02 1.36a8.37 8.37 0 0 1-3.53-.84l-.6 2.92c1.2.53 2.52.74 3.73.74 3.73.1 6.06-1.78 6.06-4.6zM15.95 5.31L10.5 18.9H6.87L4.14 8.03c0-.52-.4-.94-.8-1.15A11.5 11.5 0 0 0 0 5.73l.1-.42h5.76c.8 0 1.4.63 1.51 1.36l1.41 7.83 3.64-9.19h3.53z"></path></svg>

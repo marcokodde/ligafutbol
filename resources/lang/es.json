@@ -256,5 +256,7 @@
     "This link will be to add or update your player list. As long as you have your teams added.":"Este enlace será para agregar o actualizar su lista de jugadores. Siempre y cuando tengas tus equipos agregados.",
     "Error processing payment":"Error al procesar el Pago",
     "Enter the system to make your payment":"Ingresa al sistema para realizar tu pago",
-    "Try again":"Intentalo nuevamente"
+    "Try again":"Intentalo nuevamente",
+    "In order to complete your registration, you need to process the payment.":"Para completar el registro de tus equipos es necesario Procesar el Pago.",
+    "Your teams won't be registered without payment.":"Los equipos no seran registrados si no se tienen un pago registrado."
 }
