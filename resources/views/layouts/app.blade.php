@@ -86,7 +86,7 @@
     })
 
 
-    {{--  function confirm_modal(id) {
+    function confirm_modal(id) {
         var record = id;
         Swal.fire({
             title: "{{__('Are you sure?')}}",
@@ -107,7 +107,7 @@
                 )
             }
         })
-    }  --}}
+    }
 
     function confirm_modal_player(id) {
         var record = id;
