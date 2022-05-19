@@ -154,6 +154,9 @@ class Payments extends Component
             'phone'     => $this->phone,
         ]);
 
+        //TODO
+        // Mandar correo a todos los de email_notifications con 'noty_create_user' = 1
+
     }
 
     /** Funciones para multi steps */
