@@ -58,6 +58,7 @@ class Payments extends Component
     public $password_confirmation;
     public $category_id;
     public $useradd;
+    public $user_without_payment;
     public $error_stripe;
     public $emailnoti_add;
 
@@ -106,37 +107,34 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
+
         $this->charge = null;
         $this->error_stripe = null;
-        $this->read_user($request);
-        if ($this->user) {
-            $this->user->update_password($request->password);
-            // Procesa el pago
-            try {
+        // Procesar el pago
+        try {
 
-                Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-                $this->charge = Stripe\Charge::create([
-                        "amount" => $request->price_total * 100,
-                        "currency" => "USD",
-                        "source" => $request->stripeToken,
-                        "description" => $request->name,
-                ]);
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            $this->charge = Stripe\Charge::create([
+                    "amount"        => $request->price_total * 100,
+                    "currency"      => "USD",
+                    "source"        => $request->stripeToken,
+                    "description"   => $request->name,
+            ]);
 
-
-                $payment = $this->create_payment($request);
-                if($payment){
-                    $this->updateUserTokens($request);
-                    $this->create_Teamcategory($request, $payment);
-                    $this->sendMail($request);
-                }
-
-            } catch (\Throwable $exception) {
-
-                $this->create_user_without_payment();   // Inserta el usuario en la tabla nueva
-                $this->user->delete();                  // Borra usuario
-                $this->error_stripe = $exception->getMessage();
-                return redirect()->route('error', [$this->error_stripe]);
+            $this->user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
+            $this->AddUser();
+            $payment = $this->create_payment($request);
+            if($payment){
+                $this->updateUserTokens($request);
+                $this->create_Teamcategory($request, $payment);
+                $this->sendMail($request);
+                $this->user_without_payment->delete();              // Se elimina de usuarios sin pago
             }
+
+        } catch (\Throwable $exception) {
+            $this->useradd->delete();                              // Borra usuario en tabla USERS
+            $this->error_stripe = $exception->getMessage();
+            return redirect()->route('error', [$this->error_stripe]);
         }
         sleep(1);
         return redirect()->route('confirmation');
@@ -149,11 +147,13 @@ class Payments extends Component
             'phone'     =>  'required|unique:users',
             'email'     =>  'required|unique:users',
 		]);
-        UserWithoutPayments::create([
+
+        $this->user_without_payment = UserWithoutPayments::create([
 			'name'      => $this->fullname,
 			'email'     => $this->email,
             'phone'     => $this->phone,
         ]);
+
     }
 
     /** Funciones para multi steps */
@@ -215,22 +215,18 @@ class Payments extends Component
         }
     }
 
-    public function AddUser() {
-        $this->validate([
-            'fullname'  =>  'required|min:3|max:50',
-            'phone'     =>  'required|unique:users',
-            'email'     =>  'required|unique:users',
-		]);
+    private function AddUser() {
 
         $this->useradd = User::updateOrCreate(['id' => $this->record_id], [
-			'name'      => $this->fullname,
-			'email'     => $this->email,
-            'phone'     => $this->phone,
-            'password'  => Hash::make($this->phone)
+			'name'      => $this->user_without_payment->name,
+			'email'     => $this->user_without_payment->email,
+            'phone'     => $this->user_without_payment->phone,
+            'password'  => Hash::make($this->user_without_payment->phone)
         ]);
-        $coach = Coach::updateOrCreate(['id' => $this->record_id], [
-            'name'      => $this->fullname,
-			'phone'     => $this->phone,
+
+        $coach = Coach::create([
+            'name'      => $this->useradd->name,
+			'phone'     => $this->useradd->phone,
             'user_id'   => $this->useradd->id
 		]);
 
@@ -239,37 +235,23 @@ class Payments extends Component
             $this->useradd->roles()->attach($role_record);
         }
 
-        $this->emailnoti_add = EmailNotification::updateOrCreate(['id' => $this->record_id], [
-            'name'                  => $this->fullname,
-			'email'                 => $this->email,
-            'user_id'               => $this->useradd->id,
-            'noty_create_user'      => 1,
-            'noty_without_payment'  => 1,
-		]);
+
     }
 
 
-    // Lee el usuario
-
-    private function read_user($request){
-        $this->user = User::findOrFail( $request->id_user);
-    }
 
     private function updateUserTokens($request){
-        $this->user->update_token_register_teams();
-        $this->user->update_token_register_players();
+         $this->useradd->update_token_register_teams();
+         $this->useradd->update_token_register_players();
     }
 
     private function create_payment(Request $request) {
-        $email_notify = EmailNotification::where('user_id', $request->id_user)
-                                        ->update(['noty_payment' => 1,
-                                                'noty_without_payment' => 0
-                                        ]);
+
 
         return Payment::create([
             'description'   => $request->name,
             'amount'        => $request->price_total,
-            'user_id'       => $request->id_user,
+            'user_id'       => $this->useradd->id,
             'source'        => $request->total_teams,
         ]);
 
@@ -280,7 +262,7 @@ class Payments extends Component
         foreach ($request->categoriesIds as $categoryId => $value) {
               if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
                 TeamCategory::create([
-                    'user_id'     => $request->id_user,
+                    'user_id'     =>  $this->useradd->id,
                     'category_id' => $value,
                     'payment_id'  => $payment->id,
                     'qty_teams'   => $request->quantity_teams[$i]
@@ -292,11 +274,11 @@ class Payments extends Component
 
     public function sendMail($request) {
 
-        $email      = $this->user->email;
-        $total      = $request->price_total;
-        $total_teams=$request->total_teams;
-        $token      =$this->user->token_register_teams;
-        $token_player = $this->user->token_register_players;
+        $email          =  $this->useradd->email;
+        $total          =  $request->price_total;
+        $total_teams    =  $request->total_teams;
+        $token          =  $this->useradd->token_register_teams;
+        $token_player   =  $this->useradd->token_register_players;
         return Mail::to($email)
             ->send(new ConfirmationMail
             ($email, $total, $total_teams, $token, $token_player));
