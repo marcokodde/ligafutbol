@@ -1,5 +1,5 @@
 <div>
-    <h4 class="text-blue-700 font-bold text-2xl">{{__('Se Registro un Error al realizar el Pago')}}</h4>
+    <h4 class="text-blue-700 font-bold text-2xl">{{__('Se Registro un Error al Realizar el Pago')}}</h4>
 </div>
 
 <div>
@@ -19,7 +19,4 @@
         {{__('Con el correo electronico')}}:
         {{$third_variable}}
     </h4>
-</div>
-<div>
-    <h4 class="text-blue-700 font-bold text-2xl">{{__('Este usuario no tuvo exito al procesar su pago')}}</h4>
 </div>

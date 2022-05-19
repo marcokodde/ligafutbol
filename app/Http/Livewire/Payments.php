@@ -164,12 +164,12 @@ class Payments extends Component
         ]);
 
         //Creacion de Notificacion cuando se creo un usuario.
-        /* $email_create_user = EmailNotification::where('noty_create_user', 1)->get();
+        $email_create_user = EmailNotification::where('noty_create_user', 1)->get();
         $noty_create_user = "Noty Create User";
         foreach ($email_create_user as $recipient) {
             Mail::to($recipient->email)
                     ->send(new NotificationMail($recipient->email,$noty_create_user,$this->fullname, $this->email, $this->phone));
-        } */
+        }
     }
 
     /** Funciones para multi steps */
@@ -268,12 +268,12 @@ class Payments extends Component
         ]);
         //Creacion de Notificacion cuando se realiza un pago correctamente.
 
-       /*  $email_create_payment = EmailNotification::where('noty_payment', 1)->get();
+        $email_create_payment = EmailNotification::where('noty_payment', 1)->get();
         $noty_payment = "Create Payment";
         foreach ($email_create_payment as $recipient) {
             Mail::to($recipient->email)
                     ->send(new NotificationMail($recipient->email,$noty_payment,$request->name, $request->price_total, $request->total_teams));
-        } */
+        }
     }
 
     public function create_Teamcategory($request, $payment){
