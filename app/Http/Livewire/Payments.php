@@ -61,7 +61,7 @@ class Payments extends Component
     public $error_stripe;
     public $emailnoti_add;
 
-    protected $listeners = ['AddUser'];
+    protected $listeners = ['create_user_without_payment'];
 
     public function mount() {
         $this->readSettings();
@@ -132,7 +132,7 @@ class Payments extends Component
 
             } catch (\Throwable $exception) {
 
-                $this->crate_user_without_payments();   // Inserta el usuario en la tabla nueva
+                $this->create_user_without_payment();   // Inserta el usuario en la tabla nueva
                 $this->user->delete();                  // Borra usuario
                 $this->error_stripe = $exception->getMessage();
                 return redirect()->route('error', [$this->error_stripe]);
@@ -143,11 +143,16 @@ class Payments extends Component
     }
 
     /** Graba registro en tabla de Usuarios Sin pagos */
-    private function crate_user_without_payments(){
+    public function create_user_without_payment(){
+        $this->validate([
+            'fullname'  =>  'required|min:3|max:50',
+            'phone'     =>  'required|unique:users',
+            'email'     =>  'required|unique:users',
+		]);
         UserWithoutPayments::create([
-            'name'  => $this->user->name,
-            'phone' => $this->user->phone,
-            'email' => $this->user->email,
+			'name'      => $this->fullname,
+			'email'     => $this->email,
+            'phone'     => $this->phone,
         ]);
     }
 

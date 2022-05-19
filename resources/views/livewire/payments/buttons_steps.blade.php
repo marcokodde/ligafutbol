@@ -30,7 +30,7 @@
         @endif
     @else
         @if ($fullname && $phone && $email)
-        <button wire:click="goToNextPage" onclick="add_user()" type="button"
+        <button wire:click="goToNextPage" onclick="create_user_without_payment()" type="button"
             class="block button blue rounded-lg mx-2 px-8 py-4 mt-4 font-semibold hover:text-black">
             {{__("Next")}}
         </button>
@@ -38,7 +38,7 @@
     @endif
 </div>
 <script>
-    function add_user() {
-        Livewire.emit('AddUser')
+    function create_user_without_payment() {
+        Livewire.emit('create_user_without_payment')
     }
 </script>
