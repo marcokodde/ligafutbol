@@ -14,7 +14,6 @@ class EmailNotification extends Model
     protected $fillable =  [
         'name',
         'email',
-        'user_id',
         'noty_create_user',
         'noty_payment',
         'noty_without_payment',
@@ -35,11 +34,6 @@ class EmailNotification extends Model
         $this->attributes['email'] =  strtolower(trim($value));
     }
 
-
-    //  EmailNotification-->Usuario (Un Email Notification pertenece a un usuario)
-    public function user() {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
-    }
 
     /*+-----------------+
       | Funciones Apoyo |

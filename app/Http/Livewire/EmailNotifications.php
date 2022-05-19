@@ -94,8 +94,8 @@ class EmailNotifications extends Component {
             'noty_register_players' => $this->noty_register_players
 		]);
 
-        $this->create_button_label = __('Create') . ' ' . __('EmailNotification');
-        $this->store_message(__('EmailNotification'));
+        $this->create_button_label = __('Create') . ' ' . __('Email Notification');
+        $this->store_message(__('Email Notification'));
 	}
 
     /*+------------------------------+
