@@ -1,22 +1,20 @@
 <div>
-    <h4 class="text-blue-700 font-bold text-2xl">{{__('Se Registro un Usuario')}}</h4>
+    <h4 class="text-blue-700 font-bold text-2xl">{{ $activity}}</h4>
 </div>
 
 <div>
+
     <h4 class="text-blue-700 text-base">
-        {{__('Se registro el usuario con el siguiente nombre')}}:
-        {{$first_variable}}
+        {{__('Name')}}:  {{$user->name}}
     </h4>
 </div>
 <div>
     <h4 class="text-blue-700 text-base">
-        {{__('Con el telefono')}}:
-        {{$second_variable}}
+        {{__('Phone')}}: {{$user->phone}}
     </h4>
 </div>
 <div>
     <h4 class="text-blue-700 text-base">
-        {{__('Se registro con el siguiente correo electronico')}}:
-        {{$third_variable}}
+        {{__('Email')}}: {{$user->phone}}
     </h4>
 </div>

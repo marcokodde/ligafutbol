@@ -1,23 +1,33 @@
 <div>
-    <h4 class="text-blue-700 font-bold text-2xl">{{__('Se Registro un Pago')}}</h4>
+    <h4 class="text-blue-700 font-bold text-2xl">{{ $activity}}</h4>
 </div>
 
 <div>
-    <h4 class="text-2xl text-blue-700">
-        {{__('Se registro el pago  a nombre del usuario')}}:
-        {{$first_variable}}
+
+    <h4 class="text-blue-700 text-base">
+        {{__('Name')}}:  {{$user->name}}
     </h4>
 </div>
 <div>
     <h4 class="text-blue-700 text-base">
-        {{__('Pago el siguiente importe')}}:
-        ${{number_format($second_variable)}}
+        {{__('Phone')}}: {{$user->phone}}
     </h4>
 </div>
+
 <div>
     <h4 class="text-blue-700 text-base">
-        {{__('Su pago se realizo por un total de')}}:
-        {{$third_variable}},
-        {{__(' Equipos')}}
+        {{__('Email')}}: {{$user->phone}}
+    </h4>
+</div>
+
+<div>
+    <h4 class="text-blue-700 text-base">
+        ${{number_format($payment->amount)}}
+    </h4>
+</div>
+
+<div>
+    <h4 class="text-blue-700 text-base">
+        {{__('Total Teams')}}:  {{ $payment->source}}
     </h4>
 </div>

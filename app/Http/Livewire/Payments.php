@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Livewire\Traits\SettingsTrait;
+use App\Mail\MailNotification;
 
 class Payments extends Component
 {
@@ -134,13 +135,9 @@ class Payments extends Component
 
         } catch (\Throwable $exception) {
             $user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
-            $email_create_payment = EmailNotification::where('noty_without_payment', 1)->get();
 
-            $noty_payment = "Error to Payment";
-            foreach ($email_create_payment as $recipient) {
-                Mail::to($recipient->email)
-                        ->send(new NotificationMail($recipient->email,$noty_payment,$user_without_payment->name, $user_without_payment->phone, $user_without_payment->email));
-            }
+            $this->send_notifications($user_without_payment,'error_payment',$request->price_total,$request->total_teams);
+
             $user_without_payment->delete();
             $this->error_stripe = $exception->getMessage();
             return redirect()->route('error', [$this->error_stripe]);
@@ -164,12 +161,8 @@ class Payments extends Component
         ]);
 
         //Creacion de Notificacion cuando se creo un usuario.
-        $email_create_user = EmailNotification::where('noty_create_user', 1)->get();
-        $noty_create_user = "Noty Create User";
-        foreach ($email_create_user as $recipient) {
-            Mail::to($recipient->email)
-                    ->send(new NotificationMail($recipient->email,$noty_create_user,$this->fullname, $this->email, $this->phone));
-        }
+        $this->send_notifications($this->user_without_payment,'create_user');
+
     }
 
     /** Funciones para multi steps */
@@ -253,27 +246,21 @@ class Payments extends Component
     }
 
 
-
     private function updateUserTokens($request){
         $this->useradd->update_token_register_teams();
         $this->useradd->update_token_register_players();
     }
 
     private function create_payment(Request $request) {
-        Payment::create([
+        $payment = Payment::create([
             'description'   => $request->name,
             'amount'        => $request->price_total,
             'user_id'       => $this->useradd->id,
             'source'        => $request->total_teams,
         ]);
         //Creacion de Notificacion cuando se realiza un pago correctamente.
+        $this->send_notifications($this->useradd,'create_payment',$payment);
 
-        $email_create_payment = EmailNotification::where('noty_payment', 1)->get();
-        $noty_payment = "Create Payment";
-        foreach ($email_create_payment as $recipient) {
-            Mail::to($recipient->email)
-                    ->send(new NotificationMail($recipient->email,$noty_payment,$request->name, $request->price_total, $request->total_teams));
-        }
     }
 
     public function create_Teamcategory($request, $payment){
@@ -291,6 +278,7 @@ class Payments extends Component
         }
     }
 
+    // Correo al usuario de confirmación
     public function sendMail($request) {
 
         $email          =  $this->useradd->email;
@@ -350,5 +338,31 @@ class Payments extends Component
         $this->categories = Category::whereIn('id',$this->categoriesIds)
                                     ->OrwhereDoesntHave('teams_categories')
                                     ->get();
+    }
+
+
+    /** Envío de notificación a Email Notifications */
+    public function send_notifications($user,$type='create_user',Payment $payment=null,$amount=null,$total_teams=null){
+
+        switch ($type) {
+            case 'create_user':
+                $users_to_notify = EmailNotification::where('noty_create_user', 1)->get();
+                break;
+            case 'create_payement':
+                $users_to_notify = EmailNotification::where('noty_payment', 1)->get();
+                break;
+
+            case 'error_payment':
+                $users_to_notify = EmailNotification::where('noty_without_payment', 1)->get();
+                break;
+        }
+        if($users_to_notify->count()){
+            foreach ($users_to_notify as $user_to_notify) {
+
+                Mail::to($user_to_notify->email)
+                        ->send(new MailNotification($user_to_notify->email,$type,$payment,$user,$amount,$total_teams));
+            }
+        }
+
     }
 }
