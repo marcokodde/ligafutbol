@@ -53,5 +53,11 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{url('promoters')}}">
+            <span>{{__('Promoters')}}</span>
+            </a>
+        </li>
+
     </ul>
 </li>

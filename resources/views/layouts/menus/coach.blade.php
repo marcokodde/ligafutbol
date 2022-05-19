@@ -37,11 +37,6 @@
             </a>
         </li>
 
-        <li>
-            <a href="{{url('rosters')}}">
-                <span>{{__('Rosters')}}</span>
-            </a>
-        </li>
 
     </ul>
 </li>

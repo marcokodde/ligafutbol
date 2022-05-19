@@ -26,6 +26,7 @@ use App\Http\Livewire\RegisterPlayers;
 use App\Http\Livewire\RolePermissions;
 use App\Http\Livewire\EmailNotifications;
 use App\Http\Controllers\ConfirmationController;
+use App\Http\Livewire\Promoters;
 
 require 'pruebas.php';
 
@@ -55,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('players', Players::class)->name('players');                          // Jugadores
     Route::get('coaches-team', CoachesTeam::class)->name('coaches-team');             // Asignar Coach a Equipos
     Route::get('players-team', PlayersTeam::class)->name('players-team');            // Asignar Jugadores a Equipos
+    Route::get('promoters', Promoters::class)->name('promoters');            // Asignar Jugadores a Equipos
+
 
 });
 
