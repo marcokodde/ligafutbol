@@ -18,12 +18,12 @@ class AddPlayer extends Component
     use CrudTrait;
     use SettingsTrait;
     use DatesTrait;
+
     public $first_name,$last_name,$birthday,$gender;
-
-
     public $team,$user;
     public $birthday_min,$birthday_max;
     public $birth_year,$birth_month,$birth_day;
+
     protected $rules = [
         'first_name'=> 'required|min:3|max:30',
         'last_name' => 'required|min:3|max:30',
@@ -93,9 +93,8 @@ class AddPlayer extends Component
 
         if ($this->team->players->count() < $this->general_settings->max_players_by_team) {
         } else {
-            $email_notify = EmailNotification::where('user_id', $this->user->id)
-            ->update(['noty_register_players' => 1
-            ]);
+            $email_notify = EmailNotification::where('noty_register_players', 1)->get();
+
             $this->dispatchBrowserEvent('fill_roster',[
                 'title' => __('You have reached the limit of players per team.'),
                 'text'  => __('You can remove some and add new ones.'),

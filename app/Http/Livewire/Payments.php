@@ -17,6 +17,7 @@ use App\Models\CostByTeam;
 use App\Models\TeamCategory;
 use Illuminate\Http\Request;
 use App\Mail\ConfirmationMail;
+use App\Mail\NotificationMail;
 use App\Models\EmailNotification;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserWithoutPayments;
@@ -132,7 +133,15 @@ class Payments extends Component
             }
 
         } catch (\Throwable $exception) {
-            $this->useradd->delete();                              // Borra usuario en tabla USERS
+            $user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
+            $email_create_payment = EmailNotification::where('noty_without_payment', 1)->get();
+
+            $noty_payment = "Error to Payment";
+            foreach ($email_create_payment as $recipient) {
+                Mail::to($recipient->email)
+                        ->send(new NotificationMail($recipient->email,$noty_payment,$user_without_payment->name, $user_without_payment->phone, $user_without_payment->email));
+            }
+            $user_without_payment->delete();
             $this->error_stripe = $exception->getMessage();
             return redirect()->route('error', [$this->error_stripe]);
         }
@@ -154,9 +163,13 @@ class Payments extends Component
             'phone'     => $this->phone,
         ]);
 
-        //TODO
-        // Mandar correo a todos los de email_notifications con 'noty_create_user' = 1
-
+        //Creacion de Notificacion cuando se creo un usuario.
+        /* $email_create_user = EmailNotification::where('noty_create_user', 1)->get();
+        $noty_create_user = "Noty Create User";
+        foreach ($email_create_user as $recipient) {
+            Mail::to($recipient->email)
+                    ->send(new NotificationMail($recipient->email,$noty_create_user,$this->fullname, $this->email, $this->phone));
+        } */
     }
 
     /** Funciones para multi steps */
@@ -237,27 +250,30 @@ class Payments extends Component
         if ($role_record) {
             $this->useradd->roles()->attach($role_record);
         }
-
-
     }
 
 
 
     private function updateUserTokens($request){
-         $this->useradd->update_token_register_teams();
-         $this->useradd->update_token_register_players();
+        $this->useradd->update_token_register_teams();
+        $this->useradd->update_token_register_players();
     }
 
     private function create_payment(Request $request) {
-
-
-        return Payment::create([
+        Payment::create([
             'description'   => $request->name,
             'amount'        => $request->price_total,
             'user_id'       => $this->useradd->id,
             'source'        => $request->total_teams,
         ]);
+        //Creacion de Notificacion cuando se realiza un pago correctamente.
 
+       /*  $email_create_payment = EmailNotification::where('noty_payment', 1)->get();
+        $noty_payment = "Create Payment";
+        foreach ($email_create_payment as $recipient) {
+            Mail::to($recipient->email)
+                    ->send(new NotificationMail($recipient->email,$noty_payment,$request->name, $request->price_total, $request->total_teams));
+        } */
     }
 
     public function create_Teamcategory($request, $payment){

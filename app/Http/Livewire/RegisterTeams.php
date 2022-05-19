@@ -199,9 +199,7 @@ class RegisterTeams extends Component
             $this->error_names[$i]      = false;
             $this->error_zipcodes[$i]   = false;
         }
-        $email_notify = EmailNotification::where('user_id', $this->user->id)
-                                        ->update(['noty_register_teams' => 1
-                                        ]);
+        $email_notify = EmailNotification::where('noty_register_teams', 1)->get();
         sleep(1);
         if (count($this->categoriesIds) > 1) {
             $this->dispatchBrowserEvent('fill_roster', [
