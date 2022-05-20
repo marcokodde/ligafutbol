@@ -180,7 +180,7 @@ class Payments extends Component
         ]);
 
         //Creacion de Notificacion cuando se creo un usuario.
-        //$this->send_notifications($this->user_without_payment,'noty_create_user');
+        $this->send_notifications($this->user_without_payment,'noty_create_user');
     }
 
     /** Funciones para multi steps */
