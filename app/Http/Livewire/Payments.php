@@ -64,6 +64,7 @@ class Payments extends Component
     public $user_without_payment;
     public $error_stripe;
     public $emailnoti_add;
+    public $promoter_code;
 
     protected $listeners = ['create_user_without_payment'];
 
@@ -163,7 +164,7 @@ class Payments extends Component
         ]);
 
         //Creacion de Notificacion cuando se creo un usuario.
-        $this->send_notifications($this->user_without_payment,'create_user');
+        //$this->send_notifications($this->user_without_payment,'create_user');
 
     }
 
@@ -366,9 +367,6 @@ class Payments extends Component
     }
 
     public function read_code_promoter($code_id) {
-        $promoter_code = Promoter::where('code', $code_id)->get();
-        foreach ($promoter_code as $promoter) {
-            $this->promoter = $promoter->id;
-        }
+        $this->promoter_code = Promoter::where('code', $code_id)->first();
     }
 }
