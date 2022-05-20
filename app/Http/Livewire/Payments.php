@@ -148,9 +148,9 @@ class Payments extends Component
                 $this->updateUserTokens($request);
                 $this->create_Teamcategory($request, $payment);
                 $this->sendMail($request);
-                $this->user_without_payment->delete();                                  // Se elimina de usuarios sin pago
+                $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
                 $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
-                if ($this->promoter) {
+                if ($this->promoter_code_id) {
                     $this->send_mail_to_promoter($payment);
                 }
             }
@@ -397,15 +397,15 @@ class Payments extends Component
     }
 
     public function send_mail_to_promoter($payment) {
-        Mail::to($this->promoter->email)
-        ->send(new MailNotification($this->promoter->email,
+        Mail::to($this->promoter_code_id->email)
+        ->send(new MailNotification($this->promoter_code_id->email,
                                     "noty_payment",
                                     $payment,
                                     $this->useradd,
                                     null,
                                     null,
                                     null,
-                                    $this->promoter));
+                                    $this->promoter_code_id));
     }
 
     public function read_code_promoter($promoter_code) {
