@@ -372,14 +372,16 @@ class Payments extends Component
                 $users_to_notify = EmailNotification::where('noty_without_payment', 1)->get();
                 break;
         }
-        if(is_null($this->promoter) && $this->promoter) {
+        if(!is_null($this->promoter) && $this->promoter) {
             $promoter = $this->promoter;
+        } else {
+            $promoter = null;
         }
 
         if ($users_to_notify->count()) {
             foreach ($users_to_notify as $user_to_notify) {
                 Mail::to($user_to_notify->email)
-                        ->send(new MailNotification($user_to_notify->email,$type,$payment,$user,$amount,$total_teams, $stripe_error, $promoter));
+                        ->send(new MailNotification($user_to_notify->email,$type,$payment,$user,$amount,$total_teams, $this->stripe_error, $promoter));
             }
         }
     }
