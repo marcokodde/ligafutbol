@@ -65,14 +65,21 @@ class Payments extends Component
     public $error_stripe;
     public $emailnoti_add;
     public $promoter_code;
+    public $has_promoter_code;
+    public $promoter;
 
     protected $listeners = ['create_user_without_payment'];
 
-    public function mount($code_id=null) {
-        $this->read_code_promoter($code_id);
+    public function mount($promoter_code=null) {
+        $this->promoter_code = $promoter_code;
+        $this->has_promoter_code = is_null($promoter_code) ? false : true;
+        if($this->has_promoter_code){
+            $this->promoter = $this->read_code_promoter($promoter_code);
+
+        }
+
         $this->readSettings();
         $this->fill_categories_and_max_allowed();
-        //dd('Categorieas',$this->categories,'Ids Categorías',$this->categoriesIds,'Equipos máximo x Categoria',$this->max_by_category);
         $this->step = 0;
         $this->pages = [
             1 => [
@@ -89,6 +96,7 @@ class Payments extends Component
     }
 
  /** Validaciones para Eventos, Usuarios, Payments */
+
     private $validationRules = [
             1 => [
                 'fullname'  =>  'required',
@@ -107,7 +115,14 @@ class Payments extends Component
 
 
 
+
+
+    // Evaluá y en su caso  envía a donde corresponda
     public function render() {
+        if($this->has_promoter_code && !$this->promoter){
+            return view('livewire.payments.error_promoter');
+        }
+
         return view('livewire.payments.new_payment');
     }
 
@@ -366,7 +381,7 @@ class Payments extends Component
         }
     }
 
-    public function read_code_promoter($code_id) {
-        $this->promoter_code = Promoter::where('code', $code_id)->first();
+    public function read_code_promoter($promoter_code) {
+        return Promoter::where('code', $promoter_code)->first();
     }
 }
