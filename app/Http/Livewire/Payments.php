@@ -64,8 +64,6 @@ class Payments extends Component
     public $promoter_id=null;
     public $promoter = null;
 
-    protected $listeners = ['create_user_without_payment'];
-
     public function mount($promoter_code=null) {
         $this->promoter_code = $promoter_code;
         $this->has_promoter_code = is_null($promoter_code) ? false : true;
@@ -74,7 +72,6 @@ class Payments extends Component
             if($this->promoter){
                 $this->promoter_id = $this->promoter->id;
             }
-
         }
 
         $this->readSettings();
@@ -117,7 +114,6 @@ class Payments extends Component
         if($this->has_promoter_code && !$this->promoter){
             return view('livewire.payments.error_promoter');
         }
-
         return view('livewire.payments.new_payment');
     }
 
@@ -177,14 +173,24 @@ class Payments extends Component
             'email'     =>  'required|unique:users',
 		]);
 
-        $this->user_without_payment = UserWithoutPayments::create([
-			'name'      => $this->fullname,
-			'email'     => $this->email,
-            'phone'     => $this->phone,
-        ]);
+        $exist_user_whithout_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->count();
+
+        if ($exist_user_whithout_payment > 0){
+            UserWithoutPayments::where('email', $this->email)
+                                ->where('phone', $this->phone)
+                                ->update([  'name'  => $this->fullname,
+                                            'email' => $this->email,
+                                            'phone' => $this->phone]);
+        } else {
+            $this->user_without_payment = UserWithoutPayments::create([
+                'name'      => $this->fullname,
+                'email'     => $this->email,
+                'phone'     => $this->phone,
+            ]);
+        }
 
         //Creacion de Notificacion cuando se creo un usuario.
-        //$this->send_notifications($this->user_without_payment,'noty_create_user');
+        $this->send_notifications($this->user_without_payment,'noty_create_user');
     }
 
     /** Funciones para multi steps */
@@ -195,6 +201,12 @@ class Payments extends Component
     public function goToNextPage() {
         $this->validate($this->validationRules[$this->currentPage]);
         $this->currentPage++;
+    }
+
+    public function goToNextPage_and_create_user_without() {
+        $this->validate($this->validationRules[$this->currentPage]);
+        $this->currentPage++;
+        $this->create_user_without_payment();
     }
 
     public function goToPreviousPage() {
