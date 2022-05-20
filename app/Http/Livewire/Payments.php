@@ -64,9 +64,10 @@ class Payments extends Component
     public $user_without_payment;
     public $error_stripe;
     public $emailnoti_add;
-    public $promoter_code;
-    public $has_promoter_code;
-    public $promoter;
+    public $promoter_code =null;
+    public $has_promoter_code=false;
+    public $promoter_id=null;
+    public $promoter = null;
 
     protected $listeners = ['create_user_without_payment'];
 
@@ -75,6 +76,9 @@ class Payments extends Component
         $this->has_promoter_code = is_null($promoter_code) ? false : true;
         if($this->has_promoter_code){
             $this->promoter = $this->read_code_promoter($promoter_code);
+            if($this->promoter){
+                $this->promoter_id = $this->promoter->id;
+            }
 
         }
 
