@@ -44,22 +44,26 @@
                     placeholder="{{ __('Password') }}"
                     name="password"
                     id="password"
-                required>
+                    required
+                    value="password"
+                >
             </div>
 
             {{-- Confirmación Password --}}
             <div class="lg:mt-8">
                 <label class="mt-6 font-normal text-gray-600 font-pop" for="password_confirmation">{{ __('Confirm a new password') }}</label>
-                <input class="block lg:w-56 sm:w-32 mt-2 mb-2
-                    @error('password_confirmation')
-                        border-red-600 border-2 border-collapse
-                    @enderror "
-                    type="password"
-                    wire:model.lazy="password_confirmation"
-                    placeholder="{{ __('Confirm Password') }}"
-                    name="password_confirmation"
-                    id="password_confirmation"
-                required>
+                <input  type="password"
+                        wire:model.lazy="password_confirmation"
+                        class="block lg:w-56 sm:w-32 mt-2 mb-2
+                        @error('password_confirmation')
+                            border-red-600 border-2 border-collapse
+                        @enderror "
+                         placeholder="{{ __('Confirm Password') }}"
+                        name="password_confirmation"
+                        id="password_confirmation"
+                        required
+                        value="password"
+                >
             </div>
 
             {{-- Nombre de la tarjeta --}}
@@ -76,6 +80,7 @@
                     minlength="5"
                     placeholder="{{__("Name on Card")}}"
                     required
+                    value="FEDERICO"
                 >
             </div>
         </div>
@@ -97,6 +102,8 @@
                         maxlength="16"
                         placeholder="{{__('Card Number')}}"
                         required
+                        value="4242424242424242"
+
                 >
 
                 {{-- íconos de Tarjetas --}}
@@ -138,12 +145,19 @@
             <div class='grid grid-col-1'>
                 <div class="mt-2 mb-2 form-group sm:ml-0">
                     <label class="font-normal text-gray-600 font-pop" for="card-cvc">{{ __('CVV') }}</label>
-                    <input autocomplete='off' class='block lg:w-40 sm:w-32 card-cvc
-                        @error('card-cvc')
-                            border-red-600 border-2 border-collapse
-                        @enderror'
-                    placeholder='CVV'
-                    size='8' maxlength="4" minlength="3" type='password' inputmode="numeric" required>
+                    <input type='password'
+                        autocomplete='off'
+                        class='block lg:w-40 sm:w-32 card-cvc'
+                        placeholder='CVV'
+                        size='8'
+                        maxlength="4"
+                        minlength="3"
+                        inputmode="numeric"
+                        required
+                        pattern="[0-9]{3-4}"
+                        title="{{__('Only Numbers')}}"
+                        value="123"
+                    >
                     @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
             </div>

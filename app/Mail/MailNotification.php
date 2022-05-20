@@ -54,7 +54,7 @@ class MailNotification extends Mailable
             case 'create_payment':
                 $this->activity = __('A Payment Has Been Recorded');
                 break;
-            case 'error_payment':
+            case 'noty_without_payment':
                 $this->activity = __('There was an error in a payment attempt');
                 break;
         }

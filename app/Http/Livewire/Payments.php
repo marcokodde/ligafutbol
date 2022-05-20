@@ -134,6 +134,8 @@ class Payments extends Component
 
         $this->charge = null;
         $this->error_stripe = null;
+        $this->user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
+
         // Procesar el pago
         try {
 
@@ -145,22 +147,19 @@ class Payments extends Component
                     "description"   => $request->name,
             ]);
 
-            $this->user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
-            $this->AddUser();
+            $this->create_user();
+
             $payment = $this->create_payment($request);
             if($payment){
                 $this->updateUserTokens($request);
                 $this->create_Teamcategory($request, $payment);
                 $this->sendMail($request);
-                $this->user_without_payment->delete();              // Se elimina de usuarios sin pago
+                $this->user_without_payment->delete();                                  // Se elimina de usuarios sin pago
+                $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
             }
 
         } catch (\Throwable $exception) {
-            $user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
-
-            $this->send_notifications($user_without_payment,'error_payment',$request->price_total,$request->total_teams);
-
-            $user_without_payment->delete();
+            $this->send_notifications($this->user_without_payment,'noty_without_payment',null,$request->price_total,$request->total_teams);
             $this->error_stripe = $exception->getMessage();
             return redirect()->route('error', [$this->error_stripe]);
         }
@@ -246,7 +245,7 @@ class Payments extends Component
         }
     }
 
-    private function AddUser() {
+    private function create_user() {
 
         $this->useradd = User::updateOrCreate(['id' => $this->record_id], [
 			'name'      => $this->user_without_payment->name,
@@ -254,6 +253,7 @@ class Payments extends Component
             'phone'     => $this->user_without_payment->phone,
             'password'  => Hash::make($this->user_without_payment->phone)
         ]);
+
 
         $coach = Coach::create([
             'name'      => $this->useradd->name,
@@ -275,16 +275,13 @@ class Payments extends Component
 
     private function create_payment(Request $request) {
         $promoter_id = $request->promoter_id ? $request->promoter_id : null;
-        $payment = Payment::create([
+        return Payment::create([
             'amount'        => $request->price_total,
             'description'   => $request->name,
             'user_id'       => $this->useradd->id,
             'promoter_id'   => $promoter_id,
             'source'        => $request->total_teams
         ]);
-        //Creacion de Notificacion cuando se realiza un pago correctamente.
-        //$this->send_notifications($this->useradd,'create_payment',$payment);
-
     }
 
     public function create_Teamcategory($request, $payment){
@@ -371,10 +368,10 @@ class Payments extends Component
             case 'noty_create_user':
                 $users_to_notify = EmailNotification::where('noty_create_user', 1)->get();
                 break;
-            case 'create_payement':
+            case 'noty_payment':
                 $users_to_notify = EmailNotification::where('noty_payment', 1)->get();
                 break;
-            case 'error_payment':
+            case 'noty_without_payment':
                 $users_to_notify = EmailNotification::where('noty_without_payment', 1)->get();
                 break;
         }
