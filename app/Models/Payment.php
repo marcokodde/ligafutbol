@@ -20,15 +20,7 @@ class Payment extends Model
         'phone',
     ];
 
-     //  Pago-->Usuario (Un Pago pertenece a un usuario)
-    public function user() {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
-    }
 
-     //  Pago-->Promotor (Un Pago pertenece a un promotor)
-    public function promotor() {
-        return $this->belongsTo('App\Models\Promoter', 'promoter_id', 'id');
-    }
 
     // Total de equipos cubiertos por el pago
     public function team_categories()
@@ -38,6 +30,16 @@ class Payment extends Model
 
     public function teams(){
         return $this->hasMany(Team::class);
+    }
+
+    //  Pago-->Usuario (Un Pago pertenece a un usuario)
+    public function user() {
+    return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    //  Pago-->Promotor (Un Pago pertenece a un promotor)
+    public function prometer() {
+        return $this->belongsTo(Promoter::class, 'promoter_id', 'id');
     }
 
 }
