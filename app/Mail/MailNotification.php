@@ -48,14 +48,14 @@ class MailNotification extends Mailable
     public function build()
     {
         switch ($this->type) {
-            case 'create_user':
-                $this->activity = 'Ha ingresado una persona al sistema';
+            case 'noty_create_user':
+                $this->activity = __('Someone Got Into The System');
                 break;
             case 'create_payment':
-                $this->activity = 'Se ha registrado un pago';
+                $this->activity = __('A Payment Has Been Recorded');
                 break;
             case 'error_payment':
-                $this->activity = 'Hubo un error en un pago';
+                $this->activity = __('There was an error in a payment attempt');
                 break;
         }
 

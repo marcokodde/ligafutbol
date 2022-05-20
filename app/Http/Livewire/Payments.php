@@ -183,7 +183,7 @@ class Payments extends Component
         ]);
 
         //Creacion de Notificacion cuando se creo un usuario.
-        //$this->send_notifications($this->user_without_payment,'create_user');
+        $this->send_notifications($this->user_without_payment,'noty_create_user');
 
     }
 
@@ -366,9 +366,9 @@ class Payments extends Component
 
 
     /** Envío de notificación a Email Notifications */
-    public function send_notifications($user,$type='create_user',Payment $payment=null,$amount=null,$total_teams=null){
+    public function send_notifications($user,$type='noty_create_user',Payment $payment=null,$amount=null,$total_teams=null){
         switch ($type) {
-            case 'create_user':
+            case 'noty_create_user':
                 $users_to_notify = EmailNotification::where('noty_create_user', 1)->get();
                 break;
             case 'create_payement':
