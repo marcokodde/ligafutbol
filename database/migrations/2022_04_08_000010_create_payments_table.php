@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->string('description', 80)->comment('Descripcion');
             $table->float('amount', 8, 2)->default('0')->comment('Importe');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('Usuario que lo crea');
-            $table->foreignId('promoter_id')->constrained('promoters')->nullable()->onDelete('cascade')->comment('Promotor que recibe comision');
+            $table->foreignId('promoter_id')->nullable()->constrained('promoters')->nullable()->onDelete('cascade')->comment('Promotor que recibe comision');
             $table->string('source', 244)->comment('Id de equipos');
             $table->timestamps();
         });

@@ -274,11 +274,12 @@ class Payments extends Component
     }
 
     private function create_payment(Request $request) {
+        $promoter_id = $request->promoter_id ? $request->promoter_id : null;
         $payment = Payment::create([
             'amount'        => $request->price_total,
             'description'   => $request->name,
             'user_id'       => $this->useradd->id,
-            'promoter_id'   => $request->id_promoter,
+            'promoter_id'   => $promoter_id,
             'source'        => $request->total_teams
         ]);
         //Creacion de Notificacion cuando se realiza un pago correctamente.
