@@ -26,8 +26,8 @@
                 </tr>
                 @if($amount > 0)
                     <tr>
-                        <td class="font-bold" align="right">{{__('Amount')}}</td>
-                        <td class="font-bold"  align="right">${{number_format($payment->amount)}}</td>
+                        <td class="font-bold">{{__('Amount')}}</td>
+                        <td class="font-bold"  align="right">${{number_format($amount)}}</td>
                     </tr>
                 @endif
                 @if($total_teams > 0)
