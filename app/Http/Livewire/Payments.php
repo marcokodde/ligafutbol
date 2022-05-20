@@ -19,7 +19,7 @@ use App\Models\TeamCategory;
 use Illuminate\Http\Request;
 use App\Mail\ConfirmationMail;
 use App\Mail\MailNotification;
-use App\Mail\NotificationMail;
+
 use App\Models\EmailNotification;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserWithoutPayments;
