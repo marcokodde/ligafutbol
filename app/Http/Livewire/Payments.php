@@ -150,7 +150,7 @@ class Payments extends Component
                 $this->sendMail($request);
                 $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
                 $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
-                if ($this->promoter_code_id) {
+                if ($this->has_promoter_code) {
                     $this->send_mail_to_promoter($payment);
                 }
             }
@@ -183,7 +183,7 @@ class Payments extends Component
         ]);
 
         //Creacion de Notificacion cuando se creo un usuario.
-        $this->send_notifications($this->user_without_payment,'noty_create_user');
+        //$this->send_notifications($this->user_without_payment,'noty_create_user');
     }
 
     /** Funciones para multi steps */
