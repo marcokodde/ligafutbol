@@ -19,18 +19,24 @@ class Promoter extends Model
     ];
 
 
-        // Setters
-        public function setNamehAttribute($value)
-        {
-            $this->attributes['name'] =  ucwords(strtolower(trim($value)));
-        }
+    // Setters
+    public function setNamehAttribute($value)
+    {
+        $this->attributes['name'] =  ucwords(strtolower(trim($value)));
+    }
 
-        public function setEmailAttribute($value)
-        {
-            $this->attributes['email'] =  strtolower(trim($value));
-        }
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] =  strtolower(trim($value));
+    }
 
-/*+-----------------+
+    //TODO:
+    /**
+     * Crear Relación a través de hacia TEAM pasando por Payment
+     * PROMOTERS <---- PAYMENTS <---- TEAMS
+     */
+
+    /*+-----------------+
       | Funciones Apoyo |
       +-----------------+
      */
