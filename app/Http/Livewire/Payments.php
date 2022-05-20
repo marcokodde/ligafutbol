@@ -58,7 +58,7 @@ class Payments extends Component
     public $category_id;
     public $useradd;
     public $user_without_payment;
-    public $error_stripe;
+    public $error_stripe = null;
     public $promoter_code =null;
     public $has_promoter_code=false;
     public $promoter_id=null;
@@ -372,10 +372,14 @@ class Payments extends Component
                 $users_to_notify = EmailNotification::where('noty_without_payment', 1)->get();
                 break;
         }
+        if(is_null($this->promoter) && $this->promoter) {
+            $promoter = $this->promoter;
+        }
+
         if ($users_to_notify->count()) {
             foreach ($users_to_notify as $user_to_notify) {
                 Mail::to($user_to_notify->email)
-                        ->send(new MailNotification($user_to_notify->email,$type,$payment,$user,$amount,$total_teams));
+                        ->send(new MailNotification($user_to_notify->email,$type,$payment,$user,$amount,$total_teams, $stripe_error, $promoter));
             }
         }
     }
