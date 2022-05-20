@@ -32,12 +32,12 @@ class MailNotification extends Mailable
 
     public function __construct($email,$type=null,Payment $payment=null,$user,$amount=null,$total_teams=null)
     {
-        $this->email    = $email;
-        $this->type     = $type;
-        $this->payment  = $payment;
-        $this->user     = $user;
-        $this->amount    = $amount;
-        $this->total_teams= $total_teams;
+        $this->email        = $email;
+        $this->type         = $type;
+        $this->payment      = $payment;
+        $this->user         = $user;
+        $this->amount       = $amount;
+        $this->total_teams  = $total_teams;
     }
 
     /**
@@ -51,7 +51,7 @@ class MailNotification extends Mailable
             case 'noty_create_user':
                 $this->activity = __('Someone Got Into The System');
                 break;
-            case 'create_payment':
+            case 'noty_payment':
                 $this->activity = __('A Payment Has Been Recorded');
                 break;
             case 'noty_without_payment':
@@ -64,7 +64,7 @@ class MailNotification extends Mailable
         $this->user_email   = $this->user->email;
 
         if(!is_null($this->payment)){
-            $this->amout        = $this->payment->amount;
+            $this->amount       = $this->payment->amount;
             $this->total_teams  = $this->payment->source;
         }
 

@@ -10,95 +10,45 @@
     </head>
     <body>
 
-        <img style="display:block;margin-left:auto;margin-right:auto;width:150px;" src="https://i0.wp.com/galvestoncup.com/wp-content/uploads/2022/04/small-logo.png?w=400&ssl=1">
-
-        <h1 class="text-blue-700">{{__('Notifications to Galveston Cup!')}}</h1>
-        {{-- {{ $user->name}} <br>
-        {{ $user->phone}} <br>
-        {{ $user->email}} <br>
-        {{ $type}} <br>
-        @if($payment)
-            {{ $payment->amount}} <br>
-            {{ $payment->source}} <br>
-        @endif --}}
-
-         <div>
-            <h4 class="text-blue-700 font-bold text-2xl">{{ $activity}}</h4>
-        </div>
-
         <div>
+            <table class="text-blue-700 text-base font-bold" border="1">
+                <tr>
+                    <td class="font-bold">{{__('Name')}}</td>
+                    <td class="font-bold">{{$user->name}}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">{{__('Phone')}}</td>
+                    <td class="font-bold">{{$user->phone}}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">{{__('Email')}}</td>
+                    <td class="font-bold">{{$user->email}}</td>
+                </tr>
+                @if($amount > 0)
+                    <tr>
+                        <td class="font-bold" align="right">{{__('Amount')}}</td>
+                        <td class="font-bold"  align="right">${{number_format($payment->amount)}}</td>
+                    </tr>
+                @endif
+                @if($total_teams > 0)
+                    <tr>
+                        <td class="font-bold">{{__('Total Teams')}}</td>
+                        @if(!is_null($payment))
+                            <td class="font-bold"  align="right">${{number_format($payment->source)}}</td>
+                        @else
+                            <td class="font-bold"  align="right">${{number_format($total_teams)}}</td>
+                        @endif
 
-            <h4 class="text-blue-700 text-base">
-                {{__('Name')}}:  {{$user->name}}
-            </h4>
+
+                    </tr>
+                @endif
+
+
+            </table>
+
         </div>
 
-        <div>
-            <h4 class="text-blue-700 text-base">
-                {{__('Phone')}}: {{$user->phone}}
-            </h4>
-        </div>
-
-        <div>
-            <h4 class="text-blue-700 text-base">
-                {{__('Email')}}: {{$user->email}}
-            </h4>
-        </div>
-
-        @if($amount > 0)
-            <div>
-                <h4 class="text-blue-700 text-base">
-                    {{__('Amount')}}: ${{number_format($payment->amount)}}
-                </h4>
-            </div>
-        @endif
-
-        @if($total_teams > 0)
-            <div>
-                <h4 class="text-blue-700 text-base">
-                    {{__('Total Teams')}}:  {{ $payment->source}}
-                </h4>
-            </div>
-        @endif
-        {{-- @if(!is_null($payment))
-            @if($payment->amount > 0)
-                <div>
-                    <h4 class="text-blue-700 text-base">
-                        {{__('Amount')}}: ${{number_format($payment->amount)}}
-                    </h4>
-                </div>
-            @endif
-
-            @if($payment->source > 0 )
-                <div>
-                    <h4 class="text-blue-700 text-base">
-                        {{__('Total Teams')}}:  {{ $payment->source}}
-                    </h4>
-                </div>
-            @endif
-        @endif --}}
-{{--
-        @if($type = 'error_payment')
-            <div>
-                <h4 class="text-blue-700 text-base">
-                    {{__('Amount')}}: $ {{number_format($amount)}}
-                </h4>
-            </div>
-
-            <div>
-                <h4 class="text-blue-700 text-base">
-                    {{__('Total Teams')}}:  {{ $total_teams}}
-                </h4>
-            </div>
-
-        @endif --}}
 
 
-
-        <span>{{__('Galveston Cup Team')}}</span>
-        <p></p>
-        <span class="bg-blue-700">1-800-515-2749</span>
-        <p></p>
-        <span>{{__('www.GalvestonCup.com')}}</span>
     </body>
 </html>

@@ -45,7 +45,6 @@
                     name="password"
                     id="password"
                     required
-                    value="password"
                 >
             </div>
 
@@ -62,7 +61,6 @@
                         name="password_confirmation"
                         id="password_confirmation"
                         required
-                        value="password"
                 >
             </div>
 
@@ -80,7 +78,6 @@
                     minlength="5"
                     placeholder="{{__("Name on Card")}}"
                     required
-                    value="FEDERICO"
                 >
             </div>
         </div>
@@ -102,8 +99,6 @@
                         maxlength="16"
                         placeholder="{{__('Card Number')}}"
                         required
-                        value="4242424242424242"
-
                 >
 
                 {{-- íconos de Tarjetas --}}
@@ -156,7 +151,6 @@
                         required
                         pattern="[0-9]{3-4}"
                         title="{{__('Only Numbers')}}"
-                        value="123"
                     >
                     @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
