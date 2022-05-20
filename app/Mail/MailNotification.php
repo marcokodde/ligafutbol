@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Payment;
+use App\Models\Promoter;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -29,8 +30,24 @@ class MailNotification extends Mailable
     public $user_phone;
     public $user_email;
     public $activity;
+    public $stripe_error = null;
+    public $promoter=null;
 
-    public function __construct($email,$type=null,Payment $payment=null,$user,$amount=null,$total_teams=null)
+    /*+---------------------------------------------------------+
+      |                 PARAMETROS                              |
+      +-----------------+---------------------------------------+
+      | $email          | Correo destinatario                   |
+      | $type           | Motivo                                |
+      | $payment        | Registro del pago                     |
+      | $user           | Datos del usuario que hace el pago    |
+      | $amount         | Importe                               |
+      | $total_teams    | Total de Equipos                      |
+      | $stripe_error   | Error de stripe                       |
+      | $promoter       | Promotor                              |
+      +---------------------------------------------------------+
+    */
+
+    public function __construct($email,$type=null,Payment $payment=null,$user,$amount=null,$total_teams=null,$stripe_error=null,$promoter=null)
     {
         $this->email        = $email;
         $this->type         = $type;
@@ -38,13 +55,16 @@ class MailNotification extends Mailable
         $this->user         = $user;
         $this->amount       = $amount;
         $this->total_teams  = $total_teams;
+        $this->stripe_error = $stripe_error;
+        $this->promoter     = $promoter;
+
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
+    /*+------------------------------------------+
+      | Construye el correo a partir de la vista |
+      +------------------------------------------+
+    */
+
     public function build()
     {
         switch ($this->type) {
@@ -79,9 +99,10 @@ class MailNotification extends Mailable
                            $this->type,
                            $this->payment,
                            $this->amount,
-                           $this->total_teams
+                           $this->total_teams,
+                           $this->stripe_error,
+                           $this->promoter
                         );
-
-
     }
+
 }

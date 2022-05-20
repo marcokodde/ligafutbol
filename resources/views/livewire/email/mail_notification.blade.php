@@ -27,22 +27,34 @@
                 @if($amount > 0)
                     <tr>
                         <td class="font-bold">{{__('Amount')}}</td>
-                        <td class="font-bold"  align="right">${{number_format($amount)}}</td>
+                        <td class="font-bold"  align="right">$ {{number_format($amount,2,",",".")}}</td>
+
                     </tr>
                 @endif
                 @if($total_teams > 0)
                     <tr>
                         <td class="font-bold">{{__('Total Teams')}}</td>
                         @if(!is_null($payment))
-                            <td class="font-bold"  align="right">${{number_format($payment->source)}}</td>
+                            <td class="font-bold"  align="right">{{number_format($payment->source)}}</td>
                         @else
-                            <td class="font-bold"  align="right">${{number_format($total_teams)}}</td>
+                            <td class="font-bold"  align="right">{{number_format($total_teams)}}</td>
                         @endif
-
 
                     </tr>
                 @endif
+                @if(isset($stripe_error) && !is_null($stripe_error))
+                    <tr>
+                         <td class="font-bold">Error</td>
+                         <td class="font-bold">{{$stripe_error}}</td>
+                    </tr>
+                @endif
 
+                @if(isset($promoter) && !is_null($promoter))
+                    <tr>
+                        <td class="font-bold">{{__('Promoter')}}</td>
+                        <td class="font-bold">{{$promoter->name}}</td>
+                    </tr>
+                @endif
 
             </table>
 
