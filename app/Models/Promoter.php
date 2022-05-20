@@ -34,7 +34,12 @@ class Promoter extends Model
       | Funciones Apoyo |
       +-----------------+
      */
-
+    // Relaciones
+        // Un promotor puede tener muchos pagos.
+        public function payments()
+        {
+            return $this->hasMany(Payments::class);
+        }
 
     public function can_be_delete(){
         return true;

@@ -13,6 +13,7 @@ class Payment extends Model
         'amount',
 		'description',
         'user_id',
+        'promoter_id',
         'source',
         'address',
         'zipcode',
@@ -20,8 +21,13 @@ class Payment extends Model
     ];
 
      //  Pago-->Usuario (Un Pago pertenece a un usuario)
-     public function user() {
+    public function user() {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
+
+     //  Pago-->Promotor (Un Pago pertenece a un promotor)
+    public function promotor() {
+        return $this->belongsTo('App\Models\Promoter', 'promoter_id', 'id');
     }
 
     // Total de equipos cubiertos por el pago

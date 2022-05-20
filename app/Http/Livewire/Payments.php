@@ -13,10 +13,12 @@ use App\Models\Payment;
 use App\Models\Zipcode;
 use Livewire\Component;
 use App\Models\Category;
+use App\Models\Promoter;
 use App\Models\CostByTeam;
 use App\Models\TeamCategory;
 use Illuminate\Http\Request;
 use App\Mail\ConfirmationMail;
+use App\Mail\MailNotification;
 use App\Mail\NotificationMail;
 use App\Models\EmailNotification;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +27,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Livewire\Traits\SettingsTrait;
-use App\Mail\MailNotification;
 
 class Payments extends Component
 {
@@ -66,7 +67,8 @@ class Payments extends Component
 
     protected $listeners = ['create_user_without_payment'];
 
-    public function mount() {
+    public function mount($code_id=null) {
+        $this->read_code_promoter($code_id);
         $this->readSettings();
         $this->fill_categories_and_max_allowed();
         //dd('Categorieas',$this->categories,'Ids Categorías',$this->categoriesIds,'Equipos máximo x Categoria',$this->max_by_category);
@@ -253,13 +255,14 @@ class Payments extends Component
 
     private function create_payment(Request $request) {
         $payment = Payment::create([
-            'description'   => $request->name,
             'amount'        => $request->price_total,
+            'description'   => $request->name,
             'user_id'       => $this->useradd->id,
-            'source'        => $request->total_teams,
+            'promoter_id'   => $request->id_promoter,
+            'source'        => $request->total_teams
         ]);
         //Creacion de Notificacion cuando se realiza un pago correctamente.
-        $this->send_notifications($this->useradd,'create_payment',$payment);
+        //$this->send_notifications($this->useradd,'create_payment',$payment);
 
     }
 
@@ -343,7 +346,6 @@ class Payments extends Component
 
     /** Envío de notificación a Email Notifications */
     public function send_notifications($user,$type='create_user',Payment $payment=null,$amount=null,$total_teams=null){
-
         switch ($type) {
             case 'create_user':
                 $users_to_notify = EmailNotification::where('noty_create_user', 1)->get();
@@ -351,18 +353,22 @@ class Payments extends Component
             case 'create_payement':
                 $users_to_notify = EmailNotification::where('noty_payment', 1)->get();
                 break;
-
             case 'error_payment':
                 $users_to_notify = EmailNotification::where('noty_without_payment', 1)->get();
                 break;
         }
-        if($users_to_notify->count()){
+        if ($users_to_notify->count()) {
             foreach ($users_to_notify as $user_to_notify) {
-
                 Mail::to($user_to_notify->email)
                         ->send(new MailNotification($user_to_notify->email,$type,$payment,$user,$amount,$total_teams));
             }
         }
+    }
 
+    public function read_code_promoter($code_id) {
+        $promoter_code = Promoter::where('code', $code_id)->get();
+        foreach ($promoter_code as $promoter) {
+            $this->promoter = $promoter->id;
+        }
     }
 }
