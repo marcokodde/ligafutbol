@@ -35,16 +35,12 @@ class Payments extends Component
     public $phone;
     public $price_total=0;
     public $teams;
-    public $number;
     public $amount;
-    public $state;
     public $record_id,$record;
-    public $address;
     public $user_id;
     public $description;
     public $success;
     public $currentPage = 1;
-    public $payment_record;
     public $pages = [];
     public $k;
     public $categories;
@@ -63,7 +59,6 @@ class Payments extends Component
     public $useradd;
     public $user_without_payment;
     public $error_stripe;
-    public $emailnoti_add;
     public $promoter_code =null;
     public $has_promoter_code=false;
     public $promoter_id=null;
@@ -117,10 +112,6 @@ class Payments extends Component
             ],
         ];
 
-
-
-
-
     // Evaluá y en su caso  envía a donde corresponda
     public function render() {
         if($this->has_promoter_code && !$this->promoter){
@@ -135,7 +126,10 @@ class Payments extends Component
         $this->charge = null;
         $this->error_stripe = null;
         $this->user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
-
+        $this->has_promoter_code = is_null($request->promoter_id) ? false : true;
+        if ($this->has_promoter_code) {
+            $this->promoter_code_id = Promoter::findOrFail($request->promoter_id);
+        }
         // Procesar el pago
         try {
 
@@ -161,7 +155,11 @@ class Payments extends Component
         } catch (\Throwable $exception) {
             $this->send_notifications($this->user_without_payment,'noty_without_payment',null,$request->price_total,$request->total_teams);
             $this->error_stripe = $exception->getMessage();
-            return redirect()->route('error', [$this->error_stripe]);
+            if ($this->has_promoter_code) {
+                return redirect()->route('error', [$this->error_stripe, $this->promoter_code_id->code]);
+            } else {
+                return redirect()->route('error', [$this->error_stripe]);
+            }
         }
         sleep(1);
         return redirect()->route('confirmation');
@@ -182,8 +180,7 @@ class Payments extends Component
         ]);
 
         //Creacion de Notificacion cuando se creo un usuario.
-        $this->send_notifications($this->user_without_payment,'noty_create_user');
-
+        //$this->send_notifications($this->user_without_payment,'noty_create_user');
     }
 
     /** Funciones para multi steps */

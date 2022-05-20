@@ -29,7 +29,6 @@ class DatabaseSeeder extends Seeder
             'cost_by_teams',
             'player_team',
             'coach_team',
-            'team_category',
             'coaches',
             'teams',
             'promoters',

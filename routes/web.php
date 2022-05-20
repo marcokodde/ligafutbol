@@ -81,4 +81,4 @@ Route::get('confirmation', [ConfirmationController::class, 'confirmation'])->nam
 Route::get('register_teams/{token?}', RegisterTeams::class)->name('register_teams');
 Route::get('register_players/{token?}', RegisterPlayers::class)->name('register_players');
 Route::get('clear_tables', ClearTables::class)->name('clear_tables');
-Route::get('error/{message}', Exceptions::class)->name('error');
+Route::get('error/{message}/{code?}', Exceptions::class)->name('error');
