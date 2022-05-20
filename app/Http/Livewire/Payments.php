@@ -381,7 +381,14 @@ class Payments extends Component
         if ($users_to_notify->count()) {
             foreach ($users_to_notify as $user_to_notify) {
                 Mail::to($user_to_notify->email)
-                        ->send(new MailNotification($user_to_notify->email,$type,$payment,$user,$amount,$total_teams, $this->stripe_error, $promoter));
+                        ->send(new MailNotification($user_to_notify->email,
+                                                    $type,
+                                                    $payment,
+                                                    $user,
+                                                    $amount,
+                                                    $total_teams,
+                                                    $this->error_stripe,
+                                                    $promoter));
             }
         }
     }
