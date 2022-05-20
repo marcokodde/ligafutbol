@@ -27,9 +27,13 @@ class DatabaseSeeder extends Seeder
             'categories',
             'settings',
             'cost_by_teams',
+            'player_team',
+            'coach_team',
+            'team_category',
             'coaches',
             'teams',
-
+            'promoters',
+            'payments',
         ]);
 
         $this->call([
@@ -40,7 +44,8 @@ class DatabaseSeeder extends Seeder
             RoleUserSeeder::class,
             CategorySeeder::class,
             SettingSeeder::class,
-            CostByTeamSeeder::class
+            CostByTeamSeeder::class,
+            PromoterSeeder::class
 
         ]);
     }
