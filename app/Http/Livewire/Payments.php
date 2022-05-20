@@ -140,7 +140,7 @@ class Payments extends Component
                     "source"        => $request->stripeToken,
                     "description"   => $request->name,
             ]);
-
+            //TODO que no exista el usuario
             $this->create_user();
 
             $payment = $this->create_payment($request);
@@ -150,6 +150,9 @@ class Payments extends Component
                 $this->sendMail($request);
                 $this->user_without_payment->delete();                                  // Se elimina de usuarios sin pago
                 $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
+                if ($this->promoter) {
+                    $this->send_mail_to_promoter($payment);
+                }
             }
 
         } catch (\Throwable $exception) {
@@ -391,6 +394,18 @@ class Payments extends Component
                                                     $promoter));
             }
         }
+    }
+
+    public function send_mail_to_promoter($payment) {
+        Mail::to($this->promoter->email)
+        ->send(new MailNotification($this->promoter->email,
+                                    "noty_payment",
+                                    $payment,
+                                    $this->useradd,
+                                    null,
+                                    null,
+                                    null,
+                                    $this->promoter));
     }
 
     public function read_code_promoter($promoter_code) {
