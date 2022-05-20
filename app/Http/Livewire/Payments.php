@@ -122,6 +122,7 @@ class Payments extends Component
     }
 
     public function makepayment(Request $request) {
+        if(isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
 
         $this->charge = null;
         $this->error_stripe = null;
@@ -375,8 +376,8 @@ class Payments extends Component
                 $users_to_notify = EmailNotification::where('noty_without_payment', 1)->get();
                 break;
         }
-        if(!is_null($this->promoter) && $this->promoter) {
-            $promoter = $this->promoter;
+        if(!is_null($this->promoter_id)) {
+            $promoter = Promoter::findOrFail($this->promoter_id);
         } else {
             $promoter = null;
         }
