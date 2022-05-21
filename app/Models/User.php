@@ -68,10 +68,27 @@ class User extends Authenticatable
     ];
 
     // Setters
-    public function setNamehAttribute($value)
+    public function setNameAttribute($value)
     {
-        $this->attributes['email'] =  ucwords(strtolower(trim($value)));
+        $this->attributes['name'] =  ucwords(strtolower($value));
     }
+
+    public function setEmaileAttribute($value)
+    {
+        $this->attributes['email'] =  strtolower(trim($value));
+    }
+
+    /*+-----------------+
+      | Actualizaciones |
+      +-----------------+
+     */
+
+    public function update_Name($value){
+        $this->name = ucwords(strtolower($value));;
+        $this->save();
+    }
+
+
     /*+-----------------+
       | Relaciones      |
       +-----------------+

@@ -66,6 +66,8 @@ class Payments extends Component
 
     public function mount($promoter_code=null) {
         $this->promoter_code = $promoter_code;
+        $this->promoter_id  =   null;
+
         $this->has_promoter_code = is_null($promoter_code) ? false : true;
         if($this->has_promoter_code){
             $this->promoter = $this->read_code_promoter($promoter_code);
@@ -96,8 +98,8 @@ class Payments extends Component
     private $validationRules = [
             1 => [
                 'fullname'  =>  'required',
-                'phone'     =>  'required|min:7|max:10|unique:users',
-                'email'     =>  'required|unique:users',
+                'phone'     =>  'required|min:7|max:10',
+                'email'     =>  'required|email',
             ],
             2 => [
                 'quantity_teams' => 'required',
@@ -110,6 +112,7 @@ class Payments extends Component
         ];
 
     // Evaluá y en su caso  envía a donde corresponda
+
     public function render() {
         if($this->has_promoter_code && !$this->promoter){
             return view('livewire.payments.error_promoter');
@@ -122,7 +125,8 @@ class Payments extends Component
 
         $this->charge = null;
         $this->error_stripe = null;
-        $this->user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
+
+
         $this->has_promoter_code = is_null($request->promoter_id) ? false : true;
         if ($this->has_promoter_code) {
             $this->promoter_code_id = Promoter::findOrFail($request->promoter_id);
@@ -138,14 +142,26 @@ class Payments extends Component
                     "description"   => $request->name,
             ]);
             //TODO que no exista el usuario
-            $this->create_user();
+            // ¿Debo crear el usuario?
+            $this->useradd = User::find($request->id_user)->first();
+
+            if(!$this->useradd){
+                $this->create_user();
+            }else{
+                $this->user_without_paymen = UserWithoutPayments::find($request->id_user)->first();
+            }
+
 
             $payment = $this->create_payment($request);
+
             if($payment){
                 $this->updateUserTokens($request);
                 $this->create_Teamcategory($request, $payment);
                 $this->sendMail($request);
-                $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
+                if($this->user_without_payment){
+                    $this->user_without_payment->delete();   // Si existe en tabla temporal lo elimina
+                }
+
                 $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
                 if ($this->has_promoter_code) {
                     $this->send_mail_to_promoter($payment);
@@ -165,33 +181,7 @@ class Payments extends Component
         return redirect()->route('confirmation');
     }
 
-    /** Graba registro en tabla de Usuarios Sin pagos */
-    public function create_user_without_payment(){
-        $this->validate([
-            'fullname'  =>  'required|min:3|max:50',
-            'phone'     =>  'required|unique:users',
-            'email'     =>  'required|unique:users',
-		]);
 
-        $exist_user_whithout_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->count();
-
-        if ($exist_user_whithout_payment > 0){
-            UserWithoutPayments::where('email', $this->email)
-                                ->where('phone', $this->phone)
-                                ->update([  'name'  => $this->fullname,
-                                            'email' => $this->email,
-                                            'phone' => $this->phone]);
-        } else {
-            $this->user_without_payment = UserWithoutPayments::create([
-                'name'      => $this->fullname,
-                'email'     => $this->email,
-                'phone'     => $this->phone,
-            ]);
-        }
-
-        //Creacion de Notificacion cuando se creo un usuario.
-        $this->send_notifications($this->user_without_payment,'noty_create_user');
-    }
 
     /** Funciones para multi steps */
     public function updated($propertyName) {
@@ -206,11 +196,43 @@ class Payments extends Component
     public function goToNextPage_and_create_user_without() {
         $this->validate($this->validationRules[$this->currentPage]);
         $this->currentPage++;
-        $this->create_user_without_payment();
+
+        $this->user_without_payment = User::where('email', $this->email)
+                                        ->where('phone', $this->phone)
+                                        ->first();
+
+        if(!$this->user_without_payment){
+            $this->user_without_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->first();
+        }
+
+        if($this->user_without_payment){
+            $this->user_without_payment->update_Name($this->fullname);
+        }else{
+            $this->user_without_payment->create_user_without_payment();
+            $this->send_notifications($this->user_without_payment,'noty_create_user');
+        }
+
     }
 
     public function goToPreviousPage() {
         $this->currentPage--;
+    }
+
+
+    /** Graba registro en tabla de Usuarios Sin pagos */
+    public function create_user_without_payment(){
+        $this->validate([
+            'fullname'  =>  'required|min:3|max:50',
+            'phone'     =>  'required|min:7|max:10',
+            'email'     =>  'required|email',
+		]);
+
+       return  UserWithoutPayments::create([
+            'name'      => $this->fullname,
+            'email'     => $this->email,
+            'phone'     => $this->phone,
+        ]);
+
     }
 
     public function resetSuccess() {

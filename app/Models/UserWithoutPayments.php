@@ -15,5 +15,29 @@ class UserWithoutPayments extends Model
         'phone',
     ];
 
+    /*+-----------------------------+
+      | Setters                     |
+      +----------------------------+
+    */
+    public function setNamehAttribute($value)
+    {
+        $this->attributes['name'] =  ucwords(strtolower($value));
+    }
+
+    public function setEmaileAttribute($value)
+    {
+        $this->attributes['email'] =  strtolower(trim($value));
+    }
+
+
+    /*+-----------------------------+
+      |Actualizar directamente      |
+      +-----------------------------+
+    */
+
+    public function update_Name($value){
+        $this->name = ucwords(strtolower($value));;
+        $this->save();
+    }
 
 }

@@ -18,7 +18,7 @@ class Coach extends Model
     ];
 
     // Setters
-    public function setNamehAttribute($value)
+    public function setNameAttribute($value)
     {
         $this->attributes['name'] =  ucwords(strtolower($value));
     }
