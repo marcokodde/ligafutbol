@@ -15,9 +15,9 @@ class AccordeonQuestions extends Component
     use CrudTrait;
 
     public function mount() {
-        $this->manage_title = "PREGUNTAS FRECUENTES GALVESTON CUP 2022";
+        $this->manage_title = "FREQUENTLY ASKED QUESTIONS GALVESTON CUP 2022";
         $this->search_label = __('Question');
-        $this->view_search = Null;
+       // $this->view_search = Null;
         $this->paginat = 10;
     }
 

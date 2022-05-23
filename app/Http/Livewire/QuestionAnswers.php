@@ -21,9 +21,9 @@ class QuestionAnswers extends Component {
 
     public function mount(){
         //$this->authorize('hasaccess', 'questionanswer.index');
-        $this->manage_title = __('Manage') . ' ' . __('Question');
-        $this->search_label = Null;
-        $this->view_search = Null;
+        $this->manage_title = __('Manage') . ' ' . __('Questions');
+      //  $this->search_label = Null;
+      //   $this->view_search = Null;
         $this->view_form    = 'livewire.questionanswer.form';
         $this->view_table   = 'livewire.questionanswer.table';
         $this->view_list    = 'livewire.questionanswer.list';
@@ -36,11 +36,14 @@ class QuestionAnswers extends Component {
 	 */
 
 	public function render() {
+
         $this->create_button_label =  $this->record_id ?    __('Update') . ' ' . __('Question')
                                                         : __('Create') . ' ' . __('Question');
+        $searchTerm = '%' . $this->search . '%';
+
 
         return view('livewire.index', [
-            'records' => QuestionAnswer::paginate($this->pagination),
+            'records' => QuestionAnswer::Question($searchTerm)->paginate($this->pagination),
         ]);
 	}
 
