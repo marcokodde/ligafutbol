@@ -281,7 +281,7 @@ class Payments extends Component
     }
 
     private function create_user() {
-
+dd($this->password);
         $this->useradd = User::updateOrCreate(['id' => $this->record_id], [
 			'name'      => $this->user_without_payment->name,
 			'email'     => $this->user_without_payment->email,
