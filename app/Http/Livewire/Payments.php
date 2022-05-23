@@ -145,7 +145,15 @@ class Payments extends Component
                 "description"   => $request->name,
             ]);
             //TODO que no exista el usuario
-            $this->create_user($request);
+            // ¿Debo crear el usuario?
+            $this->useradd = User::find($request->id_user)->first();
+
+            if (!$this->useradd) {
+                $this->create_user($request);
+            } else {
+                $this->user_without_payment = UserWithoutPayments::find($request->id_user)->first();
+            }
+
 
             $payment = $this->create_payment($request);
 
