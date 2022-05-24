@@ -173,7 +173,9 @@
     <input hidden wire:model="price_total" id="price_total" name="price_total">
     <input hidden wire:model="total_teams" id="total_teams" name="total_teams">
     <input hidden id="id_user" name="id_user" value="{{$user_without_payment->id}}">
-    <input hidden id="promoter_id" name="promoter_id" value="{{$promoter_id}}">
+    @if ($promoter_id)
+        <input hidden id="promoter_id" name="promoter_id" value="{{$promoter_id}}">
+    @endif
 
     @php $k=0 @endphp
     @foreach($categories as $category)

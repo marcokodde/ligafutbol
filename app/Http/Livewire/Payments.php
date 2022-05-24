@@ -83,7 +83,6 @@ class Payments extends Component
         $this->pages = [
             1 => [
                 'heading' => __('Galveston Cup Registration System 2022'),
-
             ],
             2 => [
                 'heading' => __('Galveston Cup Registration System 2022'),
@@ -129,7 +128,6 @@ class Payments extends Component
         $this->charge = null;
         $this->error_stripe = null;
 
-
         $this->has_promoter_code = is_null($request->promoter_id) ? false : true;
         if ($this->has_promoter_code) {
             $this->promoter_code_id = Promoter::findOrFail($request->promoter_id);
@@ -144,8 +142,7 @@ class Payments extends Component
                 "source"        => $request->stripeToken,
                 "description"   => $request->name,
             ]);
-            //TODO que no exista el usuario
-            // ¿Debo crear el usuario?
+
             $this->useradd = User::find($request->id_user)->first();
 
             if (!$this->useradd) {
@@ -183,8 +180,6 @@ class Payments extends Component
         return redirect()->route('confirmation');
     }
 
-
-
     /** Funciones para multi steps */
     public function updated($propertyName)
     {
@@ -213,7 +208,7 @@ class Payments extends Component
         if ($this->user_without_payment) {
             $this->user_without_payment->update_Name($this->fullname);
         } else {
-            $this->user_without_payment->create_user_without_payment();
+            $this->create_user_without_payment();
             $this->send_notifications($this->user_without_payment, 'noty_create_user');
         }
     }
@@ -297,7 +292,6 @@ class Payments extends Component
             'password'  => Hash::make($request->password)
         ]);
 
-
         $coach = Coach::create([
             'name'      => $this->useradd->name,
             'phone'     => $this->useradd->phone,
@@ -348,7 +342,6 @@ class Payments extends Component
     // Correo al usuario de confirmación
     public function sendMail($request)
     {
-
         $email          =  $this->useradd->email;
         $total          =  $request->price_total;
         $total_teams    =  $request->total_teams;
