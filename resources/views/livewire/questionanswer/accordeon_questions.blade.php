@@ -1,11 +1,14 @@
-
-@include('common.crud_header')
+<div>
+    @include('common.crud_header')
     <!-- Container -->
-  {{--    <input type="text"
-    wire:model="search"
-    placeholder="{{__($search_label)}}"
-    class="mb-4 w-1/3 shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
->  --}}
+    <div>
+        <input type="text"
+        wire:model="search"
+        placeholder="{{__($search_label)}}"
+        class="mb-4 w-1/3 shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        >
+    </div>
+  {{--     --}}
     <div class="container">
         @foreach($records as $record)
             <div class="overflow-hidden border-t" wire:key="foo{{ $record->id }}">
@@ -21,9 +24,12 @@
                 </label>
             </div>
         @endforeach
-        @if($show_pagination)
-            @include('common.crud_pagination')
-        @endif
+        <div>
+            @if($show_pagination)
+                @include('common.crud_pagination')
+            @endif
+        </div>
     </div>
+</div>
 
 <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
