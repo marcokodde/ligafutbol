@@ -218,6 +218,9 @@ class Payments extends Component
         if (!$this->user) {
             $this->user_without_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->first();
             $this->new_user = true;
+            if ($this->user_without_payment) {
+                $this->user_id = $this->user_without_payment->id;
+            }
         } else {
             $this->new_user = false;
             $this->user_id = $this->user->id;
