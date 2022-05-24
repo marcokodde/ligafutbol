@@ -228,7 +228,7 @@ class Payments extends Component
             'email'     =>  'required|email',
         ]);
 
-        return  UserWithoutPayments::create([
+        $this->user_without_payment =  UserWithoutPayments::create([
             'name'      => $this->fullname,
             'email'     => $this->email,
             'phone'     => $this->phone,
