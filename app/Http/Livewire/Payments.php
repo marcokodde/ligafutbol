@@ -67,13 +67,8 @@ class Payments extends Component
     public $new_user = false;
     public $coach;
 
-<<<<<<< HEAD
-
     public function mount($promoter_code = null)
     {
-=======
-    public function mount($promoter_code=null) {
->>>>>>> 73a22726 (Agregando consulta para que se agregue el usuario si este ya existe al realizar el pago)
         $this->promoter_code = $promoter_code;
         $this->promoter_id  =   null;
 
@@ -132,12 +127,7 @@ class Payments extends Component
     public function makepayment(Request $request)
     {
 
-<<<<<<< HEAD
-
         if (isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
-=======
-        if(isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
->>>>>>> 73a22726 (Agregando consulta para que se agregue el usuario si este ya existe al realizar el pago)
 
         $this->charge = null;
         $this->error_stripe = null;
@@ -165,16 +155,10 @@ class Payments extends Component
                     $this->coach =  $this->create_coach($this->useradd);
                     $this->asign_role_to_coach($this->useradd);
                 }
-<<<<<<< HEAD
             } else {
-                $this->useradd = User::find($request->user_id)->first();
-=======
-
-            }else{
                 $this->useradd = User::where('email', $request->email)
-                                ->where('phone', $request->phone)
-                                ->first();
->>>>>>> 73a22726 (Agregando consulta para que se agregue el usuario si este ya existe al realizar el pago)
+                    ->where('phone', $request->phone)
+                    ->first();
             }
 
             $promoter_id = $request->promoter_id ? $request->promoter_id : null;
@@ -253,7 +237,6 @@ class Payments extends Component
     {
         $this->currentPage--;
     }
-
 
     /** Graba registro en tabla de Usuarios Sin pagos */
     public function create_user_without_payment()
