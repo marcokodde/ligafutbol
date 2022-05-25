@@ -1,17 +1,10 @@
 
 <aside class="aside is-placed-left is-expanded">
-    <div class="aside-tools h-24 mx-auto mt-4 text-center items-center">
+    <div class="aside-tools h-24 mx-auto mt-4 text-center items-center justify-center">
         <img src="{{asset('images/galveston2022.png')}}" height="70px" width="70px"  alt="">
     </div>
     <div class="menu is-menu-main mt-4">
         <ul class="menu-list">
-        <li class="active">
-            <a href="index.html">
-                <span class="menu-item-label text-center">
-                    <a href="{{url('#')}}">{{__('Dashboard')}}</a>
-                </span>
-            </a>
-        </li>
         </ul>
         @if (Auth::user())
         <ul class="menu-list">

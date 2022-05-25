@@ -16,7 +16,7 @@ class AccordeonQuestions extends Component
 
     public function mount() {
         $this->manage_title = "FREQUENTLY ASKED QUESTIONS GALVESTON CUP 2022";
-        $this->search_label = __('Question');
+        $this->search_label = __('Search Question');
        // $this->view_search = Null;
         $this->paginat = 10;
     }
