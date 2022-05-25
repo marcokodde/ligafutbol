@@ -199,7 +199,20 @@ class RegisterTeams extends Component
             $this->error_names[$i]      = false;
             $this->error_zipcodes[$i]   = false;
         }
-        $email_notify = EmailNotification::where('noty_register_teams', 1)->get();
+        $users_to_notify = EmailNotification::where('noty_register_teams', 1)->get();
+        if ($users_to_notify->count()) {
+            foreach ($users_to_notify as $user_to_notify) {
+                Mail::to($user_to_notify->email)
+                        ->send(new MailNotification($user_to_notify->email,
+                                                    $type='noty_register_teams',
+                                                    null,
+                                                    $this->user,
+                                                    null,
+                                                    null,
+                                                    $record_team,
+                                                    null));
+            }
+        }
         sleep(1);
         if (count($this->categoriesIds) > 1) {
             $this->dispatchBrowserEvent('fill_roster', [

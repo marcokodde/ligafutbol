@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use Stripe;
 use Throwable;
-use Stripe\Charge;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
@@ -57,23 +56,15 @@ class Payments extends Component
     public $password_confirmation;
     public $category_id;
     public $useradd;
-    public $user;
     public $user_without_payment;
     public $error_stripe = null;
     public $promoter_code = null;
     public $has_promoter_code = false;
     public $promoter_id = null;
     public $promoter = null;
-    public $new_user = false;
-    public $coach;
-
-<<<<<<< HEAD
 
     public function mount($promoter_code = null)
     {
-=======
-    public function mount($promoter_code=null) {
->>>>>>> 73a22726 (Agregando consulta para que se agregue el usuario si este ya existe al realizar el pago)
         $this->promoter_code = $promoter_code;
         $this->promoter_id  =   null;
 
@@ -131,22 +122,14 @@ class Payments extends Component
 
     public function makepayment(Request $request)
     {
-
-<<<<<<< HEAD
-
         if (isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
-=======
-        if(isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
->>>>>>> 73a22726 (Agregando consulta para que se agregue el usuario si este ya existe al realizar el pago)
-
         $this->charge = null;
         $this->error_stripe = null;
-
+        $this->user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
         $this->has_promoter_code = is_null($request->promoter_id) ? false : true;
         if ($this->has_promoter_code) {
             $this->promoter_code_id = Promoter::findOrFail($request->promoter_id);
         }
-
         // Procesar el pago
         try {
 
@@ -158,36 +141,23 @@ class Payments extends Component
                 "description"   => $request->name,
             ]);
 
-            if ($request->new_user) {
-                $this->user_without_payment = UserWithoutPayments::find($request->user_id)->first();
-                $this->useradd = $this->create_new_user($request);
-                if ($this->useradd) {
-                    $this->coach =  $this->create_coach($this->useradd);
-                    $this->asign_role_to_coach($this->useradd);
-                }
-<<<<<<< HEAD
-            } else {
-                $this->useradd = User::find($request->user_id)->first();
-=======
-
-            }else{
-                $this->useradd = User::where('email', $request->email)
-                                ->where('phone', $request->phone)
-                                ->first();
->>>>>>> 73a22726 (Agregando consulta para que se agregue el usuario si este ya existe al realizar el pago)
+            $this->useradd = User::where('email', $request->email)
+                ->where('phone', $request->phone)
+                ->first();
+            if (!$this->useradd) {
+                $this->create_user($request);
             }
 
-            $promoter_id = $request->promoter_id ? $request->promoter_id : null;
-            $payment = $this->create_payment($request, $this->useradd, $promoter_id);
+            $payment = $this->create_payment($request);
 
             if ($payment) {
                 $this->updateUserTokens($request);
                 $this->create_Teamcategory($request, $payment);
-                $this->send_mail_to_coach($this->useradd, $request->price_tota, $request->total_team);
+                $this->sendMail($request);
                 if ($this->user_without_payment) {
                     $this->user_without_payment->delete();   // Si existe en tabla temporal lo elimina
                 }
-                // dd('ya debe haber creado pago + manado correo de confirmación y eliminado el temporal');
+
                 $this->send_notifications($this->useradd, 'noty_payment', $payment); // Notificación
                 if ($this->has_promoter_code) {
                     $this->send_mail_to_promoter($payment);
@@ -204,6 +174,43 @@ class Payments extends Component
         }
         sleep(1);
         return redirect()->route('confirmation');
+    }
+
+
+    public function create_user($request)
+    {
+        $this->useradd = User::updateOrCreate(['id' => $this->record_id], [
+            'name'      => $this->user_without_payment->name,
+            'email'     => $request->email,
+            'phone'     => $request->phone,
+            'password'  => Hash::make($request->password)
+        ]);
+        $coach = Coach::create([
+            'name'      => $this->useradd->name,
+            'phone'     => $this->useradd->phone,
+            'user_id'   => $this->useradd->id
+        ]);
+
+        $role_record = Role::where('name', 'coach')->first();
+        if ($role_record) {
+            $this->useradd->roles()->attach($role_record);
+        }
+    }
+
+    public function create_payment($request)
+    {
+        if ($this->has_promoter_code) {
+            $promoter_id = $request->promoter_id;
+        } else {
+            $promoter_id = null;
+        }
+        Payment::create([
+            'amount'        => $request->price_total,
+            'description'   => $request->name,
+            'user_id'       => $this->useradd->id,
+            'promoter_id'   => $promoter_id,
+            'source'        => $request->total_teams
+        ]);
     }
 
     /** Funciones para multi steps */
@@ -223,29 +230,19 @@ class Payments extends Component
         $this->validate($this->validationRules[$this->currentPage]);
         $this->currentPage++;
 
-        //TODO:
-        // Validar si ya existe el teléfono o usuario que correspondan con los que introdujeron en formulario
-        // Y si ya existe el usuario en USERS el password y confirmación que sean opcionales en forma de pago
-        $this->user = User::where('email', $this->email)
+        $this->user_without_payment = User::where('email', $this->email)
             ->where('phone', $this->phone)
             ->first();
 
-        if (!$this->user) {
+        if (!$this->user_without_payment) {
             $this->user_without_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->first();
-            $this->new_user = true;
-            if ($this->user_without_payment) {
-                $this->user_id = $this->user_without_payment->id;
-            }
-        } else {
-            $this->new_user = false;
-            $this->user_id = $this->user->id;
         }
 
-        // ¿Agregar a tabla temporal?
-        if (!$this->user_without_payment) {
-            $this->user_without_payment = $this->create_user_without_payment();
-            $this->user_id = $this->user_without_payment->id;
-            $this->send_notifications($this->user_without_payment, 'noty_create_user');
+        if ($this->user_without_payment) {
+            $this->user_without_payment->update_Name($this->fullname);
+        } else {
+            $this->create_user_without_payment();
+            //$this->send_notifications($this->user_without_payment,'noty_create_user');
         }
     }
 
@@ -264,7 +261,7 @@ class Payments extends Component
             'email'     =>  'required|email',
         ]);
 
-        return UserWithoutPayments::create([
+        $this->user_without_payment =  UserWithoutPayments::create([
             'name'      => $this->fullname,
             'email'     => $this->email,
             'phone'     => $this->phone,
@@ -319,61 +316,19 @@ class Payments extends Component
         }
     }
 
-    private function create_new_user($request)
-    {
-        return  User::updateOrCreate(['id' => $this->record_id], [
-            'name'      => $this->user_without_payment->name,
-            'email'     => $this->user_without_payment->email,
-            'phone'     => $this->user_without_payment->phone,
-            'password'  => Hash::make($request->password)
-        ]);
-    }
-
-    // Crea Coach
-    private function create_coach(User $user)
-    {
-        return  Coach::create([
-            'name'      => $user->name,
-            'phone'     => $user->phone,
-            'user_id'   => $user->id
-        ]);
-    }
-
-    // Asigna rol de 'coach' al usuario
-    private function asign_role_to_coach(User $user)
-    {
-        $role_record = Role::where('name', 'coach')->first();
-        if ($role_record) {
-            $user->roles()->attach($role_record);
-        }
-    }
-
-    private function updateUserTokens($request)
+    public function updateUserTokens($request)
     {
         $this->useradd->update_token_register_teams();
         $this->useradd->update_token_register_players();
     }
 
-    private function create_payment(Request $request, User $user, $promoter_id = null)
-    {
-
-        return Payment::create([
-            'amount'        => $request->price_total,
-            'description'   => $request->name,
-            'user_id'       => $user->id,
-            'promoter_id'   => $promoter_id,
-            'source'        => $request->total_teams
-        ]);
-    }
-
-    // Crea cantidad de equipos pagados  x Categorí
     public function create_Teamcategory($request, $payment)
     {
         $i = 0;
         foreach ($request->categoriesIds as $categoryId => $value) {
             if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
                 TeamCategory::create([
-                    'user_id'     => $payment->user_id,
+                    'user_id'     =>  $this->useradd->id,
                     'category_id' => $value,
                     'payment_id'  => $payment->id,
                     'qty_teams'   => $request->quantity_teams[$i]
@@ -384,10 +339,15 @@ class Payments extends Component
     }
 
     // Correo al usuario de confirmación
-    public function send_mail_to_coach(User $user, $total, $total_teams)
+    public function sendMail($request)
     {
-        return Mail::to($user->email)
-            ->send(new ConfirmationMail($user->email, $total, $total_teams, $user->token_register_teams, $user->token_register_players));
+        $email          =  $this->useradd->email;
+        $total          =  $request->price_total;
+        $total_teams    =  $request->total_teams;
+        $token          =  $this->useradd->token_register_teams;
+        $token_player   =  $this->useradd->token_register_players;
+        return Mail::to($email)
+            ->send(new ConfirmationMail($email, $total, $total_teams, $token, $token_player));
     }
 
     /** Ve que categorías tienen disponbilidad de equipos y calcula el máximo */
@@ -445,10 +405,6 @@ class Payments extends Component
     /** Envío de notificación a Email Notifications */
     public function send_notifications($user, $type = 'noty_create_user', Payment $payment = null, $amount = null, $total_teams = null)
     {
-
-
-        if (!$user) return;
-
         switch ($type) {
             case 'noty_create_user':
                 $users_to_notify = EmailNotification::where('noty_create_user', 1)->get();
