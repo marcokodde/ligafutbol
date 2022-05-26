@@ -101,7 +101,7 @@ class Payments extends Component
     private $validationRules = [
         1 => [
             'fullname'  =>  'required',
-            'phone'     =>  'required|min:7|max:10',
+            'phone'     =>  'required|digits_between:7,10',
             'email'     =>  'required|email',
         ],
         2 => [
