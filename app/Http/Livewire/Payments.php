@@ -66,6 +66,11 @@ class Payments extends Component
     public $promoter = null;
     public $new_user = false;
     public $coach;
+    public $apply_coupon = false;
+    public $key_to_coupon = null;
+    public $coupon_applied = false;
+    public $amount_with_coupon = 0;
+
 
     public function mount($promoter_code = null)
     {
@@ -231,6 +236,19 @@ class Payments extends Component
             $this->user_id = $this->user_without_payment->id;
             $this->send_notifications($this->user_without_payment, 'noty_create_user');
         }
+
+        // Inicializa todo lo del cupón
+        if ($this->general_settings->active_coupon) $this->reset_coupon();
+    }
+
+    private function reset_coupon()
+    {
+        $this->reset([
+            'apply_coupon',
+            'key_to_coupon',
+            'coupon_applied',
+            'amount_with_coupon',
+        ]);
     }
 
     public function goToPreviousPage()
@@ -286,6 +304,9 @@ class Payments extends Component
         }
         if ($this->total_teams) {
             $this->calculate_prices();
+            if ($this->general_settings && $this->coupon_applied) $this->apply_coupon();
+        } else {
+            $this->reset_coupon();
         }
     }
 
@@ -466,6 +487,7 @@ class Payments extends Component
         }
     }
 
+    // Envía correo al promotor
     public function send_mail_to_promoter($payment)
     {
         Mail::to($this->promoter_code_id->email)
@@ -484,5 +506,38 @@ class Payments extends Component
     public function read_code_promoter($promoter_code)
     {
         return Promoter::where('code', $promoter_code)->first();
+    }
+
+    public function validate_key_to_coupon()
+    {
+        $this->apply_coupon = strtolower(trim($this->key_to_coupon)) == strtolower(trim($this->general_settings->key_to_coupon));
+    }
+
+    public function apply_coupon()
+    {
+        $this->amount_with_coupon = $this->price_total;
+        $this->price_total = $this->price_total - $this->calculate_discount();
+        $this->coupon_applied = true;
+    }
+
+    // Importe a descontar del total
+    private function calculate_discount()
+    {
+        switch ($this->total_teams) {
+            case 1:
+                return 20;
+                break;
+            case 2:
+                return 30;
+                break;
+            case 3:
+                return 40;
+                break;
+            case 4:
+                return 50;
+                break;
+            default:
+                return 100;
+        }
     }
 }

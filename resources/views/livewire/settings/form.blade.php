@@ -13,6 +13,7 @@
                     </header>
                     <form>
                         <div class="bg-white mx-auto">
+                            {{-- Nombre del torneo --}}
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Name")}}</label>
                                 <input type="text" wire:model="name" maxlength="50" placeholder="{{__("Name")}}"
@@ -20,6 +21,7 @@
                                 <div>@error('name') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 
+                            {{-- Máximo de jugadores por equipo --}}
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Players by Team")}}</label>
                                 <input type="number"
@@ -30,6 +32,7 @@
                                 <div>@error('max_players_by_team') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
 
+                            {{-- Máximo de equipos x categoría --}}
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold text-left">{{__("Teams by Category")}}</label>
                                 <input type="number"
@@ -38,6 +41,31 @@
                                         max="25"
                                         class="shadow block appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                                 <div>@error('max_teams_by_category') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                            </div>
+
+                            {{-- ¿Cupón Activo? --}}
+                            <div class="p-2 rounded-lg">
+                                <label class="flex text-gray-700 justify-start font-semibold items-start mr-2 mt-4">
+                                    <div class="bg-white border-2 rounded border-gray-400 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+                                    <input type="checkbox"
+                                            wire:model="active_coupon"
+                                            class="checkbox absolute"
+                                            checked>
+                                    <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
+                                    </div>
+                                    {{__("Active Coupon?")}}
+                                </label>
+                            </div>
+
+                            {{-- Clave para el cupón --}}
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold text-left">{{__("Key To Coupon")}}</label>
+                                <input type="text"
+                                        wire:model="key_to_coupon"
+                                         maxlength="15"
+                                         placeholder="{{__("Key To Coupon")}}"
+                                        class="shadow block appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                >
                             </div>
 
                             <div class="p-2 rounded-lg">

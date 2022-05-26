@@ -6,9 +6,7 @@ use Livewire\Component;
 
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Models\Setting;
-
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\App;
 use Livewire\WithPagination;
 
 class Settings extends Component {
@@ -16,7 +14,13 @@ class Settings extends Component {
     use WithPagination;
     use CrudTrait;
 
-    public $name,$max_players_by_team,$max_teams_by_category,$players_only_available_teams,$coaches_only_available_teams;
+    public $name;
+    public $max_players_by_team;
+    public $max_teams_by_category;
+    public $players_only_available_teams;
+    public $coaches_only_available_teams;
+    public $active_coupon;
+    public $key_to_coupon;
     protected $listeners = ['destroy'];
 
 
@@ -45,9 +49,7 @@ class Settings extends Component {
         $this->create_button_label =  $this->record_id ?    __('Update') . ' ' . __('Setting')
                                                         : __('Create') . ' ' . __('Setting');
 
-        $searchTerm = '%' . $this->search . '%';
-
-        return view('livewire.index', [
+       return view('livewire.index', [
             'records' => Setting::All(),
         ]);
 	}
@@ -60,7 +62,15 @@ class Settings extends Component {
 	private function resetInputFields() {
         $this->record_id = null;
         $this->record = null;
-        $this->reset(['name','max_players_by_team','max_teams_by_category','players_only_available_teams','coaches_only_available_teams']);
+        $this->reset([
+            'name',
+            'max_players_by_team',
+            'max_teams_by_category',
+            'players_only_available_teams',
+            'coaches_only_available_teams',
+            'active_coupon',
+            'key_to_coupon'
+        ]);
 	}
 
     /*+---------------------------------------------+
@@ -82,6 +92,8 @@ class Settings extends Component {
 			'max_teams_by_category'         => $this->max_teams_by_category,
             'players_only_available_teams'  => $this->players_only_available_teams ? 1 : 0,
             'coaches_only_available_teams'  => $this->coaches_only_available_teams ? 1 : 0,
+            'active_coupon'                 => $this->active_coupon ? 1 : 0,
+            'key_to_coupon'                 => $this->key_to_coupon,
     	]);
 
         $this->create_button_label = __('Create') . ' ' . __('Setting');
@@ -103,6 +115,9 @@ class Settings extends Component {
 		$this->max_teams_by_category        = $record->max_teams_by_category;
         $this->players_only_available_teams = $record->players_only_available_teams;
         $this->coaches_only_available_teams = $record->coaches_only_available_teams;
+        $this->active_coupon                = $record->active_coupon;
+        $this->key_to_coupon                = $record->key_to_coupon;
+
 		$this->openModal();
 	}
 
