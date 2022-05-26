@@ -51,54 +51,49 @@
         @endforeach
 
     <br>
-    <label class="inline text-2xl text-gray-700 font-bold font-pop justify-center text-center mt-2 m-2 lg:-ml-28">{{__('Total')}} {{$total_teams}}
+    <label class="inline text-2xl text-gray-700 font-bold font-pop justify-center text-center mt-2 m-2 lg:-ml-28">{{__('Total')}}
+        {{$total_teams}}
         @if ($total_teams == 1)
             {{__('Team')}}
         @else
             {{__('Teams')}}
+        @endif
 
-         @endif
-
-
-         @if($coupon_applied && $general_settings->active_coupon)
-            {{ __('Before') . ' $' . number_format($amount_with_coupon)
-             . __('After')  . ' $' . number_format($price_total)
-
+        @if ($coupon_applied && $general_settings->active_coupon)
+            {{ __('Before') . ' $' . number_format($amount_with_coupon) .' '. __('Now')  . ' $' . number_format($price_total)
             }}
         @else
-             ${{number_format($price_total)}}
-
-         @endif
-
+            ${{number_format($price_total)}}
+        @endif
+    </label>
+</div>
+<div class="mb-2 items-center text-center align-center mt-4">
         @if($general_settings->active_coupon)
-            <span>
-                <div class="mb-4 mt-2">
-                    <label class="block font-pop lg:text-left lg:ml-24 sm:text-center font-medium text-gray-600" for="fullname">{{ __('Key To Coupon') }}</label>
-                    <input class="lg:w-56 sm:w-32"
-                        type="text"
-                        wire:model.lazy="key_to_coupon"
-                        wire:change="validate_key_to_coupon"
-                        placeholder="{{ __('Key To Coupon') }}"
-                        name="key_to_coupon"
-                        id="key_to_coupon"
-                        required
-                    >
-
-                </div>
+            <div class="mx-auto text-center justify-center mt-2">
+                <label class="text-xl text-gray-600 font-bold font-pop justify-center text-center" for="keytocoupon">
+                    {{ __('Key To Coupon') }}
+                </label>
+                <input class="lg:w-52 sm:w-32 rounded-lg"
+                    type="text"
+                    wire:model.lazy="key_to_coupon"
+                    wire:change="validate_key_to_coupon"
+                    placeholder="{{ __('Add Coupon') }}"
+                    name="key_to_coupon"
+                    id="key_to_coupon"
+                    required
+                >
                 @if($apply_coupon && !$coupon_applied)
                     <button type="button"
-                                wire:click="apply_coupon"
-                                id="go_back"
-                                style="background-color: #5cdc42"
-                                class="button mx-2 px-8 py-4 mt-4  text-black font-semibold rounded-lg hover:text-white"
-                            >
+                        wire:click="apply_coupon"
+                        id="go_back"
+                        style="background-color: #82d971"
+                        class="button mx-2 px-4 py-2 mt-4  text-black font-semibold rounded-lg hover:text-white"
+                        >
                         {{__("Apply")}}
                     </button>
                 @endif
-                </span>
+            </div>
         @endif
+    </div>
+@endif
 
-    @endif
-
-
-</div>
