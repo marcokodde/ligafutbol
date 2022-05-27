@@ -128,6 +128,10 @@ class Payments extends Component
 
         $this->charge = null;
         $this->error_stripe = null;
+        $this->user_without_payment = null;
+        $this->has_promoter_code = null;
+        $this->promoter_code_id = null;
+
         $this->user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
         $this->has_promoter_code = is_null($request->promoter_id) ? false : true;
         if ($this->has_promoter_code) {
