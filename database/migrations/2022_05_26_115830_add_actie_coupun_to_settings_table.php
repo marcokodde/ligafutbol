@@ -15,7 +15,7 @@ class AddActieCoupunToSettingsTable extends Migration
     {
         Schema::table('settings', function (Blueprint $table) {
             $table->boolean('active_coupon')->default(0)->after('max_teams_by_category')->comment('¿Activo el cupón?');
-            $table->string('key_to_coupon',10)->nullable(0)->after('active_coupon')->comment('Clave para el cupón');
+            $table->string('key_to_coupon',10)->nullable()->after('active_coupon')->comment('Clave para el cupón');
         });
     }
 
