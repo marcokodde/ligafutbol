@@ -15,4 +15,3 @@
          <th colspan="3" class="px-4 py-2 text-center">{{__("Actions")}}</th>
     </tr>
 </thead>
-L
