@@ -143,9 +143,10 @@ class Payments extends Component
                 "source"        => $request->stripeToken,
                 "description"   => $request->name,
             ]);
-            //TODO que no exista el usuario
-            $this->create_user($request);
-            $payment = $this->create_payment($request);
+            if( $this->charge ) {
+                //TODO que no exista el usuario
+                $this->create_user($request);
+                $payment = $this->create_payment($request);
 
             if ($payment) {
                 $this->updateUserTokens();
@@ -155,6 +156,15 @@ class Payments extends Component
                 $this->send_notifications($this->useradd, 'noty_payment', $payment); // Notificación
                 if ($this->has_promoter_code) {
                     $this->send_mail_to_promoter($payment);
+                if($payment){
+                    $this->updateUserTokens();
+                    $this->create_Teamcategory($request, $payment);
+                    $this->sendMail($request);
+                    $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
+                    $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
+                    if ($this->has_promoter_code) {
+                        $this->send_mail_to_promoter($payment);
+                    }
                 }
             }
         } catch (\Throwable $exception) {
