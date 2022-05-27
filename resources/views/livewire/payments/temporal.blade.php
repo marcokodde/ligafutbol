@@ -7,20 +7,22 @@
         <hr class="border-2 border-gray-500">
     </div>
 
-    <div class="mx-auto text-center p-4">
-        <label for="error" class="text-5xl font-pop font-bold text-red-600 uppercase">
-            {{__('Temporary bug')}}
+    <div class="mx-auto text-center items-center p-4">
+        <label for="error" class="text-5xl font-pop font-bold text-green-700 uppercase">
+            {{__('We are enabling discount coupons')}}
         </label>
     </div>
 
-
+    <br>
+    <br>
     <div class="mx-auto text-center items-center p-4">
-        <h1 class="text-2xl font-pop font-semibold">
-            {{__('We are enabling promotions for memorial day')}}
-        </h1>
-
+        <label for="error" class="text-5xl font-pop font-bold text-blue-700 uppercase">
+            {{__('If you desire register your teams now')}}
+        </label>
     </div>
 
+    <br>
+    <br>
     <div class="mx-auto text-center items-center p-4">
         <label for="error" class="text-5xl font-pop font-bold text-blue-700 uppercase">
             {{__('Call The Phone')}}: 1-800-515-2749

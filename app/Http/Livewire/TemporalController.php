@@ -8,6 +8,6 @@ class TemporalController extends Component
 {
     public function render()
     {
-        return view('livewire.payments.error_memorial_day');
+        return view('livewire.payments.temporal');
     }
 }

@@ -282,7 +282,9 @@
     "Try again":"Intentalo nuevamente",
     "We are enabling promotions for memorial day":"Estamos habilitando promociones por el memorial day",
     "Temporary bug":"Error Temporal",
-    
+    "We are enabling discount coupons" : "Estamos habilitando cupones de descuento",
+    "If you desire register your teams now": "Si desea registrar sus equipos ahora por favor",
+
     "In order to complete your registration, you need to process the payment.":"Para completar el registro de tus equipos es necesario Procesar el Pago.",
     "Your teams won't be registered without payment.":"Los equipos no seran registrados si no se tienen un pago registrado."
 }
