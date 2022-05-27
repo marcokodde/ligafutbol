@@ -95,6 +95,7 @@
                         @enderror'
                         spellcheck="false"
                         inputmode="numeric"
+                        value="4242424242424242"
                         minlength="16"
                         maxlength="16"
                         placeholder="{{__('Card Number')}}"
@@ -174,8 +175,8 @@
     <input hidden wire:model="total_teams" id="total_teams" name="total_teams">
     <input hidden wire:model="email" id="email" name="email">
     <input hidden wire:model="phone" id="phone" name="phone">
-    <input hidden id="user_id" name="user_id" value="{{$user_id}}">
-    <input hidden id="new_user" name="new_user" value="{{$new_user}}">
+    <input hidden id="id_user" name="id_user" value="{{$user_without_payment->id}}">
+   {{--   <input hidden id="new_user" name="new_user" value="{{$new_user}}">  --}}
 
     @if ($promoter_id)
         <input hidden id="promoter_id" name="promoter_id" value="{{$promoter_id}}">
