@@ -74,9 +74,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('email_notifications', EmailNotifications::class)->name('email_notifications');
-Route::get('payments/{promoter_code?}', Payments::class)->name('payments');
-Route::get('email_notifications', EmailNotifications::class)->name('email_notifications');
-Route::get('payments/{promoter_code?}', Payments::class)->name('payments');
+//Route::get('payments/{promoter_code?}',Payments::class)->name('payments');
 Route::get('payments/{promoter_code?}', TemporalController::class)->name('payments');
 
 Route::post('makepayment', [Payments::class, 'makepayment'])->name('makepayment');
