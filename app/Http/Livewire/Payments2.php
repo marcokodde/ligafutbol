@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Livewire\Traits\SettingsTrait;
 
-class Payments extends Component
+class Payments2 extends Component
 {
     use SettingsTrait;
 
