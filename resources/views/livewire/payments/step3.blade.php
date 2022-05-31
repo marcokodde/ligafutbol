@@ -1,3 +1,3 @@
 <div>
-    @include('livewire.payments')
+    @include('livewire.payments.form_payment')
 </div>

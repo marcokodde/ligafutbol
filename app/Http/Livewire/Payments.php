@@ -145,9 +145,6 @@ class Payments extends Component
     /** Procesa el pago */
     public function makepayment(Request $request) {
 
-
-       // dd('Pagos al entrar=' . $pagos_antes->count());
-
         if(isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
         $procesado = false;
         $this->charge = null;
@@ -157,6 +154,7 @@ class Payments extends Component
         $this->promoter_code_id = null;
 
         $this->user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
+
         $this->has_promoter_code = is_null($request->promoter_id) ? false : true;
         if ($this->has_promoter_code) {
             $this->promoter_code_id = Promoter::findOrFail($request->promoter_id);
@@ -185,9 +183,8 @@ class Payments extends Component
             ]);
 
 
-
             if( $this->charge ) {
-                //TODO que no exista el usuario
+
                 if($request->new_user) {
                     $this->useradd =  $this->create_user($request);
                     $this->create_coach($this->useradd);
@@ -200,8 +197,6 @@ class Payments extends Component
 
                 }
 
-                //dd('Pagos if procesado=' . Payment::all()->count());
-                $pagos_antes =  Payment::all()->count();
                 $payment = null;
                 if(!$procesado){
                     $payment = $this->create_payment($this->useradd,
@@ -210,10 +205,6 @@ class Payments extends Component
                                                     $request->total_teams,
                                                     $request->promoter_id );
 
-                    $procesado = true;
-                    $pagos_despues = Payment::all()->count();
-
-                   // dd('Pagos Antes=' . $pagos_antes . ' Despues=' . $pagos_despues,'Request=', $request->all());
                 }
 
 
@@ -240,13 +231,14 @@ class Payments extends Component
                         $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
                     }
 
-                   // $this->send_Mail_Confirmation($request);
+                   $this->send_Mail_Confirmation($request);
 
-                   // $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
+                   $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
 
-                    // if ($this->has_promoter_code) {
-                    //     $this->send_mail_to_promoter($payment);
-                    // }
+                    if ($this->has_promoter_code) {
+                        $this->send_mail_to_promoter($payment);
+                    }
+                    $procesado = true;
 
                     return redirect()->route('confirmation');
 
