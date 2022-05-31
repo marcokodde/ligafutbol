@@ -53,6 +53,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('categories', Categories::class)->name('categories');                 // Categorías
     Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
     Route::get('settings', Settings::class)->name('settings');                       // Configuración
+    Route::get('permission', Permissions::class)->name('permission');                // Permisos
+    Route::get('role', Roles::class)->name('role');                                  // Roles
+    Route::get('role-permission', RolePermissions::class)->name('role-permission');  // Asignar Permisos al Rol
+    Route::get('users', Users::class)->name('users');                                // Usuarios
+    Route::get('categories', Categories::class)->name('categories');                 // Categor铆as
+    Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
+    Route::get('settings', Settings::class)->name('settings');                       // Configuraci贸n
     // Acciones del usuario Coach
     Route::get('teams', Teams::class)->name('teams');                                // Equipos
     Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores

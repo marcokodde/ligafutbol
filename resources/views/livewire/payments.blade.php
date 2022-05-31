@@ -78,6 +78,7 @@
                     minlength="5"
                     placeholder="{{__("Name on Card")}}"
                     required
+                    value="Pruebas locales"
                 >
             </div>
         </div>
@@ -125,6 +126,31 @@
                         placeholder='{{__('Year')}}' size='8' maxlength="4" type='text' inputmode="numeric"
                         required>
                         @error('card-expiry-year') <span class="text-red-500">{{ $message }}</span>@enderror
+
+                <div class='mt-2 mb-2 form-group expiration required'>
+                    <select class='lg:w-40 card-expiry-month'>
+                        <option value="">{{__('Month')}}</option>
+                        @for($i=1;$i<=12;$i++)
+                            <option value="{{str_pad($i, 2, "0", STR_PAD_LEFT)}}"  @if($i == 12) selected @endif>
+                                {{str_pad($i, 2, "0", STR_PAD_LEFT)}}
+
+                            </option>
+                        @endfor
+                    </select>
+                </div>
+
+                {{-- Año --}}
+
+                <div class="mt-2 mb-2 form-group lg:ml-2 sm:ml-0">
+                    @php $year = date('Y') @endphp
+                    <select name="" id="" class='lg:w-40 card-expiry-year'>
+                        <option value="">{{__('Year')}}</option>
+                        @for($i=$year;$i<=$year+10;$i++)
+                            <option value="{{str_pad($i, 4, "0", STR_PAD_LEFT)}}"  @if($i == 2025) selected @endif>
+                                {{str_pad($i, 4, "0", STR_PAD_LEFT)}}
+                            </option>
+                        @endfor
+                    </select>
                 </div>
             </div>
 
@@ -143,6 +169,7 @@
                             required
                             pattern="[0-9]{3-4}"
                             title="{{__('Only Numbers')}}"
+                            value="123"
                         >
                         @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
 
@@ -176,7 +203,8 @@
     <input hidden wire:model="email" id="email" name="email">
     <input hidden wire:model="phone" id="phone" name="phone">
     <input hidden id="id_user" name="id_user" value="{{$user_without_payment->id}}">
-   {{--   <input hidden id="new_user" name="new_user" value="{{$new_user}}">  --}}
+    <input hidden id="user_id" name="user_id" value="{{$user->id}}">
+    <input hidden id="new_user" name="new_user" value="{{$new_user}}">
 
     @if ($promoter_id)
         <input hidden id="promoter_id" name="promoter_id" value="{{$promoter_id}}">
