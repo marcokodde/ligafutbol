@@ -144,8 +144,7 @@ class Payments extends Component
         if (isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
     /** Procesa el pago */
     public function makepayment(Request $request) {
-        $pagos_antes = Payment::all();
-        dd('Pagos al entrar=' . Payment::all()->count());
+
 
        // dd('Pagos al entrar=' . $pagos_antes->count());
 
@@ -196,17 +195,19 @@ class Payments extends Component
 
                 }
 
-
+                //dd('Pagos if procesado=' . Payment::all()->count());
+                $pagos_antes =  Payment::all()->count();
                 if(!$procesado){
                     $payment = $this->create_payment($this->useradd,
                     $request->name,
                     $request->price_total,
                     $request->total_teams,
                     $request->promoter_id );
-                    $procesado = true;
-                    $pagos_despues = Payment::all();
 
-                    dd('Pagos Antes=' . $pagos_antes->count() . ' Despues=' . $pagos_despues->count());
+                    $procesado = true;
+                    $pagos_despues = Payment::all()->count();
+
+                    dd('Pagos Antes=' . $pagos_antes . ' Despues=' . $pagos_despues);
                 }
 
 
