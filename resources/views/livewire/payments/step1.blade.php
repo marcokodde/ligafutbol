@@ -12,7 +12,7 @@
     @if($phone && $email && !$same_phone_and_email)
         <div class="sm:justify-start lg:justify-center md:justify-center">
             <label class="block lg:text-2xl sm:text-base text-red-500 mb-4">
-                {{__("The phone does not correspond to the email")}}
+                {{__("Phone or email already exists, but they do not correspond to each other")}}
             </label>
         </div>
     @endif
