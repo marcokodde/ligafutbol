@@ -83,7 +83,6 @@
                     minlength="5"
                     placeholder="{{__("Name on Card")}}"
                     required
-                    value="Pruebas locales"
                 >
             </div>
         </div>
@@ -101,7 +100,6 @@
                         @enderror'
                         spellcheck="false"
                         inputmode="numeric"
-                        value="4242424242424242"
                         minlength="16"
                         maxlength="16"
                         placeholder="{{__('Card Number')}}"
@@ -136,7 +134,7 @@
                     <select class='lg:w-40 card-expiry-month'>
                         <option value="">{{__('Month')}}</option>
                         @for($i=1;$i<=12;$i++)
-                            <option value="{{str_pad($i, 2, "0", STR_PAD_LEFT)}}"  @if($i == 12) selected @endif>
+                            <option value="{{str_pad($i, 2, "0", STR_PAD_LEFT)}}">
                                 {{str_pad($i, 2, "0", STR_PAD_LEFT)}}
 
                             </option>
@@ -151,7 +149,7 @@
                     <select name="" id="" class='lg:w-40 card-expiry-year'>
                         <option value="">{{__('Year')}}</option>
                         @for($i=$year;$i<=$year+10;$i++)
-                            <option value="{{str_pad($i, 4, "0", STR_PAD_LEFT)}}"  @if($i == 2025) selected @endif>
+                            <option value="{{str_pad($i, 4, "0", STR_PAD_LEFT)}}">
                                 {{str_pad($i, 4, "0", STR_PAD_LEFT)}}
                             </option>
                         @endfor
@@ -174,7 +172,6 @@
                             required
                             pattern="[0-9]{3-4}"
                             title="{{__('Only Numbers')}}"
-                            value="123"
                         >
                         @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
 
