@@ -261,24 +261,16 @@ class Payments extends Component
         $this->same_phone_and_email = false;
 
         if ($this->phone && $this->email) {
-            if ($this->phone && $this->email) {
-                $this->user = User::where('phone', $this->phone)->first();
 
-                if ($this->user && $this->user->email != $this->email) {
-                    $this->same_phone_and_email = false;
-                }
-                // ¿Ya existe el usuario sólo con el teléfono?
-                $this->user = User::where('email', $this->email)->first();
+                $this->user = User::where('phone', $this->phone)
+                                ->orWhere('email',$this->email)->first();
 
-                if($this->user && $this->user->phone != $this->phone){
-                    $this->same_phone_and_email = false;
-                }
+                $this->same_phone_and_email = !$this->user;
 
-                $this->user = User::where('email', $this->email)->where('phone', $this->phone)->first();
 
-                $this->same_phone_and_email = $this->user ? true : false;
+                if($this->user && $this->user->phone == $this->phone && $this->user->email== $this->email)
+                     $this->same_phone_and_email = true;
 
-            }
         }
     }
 
