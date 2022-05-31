@@ -178,8 +178,13 @@ class Payments extends Component
             //         "source"        => $request->stripeToken,
             //         "description"   => $request->name,
             // ]);
+                    "amount"        => $request->price_total * 100,
+                    "currency"      => "USD",
+                    "source"        => $request->stripeToken,
+                    "description"   => $request->name,
+            ]);
 
-            $this->charge = true;
+
 
             if( $this->charge ) {
                 //TODO que no exista el usuario
@@ -197,17 +202,18 @@ class Payments extends Component
 
                 //dd('Pagos if procesado=' . Payment::all()->count());
                 $pagos_antes =  Payment::all()->count();
+                $payment = null;
                 if(!$procesado){
                     $payment = $this->create_payment($this->useradd,
-                    $request->name,
-                    $request->price_total,
-                    $request->total_teams,
-                    $request->promoter_id );
+                                                    $request->name,
+                                                    $request->price_total,
+                                                    $request->total_teams,
+                                                    $request->promoter_id );
 
                     $procesado = true;
                     $pagos_despues = Payment::all()->count();
 
-                    dd('Pagos Antes=' . $pagos_antes . ' Despues=' . $pagos_despues);
+                   // dd('Pagos Antes=' . $pagos_antes . ' Despues=' . $pagos_despues,'Request=', $request->all());
                 }
 
 
@@ -222,7 +228,7 @@ class Payments extends Component
                 if ($this->has_promoter_code) {
                     $this->send_mail_to_promoter($payment);
                 if($payment){
-                    dd('Se ha realizado el pago');
+                   // dd('Se ha realizado el pago');
                     $this->updateUserTokens($this->useradd);
                     $this->create_Teamcategory($this->useradd,$payment,$request);
 
@@ -487,14 +493,16 @@ public function create_user_without_payment(){
 
     // Crea el pago
     private function create_payment(User $user,$name,$amount,$total_teams,$promoter_id = null) {
-
-        return Payment::create([
+       $antes = Payment::all()->count();
+        $record = Payment::create([
             'amount'        => $amount,
             'description'   => $name,
             'user_id'       => $user->id,
             'promoter_id'   => $promoter_id,
             'source'        => $total_teams
         ]);
+       // dd('antes=' . $antes . ' Despues=' . Payment::all()->count());
+        return $record;
     }
 
     public function create_Teamcategory($request, $payment)

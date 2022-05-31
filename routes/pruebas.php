@@ -3,14 +3,24 @@
 use App\Http\Livewire\TestController;
 use App\Models\Category;
 use App\Models\CostByTeam;
+use App\Models\Payment;
 use App\Models\TeamCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('pruebax',function(){
-    $token = bin2hex(random_bytes(40));
-    echo 'Token=' . $token . '<br>';
-    echo 'Largo=' . strlen($token);
+   // dd('Estas en el');
+   $antes = Payment::all()->count();
+   $payment = Payment::create([
+        'amount'        => 1.00,
+        'description'   => 'Prueba',
+        'user_id'       => 1,
+        'promoter_id'   => null,
+        'source'        => 99
+    ]);
+    $despues = Payment::all()->count();
+
+    dd('Antes=' . $antes . ' Despues=' . $despues);
 });
 
 Route::get('costo_x_equipo',function(){
