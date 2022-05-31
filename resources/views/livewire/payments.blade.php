@@ -11,6 +11,11 @@
 </div>
 <br>
 <div id="card-errors" class="text-lg font-semibold text-center alert-error hide alert-danger" role="alert">
+<div id="card-errors"
+    class="text-3xl font-bold text-center text-red-500 alert-error hide"
+    role="alert"
+
+    >
 </div>
 @if (Session::has('success'))
     <div class="text-center alert alert-primary">
