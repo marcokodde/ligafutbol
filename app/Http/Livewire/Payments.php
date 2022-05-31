@@ -69,6 +69,7 @@ class Payments extends Component
     public $amount_with_coupon = 0;
     public $new_user = false;
     public $user = null;
+    public $same_phone_and_email = true;
 
 
     public function mount($promoter_code = null)
@@ -235,9 +236,9 @@ class Payments extends Component
 
                    $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
 
-                    if ($this->has_promoter_code) {
-                        $this->send_mail_to_promoter($payment);
-                    }
+                    // if ($this->has_promoter_code) {
+                    //     $this->send_mail_to_promoter($payment);
+                    // }
                     $procesado = true;
 
                     return redirect()->route('confirmation');
@@ -254,6 +255,31 @@ class Payments extends Component
             }
         }
 
+    }
+/** Valida Teléfono y correo */
+    public function validate_phone_and_email(){
+        $this->same_phone_and_email = false;
+
+        if ($this->phone && $this->email) {
+            if ($this->phone && $this->email) {
+                $this->user = User::where('phone', $this->phone)->first();
+
+                if ($this->user && $this->user->email != $this->email) {
+                    $this->same_phone_and_email = false;
+                }
+                // ¿Ya existe el usuario sólo con el teléfono?
+                $this->user = User::where('email', $this->email)->first();
+
+                if($this->user && $this->user->phone != $this->phone){
+                    $this->same_phone_and_email = false;
+                }
+
+                $this->user = User::where('email', $this->email)->where('phone', $this->phone)->first();
+
+                $this->same_phone_and_email = $this->user ? true : false;
+
+            }
+        }
     }
 
     /** Graba registro en tabla de Usuarios Sin pagos */
@@ -293,6 +319,10 @@ public function create_user_without_payment(){
         }
         // Inicializa todo lo del cupón
         if ($this->general_settings->active_coupon) $this->reset_coupon();
+    // ¿Ya existe el usuario sólo con el teléfono?
+
+    $this->same_phone_and_email = true;
+
     $this->user = User::where('email', $this->email)->where('phone', $this->phone)->first();
 
     $this->new_user =  $this->user ? false : true;

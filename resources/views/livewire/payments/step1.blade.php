@@ -9,6 +9,13 @@
 
 <br>
 <div class="mx-auto text-center items-center">
+    @if($phone && $email && !$same_phone_and_email)
+        <div class="sm:justify-start lg:justify-center md:justify-center">
+            <label class="block lg:text-2xl sm:text-base text-red-500 mb-4">
+                {{__("The phone does not correspond to the email")}}
+            </label>
+        </div>
+    @endif
     {{--  Datos Personales  --}}
     <div class="sm:justify-start lg:justify-center md:justify-center">
         <div class="card lg:w-1/4 sm:w-1/2 mx-auto justify-center">
@@ -37,12 +44,13 @@
                     @enderror"
                     type="text"
                     wire:model.lazy="phone"
+                    wire:change="validate_phone_and_email"
                     placeholder="{{ __('Phone') }}"
                     name="phone"
                     id="phone"
                     maxlength="10"
                     minlength="7"
-                required>
+                    required>
 
             </div>
             <div class="mb-4">
@@ -53,6 +61,7 @@
                     @enderror"
                     type="email"
                     wire:model.lazy="email"
+                    wire:change="validate_phone_and_email"
                     placeholder="{{ __('Email') }}"
                     name="email"
                     id="email"
