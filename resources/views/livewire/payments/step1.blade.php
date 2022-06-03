@@ -68,6 +68,6 @@
                 required>
             </div>
         </div>
-        <p><a href="https://equipos.galvestoncup.com/terms_and_conditions" target="_blank" class="text-blue-500 underline">{{__("Terms and Conditions")}}</a></p>
+        <p><a href="https://galvestoncup.com/terminos-y-condiciones/" target="_blank" class="text-blue-500 underline">{{__("Terms and Conditions")}}</a></p>
     </div>
 </div>
