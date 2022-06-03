@@ -202,7 +202,7 @@
                     class="checkbox">
                     <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
                     </div>
-                    <p><a href="https://equipos.galvestoncup.com/terms_and_conditions" target="_blank" class="text-blue-500 underline">{{__("I Accept Terms and Conditions,  No Refunds!")}}</a></p>
+                    <p><a href="https://equipos.galvestoncup.com/terms_and_conditions" target="_blank" class="text-blue-500 underline">{{__("I Accept Terms and Conditions")}}</a></p>
                 </label>
             </div>
         </div>
