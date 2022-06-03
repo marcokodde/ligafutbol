@@ -68,5 +68,6 @@
                 required>
             </div>
         </div>
+        <p><a href="https://equipos.galvestoncup.com/terms_and_conditions" target="_blank" class="text-blue-500 underline">{{__("I Accept Terms and Conditions,  No Refunds!")}}</a></p>
     </div>
 </div>

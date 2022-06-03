@@ -41,7 +41,7 @@
     wire:model.lazy="price_total"
     id="price_total"
     name="price_total" hidden>
-
+    <p><a href="https://equipos.galvestoncup.com/terms_and_conditions" target="_blank" class="text-blue-500 underline">{{__("I Accept Terms and Conditions,  No Refunds!")}}</a></p>
     @if ($total_teams && $records)
         <label class="block lg:text-xl sm:text-base font-medium text-black font-pop mt-2 justify-center text-center lg:-ml-12">
         @foreach ($records as $record)
