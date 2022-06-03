@@ -190,9 +190,22 @@
                     </div>
                 </div>
             </div>
+            <div class="items-center mx-auto text-center">
+                <label class="flex items-start justify-start mt-4 mr-2 font-extrabold text-gray-700">
+                    <div class="flex items-center justify-center flex-shrink-0 w-6 h-6 ml-6 mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
+                    <input type="checkbox" wire:model="accept_terms" name="accept_terms" id="accept_terms" class="absolute ml-1 checkbox" checked>
+                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
+                    </div>
+                    {{__("I Accept Terms and Conditions,  No Refunds!")}}
+                </label>
+            </div>
         </div>
     </div>
+
 </div>
+<div class="items-center mx-auto text-center">
+    <label class="justify-center block mt-2 mb-2 text-lg font-semibold text-center text-black font-pop">
+
 <div class="items-center mx-auto text-center">
     <label class="justify-center block mt-2 mb-2 text-lg font-semibold text-center text-black font-pop">
         {{__("By clicking confirm, I authorize to register")}} {{$total_teams}} {{__('teams, for a total of:')}} ${{number_format($price_total)}}

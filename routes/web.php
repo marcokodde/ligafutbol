@@ -26,10 +26,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\QuestionAnswers;
 use App\Http\Livewire\RegisterPlayers;
 use App\Http\Livewire\RolePermissions;
+use App\Http\Livewire\TermsConditions;
 use App\Http\Livewire\AccordeonQuestions;
 use App\Http\Livewire\EmailNotifications;
-use App\Http\Controllers\ConfirmationController;
 use App\Http\Livewire\TemporalController;
+use App\Http\Controllers\ConfirmationController;
 
 require 'pruebas.php';
 
@@ -103,3 +104,4 @@ Route::get('register_teams/{token?}', RegisterTeams::class)->name('register_team
 Route::get('register_players/{token?}', RegisterPlayers::class)->name('register_players');
 Route::get('clear_tables', ClearTables::class)->name('clear_tables');
 Route::get('error/{message}/{code?}', Exceptions::class)->name('error');
+Route::get('terms_and_conditions',TermsConditions::class)->name('terms_and_conditions');

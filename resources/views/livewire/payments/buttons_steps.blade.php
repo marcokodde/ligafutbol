@@ -16,7 +16,7 @@
         {{__("Go Back")}}
     </button>
     @endif
-    @if ($currentPage === count($pages))
+    @if ($currentPage === count($pages) && $accept_terms)
         <button type="submit"
                 id="submit_form"
                 class="button blue mx-2 px-8 py-4 mt-4 font-semibold rounded-lg hover:text-black">

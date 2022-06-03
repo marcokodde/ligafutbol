@@ -70,7 +70,7 @@ class Payments extends Component
     public $new_user = false;
     public $user = null;
     public $same_phone_and_email = true;
-
+    public $accept_terms;
 
     public function mount($promoter_code = null)
     {
@@ -128,6 +128,7 @@ class Payments extends Component
             3 => [
                 'password'  =>  'nullable|min:6',
                 "password_confirmation" => "nullable|min:6|max:50|same:password",
+                "accept_terms"  => 'required',
             ],
         ];
 
