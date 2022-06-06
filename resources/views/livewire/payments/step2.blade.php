@@ -96,4 +96,16 @@
         @endif
     </div>
 @endif
-
+@php $k=0 @endphp
+@foreach($categories as $category)
+    <input class="categoriesIds"
+        wire:model="categoriesIds[]"
+        value="{{$categoriesIds[$k]}}"
+        hidden
+    >
+    <input wire:model="quantity_teams[]"
+        value="{{$quantity_teams[$k]}}"
+        hidden
+    >
+    @php $k++ @endphp
+@endforeach
