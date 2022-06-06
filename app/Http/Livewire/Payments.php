@@ -188,7 +188,7 @@ class Payments extends Component
             if( $this->charge ) {
 
                 if($request->new_user) {
-                    $this->useradd =  $this->create_user($request);
+                    $this->useradd =  $this->create_user($request->password);
                     $this->create_coach($this->useradd);
                     $this->assign_coach_role($this->useradd);
                 }else{
@@ -454,16 +454,17 @@ public function create_user_without_payment(){
 
         $role_record = Role::where('name', 'coach')->first();
     // Crea usuario con datos del usuario temporal
-    private function create_user($request) {
+    private function create_user($password) {
         $user_record = User::where('email',$this->user_without_payment->email)
                         ->where('phone',$this->user_without_payment->phone)
                         ->first();
+
         if(!$user_record){
             return  User::Create([
                 'name'      => $this->user_without_payment->name,
                 'email'     => $this->user_without_payment->email,
                 'phone'     => $this->user_without_payment->phone,
-                'password'  => Hash::make($request->password)
+                'password'  => Hash::make($password)
             ]);
         }
 
@@ -508,23 +509,21 @@ public function create_user_without_payment(){
 
     // Crea el pago
     private function create_payment(User $user,$name,$amount,$total_teams,$promoter_id = null) {
-       $antes = Payment::all()->count();
-        $record = Payment::create([
+
+        return Payment::create([
             'amount'        => $amount,
             'description'   => $name,
             'user_id'       => $user->id,
             'promoter_id'   => $promoter_id,
             'source'        => $total_teams
         ]);
-       // dd('antes=' . $antes . ' Despues=' . Payment::all()->count());
-        return $record;
     }
 
     public function create_Teamcategory($request, $payment)
     {
         $i = 0;
     // Crea equipos x Categoría
-    public function create_Teamcategory(User $user, Payment $payment,$request){
+    public function create_Teamcategory(User $user, Payment $payment=null,$request=null){
         $i=0;
         foreach ($request->categoriesIds as $categoryId => $value) {
             if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
@@ -644,6 +643,7 @@ public function create_user_without_payment(){
 
     public function send_mail_to_promoter($payment)
     {
+    public function send_mail_to_promoter($payment=null) {
         Mail::to($this->promoter_code_id->email)
             ->send(new MailNotification(
                 $this->promoter_code_id->email,
@@ -692,5 +692,59 @@ public function create_user_without_payment(){
             default:
                 return 100;
         }
+    }
+
+    // Registro por administración
+
+    public function register_by_admin() {
+        dd('Registrando por un administrador');
+        $this->has_promoter_code = null;
+        $this->promoter_code_id = null;
+
+        $this->has_promoter_code = is_null($this->promoter_id) ? false : true;
+        if ($this->has_promoter_code) {
+            $this->promoter_code_id = Promoter::findOrFail($this->promoter_id);
+        }
+
+        try {
+            if($this->new_user){
+                $this->user = $this->create_user($this->phone);
+                $this->create_coach($this->user);
+                $this->assign_coach_role($this->user);
+            }else{
+                $this->user =  $this->user_without_payment;
+            }
+
+            $this->updateUserTokens($this->useradd);
+            //TODO:
+            // Cambiar $request por arreglo: quantity_teams
+            $this->create_Teamcategory($this->useradd,null,null);
+
+            if($this->user_without_payment){
+                $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
+            }
+
+            // TODO: Cambiar el método send_mail_confirmation en lugar de $request reciba
+            //  $total          =  $request->price_total;
+            // $total_teams    =  $request->total_teams;
+            $this->send_Mail_Confirmation($this->price_total,$this->total_teams);
+
+            // TODO: Revisar que pasa en el correo si no se pada el PAGO
+            $this->send_mail_to_promoter(null);
+
+             // TODO: Inicializar todas las variables
+
+        } catch (\Throwable $exception) {
+            // TODO:
+
+            $this->send_notifications($this->user_without_payment,'noty_without_payment',null,$this->price_total,$this->total_teams);
+            $this->error_stripe = $exception->getMessage();
+            if ($this->has_promoter_code) {
+                return redirect()->route('error', [$this->error_stripe, $this->promoter_code_id->code]);
+            } else {
+                return redirect()->route('error', [$this->error_stripe]);
+            }
+        }
+
     }
 }
