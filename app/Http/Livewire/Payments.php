@@ -699,7 +699,7 @@ public function create_user_without_payment(){
     public function register_by_admin() {
         dd('Registrando por un administrador los datos para procesar son',
             '¿nuevo usuario='   . $this->new_user,
-            "Nombre="           . $this->name,
+            "Nombre="           . $this->fullname,
             "Correo="           . $this->email,
             "Teléfono="         . $this->phone,
             'Promotor='         . $this->promoter_id,
