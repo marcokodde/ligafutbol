@@ -697,8 +697,17 @@ public function create_user_without_payment(){
     // Registro por administración
 
     public function register_by_admin() {
-        dd('Registrando por un administrador');
-        $this->has_promoter_code = null;
+        dd('Registrando por un administrador los datos para procesar son',
+            '¿nuevo usuario='   . $this->new_user,
+            "Nombre="           . $this->name,
+            "Correo="           . $this->email,
+            "Teléfono="         . $this->phone,
+            'Promotor='         . $this->promoter_id,
+            "Precio Total="     . $this->price_total,
+            "Total Equipos="    . $this->total_teams,
+            "Equipos x categoría" , $this->quantity_teams);
+
+$this->has_promoter_code = null;
         $this->promoter_code_id = null;
 
         $this->has_promoter_code = is_null($this->promoter_id) ? false : true;
