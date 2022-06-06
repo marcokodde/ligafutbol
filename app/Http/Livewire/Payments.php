@@ -237,9 +237,9 @@ class Payments extends Component
 
                    $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
 
-                    // if ($this->has_promoter_code) {
-                    //     $this->send_mail_to_promoter($payment);
-                    // }
+                    if ($this->has_promoter_code) {
+                        $this->send_mail_to_promoter($payment);
+                    }
                     $procesado = true;
 
                     return redirect()->route('confirmation');
