@@ -23,8 +23,14 @@
             {{__("Confirm Payment")}}
         </button>
     @elseif($currentPage === 2)
-        @if ($total_teams)
+        @if ($total_teams && !Auth::user()->isSupport() && !Auth::user()->isAdmin())
             <button wire:click="goToNextPage" type="button" class="button blue mx-2 px-8 py-4 mt-4 font-semibold  rounded-lg hover:text-black">
+                {{__("Next")}}
+            </button>
+        @else($total_teams && Auth::user()->isSupport() || Auth::user()->isAdmin())
+            <button wire:click="register_by_admin"
+                type="button"
+                class="block button blue rounded-lg mx-2 px-8 py-4 mt-4 font-semibold hover:text-black">
                 {{__("Next")}}
             </button>
         @endif
