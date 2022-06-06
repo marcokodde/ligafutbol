@@ -196,7 +196,6 @@ class Payments extends Component
                     $this->user_without_payment = UserWithoutPayments::where('email',$this->useradd)
                                                     ->where('phone',$this->useradd)
                                                     ->first();
-
                 }
 
                 $payment = null;
@@ -206,7 +205,6 @@ class Payments extends Component
                                                     $request->price_total,
                                                     $request->total_teams,
                                                     $request->promoter_id );
-
                 }
 
 
@@ -221,10 +219,9 @@ class Payments extends Component
                 if ($this->has_promoter_code) {
                     $this->send_mail_to_promoter($payment);
                 if($payment){
-                   // dd('Se ha realizado el pago');
+
                     $this->updateUserTokens($this->useradd);
                     $this->create_Teamcategory($this->useradd,$payment,$request);
-
 
                     $this->user_without_payment = UserWithoutPayments::where('email',$this->useradd->email)
                                                                      ->where('phone',$this->useradd->phone)
@@ -233,13 +230,14 @@ class Payments extends Component
                         $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
                     }
 
-                   $this->send_Mail_Confirmation($request);
+                   $this->send_Mail_Confirmation( $this->useradd,$request->price_total,$request->total_teams);
 
-                   //$this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
+                   $this->send_notifications($this->useradd ,'noty_payment',$payment);      // Notificaciónes
 
                     if ($this->has_promoter_code) {
                         $this->send_mail_to_promoter($payment);
                     }
+
                     $procesado = true;
 
                     return redirect()->route('confirmation');
@@ -551,7 +549,7 @@ public function create_user_without_payment(){
             foreach ($request->categoriesIds as $categoryId => $value) {
                 if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
                     TeamCategory::create([
-                        'user_id'     =>  $user->id,
+                        'user_id'     => $user->id,
                         'category_id' => $value,
                         'payment_id'  => $payment->id,
                         'qty_teams'   => $request->quantity_teams[$i]
@@ -584,6 +582,11 @@ public function create_user_without_payment(){
         $total_teams    =  $this->total_teams;
         $token          =  $this->useradd->token_register_teams;
         $token_player   =  $this->useradd->token_register_players;
+    public function send_Mail_Confirmation(User $user,$total=null,$total_teams=null) {
+
+        $email          =  $user->email;
+        $token          =  $user->token_register_teams;
+        $token_player   =  $user->token_register_players;
         return Mail::to($email)
             ->send(new ConfirmationMail
             ($email, $total, $total_teams, $token, $token_player));
@@ -741,8 +744,8 @@ public function create_user_without_payment(){
                 $this->assign_coach_role($this->useradd);
             }else{
                 $this->useradd  = User::where('email',$this->email)
-                        ->where('phone',$this->phone)
-                        ->first();
+                                      ->where('phone',$this->phone)
+                                      ->first();
                 $this->user_without_payment  = UserWithoutPayments::where('email',$this->email)
                                                 ->where('phone',$this->phone)
                                                 ->first();
@@ -755,7 +758,9 @@ public function create_user_without_payment(){
                 $this->user_without_payment->delete();   // Se elimina de usuarios sin pago
             }
 
-            $this->send_Mail_Confirmation_by_admin();
+
+            $this->send_Mail_Confirmation($this->useradd,$this->price_total,$this->total_teams);
+
             return redirect()->route('dashboard');
 
         } catch (\Throwable $exception) {
