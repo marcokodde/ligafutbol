@@ -31,6 +31,7 @@ use App\Http\Livewire\AccordeonQuestions;
 use App\Http\Livewire\EmailNotifications;
 use App\Http\Livewire\TemporalController;
 use App\Http\Controllers\ConfirmationController;
+use App\Http\Livewire\TeamsQueries;
 
 require 'pruebas.php';
 
@@ -105,3 +106,6 @@ Route::get('register_players/{token?}', RegisterPlayers::class)->name('register_
 Route::get('clear_tables', ClearTables::class)->name('clear_tables');
 Route::get('error/{message}/{code?}', Exceptions::class)->name('error');
 Route::get('terms_and_conditions',TermsConditions::class)->name('terms_and_conditions');
+
+// Consulta de Equipos
+Route::get('teams_queries',TeamsQueries::class)->name('teams_queries');

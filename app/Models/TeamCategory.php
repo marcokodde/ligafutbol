@@ -26,7 +26,7 @@ class TeamCategory extends Model
     // Categorias cubiertas por el pago
     public function category()
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     // Un pago pertenece a
@@ -55,5 +55,17 @@ class TeamCategory extends Model
     {
         $this->registered_teams++;
         $this->save();
+    }
+
+    /*+-------------------+
+      | Búsquedas         |
+      +-------------------+
+    */
+
+    public function scopeCategoryId($query, $valor)
+    {
+        if ($valor) {
+            $query->where('category_id', $valor);
+        }
     }
 }
