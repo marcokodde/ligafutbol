@@ -184,7 +184,6 @@ class Payments extends Component
                     "description"   => $request->name,
             ]);
 
-
             if( $this->charge ) {
 
                 if($request->new_user) {
@@ -224,8 +223,8 @@ class Payments extends Component
                     $this->create_Teamcategory($this->useradd,$payment,$request);
 
                     $this->user_without_payment = UserWithoutPayments::where('email',$this->useradd->email)
-                                                                     ->where('phone',$this->useradd->phone)
-                                                                     ->first();
+                                                                    ->where('phone',$this->useradd->phone)
+                                                                    ->first();
                     if($this->user_without_payment){
                         $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
                     }
@@ -233,6 +232,9 @@ class Payments extends Component
                    $this->send_Mail_Confirmation( $this->useradd,$request->price_total,$request->total_teams);
 
                    $this->send_notifications($this->useradd ,'noty_payment',$payment);      // Notificaciónes
+                    $this->send_Mail_Confirmation($request);
+
+                    $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
 
                     if ($this->has_promoter_code) {
                         $this->send_mail_to_promoter($payment);
@@ -241,12 +243,12 @@ class Payments extends Component
                     $procesado = true;
 
                     return redirect()->route('confirmation');
-
                 }
             }
         } catch (\Throwable $exception) {
             $this->send_notifications($this->user_without_payment, 'noty_without_payment', null, $request->price_total, $request->total_teams);
             //$this->send_notifications($this->user_without_payment,'noty_without_payment',null,$request->price_total,$request->total_teams);
+            $this->send_notifications($this->user_without_payment,'noty_without_payment',null,$request->price_total,$request->total_teams);
             $this->error_stripe = $exception->getMessage();
             if ($this->has_promoter_code) {
                 return redirect()->route('error', [$this->error_stripe, $this->promoter_code_id->code]);
@@ -254,7 +256,6 @@ class Payments extends Component
                 return redirect()->route('error', [$this->error_stripe]);
             }
         }
-
     }
 /** Valida Teléfono y correo */
     public function validate_phone_and_email(){
@@ -262,15 +263,13 @@ class Payments extends Component
 
         if ($this->phone && $this->email) {
 
-                $this->user = User::where('phone', $this->phone)
-                                ->orWhere('email',$this->email)->first();
+            $this->user = User::where('phone', $this->phone)
+                            ->orWhere('email',$this->email)->first();
 
-                $this->same_phone_and_email = !$this->user;
+            $this->same_phone_and_email = !$this->user;
 
-
-                if($this->user && $this->user->phone == $this->phone && $this->user->email== $this->email)
-                     $this->same_phone_and_email = true;
-
+            if($this->user && $this->user->phone == $this->phone && $this->user->email== $this->email)
+                $this->same_phone_and_email = true;
         }
     }
 
@@ -326,7 +325,6 @@ public function create_user_without_payment(){
         $this->new_user = true;
     }
 
-
     $exist_user_whithout_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->count();
 
     if ($exist_user_whithout_payment > 0){
@@ -343,7 +341,7 @@ public function create_user_without_payment(){
             'phone'     => $this->phone,
         ]);
         //Creacion de Notificacion cuando se creo un usuario.
-        //$this->send_notifications($this->user_without_payment,'noty_create_user');
+        $this->send_notifications($this->user_without_payment,'noty_create_user');
     }
     if(!$this->user){
         $this->user = $this->user_without_payment;
@@ -466,11 +464,7 @@ public function create_user_without_payment(){
                 'password'  => Hash::make($password)
             ]);
         }
-
         return $user_record;
-
-
-
     }
 
     // Crea el usuario como Coach
@@ -769,6 +763,5 @@ public function create_user_without_payment(){
             $this->error = $exception->getMessage();
             return redirect()->route('error', [$this->error]);
         }
-
     }
 }
