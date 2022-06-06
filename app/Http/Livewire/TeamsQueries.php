@@ -37,7 +37,7 @@ class TeamsQueries extends Component {
 	 */
 
 	public function render() {
-
+        $this->pagination = 10;
         $records = TeamCategory::CategoryiD($this->category_id)->paginate($this->pagination);
         return view('livewire.index', [
             'records' => $records,
