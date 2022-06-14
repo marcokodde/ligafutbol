@@ -55,6 +55,8 @@
 
         @endforeach
 
+        @if($general_settings->active_coupon && $this->apply_coupon )
+
     <br>
     <label class="inline text-2xl text-gray-700 font-bold font-pop justify-center text-center mt-2 m-2 lg:-ml-28">{{__('Total')}}
         {{$total_teams}}

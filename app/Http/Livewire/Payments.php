@@ -730,46 +730,57 @@ public function create_user_without_payment(){
     public function apply_coupon($total_teams){
         $this->coupon_applied = false;
           $this->amount_with_coupon = $this->price_total;
-          $this->price_total = $this->price_total - $this->calculate_discount($total_teams);
-          if($this->calculate_discount($total_teams) > 0 ){
-            $this->coupon_applied = true;
-          }
+          //TODO: ¿Que método de descuento aplicar?
+        if($this->general_settings->active_coupon && $this->validate_key_to_coupon()){
+            $this->price_total = $this->price_total - $this->calculate_discount($total_teams,'fix_discount');
+        }else{
+            $this->price_total = $this->price_total - $this->calculate_discount($total_teams);
+            if($this->calculate_discount($total_teams) > 0 ){
+              $this->coupon_applied = true;
+            }
+        }
+
 
     }
 
     // Importe a descontar del total
-    private function calculate_discount($total_teams=0){
-        if($total_teams < 3){
-            $this->discount_by_team = 0;
-            return 0;
+    private function calculate_discount($total_teams=0,$type='cost_by_team'){
+
+        // Rebajar el costo por equipo
+        if($type = 'cost_by_team'){
+            if($total_teams < 3){
+                $this->discount_by_team = 0;
+                return 0;
+            }
+
+            if($total_teams >= 3 && $total_teams <= 5){
+                $this->discount_by_team = 20;
+                return 20 * $total_teams;
+            }
+
+            $this->discount_by_team = 25;
+            return 25 * $total_teams;
         }
 
-        if($total_teams >= 3 && $total_teams <= 5){
-            $this->discount_by_team = 20;
-            return 20 * $total_teams;
+
+        // Importe fijo a descontar según cantidad de equipos
+
+        switch ($total_teams) {
+            case  1:
+                return 20;
+                break;
+            case 2:
+                return 30;
+                break;
+            case 3:
+                return 40;
+                break;
+            case 4:
+                return 50;
+                break;
+            default :
+                return 100;
         }
-
-        $this->discount_by_team = 25;
-        return 25 * $total_teams;
-
-
-
-        // switch ($this->total_teams) {
-        //     case between 1:
-        //         return 20;
-        //         break;
-        //     case 2:
-        //         return 30;
-        //         break;
-        //     case 3:
-        //         return 40;
-        //         break;
-        //     case 4:
-        //         return 50;
-        //         break;
-        //     default :
-        //         return 100;
-        // }
     }
 
     // Registro por administración
