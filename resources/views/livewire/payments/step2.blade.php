@@ -47,11 +47,12 @@
         @foreach ($records as $record)
             @if (isset($record->cost))
                 {{__('Price per team:')}} ${{$record->cost}}</label>
+                <br>
+                @if ($coupon_applied )
+                 {{ __('Cost by Team with discount ') }} ${{number_format($record->cost - $discount_by_team)}}
+                @endif
             @endif
-            <br>
-            @if ($coupon_applied )
-             {{ __('Cost by Team with discount ') }} ${{number_format($record->cost - $this->discount_by_team)}}
-            @endif
+
         @endforeach
 
     <br>
