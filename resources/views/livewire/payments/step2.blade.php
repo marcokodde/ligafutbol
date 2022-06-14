@@ -28,7 +28,6 @@
                     </div>
                     @error('quantity_teams') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
-
             @endforeach
         </div>
     <div>
@@ -43,21 +42,22 @@
     name="price_total" hidden>
     <p><a href="https://galvestoncup.com/terminos-y-condiciones/" target="_blank" class="text-blue-500 underline">{{__("Terms and Conditions")}}</a></p>
     @if ($total_teams && $records)
-        <label class="block lg:text-xl sm:text-base font-medium text-black font-pop mt-2 justify-center text-center lg:-ml-12">
+        <label class="block lg:text-xl sm:text-base font-medium text-gray-600 font-pop mt-2 justify-center text-center lg:-ml-12">
         @foreach ($records as $record)
             @if (isset($record->cost))
                 {{__('Price per team:')}} ${{$record->cost}}</label>
                 <br>
-                @if ($coupon_applied )
-                 {{ __('Cost by Team with discount ') }} ${{number_format($record->cost - $discount_by_team)}}
+                @if ($coupon_applied && !$general_settings->active_coupon)
+                <label class="block lg:text-xl sm:text-base font-medium text-black font-pop">
+                    {{ __('Cost by Team with discount ') }} ${{number_format($record->cost - $discount_by_team)}}
+                </label>
                 @endif
             @endif
 
         @endforeach
-
-
     <br>
-    <label class="inline text-2xl text-gray-700 font-bold font-pop justify-center text-center mt-2 m-2 lg:-ml-28">{{__('Total')}}
+    <label class="inline text-2xl text-gray-700 font-bold font-pop justify-center text-center mt-2 m-2 lg:-ml-28">
+        {{__('Total')}}
         {{$total_teams}}
         @if ($total_teams == 1)
             {{__('Team')}}
@@ -65,12 +65,14 @@
             {{__('Teams')}}
         @endif
 
-
+        @if (!$coupon_applied && $general_settings->active_coupon)
+            {{ __('Before') . ' $' . number_format($amount_with_coupon) .' '. __('Now')  . ' $' . number_format($price_total)}}
+        @else
             ${{number_format($price_total)}}
-
+        @endif
     </label>
 </div>
-<div class="mb-2 items-center text-center align-center mt-4">
+    <div class="mb-2 items-center text-center align-center mt-4">
         @if($general_settings->active_coupon)
             <div class="mx-auto text-center justify-center mt-2">
                 <label class="text-xl text-gray-600 font-bold font-pop justify-center text-center" for="keytocoupon">
@@ -85,12 +87,11 @@
                     id="key_to_coupon"
                     required
                 >
-                @if($apply_coupon && !$coupon_applied)
+                @if($apply_coupon)
                     <button type="button"
-                        wire:click="apply_coupon"
-                        id="go_back"
-                        style="background-color: #82d971"
-                        class="button mx-2 px-4 py-2 mt-4  text-black font-semibold rounded-lg hover:text-white"
+                        wire:click="apply_coupon({{$total_teams}})"
+                        style="background-color: #82d971;"
+                        class="mx-2 px-4 py-2 mt-4 text-black font-semibold rounded-lg hover:text-white"
                         >
                         {{__("Apply")}}
                     </button>
