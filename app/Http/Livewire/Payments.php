@@ -428,6 +428,7 @@ public function create_user_without_payment(){
             if ($this->records) {
                 foreach ($this->records as $record) {
                     $this->price_total = round($this->total_teams * $record->cost, 2);
+                    $this->apply_coupon($this->total_teams);
                 }
             }
         }
@@ -725,7 +726,46 @@ public function create_user_without_payment(){
                 break;
             default:
                 return 100;
+    public function apply_coupon($total_teams){
+        $this->coupon_applied = false;
+          $this->amount_with_coupon = $this->price_total;
+          $this->price_total = $this->price_total - $this->calculate_discount($total_teams);
+          if($this->calculate_discount($total_teams) > 0 ){
+            $this->coupon_applied = true;
+          }
+
+    }
+
+    // Importe a descontar del total
+    private function calculate_discount($total_teams=0){
+        if($total_teams < 3){
+            return 0;
         }
+
+        if($total_teams >= 3 && $total_teams <= 5){
+            return 20 * $total_teams;
+        }
+
+        return 25 * $total_teams;
+
+
+
+        // switch ($this->total_teams) {
+        //     case between 1:
+        //         return 20;
+        //         break;
+        //     case 2:
+        //         return 30;
+        //         break;
+        //     case 3:
+        //         return 40;
+        //         break;
+        //     case 4:
+        //         return 50;
+        //         break;
+        //     default :
+        //         return 100;
+        // }
     }
 
     // Registro por administración

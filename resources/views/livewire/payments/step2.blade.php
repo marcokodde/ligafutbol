@@ -59,7 +59,7 @@
             {{__('Teams')}}
         @endif
 
-        @if ($coupon_applied && $general_settings->active_coupon)
+        @if ($coupon_applied )
             {{ __('Before') . ' $' . number_format($amount_with_coupon) .' '. __('Now')  . ' $' . number_format($price_total)
             }}
         @else
