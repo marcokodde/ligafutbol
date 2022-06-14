@@ -71,6 +71,7 @@ class Payments extends Component
     public $user = null;
     public $same_phone_and_email = true;
     public $accept_terms;
+    public $discount_by_team = 0;
 
     public function mount($promoter_code = null)
     {
@@ -739,13 +740,16 @@ public function create_user_without_payment(){
     // Importe a descontar del total
     private function calculate_discount($total_teams=0){
         if($total_teams < 3){
+            $this->discount_by_team = 0;
             return 0;
         }
 
         if($total_teams >= 3 && $total_teams <= 5){
+            $this->discount_by_team = 20;
             return 20 * $total_teams;
         }
 
+        $this->discount_by_team = 25;
         return 25 * $total_teams;
 
 
