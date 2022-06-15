@@ -75,6 +75,7 @@ class Teams extends Component {
 		]);
 
 
+
 		Team::updateOrCreate(['id' => $this->record_id], [
             'name'         => $this->name,
 			'category_id'   => $this->category_id,
@@ -84,12 +85,15 @@ class Teams extends Component {
 		]);
 
         //TODO: Probar elAgregar para que sume los equipos por categoría. (lugares disponibles)
-        TeamCategory::create([
-            'user_id'     =>  Auth::user()->id,
-            'category_id' =>  $this->category_id,
-            'payment_id'  => null,
-            'qty_teams'   => 1
-        ]);
+        if(!$this->record_id){
+            TeamCategory::create([
+                'user_id'     =>  Auth::user()->id,
+                'category_id' =>  $this->category_id,
+                'payment_id'  => null,
+                'qty_teams'   => 1
+            ]);
+
+        }
 
         $this->create_button_label = __('Create') . ' ' . __('Team');
         $this->store_message(__('Team'));
