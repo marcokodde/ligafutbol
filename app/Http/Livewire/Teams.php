@@ -10,6 +10,7 @@ use App\Models\Category;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
+use App\Models\TeamCategory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Teams extends Component {
@@ -82,6 +83,14 @@ class Teams extends Component {
             'active'        => $this->active ? 1 : 0
 		]);
 
+        //TODO: Probar elAgregar para que sume los equipos por categoría. (lugares disponibles)
+        TeamCategory::create([
+            'user_id'     =>  Auth::user()->id,
+            'category_id' =>  $this->category_id,
+            'payment_id'  => null,
+            'qty_teams'   => 1
+        ]);
+
         $this->create_button_label = __('Create') . ' ' . __('Team');
         $this->store_message(__('Team'));
 	}
@@ -110,7 +119,18 @@ class Teams extends Component {
 	  +------------------------------+
     */
 	public function destroy(Team $record) {
-        $this->delete_record($record,__('Team') . ' ' . __('Deleted Successfully!!'));
+        // TODO: Descontar de los equipos por categoría
+        $team_category = TeamCategory::where('category_id',$record->category_id)
+                        ->where('qty_teams','>','registered_teams')
+                        ->where('user_id',Auth::user()->id)
+                        ->whereNull('payment_id')
+                        ->first();
+
+        if($team_category){
+            $team_category->delete();
+            $this->delete_record($record,__('Team') . ' ' . __('Deleted Successfully!!'));
+        }
+
     }
 
     /*+---------------------+

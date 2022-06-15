@@ -33,6 +33,7 @@ class RegisterPlayers extends Component {
 
     public $error_message   = null;
     public $finish          = false;
+    public $total_teams_to_register = null;
 
     protected $listeners = ['reload_players'];
 
@@ -60,6 +61,7 @@ class RegisterPlayers extends Component {
     */
 
     public function render() {
+
         return view('livewire.register_players.index');
     }
 

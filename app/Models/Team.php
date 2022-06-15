@@ -70,10 +70,18 @@ class Team extends Model
     }
 
     public function can_be_delete(){
-       /*  if ($this->coaches()->count()) {
-            return false;
-        } */
-        return true;
+       if ($this->players()->count()) { return false;   }
+
+        if ($this->payment()->count()) { return false;  }
+
+
+        $team_category = TeamCategory::where('category_id',$this->category_id)
+                    ->where('qty_teams','>','registered_teams')
+                    ->where('user_id',Auth::user()->id)
+                    ->whereNull('payment_id')
+                    ->first();
+
+        return $team_category;
     }
 
     /*+-------------------+
