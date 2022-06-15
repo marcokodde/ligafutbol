@@ -172,6 +172,11 @@ class RegisterTeams extends Component
 
         for ($i = 0; $i < count($this->categoriesIds); $i++) {
             $record_team_category = TeamCategory::findOrFail($this->teamsCategoriesIds[$i]);
+
+            $amount = $record_team_category->payment_id
+                ? round($record_team_category->payment->amount / $record_team_category->payment->source, 2)
+                : null;
+
             $record_team = Team::create([
                 'name'          => $this->team_names[$i],
                 'category_id'   => $this->categoriesIds[$i],
@@ -181,6 +186,7 @@ class RegisterTeams extends Component
                 'enabled'       => 1,
                 'payment_id'    => $record_team_category->payment_id,
                 'amount'        => round($record_team_category->payment->amount / $record_team_category->payment->source, 2),
+                'amount'        => $amount,
             ]);
 
             $record_team_category->update_registered_teams();
@@ -204,14 +210,16 @@ class RegisterTeams extends Component
         if ($users_to_notify->count()) {
             foreach ($users_to_notify as $user_to_notify) {
                 Mail::to($user_to_notify->email)
-                        ->send(new MailNotification($user_to_notify->email,
-                                                    $type='noty_register_teams',
-                                                    null,
-                                                    $this->user,
-                                                    null,
-                                                    null,
-                                                    $record_team,
-                                                    null));
+                    ->send(new MailNotification(
+                        $user_to_notify->email,
+                        $type = 'noty_register_teams',
+                        null,
+                        $this->user,
+                        null,
+                        null,
+                        $record_team,
+                        null
+                    ));
             }
         }
         sleep(1);
