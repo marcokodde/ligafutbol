@@ -1,22 +1,16 @@
 <div class="border-2 border-collapse border-gray-600 py-8">
     <div class="mx-auto justify-center text-center">
-        <h1 class="text-5xl font-pop font-semibold text-blue-600">{{('RETURN/REFUND POLICY')}}</h1>
+        <h1 class="text-5xl font-pop font-semibold text-black">{{('Waiver & Release')}}</h1>
     </div>
     <div class="mx-auto justify-center text-center">
-        <label class="text-5xl font-pop font-semibold text-blue-600">{{('Last updated June 03, 2022')}}</label>
+        <label class="text-2xl font-pop font-semibold text-gray-600">{{('Release of Liability for Minors and Participants')}}</label>
     </div>
     <div class="mx-auto justify-center text-center">
-        <h1 class="text-5xl font-pop font-semibold text-blue-600">{{('Refunds')}}</h1>
+        <h1 class="text-5xl font-pop font-semibold text-black">{{('Read before signing.')}}</h1>
     </div>
-    <div class="mx-auto justify-center text-center">
-        <h1 class="text-3xl font-pop font-semibold text-black">{{('All sales are final and no refund will be issued.')}}</h1>
-    </div>
+
     <div class="mx-auto justify-center text-center mt-4">
-        <span class="text-xl font-pop font-bold text-gray-600">{{__('By reserving a team registration, you accept the reservation as is, and understand there are no refunds if you dice to cancel or change your mind.  There is limited space per category, so all reservations are first come, first serve, by reserving a spot for your team, you are preventing other teams from taking and/or reserving a spot and participate in this tournament.  Therefore, there are no refunds or returns when you complete the sign up process.  Please ensure you are entirely sure of your team is attendance and participation.')}}</span>
-    </div>
-    <div class="mx-auto justify-center text-center mt-4">
-        <h1 class="text-2xl font-pop font-semibold">{{('Questions')}}</h1>
-        <h2 class="text-lg font-pop font-semibold">{{__('If you have any questions concerning our return policy, please contact us at:')}}</h2>
+        <p class="text-sm font-pop font-semibold text-justify px-2">{{__('As a representative of the team, I acknowledge to have full approval and consent from the parents and guardians of each of the players listed on my roster to participate in the GALVESTON CUP in East Beach Galveston, Texas, on Sunday, July 11th, 2021 including all the games and activities, the undersigned acknowledges, appreciates, and agrees that: The risk of injury to any of my players from the activities involved in this event may be considered significant, including potential for permanent disability and death, and while particular rules, and personal discipline may reduce the risk, the risk of serious injury does exist; and, FOR MYSELF AS THE TEAM REPRESENTATIVE, PARENTS, GUARDIANS, AND PLAYER/MINOR, I KNOWINGLY AND FREELY ASSUME ALL SUCH RISKS, both known and unknown, EVEN IF ARISING FROM THE NEGLIGENCE OF THE RELEASE or others, and assume full responsibility for my player’s participation; and, I willingly agree to comply with GALVESTON CUP stated and customary terms, rules and conditions for participation. If I observe any unusual significant concern in my player’s readiness for participation and/or in the GALVESTON CUP itself, I will remove my player(s) from participation and bring such attention of the nearest GALVESTON CUP official immediately; and, I myself, my team’s personnel, parents, guardians, player/minor, and on behalf of my/our heirs, assigns, personal representatives and next of kin, HEREBY RELEASE the GALVESTON CUP and their respective officers, affiliates, agents, employees, representatives, successors, sponsors, advertisers, vendors, and if applicable, owners and leasers of premises included but not limited to the Park Board and the City of Galveston used to conduct the event (“RELEASEES”), WITH RESPECT TO ANY AND ALL INJURY, DISABILITY, DEATH, or loss or damage to person or property incident to my players’ involvement or participation in the GALVESTON CUP event and activities, WHETHER ARISING FROM THE NEGLIGENCE OF THE RELEASEES OR OTHERWISE, to the fullest extent permitted by law; and, I, for myself, my team’s representatives, personnel, parents, legal guardian, players/minors, and on behalf of my/our heirs, assigns, personal representatives and next of kin, HEREBY INDEMNIFY AND HOLD HARMLESS all the above Releasees from any and all liabilities incident to my involvement or participation in the GALVESTON CUP event, EVEN IF ARISING FROM THEIR NEGLIGENCE, to the fullest extent permitted by law; and, I certify that my players are physically fit to take part in all GALVESTON CUP event and activities; and, I pledge my players’ compliance to any and all GALVESTON CUP rules and understand that my child could be dismissed from the GALVESTON CUP events and/or activities for any conduct not in the best interests of the GALVESTON CUP event and that no part of my team’s registration fee will be refunded; and, I authorize any medical evaluation or treatment of my child that may be advised or recommended by the attending physician or emergency medical personnel while participating in the GALVESTON CUP event and activities.  Para español, favor de ver condiciones completas en línea www.GalvestonCup.com/Reglas')}}</p>
         <span class="text-lg font-pop text-blue-500 block">{{__('1-800-515-2749')}}</span>
         <span class="text-lg font-pop text-blue-500 block">{{__('events@ahavamarketing.com')}}</span>
     </div>

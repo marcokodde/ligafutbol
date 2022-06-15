@@ -29,7 +29,8 @@ class RegisterPlayers extends Component {
     public $teams   = null;
     public $team    = null;
     public $team_id = null;
-
+    public $accept_responsibilities;
+    public $next_register_players = false;
 
     public $error_message   = null;
     public $finish          = false;
@@ -128,7 +129,6 @@ class RegisterPlayers extends Component {
         }
     }
 
-
     /*+--------------------+
 	  | Recarga jugadores  |
 	  +--------------------+
@@ -138,6 +138,12 @@ class RegisterPlayers extends Component {
         $this->team->load('players');
     }
 
+    public function add_accept_terms() {
+        $user = User::where('id', $this->user->id)
+                ->update(['accept_responsibilities'   =>  now()]);
+    }
 
+    public function next_register() {
+        $this->next_register_players = true;
+    }
 }
-

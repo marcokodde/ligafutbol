@@ -8,6 +8,7 @@ use App\Models\Coach;
 use Livewire\Component;
 use App\Models\TeamCategory;
 use Livewire\WithPagination;
+use App\Mail\MailNotification;
 use App\Models\EmailNotification;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
