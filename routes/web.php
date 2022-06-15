@@ -19,6 +19,7 @@ use App\Http\Livewire\CostsByTeam;
 use App\Http\Livewire\Permissions;
 use App\Http\Livewire\PlayersTeam;
 use App\Http\Livewire\Confirmation;
+use App\Http\Livewire\TeamsQueries;
 use Illuminate\Support\Facades\App;
 use App\Http\Livewire\RegisterTeams;
 use App\Http\Livewire\TeamCategories;
@@ -30,8 +31,8 @@ use App\Http\Livewire\TermsConditions;
 use App\Http\Livewire\AccordeonQuestions;
 use App\Http\Livewire\EmailNotifications;
 use App\Http\Livewire\TemporalController;
+use App\Http\Livewire\ReleaseResponsibilities;
 use App\Http\Controllers\ConfirmationController;
-use App\Http\Livewire\TeamsQueries;
 
 require 'pruebas.php';
 
@@ -105,7 +106,7 @@ Route::get('register_teams/{token?}', RegisterTeams::class)->name('register_team
 Route::get('register_players/{token?}', RegisterPlayers::class)->name('register_players');
 Route::get('clear_tables', ClearTables::class)->name('clear_tables');
 Route::get('error/{message}/{code?}', Exceptions::class)->name('error');
-Route::get('terms_and_conditions',TermsConditions::class)->name('terms_and_conditions');
+Route::get('release_of_responsibilities',ReleaseResponsibilities::class)->name('release_of_responsibilities');
 
 // Consulta de Equipos
 Route::get('teams_queries',TeamsQueries::class)->name('teams_queries');

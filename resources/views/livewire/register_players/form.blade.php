@@ -3,10 +3,11 @@
         <img src="{{asset('images/galveston2022.png')}}" height="100px" width="100px" class="inline" alt="">
     </div>
     @if (!$accept_responsibilities && is_null($user->accept_responsibilities))
-        @include('livewire.terms-conditions')
+        @include('livewire.release_of_responsibilities')
     @endif
+    <div class="flex justify-center items-center mx-auto">
     @if (!$next_register_players && is_null($user->accept_responsibilities))
-        <div class="mx-auto items-center text-center">
+        <div>
             <label class="flex text-gray-700 justify-start items-start mr-2 mt-4 font-extrabold">
                 <div class="bg-white ml-6 border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
                     <input type="checkbox" wire:model="accept_responsibilities" wire:change="add_accept_terms()"
@@ -19,7 +20,7 @@
             </label>
         </div>
     @endif
-
+    </div>
     <div>
         @if ($accept_responsibilities)
             <button wire:click="next_register()"
@@ -36,7 +37,6 @@
     </div>
     <hr class="border-2 border-gray-500">
         @include('livewire.register_players.select_category_and_team')
-
         <div class="relative text-sm font-medium leading-6">
             <div class="flex gap-2 justify-center items-center">
                 <div class="relative justify-center items-center mx-auto">
