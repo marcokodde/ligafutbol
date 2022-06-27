@@ -1,42 +1,34 @@
-<li class="mt-5">
-    <a class="dropdown">
-        <span class="icon"><i class="mdi mdi-settings"></i></span>
-        <span class="menu-item-label">{{__('Operations')}}</span>
-        <span class="icon"><i class="mdi mdi-plus"></i></span>
+<li>
+    <a href="{{url('teams')}}">
+        <span class="icon"><i class="mdi mdi-account-multiple-outline"></i></span>
+        <span class="text-base font-pop font-semibold">{{__('Teams')}}</span>
     </a>
+</li>
 
-    <ul>
+<li>
+    <a href="{{url('coaches')}}">
+        <span class="icon"><i class="mdi mdi-account-check"></i></span>
+        <span class="text-base font-pop font-semibold">{{__('Coaches')}}</span>
+    </a>
+</li>
 
-        <li>
-            <a href="{{url('teams')}}">
-                <span>{{__('Teams')}}</span>
-            </a>
-        </li>
+<li>
+    <a href="{{url('players')}}">
+        <span class="icon"><i class="mdi mdi-account-switch"></i></span>
+        <span class="text-base font-pop font-semibold">{{__('Players')}}</span>
+    </a>
+</li>
 
-        <li>
-            <a href="{{url('coaches')}}">
-                <span>{{__('Coaches')}}</span>
-            </a>
-        </li>
+<li>
+    <a href="{{url('coaches-team')}}">
+        <span class="icon"><i class="mdi mdi-account-check"></i></span>
+        <span class="text-base font-pop font-semibold">{{__('Assign Coaches To Team')}}</span>
+    </a>
+</li>
 
-        <li>
-            <a href="{{url('players')}}">
-                <span>{{__('Players')}}</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="{{url('coaches-team')}}">
-                <span>{{__('Assign Coaches To Team')}}</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="{{url('players-team')}}">
-                <span>{{__('Assign Players To Team')}}</span>
-            </a>
-        </li>
-
-
-    </ul>
+<li>
+    <a href="{{url('players-team')}}">
+        <span class="icon"><i class="mdi mdi-account-multiple-plus"></i></span>
+        <span class="text-base font-pop font-semibold">{{__('Assign Players To Team')}}</span>
+    </a>
 </li>

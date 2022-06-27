@@ -70,3 +70,23 @@
 
     </ul>
 </li>
+<li>
+    <a class="dropdown">
+        <span class="icon"><i class="mdi mdi-settings"></i></span>
+        <span class="menu-item-label">{{__('Queries')}}</span>
+        <span class="icon"><i class="mdi mdi-plus"></i></span>
+    </a>
+    <ul>
+        <li>
+            <a href="{{url('teams_queries')}}">
+                <span>{{__('Team Queries')}}</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{url('total_team_categories')}}">
+                <span>{{__('Total Teams x Category')}}</span>
+            </a>
+        </li>
+    </ul>
+</li>

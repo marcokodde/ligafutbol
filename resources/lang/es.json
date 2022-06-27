@@ -1,6 +1,11 @@
 {
     "Processing Reservation...": "Procesando Reservación...",
     "Registered Teams": "Equipos Registrados",
+    "Total Equipment Reserved By Category":"Total De Equipos Reservados Por Categoria",
+    "Not registered":"No registrados",
+    "Queries":"Consultas",
+    "Team Queries":"Consulta de Equipos",
+    "Total Teams x Category":"Total de Equipos X Categoria",
     "Equipment reserved by Category": "Equipos Reservados Por Categoría",
     "Phone or email already exists, but they do not correspond to each other": "Teléfono o correo electrónico ya existe, pero no corresponden entre si",
     "I Accept Terms and Conditions":"Acepto términos y condiciones",

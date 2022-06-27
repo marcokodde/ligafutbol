@@ -31,6 +31,7 @@ use App\Http\Livewire\TermsConditions;
 use App\Http\Livewire\AccordeonQuestions;
 use App\Http\Livewire\EmailNotifications;
 use App\Http\Livewire\TemporalController;
+use App\Http\Livewire\TotalTeamsByCategories;
 use App\Http\Livewire\ReleaseResponsibilities;
 use App\Http\Controllers\ConfirmationController;
 
@@ -110,3 +111,4 @@ Route::get('release_of_responsibilities',ReleaseResponsibilities::class)->name('
 
 // Consulta de Equipos
 Route::get('teams_queries',TeamsQueries::class)->name('teams_queries');
+Route::get('total_team_categories',TotalTeamsByCategories::class)->name('total_team_categories');
