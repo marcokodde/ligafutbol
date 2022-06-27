@@ -33,21 +33,23 @@ class Users extends Component {
         $this->manage_title = __('Manage') . ' ' . __('Users');
         $this->create_button_label = "Create User";
         $this->search_label = "Name or Email";
+        $this->view_form = 'livewire.users.form';
+        $this->view_table = 'livewire.users.table';
+        $this->view_list  = 'livewire.users.list';
         $this->readRoles();
     }
 
-    // Lee los roles para SELECT en formulario
-    private function readRoles(){
-        if(Auth::user()->IsAdmin()){
-            $this->roles = Role::orderBy('name')->get();
-        }
-    }
 
 	/**
 	 * Busca y regresa vista con usuarios
 	 */
 
 	public function render() {
+        $this->pagination = 12;
+
+        $this->create_button_label =  $this->record_id ?    __('Update') . ' ' . __('User')
+                                                        : __('Create') . ' ' . __('User');
+
         $searchTerm = '%' . $this->search . '%';
 
         if(Auth::user()->IsAdmin()){
@@ -58,6 +60,13 @@ class Users extends Component {
 
 
 	}
+
+    // Lee los roles para SELECT en formulario
+    private function readRoles(){
+        if(Auth::user()->IsAdmin()){
+            $this->roles = Role::orderBy('name')->get();
+        }
+    }
 
 	/**
 	 * Inicializa variables de registro
@@ -161,7 +170,10 @@ class Users extends Component {
 		$this->email        = $record->email;
         $this->phone        = $record->phone;
         $this->active       = $record->active;
-        $this->role_id      = $record->user_role_id();
+
+        foreach($record->roles as $role){
+            $this->role_id      = $role->id;
+        }
 		$this->openModal();
 
 	}
