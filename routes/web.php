@@ -111,4 +111,4 @@ Route::get('release_of_responsibilities',ReleaseResponsibilities::class)->name('
 
 // Consulta de Equipos
 Route::get('teams_queries',TeamsQueries::class)->name('teams_queries');
-Route::get('total_team_categories',TotalTeamsByCategories::class)->name('total_team_categories');
+Route::get('total_team_categories/{show?}',TotalTeamsByCategories::class)->name('total_team_categories');

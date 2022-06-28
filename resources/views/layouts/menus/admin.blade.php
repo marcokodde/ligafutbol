@@ -88,5 +88,16 @@
                 <span>{{__('Total Teams x Category')}}</span>
             </a>
         </li>
+        <li>
+            <a href="{{url('total_team_categories/acordeon')}}">
+                <span>{{__('Total Teams x Category in Acordeon')}}</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{url('total_team_categories/table')}}">
+                <span>{{__('Total Teams x Category in Table')}}</span>
+            </a>
+        </li>
+
     </ul>
 </li>

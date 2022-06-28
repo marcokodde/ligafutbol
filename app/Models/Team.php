@@ -36,8 +36,8 @@ class Team extends Model
         return $this->belongsTo(Zipcode::class,'zipcode','zipcode');
     }
 
-    public function zipcode() {
-        return $this->belongsTo('App\Models\Zipcode', 'zipcode', 'zipcode');
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function coaches(){
