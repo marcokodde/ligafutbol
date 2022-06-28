@@ -12,7 +12,7 @@
                     @if ($record->category->teams->count())
                         @foreach ($record->category->teams as $team)
                             <p class="p-5 font-pop">
-                                <strong>{{__('Team')}}:</strong>
+                                <strong>{{$loop->index +1}} .- {{__('Team')}}:</strong>
                                 <span>{{$team->name}} ,</span>
                                 <strong>{{__('Coach')}}:</strong>
                                 <span>{{$team->user->name}}.</span>
