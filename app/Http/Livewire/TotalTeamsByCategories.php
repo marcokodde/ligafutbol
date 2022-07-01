@@ -9,6 +9,7 @@ use App\Http\Livewire\Traits\CrudTrait;
 use App\Models\Category;
 use App\Models\TeamCategory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
 class TotalTeamsByCategories extends Component {
@@ -18,6 +19,10 @@ class TotalTeamsByCategories extends Component {
 
     public $type_query, $show;
     public $category,$category_id,$categories;
+    public $total_reserved_teams;
+    public $total_registered_teams;
+
+
 
     public function mount($show=null)
     {
@@ -37,18 +42,32 @@ class TotalTeamsByCategories extends Component {
 	 */
 
 	public function render() {
-        $records = TeamCategory::groupBy('category_id')->select('category_id')
+        $records = TeamCategory::groupBy('category_id')
+        ->select('category_id')
         ->selectRaw('sum(qty_teams) as teams')
         ->selectRaw('sum(registered_teams) as reservations')
         ->paginate(20);
+
+        // $this->total_registered_teams = DB::table('team_categories')
+        //         ->select( DB::raw('SUM(qty_teams) as total_registered_teams'))
+        //         ->first();
+        // dd($this->total_registered_teams);
+
+        $this->total_registered_teams = TeamCategory::selectRaw('sum(qty_teams) as teams')->first();
+        $this->total_reserved_teams = TeamCategory::selectRaw('sum(registered_teams) as teams')->first();
+
+
+
+
         if ($this->show == "acordeon") {
             return view('livewire.total_teams_by_categories.index', [
                 'records' => $records,
             ]);
-        } else {
-            return view('livewire.index', [
-                'records' => $records,
-            ]);
         }
+
+        return view('livewire.index', [
+            'records' => $records,
+        ]);
+
 	}
 }

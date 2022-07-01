@@ -11,8 +11,4 @@
         @endif
     </td>
 </tr>
-{{--  @if ($record->last)
-    <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 w-32 text-center">
-        {{$record->sum('qty_teams')}}
-    </td>
-@endif  --}}
+
