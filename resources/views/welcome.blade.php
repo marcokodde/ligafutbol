@@ -41,7 +41,15 @@
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0 text-center">
-                    <img src="{{asset('images/logo1.png')}}" height="150px" width="150px"  alt="">
+                    @if (Route::has('login'))
+                        <a href="{{ route('login') }}">
+                            <img src="{{asset('images/logo1.png')}}" height="150px" width="150px"  alt="">
+                        </a>
+
+                        @else
+                            <img src="{{asset('images/logo1.png')}}" height="150px" width="150px"  alt="">
+
+                    @endif
                 </div>
             </div>
         </div>

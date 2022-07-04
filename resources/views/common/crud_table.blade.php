@@ -9,8 +9,8 @@
                 @if(isset($total_registered_teams) || isset($total_reserved_teams) )
 
                     <label class="font-bold text-center text-xl">
-                        {{ __('Total Teams') . '     ' . __('Registered') . ':' . $total_registered_teams['teams']
-                        . '   ' .  __('Reserved') . ':' . $total_reserved_teams['teams']
+                        {{ __('Total Teams') . '     ' . __('Reserved') . ':' . $total_registered_teams['teams']
+                        . '   ' . __('Registered') . ':' . $total_reserved_teams['teams']
                     }}
 
                     </label>

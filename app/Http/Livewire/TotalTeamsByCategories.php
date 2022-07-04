@@ -47,17 +47,8 @@ class TotalTeamsByCategories extends Component {
         ->selectRaw('sum(qty_teams) as teams')
         ->selectRaw('sum(registered_teams) as reservations')
         ->paginate(20);
-
-        // $this->total_registered_teams = DB::table('team_categories')
-        //         ->select( DB::raw('SUM(qty_teams) as total_registered_teams'))
-        //         ->first();
-        // dd($this->total_registered_teams);
-
         $this->total_registered_teams = TeamCategory::selectRaw('sum(qty_teams) as teams')->first();
         $this->total_reserved_teams = TeamCategory::selectRaw('sum(registered_teams) as teams')->first();
-
-
-
 
         if ($this->show == "acordeon") {
             return view('livewire.total_teams_by_categories.index', [
