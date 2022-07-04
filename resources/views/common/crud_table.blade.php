@@ -17,7 +17,7 @@
                             <tbody>
                                 <td class="font-bold text-center text-3xl">{{$total_registered_teams['teams']}}</td>
                                 <td class="font-bold text-center text-3xl">{{$total_reserved_teams['teams']}}</td>
-                                <td class="font-bold text-center text-3xl">{{$total_paid_teams}}</td>
+                                <td class="font-bold text-center text-3xl">{{$total_paid_teams['teams']}}</td>
 
                             </tbody>
                         </table>
