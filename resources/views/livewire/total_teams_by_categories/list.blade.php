@@ -10,7 +10,12 @@
             </span>
         @endif
     </td>
-    <td>
+
+        @if($record->teams != $record->category->paid_teams_by_category())
+            <td class="border px-2 py-1 text-5   xl font-bold sm:text-base md:text-xl  text-red-500  w-32 text-center">
+        @else
+            <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600 w-32 text-center">
+        @endif
         {{ $record->category->paid_teams_by_category()}}
     </td>
 </tr>
