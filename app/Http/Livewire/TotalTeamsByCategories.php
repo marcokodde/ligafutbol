@@ -35,6 +35,7 @@ class TotalTeamsByCategories extends Component {
         $this->allow_create = false;
         $this->view_search = null;
         $this->show = $show;
+
     }
 
 
@@ -49,7 +50,8 @@ class TotalTeamsByCategories extends Component {
                             ->selectRaw('sum(qty_teams) as teams')
                             ->selectRaw('sum(registered_teams) as reservations')
                             ->paginate(20);
-        $this->total_registered_teams = TeamCategory::selectRaw('sum(qty_teams) as teams')->first();
+
+                            $this->total_registered_teams = TeamCategory::selectRaw('sum(qty_teams) as teams')->first();
         $this->total_reserved_teams = TeamCategory::selectRaw('sum(registered_teams) as teams')->first();
         $this->total_paid_teams = TeamCategory::selectRaw('sum(qty_teams) as teams')
                                                     ->whereNotNull('payment_id')

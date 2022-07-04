@@ -36,6 +36,11 @@ class Category extends Model
          public function teams_categories() {
             return $this->hasMany(TeamCategory::class,'category_id');
         }
+
+        public function paid_teams_by_category(){
+            return $this->hasMany(TeamCategory::class,'category_id')->whereNotNull('payment_id')->sum('qty_teams');
+        }
+
     /*+-----------------+
       | Funciones Apoyo |
       +-----------------+

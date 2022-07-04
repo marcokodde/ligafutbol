@@ -10,5 +10,8 @@
             </span>
         @endif
     </td>
+    <td>
+        {{ $record->category->paid_teams_by_category()}}
+    </td>
 </tr>
 

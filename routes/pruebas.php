@@ -71,3 +71,13 @@ Route::get('teams_by_category',function(){
         echo '</table';
     }
 })->name('teams_by_category');
+
+Route::get('equipos_pagados_x_categoria',function(){
+   $categories = Category::has('teams_categories')->get();
+   foreach($categories as $category){
+    dd($category->paid_teams_by_category->whereNotNull('payment_id')->sum('qty_teams'));
+    echo $category->name . '=' . $category->paid_teams_by_category->sum('qty_teams') . '<br>';
+   }
+   dd($categories);
+
+});
