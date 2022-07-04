@@ -1,7 +1,7 @@
 @include('common.crud_header')
 <div class="container">
     @foreach($records as $record)
-        <div class="overflow-hidden border-t" wire:key="foo{{ $record->id }}" data-accordion="open">
+        <div class="overflow-hidden border-t" wire:key="foo{{ $record->id }}" data-accordion="open" >
             <label>
                 <input class="absolute opacity-0 peer" type="checkbox" name="" id="{{$record->id}}">
                 <p class="cursor-pointer p-5 inline-block w-11/12 font-pop font-semibold">{{$record->category->name}}
@@ -15,7 +15,7 @@
                     class="h-6 w-6 cursor-pointer inline-block float-right mr-20 mt-5 border-2 rounded-full peer-checked:rotate-45 peer-checked:bg-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
-                <div class="bg-gray-300 max-h-0 peer-checked:max-h-screen rounded-lg">
+                <div class="bg-gray-300 peer-checked:max-h-0 max-h-screen rounded-lg">
                     @if ($record->category->teams->count())
                         @foreach ($record->category->teams as $team)
                             <p class="p-5 font-pop">
