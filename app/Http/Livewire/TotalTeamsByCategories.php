@@ -7,6 +7,7 @@ use Livewire\Component;
 
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Models\Category;
+use App\Models\Team;
 use App\Models\TeamCategory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +22,7 @@ class TotalTeamsByCategories extends Component {
     public $category,$category_id,$categories;
     public $total_reserved_teams;
     public $total_registered_teams;
+    public $total_paid_teams = null;
 
 
 
@@ -43,12 +45,13 @@ class TotalTeamsByCategories extends Component {
 
 	public function render() {
         $records = TeamCategory::groupBy('category_id')
-        ->select('category_id')
-        ->selectRaw('sum(qty_teams) as teams')
-        ->selectRaw('sum(registered_teams) as reservations')
-        ->paginate(20);
+                            ->select('category_id')
+                            ->selectRaw('sum(qty_teams) as teams')
+                            ->selectRaw('sum(registered_teams) as reservations')
+                            ->paginate(20);
         $this->total_registered_teams = TeamCategory::selectRaw('sum(qty_teams) as teams')->first();
         $this->total_reserved_teams = TeamCategory::selectRaw('sum(registered_teams) as teams')->first();
+        $this->total_paid_teams = Team::has('payment')->count();
 
         if ($this->show == "acordeon") {
             return view('livewire.total_teams_by_categories.index', [

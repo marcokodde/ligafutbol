@@ -6,14 +6,23 @@
                     @include($view_table)
                 @endif
                 @include('livewire.each_record')
-                @if(isset($total_registered_teams) || isset($total_reserved_teams) )
+                @if(isset($total_registered_teams) || isset($total_reserved_teams) || isset($total_paid_teams) )
+                    <div class="text-center">
+                        <table>
+                            <thead>
+                                <th class="font-bold text-center text-3xl">{{  __('Reserved') }} </th>
+                                <th class="font-bold text-center text-3xl">{{  __('Registered') }} </th>
+                                <th class="font-bold text-center text-3xl">{{  __('Paid') }} </th>
+                            </thead>
+                            <tbody>
+                                <td class="font-bold text-center text-3xl">{{$total_registered_teams['teams']}}</td>
+                                <td class="font-bold text-center text-3xl">{{$total_reserved_teams['teams']}}</td>
+                                <td class="font-bold text-center text-3xl">{{$total_paid_teams}}</td>
 
-                    <label class="font-bold text-center text-xl">
-                        {{ __('Total Teams') . '     ' . __('Reserved') . ':' . $total_registered_teams['teams']
-                        . '   ' . __('Registered') . ':' . $total_reserved_teams['teams']
-                    }}
+                            </tbody>
+                        </table>
+                    </div>
 
-                    </label>
 
                 @endif
             </table>
