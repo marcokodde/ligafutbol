@@ -13,6 +13,8 @@
                 </p>
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="inline-block float-right w-6 h-6 mt-5 mr-20 border-2 rounded-full cursor-pointer peer-checked:rotate-45 peer-checked:bg-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    class="inline-block float-right w-6 h-6 mt-5 mr-20 border-2 rounded-full cursor-pointer rotate-15 peer-checked:rotate-15 peer-checked:bg-indigo-500"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
                 <div class="max-h-screen bg-gray-300 rounded-lg peer-checked:max-h-0">
