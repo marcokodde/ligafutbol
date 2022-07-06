@@ -75,7 +75,7 @@ class Users extends Component {
 	private function resetInputFields() {
         $this->record_id = null;
         $this->record = null;
-        $this->reset(['name','email','phone','password','active']);
+        $this->reset(['name','email','password','password_confirmation','role_id','active']);
 	}
 
 	/**+------------------------------------+
@@ -86,15 +86,11 @@ class Users extends Component {
 	public function store() {
 
         $this->validateUser();
-
-
         if($this->record_id){
             $user = $this->updateUser();
         }else{
             $user = $this->createUser();
         }
-
-
         $this->create_button_label = __('Create') . ' ' . __('User');
         $this->store_message(__('User'));
 	}
@@ -109,11 +105,11 @@ class Users extends Component {
             'name'                  => 'required|min:3|max:50',
             'email'                 => 'required|email|unique:users,email,' . $this->record_id,
             'role_id'               => 'required|exists:roles,id',
-            'phone'                 => 'required|max:15',
-            'password_confirmation' =>'required_with:password'
+            'phone'                 => 'required|min:7|max:12',
+            'password'              => 'required|min:6|max:15',
+            'password_confirmation' => 'nullable|min:6|max:50|same:password',
 		]);
     }
-
     /**+----------------+
      * | Crear Usuario  |
      * +----------------+
@@ -121,16 +117,14 @@ class Users extends Component {
 
     private function createUser(){
         $user = User::create([
-			'name'      => $this->name,
-			'email'     => $this->email,
+            'name'      => $this->name,
+            'email'     => $this->email,
             'phone'     => $this->phone,
             'password'  => Hash::make($this->password),
-            'active'    =>$this->active ? 1 : 0,
+            'active'    => $this->active ? 1 : 0,
         ]);
         $user->roles()->sync($this->role_id);
-
         $user->save();
-        return $user;
     }
     /**+-------------------+
      * | Actualizar Usuario  |
@@ -140,22 +134,16 @@ class Users extends Component {
     private function updateUser(){
         $user = User::findOrFail($this->record_id);
         $user->update([
-            'name'  => $this->name,
-            'email' => $this->email,
-            'phone'  => $this->phone,
-            'active' => $$this->active ? 1 : 0,
+            'name'      => $this->name,
+            'email'     => $this->email,
+            'phone'     => $this->phone,
+            'password'  =>  Hash::make($this->password),
+            'active'    => $this->active ? 1 : 0,
         ]);
-
-        if($this->password){
-            $user->update([
-                'password' => Hash::make($this->password),
-            ]);
-        }
         $user->roles()->sync($this->role_id);
         $user->save();
         return $user;
     }
-
 
 	/**
 	 * Mueve datos del registro a las variables
@@ -169,13 +157,12 @@ class Users extends Component {
 		$this->name         = $record->name;
 		$this->email        = $record->email;
         $this->phone        = $record->phone;
+        $this->password     = $record->password;
         $this->active       = $record->active;
 
         foreach($record->roles as $role){
             $this->role_id      = $role->id;
         }
 		$this->openModal();
-
 	}
-
 }

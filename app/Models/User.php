@@ -125,7 +125,11 @@ class User extends Authenticatable
         return $this->hasMany(TeamCategory::class)->where('qty_teams', '>', 'registered_teams');
     }
 
-
+        // Roles
+        public function roles()
+        {
+            return $this->belongsToMany(Role::class);
+        }
 
     /*+-------------+
       | Apoyo       |
