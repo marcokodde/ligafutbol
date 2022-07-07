@@ -21,14 +21,14 @@ class Users extends Component {
     use CrudTrait;
 
     public $name, $email, $password, $phone,$active,$password_confirmation;
-    public $roles,$role_id;
+    public $roles,$role_id, $token;
 
     /*+-------------------------+
       | Inicializa Componante   |
       +-------------------------+
     */
 
-	public function mount() {
+	public function mount($token=null) {
         $this->authorize('hasaccess', 'users.index');
         $this->manage_title = __('Manage') . ' ' . __('Users');
         $this->create_button_label = "Create User";
@@ -37,6 +37,10 @@ class Users extends Component {
         $this->view_table = 'livewire.users.table';
         $this->view_list  = 'livewire.users.list';
         $this->readRoles();
+        $this->token = $token;
+        if ($this->token == "token") {
+            $this->manage_title = __('Coach List');
+        }
     }
 
 
@@ -51,6 +55,11 @@ class Users extends Component {
                                                         : __('Create') . ' ' . __('User');
 
         $searchTerm = '%' . $this->search . '%';
+        if ($this->token == "token") {
+            return view('livewire.users.show_tokens', [
+                'records' => User::Search($searchTerm)->paginate($this->pagination),
+            ]);
+        }
 
         if(Auth::user()->IsAdmin()){
             return view('livewire.index', [

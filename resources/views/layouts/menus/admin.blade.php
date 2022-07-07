@@ -98,6 +98,10 @@
                 <span>{{__('Total Teams x Category in Table')}}</span>
             </a>
         </li>
-
+        <li>
+            <a href="{{url('users/token')}}">
+                <span>{{__('Coach List')}}</span>
+            </a>
+        </li>
     </ul>
 </li>

@@ -64,6 +64,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('categories', Categories::class)->name('categories');                 // Categor铆as
     Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
     Route::get('settings', Settings::class)->name('settings');                       // Configuraci贸n
+    Route::get('permission', Permissions::class)->name('permission');                // Permisos
+    Route::get('role', Roles::class)->name('role');                                  // Roles
+    Route::get('role-permission', RolePermissions::class)->name('role-permission');  // Asignar Permisos al Rol
+    Route::get('categories', Categories::class)->name('categories');                 // Categor铆as
+    Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
+    Route::get('settings', Settings::class)->name('settings');                       // Configuraci贸n
     // Acciones del usuario Coach
     Route::get('teams', Teams::class)->name('teams');                                // Equipos
     Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores
@@ -107,8 +113,9 @@ Route::get('register_teams/{token?}', RegisterTeams::class)->name('register_team
 Route::get('register_players/{token?}', RegisterPlayers::class)->name('register_players');
 Route::get('clear_tables', ClearTables::class)->name('clear_tables');
 Route::get('error/{message}/{code?}', Exceptions::class)->name('error');
-Route::get('release_of_responsibilities',ReleaseResponsibilities::class)->name('release_of_responsibilities');
+Route::get('release_of_responsibilities', ReleaseResponsibilities::class)->name('release_of_responsibilities');
 
 // Consulta de Equipos
-Route::get('teams_queries',TeamsQueries::class)->name('teams_queries');
-Route::get('total_team_categories/{show?}',TotalTeamsByCategories::class)->name('total_team_categories');
+Route::get('teams_queries', TeamsQueries::class)->name('teams_queries');
+Route::get('total_team_categories/{show?}', TotalTeamsByCategories::class)->name('total_team_categories');
+Route::get('users/{token?}', Users::class)->name('users');                                // Usuarios
