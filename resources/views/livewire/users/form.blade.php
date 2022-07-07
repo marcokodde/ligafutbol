@@ -10,33 +10,32 @@
                             {{$create_button_label}}
                         </p>
                     </header>
+                    <div class="container bg-danger">
+                        <x-jet-validation-errors></x-jet-validation-errors>
+                    </div>
+
                     <form>
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold mb-2 text-left">{{__("Name")}}</label>
                                 <input type="text" wire:model="name" maxlength="50"  placeholder="{{__("Name")}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                @error('name') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold mb-2 text-left">{{__("Email")}}</label>
                                 <input type="text" wire:model="email" maxlength="50"  placeholder="{{__("Email")}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                @error('email') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold mb-2 text-left">{{__("Phone")}}</label>
-                                <input type="text" wire:model="phone" maxlength="50"  placeholder="{{__("Phone")}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                @error('phone') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <input type="text" wire:model="phone" maxlength="12"  placeholder="{{__("Phone")}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                             </div>
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold mb-2 text-left">{{__("Password")}}</label>
                                 <input type="password" wire:model="password"  maxlength="15" minlength="15"
                                     placeholder="{{__("Password")}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                @error('password') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                             <div class="mb-4">
                                 <label class="block text-gray-700 text-sm font-bold mb-2 text-left">{{__("Confirm Password")}}</label>
                                 <input type="password" wire:model.lazy="password_confirmation" name="password_confirmation" id="password_confirmation" maxlength="50"  placeholder="{{__("Confirm Password")}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                @error('password_confirmation') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                             <label class="block text-gray-700 text-sm font-bold mb-2 text-left">{{__("Role")}}</label>
                             <select wire:model="role_id"
@@ -52,7 +51,6 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('role_id') <span class="text-red-500">{{ $message }}</span>@enderror
 
                             <div class="mb-4">
                                 <label class="flex text-gray-700 justify-start font-semibold items-start mr-2 mt-4">
