@@ -17,9 +17,6 @@
                     </svg>
                     <div class="bg-gray-200 peer-checked:max-h-0 max-h-screen rounded-lg">
                         <p class="p-1 font-pop">
-                            <span>{{$record->name}}</span>
-                        </p>
-                        <p class="p-1 font-pop">
                             @if ($record->token_register_teams)
                                 <strong>{{__('Registered Team')}}:</strong>
                                 <span class="underline underline-offset-1 text-blue-500">
@@ -41,5 +38,10 @@
             @endif
         @endforeach
     @endforeach
+    <div>
+        @if($show_pagination)
+            @include('common.crud_pagination')
+        @endif
+    </div>
 </div>
 <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
