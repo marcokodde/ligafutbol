@@ -54,10 +54,23 @@ class Users extends Component {
         $this->create_button_label =  $this->record_id ?    __('Update') . ' ' . __('User')
                                                         : __('Create') . ' ' . __('User');
 
+
+        if($this->token){
+            $records = User::wherehas('roles',function($query){
+                $query->where('name','coach');
+            })->paginate($this->pagination);
+        }
+
         $searchTerm = '%' . $this->search . '%';
         if ($this->token == "token") {
             return view('livewire.users.show_tokens', [
-                'records' => User::Search($searchTerm)->paginate($this->pagination),
+                'records' => $records,
+            ]);
+        }
+
+        if ($this->token == "token_list") {
+            return view('livewire.users.show_coaches_list', [
+                'records' => $records,
             ]);
         }
 
