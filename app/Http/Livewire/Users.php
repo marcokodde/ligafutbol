@@ -5,13 +5,13 @@ namespace App\Http\Livewire;
 
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Member;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Livewire\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Builder;
+
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 
