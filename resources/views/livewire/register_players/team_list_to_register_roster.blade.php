@@ -7,23 +7,23 @@
         <div>
             <table class="table">
                 @foreach ($categories as $category_select)
-                    <tr align="left">
+                    <tr>
                         <td class="text-2xl font-bold">{{$category_select->name}}</td>
                         {{--  <td class="text-2xl font-bold">{{$category_select->teams_user($user->id)->count()}}</td>  --}}
                     </tr>
                     @foreach($category_select->teams_user($user->id)->get() as $team_category)
-                        <tr align="left">
+                        <tr>
                             <td><strong>{{$team_category->name}}</strong></td>
                             <td>
                                 @if( $team_category->players->count())
-                                    <span class="font-semibold">{{__('Players') . ' ' . $team_category->players->count()}}</span>
+                                    <span class="font-semibold">{{__('Players') . ' ' . $team_category->players->count()}}, </span>
                                 @endif
                             </td>
                             <td>
-                                <button type="button" wire:click="read_team_category({{ $team_category }})"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                                <a type="button" wire:click="read_team_category({{ $team_category }})"
+                                    class="border-blue-500 hover:text-gray-500 cursor-pointer text-blue-700 underline font-bold py-2 px-4 rounded-lg">
                                     <span class="control-label">{{__("Add Roster")}}</span>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
