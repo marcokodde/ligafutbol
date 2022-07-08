@@ -13,9 +13,10 @@
 
     {{-- Formulario: Nombre - Apellido - Sexo - Fecha de nacimiento --}}
     <div class="flex flex-wrap mt-2">
-
         {{-- Nombre(s) --}}
         <div>
+            <label class="block text-base font-pop">{{__('First Name')}} @error('first_name') <label class="inline text-xl text-red-500" >*</label>@enderror</label>
+        <div class="ml-2">
             <label class="block text-base font-pop">{{__('First Name')}} @error('first_name') <label class="inline text-xl text-red-500" >*</label>@enderror</label>
             <input type="text"
                 wire:model="first_name"
@@ -33,6 +34,8 @@
         {{-- Apellido(s) --}}
         <div class="lg:ml-2 sm:ml-0">
             <label class="block text-base font-pop">{{__('Last Name')}} @error('last_name') <label class="inline text-xl text-red-500" >*</label>@enderror</label>
+        <div class="ml-2">
+            <label class="block text-base font-pop">{{__('Last Name')}} @error('last_name') <label class="inline text-xl text-red-500" >*</label>@enderror</label>
             <input type="text"
                 wire:model="last_name"
                 placeholder="{{__('Last Name')}}"
@@ -46,6 +49,8 @@
 
         {{-- Sexo --}}
         <div class="ml-1">
+            <label class="block text-base font-pop">{{__('Gender')}}@error('gender') <label class="text-xl text-red-500" >*</label>@enderror</label>
+        <div class="ml-2">
             <label class="block text-base font-pop">{{__('Gender')}}@error('gender') <label class="text-xl text-red-500" >*</label>@enderror</label>
             <div class="flex justify-between @error('gender') border-red-600 border-collapse border-2 @enderror">
                 <div class="px-2 mt-1">
@@ -79,6 +84,13 @@
              @include('livewire.register_players.birthday_dropdowns')
              @error('birthday') <label class="text-sm text-red-500" >{{$message}}</label>@enderror
         </div>
+        @if ($gender)
+            <div class="text-center">
+                <label class="block text-base font-pop">{{__('Birthday')}}</label>
+                @include('livewire.register_players.birthday_dropdowns')
+                @error('birthday') <label class="text-sm text-red-500" >{{$message}}</label>@enderror
+            </div>
+        @endif
 
         {{-- Botón Para Agregar --}}
         @if($first_name && $last_name && $gender && $birth_year && $birth_month && $birth_day)
@@ -92,7 +104,5 @@
                 </div>
             </span>
         @endif
-
     </div>
-
 </div

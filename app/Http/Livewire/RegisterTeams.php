@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 use App\Mail\MailNotification;
 use App\Models\EmailNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\ZipcodeTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
