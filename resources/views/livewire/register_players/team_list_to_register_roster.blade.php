@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="flex flex-row justify-center items-center gap-4">
-        <p class="text-3xl font-bold" >{{__('Coach:') . ' ' . $user->name}}</p>
+    <div class="flex flex-row justify-center items-center">
+        <p class="text-2xl font-bold">{{__('Coach:') . ' ' . $user->name}}</p>
         @if (!$show_table)
             <span class="mx-4 px-4">
                 <a href="http://equipos.galvestoncup.com/register_players/{{$user->token_register_players}}"
@@ -41,7 +41,7 @@
             @endif
         </div>
         <!-- ... -->
-        <div>
+        <div class="mx-auto text-center items-center">
             <div class="relative text-sm font-medium leading-6">
                 <div class="flex gap-2 justify-center items-center">
                     <div class="relative justify-center items-center mx-auto">

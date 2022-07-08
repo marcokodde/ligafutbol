@@ -10,7 +10,9 @@
             </button>
         </div>
     </div>
-
+    <div class="flex text-left">
+        <p class="text-xl font-bold" >{{$team->category->name}} {{__('Team: ') . ' ' . $team->name}}</p>
+    </div>
     {{-- Formulario: Nombre - Apellido - Sexo - Fecha de nacimiento --}}
     <div class="flex flex-wrap mt-2">
         {{-- Nombre(s) --}}
