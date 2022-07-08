@@ -28,6 +28,10 @@ class Category extends Model
             return $this->hasMany(Team::class);
         }
 
+        public function teams_user($user_id){
+            return $this->hasMany(Team::class)->where('user_id',$user_id);
+        }
+
         public function payment(){
             return $this->belongsTo(Payment::class,'payment_id');
         }

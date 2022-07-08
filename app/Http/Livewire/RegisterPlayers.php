@@ -49,10 +49,12 @@ class RegisterPlayers extends Component {
         }else{
 
             $this->user = User::TokenRegisterPlayers($token)->first();
+
             if($this->user){
                 $this->read_categories_to_user();
             }
          }
+
          $this->readSettings();
     }
 
@@ -62,7 +64,6 @@ class RegisterPlayers extends Component {
     */
 
     public function render() {
-
         return view('livewire.register_players.index');
     }
 
@@ -129,6 +130,11 @@ class RegisterPlayers extends Component {
         }
     }
 
+
+    public function read_team_category(Team $team){
+        $this->team = $team;
+        $this->team_id = $this->team->id;
+    }
     /*+--------------------+
 	  | Recarga jugadores  |
 	  +--------------------+
@@ -147,3 +153,4 @@ class RegisterPlayers extends Component {
         $this->next_register_players = true;
     }
 }
+
