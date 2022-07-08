@@ -12,14 +12,12 @@
             </thead>
             <tbody>
                 @foreach($records as $record)
-
                         <tr class="border-2">
                             <td class="border-2">{{$record->name}}</td>
                             <td class="border-2">{{$record->email}}</td>
-
                             <td  class="flex flex-wrap">
                                 @if ($record->token_register_teams)
-                                    <span class="underline underline-offset-1 text-blue-500">
+                                    <span class="underline underline-offset-1 text-gray-700">
                                         {{__('https://equipos.galvestoncup.com/register_teams')}}/{{$record->token_register_teams}}
                                     </span>
                                 @else

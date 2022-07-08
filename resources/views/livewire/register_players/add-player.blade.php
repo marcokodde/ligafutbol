@@ -90,7 +90,6 @@
                 @include('livewire.register_players.birthday_dropdowns')
                 @error('birthday') <label class="text-sm text-red-500" >{{$message}}</label>@enderror
             </div>
-        @endif
 
         {{-- Botón Para Agregar --}}
         @if($first_name && $last_name && $gender && $birth_year && $birth_month && $birth_day)

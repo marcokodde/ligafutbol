@@ -36,8 +36,8 @@
         </h3>
     </div>
     <hr class="border-2 border-gray-500">
-        {{-- @include('livewire.register_players.team_list_to_register_roster') --}}
-        @include('livewire.register_players.select_category_and_team')
+        @include('livewire.register_players.team_list_to_register_roster')
+        {{--  @include('livewire.register_players.select_category_and_team')
 
         <div class="relative text-sm font-medium leading-6">
             <div class="flex gap-2 justify-center items-center">
@@ -61,6 +61,6 @@
                     @endif
                 </div>
             </div>
-        </div>
+        </div>  --}}
     @endif
 </div>

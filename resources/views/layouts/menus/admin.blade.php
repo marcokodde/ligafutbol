@@ -100,7 +100,12 @@
         </li>
         <li>
             <a href="{{url('users/token')}}">
-                <span>{{__('Coach List')}}</span>
+                <span>{{__('Coach List in Accordeon')}}</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{url('users/token_list')}}">
+                <span>{{__('Coach List in Table')}}</span>
             </a>
         </li>
     </ul>
