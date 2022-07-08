@@ -31,6 +31,7 @@ class RegisterPlayers extends Component {
     public $team_id = null;
     public $accept_responsibilities;
     public $next_register_players = false;
+    public $show_table = true;
 
     public $error_message   = null;
     public $finish          = false;
@@ -134,6 +135,7 @@ class RegisterPlayers extends Component {
     public function read_team_category(Team $team){
         $this->team = $team;
         $this->team_id = $this->team->id;
+        $this->show_table = false;
     }
     /*+--------------------+
 	  | Recarga jugadores  |
