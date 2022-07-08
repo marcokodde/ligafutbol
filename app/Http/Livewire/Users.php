@@ -38,7 +38,7 @@ class Users extends Component {
         $this->view_list  = 'livewire.users.list';
         $this->readRoles();
         $this->token = $token;
-        if ($this->token == "token") {
+        if ($this->token == "token" || $this->token == "token_list") {
             $this->manage_title = __('Coach List');
         }
     }
