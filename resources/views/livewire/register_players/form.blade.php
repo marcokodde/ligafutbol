@@ -37,30 +37,5 @@
     </div>
     <hr class="border-2 border-gray-500">
         @include('livewire.register_players.team_list_to_register_roster')
-        {{--  @include('livewire.register_players.select_category_and_team')
-
-        <div class="relative text-sm font-medium leading-6">
-            <div class="flex gap-2 justify-center items-center">
-                <div class="relative justify-center items-center mx-auto">
-                    @if($team_id)
-                        @if($team->players->count() < $general_settings->max_players_by_team )
-                            @livewire('add-player',['team' => $this->team,'user' => $user])
-                        @endif
-                    @endif
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="relative text-sm font-medium leading-6">
-            <div class="flex gap-2 justify-center items-center">
-                <div class="relative bg-sky-400/20 border border-sky-700/10 justify-center items-center mx-auto">
-                    @if($team_id)
-                        @if($team->players->count() > 0)
-                            @livewire('show-players-team',['team' => $this->team])
-                        @endif
-                    @endif
-                </div>
-            </div>
-        </div>  --}}
     @endif
 </div>
