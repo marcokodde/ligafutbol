@@ -125,5 +125,6 @@ Route::get('total_team_categories/{show?}', TotalTeamsByCategories::class)->name
 Route::get('users/{token?}', Users::class)->name('users');                                // Usuarios
 
 Route::get('payout', Payouts::class)->name('payout');
+Route::get('payout/{number_teams?}/{price?}', Payouts::class)->name('payout');
 
 Route::post('makepayout', [Payouts::class, 'makepayout'])->name('makepayout');

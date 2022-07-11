@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use Stripe;
 use Throwable;
 use Stripe\Charge;
 use App\Models\Payment;
+use Livewire\Component;
 use Illuminate\Http\Request;
+use App\Mail\ConfirmationMail;
 use App\Mail\MailNotification;
 use App\Models\EmailNotification;
 use Illuminate\Support\Facades\DB;
@@ -37,9 +38,9 @@ class Payouts extends Component
     public $error_stripe = null;
 
 
-    public function mount(){
-        $this->total_teams = 0;
-        $this->price_team = 0;
+    public function mount($number_teams=null, $price=null){
+        $this->total_teams = $number_teams;
+        $this->price_team = $price;
     }
 
     public function render()
@@ -71,7 +72,7 @@ class Payouts extends Component
             ]);
 
             if ($payment) {
-                $this->send_Mail_Confirmation($request->email, $request->name, $request->price_team, $request->total_teams);
+                $this->send_Mail_Confirmation($request->email, $request->price_team, $request->total_teams,  $token=null, $token_player=null);
                 //$this->send_notifications($request->name, 'noty_payment', $payment);
                 return redirect()->route('confirmation');
             }
@@ -83,51 +84,7 @@ class Payouts extends Component
     }
 
     // Correo al usuario de confirmación
-    public function send_Mail_Confirmation($request_email, $request_name, $total = null, $total_teams = null)
-    {
-        $email = $request->email;
-        $total = $request->name;
-        $total_teams = $reques->total_teams;
-        return Mail::to($email)->send(new ConfirmationMail($email, $total, $total_teams, $token, $token_player));
+    public function send_Mail_Confirmation($email, $total, $total_teams, $token=null, $token_player=null) {
+        return Mail::to($email)->send(new ConfirmationMail($email, $total, $total_teams, $token=null, $token_player=null));
     }
-
-    /** Envío de notificación a Email Notifications */
-    /* public function send_notifications($user, $type = 'noty_payment', Payment $payment = null, $amount = null, $total_teams = null)
-    {
-        $users_to_notify = EmailNotification::where('noty_payment', 1)->get();
-        $promoter = null;
-        if ($users_to_notify->count()) {
-            foreach ($users_to_notify as $user_to_notify) {
-                Mail::to($user_to_notify->email)->send(new MailNotification($user_to_notify->email, $type, $payment, $user, $amount, $total_teams, $this->error_stripe, $promoter));
-            }
-        }
-    } */
-
-    public function increament() {
-        $this->total_teams+=1;
-        $sql ="SELECT cost FROM cost_by_teams WHERE " . $this->total_teams . ' BETWEEN min AND max';
-        $this->records = DB::select($sql);
-        if ($this->records) {
-            foreach ($this->records as $record) {
-                $this->price_team = round($this->total_teams * $record->cost-10, 2);
-            }
-        }
-    }
-
-    public function decreament() {
-        if ($this->total_teams > 0) {
-            $this->total_teams-=1;
-            $sql ="SELECT cost FROM cost_by_teams WHERE " . $this->total_teams . ' BETWEEN min AND max';
-            $this->records = DB::select($sql);
-            if ($this->records) {
-                foreach ($this->records as $record) {
-                    $this->price_team = round($this->total_teams * $record->cost-10, 2);
-                }
-            }
-        } else {
-            $this->price_team = 0;
-            $this->total_teams = 0;
-        }
-    }
-
 }

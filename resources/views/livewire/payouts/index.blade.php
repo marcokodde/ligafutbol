@@ -56,11 +56,7 @@
                                     <label class="block lg:text-2xl sm:text-base text-gray-500 mb-4">{{__("Personal and payment data")}}</label>
                                     <div>
                                         <label class="block font-pop font-normal text-gray-600" for="fullname">{{ __('Number of Equipment to Pay') }}</label>
-                                        <button class="border border-blue-500 rounded px-2 py-2"
-                                            wire:click="increament()"><strong class="text-2xl">+</strong></button>
                                         <label class="text-2xl font-pop text-gray-600">{{$total_teams}}</label>
-                                        <button class="border border-red-500 rounded px-2 py-2"
-                                            wire:click="decreament()"><strong class="text-2xl">-</strong></button>
                                     </div>
                                     <div>
                                         <label class="block font-pop font-normal text-gray-600" for="fullname">{{ __('Full Name') }}</label>
@@ -191,7 +187,7 @@
                                                     title="{{__('Only Numbers')}}"
                                                 >
                                                 @error('card-cvc') <span class="text-red-500">{{ $message }}</span>@enderror
-                        
+
                                                 {{-- íconos de Tarjetas --}}
                                                 <span >
                                                     <div class="FormFieldInput-Icons inline mb-4" style="opacity: 1;">
@@ -256,57 +252,55 @@
 </div>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script>
-
-    $(function () {
-        var $form = $(".stripe-payment");
-        $('form.stripe-payment').bind('submit', function (e) {
-            var $form = $(".stripe-payment"),
-                inputVal = ['input[type=text]',
-                            'input[type=file]',
-                            'textarea'
-                            ].join(', '),
-                $inputs = $form.find('.required').find(inputVal),
-                $errorStatus = $form.find('div.error'),
-                valid = true;
-                $errorStatus.addClass('hide');
-            $('.has-error').removeClass('has-error');
-            $inputs.each(function (i, el) {
-                var $input = $(el);
-                if ($input.val() === '') {
-                    $input.parent().addClass('has-error');
-                    $errorStatus.removeClass('hide');
-                    e.preventDefault();
-                }
-            });
-            if (!$form.data('cc-on-file')) {
+$(function () {
+    var $form = $(".stripe-payment");
+    $('form.stripe-payment').bind('submit', function (e) {
+        var $form = $(".stripe-payment"),
+            inputVal = ['input[type=text]',
+                        'input[type=file]',
+                        'textarea'
+                        ].join(', '),
+            $inputs = $form.find('.required').find(inputVal),
+            $errorStatus = $form.find('div.error'),
+            valid = true;
+            $errorStatus.addClass('hide');
+        $('.has-error').removeClass('has-error');
+        $inputs.each(function (i, el) {
+            var $input = $(el);
+            if ($input.val() === '') {
+                $input.parent().addClass('has-error');
+                $errorStatus.removeClass('hide');
                 e.preventDefault();
-                Stripe.setPublishableKey($form.data('stripe-token-public'));
-                Stripe.createToken({
-                    number: $('.card-num').val(),
-                    cvc: $('.card-cvc').val(),
-                    exp_month: $('.card-expiry-month').val(),
-                    exp_year: $('.card-expiry-year').val()
-                }, stripeRes);
             }
         });
-
-        // Token Stripe
-        function stripeRes(status, response) {
-            if (response.error) {
-                $('.error')
-                    .removeClass('hide')
-                    .find('.alert-error');
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = response.error.message;
-            } else {
-                var token = response['id'];
-                $form.find('input[type=text]').empty();
-                $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-                document.getElementById("msg_processing_payment").style.display = "block";
-                document.getElementById("submit_form").style.display = "none";
-                $form.get(0).submit();
-            }
+        if (!$form.data('cc-on-file')) {
+            e.preventDefault();
+            Stripe.setPublishableKey($form.data('stripe-token-public'));
+            Stripe.createToken({
+                number: $('.card-num').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-expiry-year').val()
+            }, stripeRes);
         }
     });
 
+    // Token Stripe
+    function stripeRes(status, response) {
+        if (response.error) {
+            $('.error')
+                .removeClass('hide')
+                .find('.alert-error');
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = response.error.message;
+        } else {
+            var token = response['id'];
+            $form.find('input[type=text]').empty();
+            $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+            document.getElementById("msg_processing_payment").style.display = "block";
+            document.getElementById("submit_form").style.display = "none";
+            $form.get(0).submit();
+        }
+    }
+});
 </script>
