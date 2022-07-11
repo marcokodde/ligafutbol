@@ -729,19 +729,18 @@ public function create_user_without_payment(){
                 return 100;
     public function apply_coupon($total_teams){
         $this->coupon_applied = false;
-          $this->amount_with_coupon = $this->price_total;
+        $this->amount_with_coupon = $this->price_total;
           //TODO: ¿Que método de descuento aplicar?
         if($this->general_settings->active_coupon && $this->validate_key_to_coupon()){
-            $this->price_total = $this->price_total - $this->calculate_discount($total_teams,'fix_discount');
+            $this->price_total = $this->price_total - $this->calculate_discount($total_teams,'couppon');
         }else{
             $this->price_total = $this->price_total - $this->calculate_discount($total_teams);
             if($this->calculate_discount($total_teams) > 0 ){
-              $this->coupon_applied = true;
+                $this->coupon_applied = true;
             }
         }
-
-
     }
+
 
     // Importe a descontar del total
     private function calculate_discount($total_teams=0,$type='cost_by_team'){
@@ -764,22 +763,23 @@ public function create_user_without_payment(){
 
 
         // Importe fijo a descontar según cantidad de equipos
-
-        switch ($total_teams) {
-            case  1:
-                return 20;
-                break;
-            case 2:
-                return 30;
-                break;
-            case 3:
-                return 40;
-                break;
-            case 4:
-                return 50;
-                break;
-            default :
-                return 100;
+        if($type = 'couppon'){
+            switch ($total_teams) {
+                case  1:
+                    return 10;
+                    break;
+                case 2:
+                    return 30;
+                    break;
+                case 3:
+                    return 40;
+                    break;
+                case 4:
+                    return 50;
+                    break;
+                default :
+                    return 100;
+            }
         }
     }
 

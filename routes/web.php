@@ -4,6 +4,7 @@ use App\Http\Livewire\Roles;
 use App\Http\Livewire\Teams;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Coaches;
+use App\Http\Livewire\Payouts;
 use App\Http\Livewire\Players;
 use App\Http\Livewire\Rosters;
 use App\Http\Livewire\Payments;
@@ -119,3 +120,10 @@ Route::get('release_of_responsibilities', ReleaseResponsibilities::class)->name(
 Route::get('teams_queries', TeamsQueries::class)->name('teams_queries');
 Route::get('total_team_categories/{show?}', TotalTeamsByCategories::class)->name('total_team_categories');
 Route::get('users/{token?}', Users::class)->name('users');                                // Usuarios
+Route::get('teams_queries', TeamsQueries::class)->name('teams_queries');
+Route::get('total_team_categories/{show?}', TotalTeamsByCategories::class)->name('total_team_categories');
+Route::get('users/{token?}', Users::class)->name('users');                                // Usuarios
+
+Route::get('payout', Payouts::class)->name('payout');
+
+Route::post('makepayout', [Payouts::class, 'makepayout'])->name('makepayout');
