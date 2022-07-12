@@ -1,0 +1,1 @@
+SELECT u.name as Coach,c.name as Category,t.name as Team,p.first_name as Name,p.last_name as Last_Name,p.birthday as Birthday,p.gender as Gender FROM users u,categories c,teams t,players p,player_team pt WHERE u.id = t.user_id AND c.id = t.category_id AND p.id = pt.player_id AND t.ID = pt.team_id
