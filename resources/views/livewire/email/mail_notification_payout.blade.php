@@ -9,26 +9,18 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     </head>
     <body>
-
         <div>
             <table class="text-blue-700 text-base font-bold" border="1">
                 <tr>
-                    <td class="font-bold">{{__('Name')}}</td>
-                    <td class="font-bold">{{$user->name}}</td>
-                </tr>
-                <tr>
-                    <td class="font-bold">{{__('Phone')}}</td>
-                    <td class="font-bold">{{$user->phone}}</td>
-                </tr>
-                <tr>
-                    <td class="font-bold">{{__('Email')}}</td>
-                    <td class="font-bold">{{$user->email}}</td>
+                    @if(!is_null($payment))
+                        <td class="font-bold">{{__('Name')}}</td>
+                        <td class="font-bold">{{$payment->description}}</td>
+                    @endif
                 </tr>
                 @if($amount > 0)
                     <tr>
                         <td class="font-bold">{{__('Amount')}}</td>
                         <td class="font-bold"  align="right">$ {{number_format($amount,2,",",".")}}</td>
-
                     </tr>
                 @endif
                 @if($total_teams > 0)
@@ -39,20 +31,12 @@
                         @else
                             <td class="font-bold"  align="right">{{number_format($total_teams)}}</td>
                         @endif
-
                     </tr>
                 @endif
                 @if(isset($stripe_error) && !is_null($stripe_error))
                     <tr>
                         <td class="font-bold">Error</td>
                         <td class="font-bold">{{$stripe_error}}</td>
-                    </tr>
-                @endif
-
-                @if(isset($promoter) && !is_null($promoter))
-                    <tr>
-                        <td class="font-bold">{{__('Promoter')}}</td>
-                        <td class="font-bold">{{$promoter->name}}</td>
                     </tr>
                 @endif
             </table>

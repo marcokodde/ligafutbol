@@ -73,7 +73,21 @@ class Payouts extends Component
 
             if ($payment) {
                 $this->send_Mail_Confirmation($request->email, $request->price_team, $request->total_teams,  $token=null, $token_player=null);
-                //$this->send_notifications($request->name, 'noty_payment', $payment);
+                /* Correo para notificar a equipo Ahava */
+                $users_to_notify = EmailNotification::where('noty_payment', 1)->get();
+                if ($users_to_notify->count()) {
+                    foreach ($users_to_notify as $user_to_notify) {
+                        Mail::to($user_to_notify->email)
+                                ->send(new MailNotification($user_to_notify->email,
+                                                            $type="noty_payment",
+                                                            $payment,
+                                                            $user="null",
+                                                            $amount="null",
+                                                            $total_teams="null",
+                                                            $this->error_stripe="null",
+                                                            $promoter ="null"));
+                    }
+                }
                 return redirect()->route('confirmation');
             }
         } catch (\Throwable $exception) {
