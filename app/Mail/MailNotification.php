@@ -32,7 +32,7 @@ class MailNotification extends Mailable
     public $user_email;
     public $activity;
     public $stripe_error = null;
-    public $promoter=null;
+    public $promoter = null;
 
     /*+---------------------------------------------------------+
       |                 PARAMETROS                              |
@@ -48,7 +48,7 @@ class MailNotification extends Mailable
       +---------------------------------------------------------+
     */
 
-    public function __construct($email, $type=null, Payment $payment=null, $user=null, $amount=null, $total_teams=null, $stripe_error=null, $promoter=null)
+    public function __construct($email, $type = null, Payment $payment = null, $user = null, $amount = null, $total_teams = null, $stripe_error = null, $promoter = null)
     {
         $this->email        = $email;
         $this->type         = $type;
@@ -79,41 +79,76 @@ class MailNotification extends Mailable
                 break;
         }
         if ($this->payment) {
-            $this->name         = $this->payment->description;
-            $this->amount       = $this->payment->amount;
-            $this->total_teams  = $this->payment->source;
-        }
 
-        if ($this->user) {
-            $this->user_name    = $this->user->name;
-            $this->user_phone   = $this->user->phone;
-            $this->user_email   = $this->user->email;
-            $this->from($this->email,env('MAIL_FROM_NAME'))
-            ->subject('Galveston Cup 2022' . ' ' . $this->activity)
-            ->view('livewire.email.mail_notification')
-            ->with($this->activity,
-                $this->user_name,
-                $this->user_phone,
-                $this->user_email,
-                $this->type,
-                $this->payment,
-                $this->amount,
-                $this->total_teams,
-                $this->stripe_error,
-                $this->promoter
-            );
+
+            if (!is_null($this->payment)) {
+                $this->name         = $this->payment->description;
+                $this->amount       = $this->payment->amount;
+                $this->total_teams  = $this->payment->source;
+            }
+
+            if ($this->user) {
+                $this->user_name    = $this->user->name;
+                $this->user_phone   = $this->user->phone;
+                $this->user_email   = $this->user->email;
+                $this->from($this->email, env('MAIL_FROM_NAME'))
+                    ->subject('Galveston Cup 2022' . ' ' . $this->activity)
+                    ->view('livewire.email.mail_notification')
+                    ->with(
+                        $this->activity,
+                        $this->user_name,
+                        $this->user_phone,
+                        $this->user_email,
+                        $this->type,
+                        $this->payment,
+                        $this->amount,
+                        $this->total_teams,
+                        $this->stripe_error,
+                        $this->promoter
+                    );
+                return true;
+            }
+            $this->from($this->email, env('MAIL_FROM_NAME'))
+                ->subject('Galveston Cup 2022' . ' ' . $this->activity)
+                ->view('livewire.email.mail_notification_payout')
+                ->with(
+                    $this->activity,
+                    $this->name,
+                    $this->type,
+                    $this->payment,
+                    $this->amount,
+                    $this->total_teams
+                );
+
+            $this->from($this->email, env('MAIL_FROM_NAME'))
+                ->subject('Galveston Cup 2022' . ' ' . $this->activity)
+                ->view('livewire.email.mail_notification')
+                ->with(
+                    $this->activity,
+                    $this->user_name,
+                    $this->user_phone,
+                    $this->user_email,
+                    $this->type,
+                    $this->payment,
+                    $this->amount,
+                    $this->total_teams,
+                    $this->stripe_error,
+                    $this->promoter
+                );
             return true;
         }
-        $this->from($this->email,env('MAIL_FROM_NAME'))
-        ->subject('Galveston Cup 2022' . ' ' . $this->activity)
-        ->view('livewire.email.mail_notification_payout')
-        ->with($this->activity,
-            $this->name,
-            $this->type,
-            $this->payment,
-            $this->amount,
-            $this->total_teams
-        );
+
+        $this->from($this->email, env('MAIL_FROM_NAME'))
+            ->subject('Galveston Cup 2022' . ' ' . $this->activity)
+            ->view('livewire.email.mail_notification_payout')
+            ->with(
+                $this->activity,
+                $this->type,
+                $this->name,
+                $this->payment,
+                $this->amount,
+                $this->total_teams
+            );
         return true;
     }
 }
