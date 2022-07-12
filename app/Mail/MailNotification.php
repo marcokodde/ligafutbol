@@ -58,7 +58,6 @@ class MailNotification extends Mailable
         $this->total_teams  = $total_teams;
         $this->stripe_error = $stripe_error;
         $this->promoter     = $promoter;
-
     }
 
     /*+------------------------------------------+
@@ -79,17 +78,16 @@ class MailNotification extends Mailable
                 $this->activity = __('There was an error in a payment attempt');
                 break;
         }
-        $this->user_name    = $this->user->name;
-        $this->user_phone   = $this->user->phone;
-        $this->user_email   = $this->user->email;
-
-        if(!is_null($this->payment)){
+        if ($this->payment) {
             $this->name         = $this->payment->description;
             $this->amount       = $this->payment->amount;
             $this->total_teams  = $this->payment->source;
         }
 
         if ($this->user) {
+            $this->user_name    = $this->user->name;
+            $this->user_phone   = $this->user->phone;
+            $this->user_email   = $this->user->email;
             $this->from($this->email,env('MAIL_FROM_NAME'))
             ->subject('Galveston Cup 2022' . ' ' . $this->activity)
             ->view('livewire.email.mail_notification')
@@ -104,17 +102,18 @@ class MailNotification extends Mailable
                 $this->stripe_error,
                 $this->promoter
             );
-        } else {
-            $this->from($this->email,env('MAIL_FROM_NAME'))
-            ->subject('Galveston Cup 2022' . ' ' . $this->activity)
-            ->view('livewire.email.mail_notification_payout')
-            ->with($this->activity,
-                $this->type,
-                $this->name,
-                $this->payment,
-                $this->amount,
-                $this->total_teams
-            );
+            return true;
         }
+        $this->from($this->email,env('MAIL_FROM_NAME'))
+        ->subject('Galveston Cup 2022' . ' ' . $this->activity)
+        ->view('livewire.email.mail_notification_payout')
+        ->with($this->activity,
+            $this->name,
+            $this->type,
+            $this->payment,
+            $this->amount,
+            $this->total_teams
+        );
+        return true;
     }
 }
