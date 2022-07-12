@@ -23,3 +23,14 @@ LEFT JOIN zipcodes  	zip ON zip.zipcode = te.zipcode
 LEFT JOIN payments 		pay ON pay.id = te.payment_id
 WHERE us.id NOT IN (1,2,3)
 ORDER BY us.name,cat.name,te.name
+
+// Usuarios y Pagos
+SELECT us.name,pa.* FROM users us LEFT JOIN payments as pa ON us.id = pa.user_id
+
+// Equipos reservados por categoría
+SELECT cat.name,sum(tc.qty_teams) as reservados,sum(tc.registered_teams) as registrados
+FROM categories as cat,team_categories as tc
+WHERE cat.id = tc.category_id
+GROUP BY cat.name
+ORDER BY cat.name
+
