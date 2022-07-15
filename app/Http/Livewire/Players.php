@@ -35,6 +35,7 @@ class Players extends Component {
         if (Auth::user()->IsAdmin()) {
             $this->allow_create = false;
         }
+        $this->pagination = 11;
     }
 
 

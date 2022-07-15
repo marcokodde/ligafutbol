@@ -6,7 +6,11 @@
         <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600">{{ $record->user->name }}</td>
         <td class="border px-2 py-1 leading-relaxed sm:text-base md:text-xl xl:text-base text-gray-600">
             @foreach ($record->teams  as $team)
-                {{$team->name}}
+                @if ($team)
+                    {{$team->name}}
+                @else
+                    {{__('Not Registered')}}
+                @endif
             @endforeach
         </td>
     @endif
