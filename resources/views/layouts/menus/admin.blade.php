@@ -41,6 +41,20 @@
         </li>
 
         <li>
+            <a href="{{url('teams')}}">
+                <span class="icon"><i class="fas fa-address-card"></i></span>
+                <span>{{__('Teams')}}</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{url('players')}}">
+                <span class="icon"><i class=" fas fa-people-carry"></i></span>
+                <span>{{__('Players')}}</span>
+            </a>
+        </li>
+
+        <li>
             <a href="{{url('costs-by-team')}}">
                 <span class="icon"><i class="fa fa-money-bill"></i></span>
                 <span>{{__('Costs By Team')}}</span>

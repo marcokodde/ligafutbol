@@ -56,7 +56,7 @@
                                     <label class="block lg:text-2xl sm:text-base text-gray-500 mb-4">{{__("Personal and payment data")}}</label>
                                     <div>
                                         <label class="block font-pop font-normal text-gray-600" for="fullname">{{ __('Number of Equipment to Pay') }}</label>
-                                        <label class="text-2xl font-pop text-gray-600">{{$total_teams}}</label>
+                                        <label class="text-2xl font-pop text-gray-600 font-extrabold ml-4">{{$total_teams}}</label>
                                     </div>
                                     <div>
                                         <label class="block font-pop font-normal text-gray-600" for="fullname">{{ __('Full Name') }}</label>

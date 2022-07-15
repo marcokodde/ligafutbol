@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Player extends Model
 {
@@ -74,14 +75,21 @@ class Player extends Model
         $query->where('user_id',Auth::user()->id);
     }
 
+    // Nombre Completo
+    public function scopeFullName($query,$valor)
+    {
+        if ( trim($valor) != "") {
+            $valor =str_replace(' ','%',$valor);
+            $query->where(DB::raw("CONCAT(first_name,last_name)"), 'LIKE', "%$valor%");
+        }
+    }
 
     public function scopeName($query,$valor)
     {
-
         if ( trim($valor) != "") {
             $query->where('first_name','LIKE',"%$valor%")
                 ->orwhere('last_name','LIKE',"%$valor%");
-         }
+        }
     }
 
     public function scopeFirstName($query,$valor)
@@ -103,7 +111,7 @@ class Player extends Model
 
         if ( trim($gender) != "") {
             $query->where('gender',$gender);
-         }
+        }
     }
 
     public function scopeBirthDay($query,$birthday){
@@ -113,7 +121,10 @@ class Player extends Model
     public function scopeBirthDayFromTo($query,$from,$to){
         $query->whereBetween('birthday',[$from,$to]);
     }
-    public function scopeThisUserId($query,$user_id){
-        $query->where('user_id',$user_id);
+
+    public function scopeThisUserId($query, $user_id){
+        if ($user_id)
+        $query->where('user_id', '=', $user_id);
     }
+
 }

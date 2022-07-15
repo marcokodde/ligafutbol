@@ -34,3 +34,13 @@ WHERE cat.id = tc.category_id
 GROUP BY cat.name
 ORDER BY cat.name
 
+//Consulta general de Coach, Team
+
+SELECT usu.name as COACH, usu.phone as PHONE, usu.email as MAIL, cat.name AS CATEGORY,tea.name as TEAM,pla.first_name as PLAYER,pla.last_name as LAST_NAME,pla.birthday AS BIRTHDAY,if(pla.gender = 'Male', "BOY","GIRL") as GENDER,if(usu.accept_responsibilities is NOT NULL,"SI","NO") as ACCEPT_DESLINDE
+FROM users usu,categories cat,teams as tea,players pla,player_team plt
+WHERE usu.id = tea.user_id
+  AND cat.id = tea.category_id
+  AND pla.id = plt.player_id
+  AND tea.id = plt.team_id
+  AND usu.id NOT IN (1,2,3)
+ORDER BY CATEGORY,TEAM,PLAYER,COACH

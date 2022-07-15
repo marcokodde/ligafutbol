@@ -114,10 +114,10 @@ class Team extends Model
          }
     }
 
-    public function scopeByCategory($query,$valor)
+    public function scopeByCategory($query,$category_id)
     {
-        if ( $valor) {
-            $query->where('category_id',$valor);
+        if ( $category_id) {
+            $query->where('category_id','=',$category_id);
          }
     }
 

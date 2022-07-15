@@ -45,6 +45,13 @@ class Teams extends Component {
                                                         : __('Create') . ' ' . __('Team');
 
         $searchTerm = '%' . $this->search . '%';
+        if (Auth::user()->IsAdmin()) {
+            return view('livewire.index', [
+                'records' => Team::Name($searchTerm)
+                            ->ByCategory($this->category_id)
+                            ->paginate($this->pagination),
+            ]);
+        }
         return view('livewire.index', [
             'records' => Team::UserId()->Name($searchTerm)->paginate($this->pagination),
         ]);

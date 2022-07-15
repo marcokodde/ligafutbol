@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
+use App\Models\User;
 
-use App\Http\Livewire\Traits\CrudTrait;
 use App\Models\Player;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\Traits\CrudTrait;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Players extends Component {
     use AuthorizesRequests;
@@ -16,7 +17,8 @@ class Players extends Component {
     use CrudTrait;
 
     protected $listeners = ['destroy'];
-    public $first_name,$last_name,$birthday,$gender;
+    public $first_name, $last_name, $birthday, $gender;
+    public $coachs, $user_id;
 
     public function mount()
     {
@@ -26,6 +28,13 @@ class Players extends Component {
         $this->view_form = 'livewire.players.form';
         $this->view_table = 'livewire.players.table';
         $this->view_list  = 'livewire.players.list';
+        $this->view_search  = 'livewire.players.search';
+        $this->coachs = User::wherehas('roles',function($query) {
+            $query->where('name','coach');
+        })->get();
+        if (Auth::user()->IsAdmin()) {
+            $this->allow_create = false;
+        }
     }
 
 
@@ -39,6 +48,13 @@ class Players extends Component {
                                                         : __('Create') . ' ' . __('Player');
 
         $searchTerm = '%' . $this->search . '%';
+        if (Auth::user()->IsAdmin()) {
+            return view('livewire.index', [
+                'records' => Player::FullName($searchTerm)
+                            ->ThisUserId($this->user_id)
+                            ->paginate($this->pagination),
+            ]);
+        }
         return view('livewire.index', [
             'records' => Player::UserId()->Name($searchTerm)->paginate($this->pagination),
         ]);
