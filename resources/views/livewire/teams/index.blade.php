@@ -29,7 +29,7 @@
                         <tr class="lg:hover:bg-gray-100 lg:bg-gray-50">
                             <th class="text-gray-500 text-center text-3xl">{{ __('Category') }} </th>
                             <th class="text-gray-500 text-center text-3xl">{{ __('Team') }} </th>
-                            <th class="text-gray-500 text-center text-3xl">{{ __('Team Players') }} </th>
+                            <th class="text-gray-500 text-left text-3xl">{{ __('Team Players') }} </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,9 +41,11 @@
                         </td>
                         <td class="font-semibold text-center text-xl">
                             @foreach ($players as $player)
-                            <li class="font-semibold text-center text-xl">
-                                {{$loop->index+1}} {{$player->FullName}}
-                            </li>
+                            <table>
+                                <tr>
+                                    <td class="text-left">{{$loop->index+1}}.- {{$player->FullName}}</td>
+                                </tr>
+                            </table>
                             @endforeach
                         </td>
                     </tbody>
