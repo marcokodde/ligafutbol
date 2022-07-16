@@ -3,14 +3,16 @@
 namespace App\Http\Livewire;
 
 use App\Models\Team;
-
+use App\Models\Player;
 use App\Models\Zipcode;
 use Livewire\Component;
+
 use App\Models\Category;
+use App\Models\TeamCategory;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Livewire\Traits\CrudTrait;
-use App\Models\TeamCategory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Teams extends Component {
@@ -19,9 +21,10 @@ class Teams extends Component {
     use CrudTrait;
 
     protected $listeners = ['destroy'];
-    public $name,$category_id,$zipcode;
+    public $name, $category_id, $zipcode, $user_id;
     public $active = 1;
-    public $categories;
+    public $enabled = 1;
+    public $categories, $teams, $players;
 
     public function mount()
     {
@@ -31,6 +34,7 @@ class Teams extends Component {
         $this->view_form = 'livewire.teams.form';
         $this->view_table = 'livewire.teams.table';
         $this->view_list  = 'livewire.teams.list';
+        $this->view_search  = 'livewire.teams.search';
         $this->categories = Category::Active()->orderBy('date_from')->get();
     }
 
@@ -46,7 +50,7 @@ class Teams extends Component {
 
         $searchTerm = '%' . $this->search . '%';
         if (Auth::user()->IsAdmin()) {
-            return view('livewire.index', [
+            return view('livewire.teams.index', [
                 'records' => Team::Name($searchTerm)
                             ->ByCategory($this->category_id)
                             ->paginate($this->pagination),
@@ -65,7 +69,7 @@ class Teams extends Component {
 	private function resetInputFields() {
         $this->record_id = null;
         $this->record = null;
-        $this->reset(['name','category_id','zipcode','active']);
+        $this->reset(['name','category_id','zipcode','active', 'enabled']);
 	}
 
     /*+---------------------------------------------+
@@ -81,14 +85,13 @@ class Teams extends Component {
             'zipcode'       => 'required|min:3|max:5|exists:zipcodes,zipcode',
 		]);
 
-
-
 		Team::updateOrCreate(['id' => $this->record_id], [
-            'name'         => $this->name,
+            'name'          => $this->name,
 			'category_id'   => $this->category_id,
             'zipcode'       => $this->zipcode,
             'user_id'       => Auth::user()->id,
-            'active'        => $this->active ? 1 : 0
+            'active'        => $this->active ? 1 : 0,
+            'enabled'       => $this->enabled ? 1 : 0
 		]);
 
         //TODO: Probar elAgregar para que sume los equipos por categoría. (lugares disponibles)
@@ -120,6 +123,7 @@ class Teams extends Component {
 		$this->category_id  = $record->category_id;
 		$this->zipcode      = $record->zipcode;
         $this->active       = $record->active;
+        $this->enabled       = $record->enabled;
         $this->town_state   = $record->zipcodex->town . ',' . $record->zipcodex->state;
 
 		$this->openModal();
@@ -159,6 +163,20 @@ class Teams extends Component {
             } else {
                 $this->town_state = __('Zipcode does not Exists');
             }
+        }
+    }
+
+    public function read_teams() {
+        if($this->category_id){
+            $this->category = Category::findOrFail($this->category_id);
+            $this->teams = $this->category->teams()->get();
+        }
+    }
+
+    public function read_players() {
+        if($this->user_id){
+            $this->team = Team::findOrFail($this->user_id);
+            $this->players = $this->team->players()->get();
         }
     }
 }

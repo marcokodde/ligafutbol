@@ -56,6 +56,16 @@ class Players extends Component {
                             ->paginate($this->pagination),
             ]);
         }
+
+        if($this->only_linked){
+            return view('livewire.index', [
+                'records' => Player::wherehas('teams',function(Builder $query){
+                                            $query->where('user_id','=', $this->user_id);
+                                        })->where('name', 'like', $searchTerm)
+                                        ->orderBy('name')
+                                        ->paginate($this->pagination),
+            ]);
+        }
         return view('livewire.index', [
             'records' => Player::UserId()->Name($searchTerm)->paginate($this->pagination),
         ]);
