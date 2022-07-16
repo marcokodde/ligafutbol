@@ -117,9 +117,18 @@
     </ul>
 </li>
 
-<li>
+{{-- <li>
     <a href="{{url('players')}}">
         <span class="icon"><i class=" fas fa-people-carry"></i></span>
         <span>{{__('Players')}}</span>
     </a>
+</li> --}}
+
+
+<li>
+    <a href="{{url('query_rosters')}}">
+        <span class="icon"><i class="mdi mdi-account-box-multiple-outline"></i></span>
+        <span>{{__('Query Rosters')}}</span>
+    </a>
 </li>
+

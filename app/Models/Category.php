@@ -45,6 +45,13 @@ class Category extends Model
             return $this->hasMany(TeamCategory::class,'category_id')->whereNotNull('payment_id')->sum('qty_teams');
         }
 
+        // Jugadores a través de quipos al que pertenece un jugador
+        public function players()
+        {
+            return $this->hasManyThrough(PlayerTeam::class, Team::class);
+        }
+
+
     /*+-----------------+
       | Funciones Apoyo |
       +-----------------+

@@ -35,6 +35,7 @@ use App\Http\Livewire\TemporalController;
 use App\Http\Livewire\TotalTeamsByCategories;
 use App\Http\Livewire\ReleaseResponsibilities;
 use App\Http\Controllers\ConfirmationController;
+use App\Http\Livewire\QueryRosters;
 
 require 'pruebas.php';
 
@@ -128,3 +129,5 @@ Route::get('payout', Payouts::class)->name('payout');
 Route::get('payout/{number_teams?}/{price?}', Payouts::class)->name('payout');
 
 Route::post('makepayout', [Payouts::class, 'makepayout'])->name('makepayout');
+
+Route::get('query_rosters', QueryRosters::class)->name('query_rosters');
