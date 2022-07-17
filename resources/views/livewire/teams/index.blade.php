@@ -40,13 +40,26 @@
                             {{$team->name}}
                         </td>
                         <td class="font-semibold text-center text-xl">
-                            @foreach ($players as $player)
                             <table>
-                                <tr>
-                                    <td class="text-left">{{$loop->index+1}}.- {{$player->FullName}}</td>
-                                </tr>
+                                @foreach ($players as $player)
+                                    @if ($loop->first)
+                                        <thead>
+                                            <tr class="hover:bg-gray-300 bg-gray-100">
+                                                <th class="px-4 py-2 w-80">{{__("Name")}}</th>
+                                                <th class="px-4 py-2 text-left">{{__("Birthday")}}</th>
+                                                <th class="px-4 py-2 text-left">{{__("Gender")}}</th>
+                                            </tr>
+                                        </thead>
+                                    @endif
+                                    <tbody>
+                                        <tr class="hover:bg-gray-300 bg-gray-100">
+                                            <td class="text-left">{{$loop->index+1}}.- {{$player->FullName}}</td>
+                                            <td>{{$player->birthday}}</td>
+                                            <td>{{$player->gender}}</td>
+                                        </tr>
+                                    </tbody>
+                                @endforeach
                             </table>
-                            @endforeach
                         </td>
                     </tbody>
                 </table>

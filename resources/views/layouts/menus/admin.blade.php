@@ -70,6 +70,7 @@
 
     </ul>
 </li>
+
 <li>
     <a class="dropdown">
         <span class="icon"><i class="mdi mdi-settings"></i></span>
@@ -118,13 +119,13 @@
         <span>{{__('Teams')}}</span>
     </a>
 </li>
+
 <li>
     <a href="{{url('players')}}">
         <span class="icon"><i class=" fas fa-people-carry"></i></span>
         <span>{{__('Players')}}</span>
     </a>
-</li> --}}
-
+</li>
 
 <li>
     <a href="{{url('query_rosters')}}">
@@ -133,4 +134,5 @@
     </a>
 </li>
 
+</li>
 </li>

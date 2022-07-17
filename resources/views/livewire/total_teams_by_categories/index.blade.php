@@ -21,11 +21,16 @@
                 <div class="bg-gray-300 rounded-lg">
                     @if ($record->category->teams->count())
                         @foreach ($record->category->teams as $team)
-                            <p class="p-5 font-pop">
+                            <p class="p-2 font-pop">
                                 <strong>{{$loop->index +1}} .- {{__('Team')}}:</strong>
+                                @if ($team->name)
                                 <span>{{$team->name}} ,</span>
+                                @endif
+                                
                                 <strong>{{__('Coach')}}:</strong>
+                                @if ($team->user)
                                 <span>{{$team->user->name}}.</span>
+                                @endif
                             </p>
                         @endforeach
                     @else
