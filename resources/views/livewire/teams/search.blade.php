@@ -4,12 +4,14 @@
             {{__('Search')}}
             <i class="mdi mdi-book-search-outline" style="font-size: 1.5rem;"></i>
         </label>
-        <div>
-            <input class="form-control px-2 py-2 border border-blue-600"
-                wire:model="search"
-                placeholder="{{__($search_label)}}"
-            >
-        </div>
+        @if (!$category_id && !$user_id)
+            <div>
+                <input class="form-control px-2 py-2 border border-blue-600"
+                    wire:model="search"
+                    placeholder="{{__($search_label)}}"
+                >
+            </div>
+        @endif
     </div>
     @if (Auth::user()->IsAdmin())
         <div>

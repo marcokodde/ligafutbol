@@ -19,7 +19,7 @@
     @endif
 
     {{-- Detalle de registros --}}
-    
+
     <div class="card-content">
         <div class="card-content">
             @if ($user_id)
@@ -55,7 +55,19 @@
                                         <tr class="hover:bg-gray-300 bg-gray-100">
                                             <td class="text-left">{{$loop->index+1}}.- {{$player->FullName}}</td>
                                             <td>{{$player->birthday}}</td>
-                                            <td>{{$player->gender}}</td>
+                                            <td>
+                                                @if ($player->gender == 'Female')
+                                                    <img src="{{asset('images/girl.jfif')}}"
+                                                        alt="{{ __($player->gender) }}"
+                                                        class="h-10 w-10 rounded-full object-cover"
+                                                    >
+                                                @else
+                                                    <img src="{{asset('images/boy.jfif')}}"
+                                                        alt="{{ __($player->gender) }}"
+                                                        class="h-10 w-10 rounded-full object-cover text-center"
+                                                    >
+                                                @endif
+                                            </td>
                                         </tr>
                                     </tbody>
                                 @endforeach
