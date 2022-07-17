@@ -73,7 +73,8 @@ class QueryRosters extends Component {
         $this->teams = null;
         if($this->category_id){
             $category = Category::findOrFail($this->category_id);
-            $this->teams = $category->teams()->orderby('name')->get();
+            $this->teams = Team::wherehas('players')->where('category_id',$this->category_id)->get();
+           // $this->teams = $category->teams()->orderby('name')->get();
         }
 
     }
