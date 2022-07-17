@@ -4,8 +4,6 @@
         <th class="px-4 py-2">{{__("Category")}}</th>
         <th class="px-4 py-2">{{__("Zipcode")}}</th>
         <th class="px-4 py-2">{{__("City")}}</th>
-        <th class="px-4 py-2">{{__("Active")}}</th>
-        <th class="px-4 py-2">{{__("Enabled")}}</th>
         <th colspan="3" class="px-4 py-2 text-center">{{__("Actions")}}</th>
     </tr>
 </thead>
