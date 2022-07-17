@@ -20,7 +20,7 @@ class QueryRosters extends Component {
 
 
     public $categories,$category_id;
-    public $teams,$team_id;
+    public $teams=null,$team_id=null;
     public $type = 'player';
 
     public function mount(){
@@ -67,6 +67,16 @@ class QueryRosters extends Component {
 
 
 	}
+
+    // Llena equipos al cambiar la categoría
+    public function read_teams(){
+        $this->teams = null;
+        if($this->category_id){
+            $category = Category::findOrFail($this->category_id);
+            $this->teams = $category->teams()->orderby('name')->get();
+        }
+
+    }
 
 }
 
