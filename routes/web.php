@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Livewire\Languages;
+use App\Http\Livewire\Positions;
+use App\Http\Livewire\Statuses;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +28,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('statuses', Statuses::class)->name('statuses');                  // Estados de registros
+    Route::get('positions',Positions::class)->name('positions');                // Puestos
 });

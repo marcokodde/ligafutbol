@@ -1,0 +1,49 @@
+{
+
+    "Position": "Puesto",
+    "Positions": "Puestos",
+    "Position Name": "Nombre Puesto",
+
+
+    "Languages": "Idiomas",
+    "Manage Languages": "Gestión de Idiomas",
+    "Language": "Idioma",
+
+
+    "Dashboard": "Panel Inicial",
+    "Configuration": "Configuración",
+    "Manage": "Gestión",
+    "Status Name": "Nombre de Estado",
+    "Customer": "Cliente",
+    "No Records Found": "No hay resultados",
+    "First Name": "Nombre",
+    "Last Name": "Apellido",
+    "Phone": "Teléfono",
+    "Email": "Correo Electrónico",
+    "Zipcode": "Código Postal",
+    "Name or Phone": "Nombre o Teléfono",
+    "Actions": "Acciones",
+
+    "It can't delete": "No se puede borrar",
+    "Statuses": "Estados de Registros",
+    "Status": "Estado",
+    "Short": "Corto",
+    "Spanish": "Español",
+    "Short Spanish": "Corto en Español:",
+    "English": "Inglés",
+    "Short English": "Corto en Inglés",
+
+    "Log Out": "Cerrar Sesión",
+    "Profile": "Perfil",
+    "Manage Account": "Gestión de Cuenta",
+
+    "Cancel": "Cancelar",
+    "Save": "Guardar",
+    "Edit": "Editar",
+    "Delete": "Eliminar",
+    "Create": "Crear",
+    "Update": "Actualizar",
+    "Deleted Successfully!!": "Eliminado Satisfactoriamente",
+    "Updateted Successfully!!": "Actualizado Correctamente",
+    "Created Successfully!!": "Creado Satisfactoriamente"
+}
