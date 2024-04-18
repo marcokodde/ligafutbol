@@ -42,7 +42,7 @@
         @endif
         @if (isset($header))
             <section class="is-hero-bar">
-                <div class="flex flex-col md:flex-row space-y-6 md:space-y-0">
+                <div class="flex flex-col space-y-6 md:flex-row md:space-y-0">
                     <h1 class="title">
                         {{ $header ?? '' }}
                     </h1>

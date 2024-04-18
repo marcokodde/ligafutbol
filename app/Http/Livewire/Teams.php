@@ -3,10 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Team;
-use App\Models\Player;
-use App\Models\Zipcode;
 use Livewire\Component;
-
 use App\Models\Category;
 use App\Models\TeamCategory;
 use Livewire\WithPagination;
@@ -90,7 +87,6 @@ class Teams extends Component
         $this->validate([
             'name' => 'required|min:3|max:50',
             'category_id' => 'required|not_in:Elegir|not_in:Choose|exists:categories,id',
-            'zipcode' => 'required|min:3|max:5|exists:zipcodes,zipcode',
         ]);
 
         Team::updateOrCreate(
@@ -98,7 +94,6 @@ class Teams extends Component
             [
                 'name' => $this->name,
                 'category_id' => $this->category_id,
-                'zipcode' => $this->zipcode,
                 'user_id' => Auth::user()->id,
                 'active' => $this->active ? 1 : 0,
                 'enabled' => $this->enabled ? 1 : 0,
@@ -135,7 +130,6 @@ class Teams extends Component
         $this->zipcode = $record->zipcode;
         $this->active = $record->active;
         $this->enabled = $record->enabled;
-        $this->town_state = $record->zipcodex->town . ',' . $record->zipcodex->state;
 
         $this->openModal();
     }
@@ -159,23 +153,6 @@ class Teams extends Component
         }
     }
 
-    /*+---------------------+
- | Lee Zonta Postal    |
- +---------------------+
-    */
-
-    public function read_zipcode()
-    {
-        $this->town_state = null;
-        if ($this->zipcode) {
-            $zipcode = Zipcode::Zipcode($this->zipcode)->first();
-            if ($zipcode) {
-                $this->town_state = $zipcode->town . ',' . $zipcode->state;
-            } else {
-                $this->town_state = __('Zipcode does not Exists');
-            }
-        }
-    }
 
     public function read_teams()
     {

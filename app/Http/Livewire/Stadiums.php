@@ -21,6 +21,7 @@ class Stadiums extends Component
     {
         $this->authorize('hasaccess', 'stadiums.index');
         $this->manage_title = __('Manage') . ' ' . __('Stadiums');
+
         $this->search_label = "Stadium Name";
         $this->view_form = 'livewire.stadiums.form';
         $this->view_table = 'livewire.stadiums.table';

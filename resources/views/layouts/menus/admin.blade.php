@@ -112,7 +112,7 @@
     </ul>
 </li>
 
-{{-- <li>
+
 <li>
     <a href="{{url('teams')}}">
         <span class="icon"><i class="fas fa-address-card"></i></span>
@@ -134,5 +134,24 @@
     </a>
 </li>
 
+<li>
+    <a href="{{url('referees')}}">
+        <span class="icon"><i class=" fas fa-people-carry"></i></span>
+        <span>{{__('Referees')}}</span>
+    </a>
 </li>
+
+
+<li>
+    <a href="{{url('stadiums')}}">
+        <span class="icon"><i class="mdi mdi-account-box-multiple-outline"></i></span>
+        <span>{{__('Stadiums')}}</span>
+    </a>
+</li>
+
+<li>
+    <a href="{{url('tournaments')}}">
+        <span class="icon"><i class="fas fa-address-card"></i></span>
+        <span>{{__('Tournaments')}}</span>
+    </a>
 </li>

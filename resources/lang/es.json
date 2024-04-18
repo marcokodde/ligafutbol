@@ -323,5 +323,11 @@
     "If you desire register your teams now": "Si desea registrar sus equipos ahora por favor",
 
     "In order to complete your registration, you need to process the payment.":"Para completar el registro de tus equipos es necesario Procesar el Pago.",
-    "Your teams won't be registered without payment.":"Los equipos no seran registrados si no se tienen un pago registrado."
+    "Your teams won't be registered without payment.":"Los equipos no seran registrados si no se tienen un pago registrado.",
+    "Referees":"Arbitros",
+    "Referee":"Arbitro",
+    "Stadiums":"Campos",
+    "Stadium":"Campo Deportivo",
+    "Place":"Lugar",
+    "Location":"Ubicación"
 }

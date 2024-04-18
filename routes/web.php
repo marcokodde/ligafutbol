@@ -12,14 +12,14 @@ use App\Http\Livewire\Settings;
 use App\Http\Livewire\Statuses;
 use App\Http\Livewire\Promoters;
 use App\Http\Livewire\Categories;
-use App\Http\Livewire\CoachTeams;
+
 use App\Http\Livewire\Exceptions;
 use App\Http\Livewire\ClearTables;
 use App\Http\Livewire\CoachesTeam;
 use App\Http\Livewire\CostsByTeam;
 use App\Http\Livewire\Permissions;
 use App\Http\Livewire\PlayersTeam;
-use App\Http\Livewire\Confirmation;
+
 use App\Http\Livewire\TeamsQueries;
 use Illuminate\Support\Facades\App;
 use App\Http\Livewire\RegisterTeams;
@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\QuestionAnswers;
 use App\Http\Livewire\RegisterPlayers;
 use App\Http\Livewire\RolePermissions;
-use App\Http\Livewire\TermsConditions;
+
 use App\Http\Livewire\AccordeonQuestions;
 use App\Http\Livewire\EmailNotifications;
 use App\Http\Livewire\TemporalController;
@@ -36,6 +36,9 @@ use App\Http\Livewire\TotalTeamsByCategories;
 use App\Http\Livewire\ReleaseResponsibilities;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Livewire\QueryRosters;
+use App\Http\Livewire\Referees;
+use App\Http\Livewire\Stadiums;
+use App\Http\Livewire\Tournaments;
 
 require 'pruebas.php';
 
@@ -72,6 +75,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('categories', Categories::class)->name('categories');                 // Categor铆as
     Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
     Route::get('settings', Settings::class)->name('settings');                       // Configuraci贸n
+    Route::get('categories', Categories::class)->name('categories');                 // Categor铆as
+    Route::get('costs-by-team', CostsByTeam::class)->name('costs-by-team');          // Costos x Equipo
+    Route::get('settings', Settings::class)->name('settings');                       // Configuraci贸n
+    Route::get('referees', Referees::class)->name('referees');                       // Crear Arbitros
+    Route::get('stadiums', Stadiums::class)->name('stadiums');                       // Crear Campos
+    Route::get('tournaments', Tournaments::class)->name('tournaments');              // Crear Torneos
+
     // Acciones del usuario Coach
     Route::get('teams', Teams::class)->name('teams');                                // Equipos
     Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores
@@ -81,6 +91,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('promoters', Promoters::class)->name('promoters');            // Asignar Jugadores a Equipos
 
 
+    Route::get('coaches-team', CoachesTeam::class)->name('coaches-team');            // Asignar Coach a Equipos
+    Route::get('players-team', PlayersTeam::class)->name('players-team');            // Asignar Jugadores a Equipos
+    Route::get('promoters', Promoters::class)->name('promoters');                    // Asignar Jugadores a Equipos
 });
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
@@ -126,6 +139,7 @@ Route::get('total_team_categories/{show?}', TotalTeamsByCategories::class)->name
 Route::get('users/{token?}', Users::class)->name('users');                                // Usuarios
 
 Route::get('payout', Payouts::class)->name('payout');
+
 Route::get('payout/{number_teams?}/{price?}', Payouts::class)->name('payout');
 
 Route::post('makepayout', [Payouts::class, 'makepayout'])->name('makepayout');
