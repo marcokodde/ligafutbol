@@ -329,5 +329,7 @@
     "Stadiums":"Campos",
     "Stadium":"Campo Deportivo",
     "Place":"Lugar",
-    "Location":"Ubicación"
+    "Location":"Ubicación",
+    "Tournament":"Torneo",
+    "Tournaments":"Torneos"
 }
