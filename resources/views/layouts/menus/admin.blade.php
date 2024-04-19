@@ -155,3 +155,17 @@
         <span>{{__('Tournaments')}}</span>
     </a>
 </li>
+
+<li>
+    <a href="{{route('rounds')}}">
+        <span class="icon"><i class="mdi mdi-calendar-month"></i></span>
+        <span>{{__('Rounds')}}</span>
+    </a>
+</li>
+
+<li>
+    <a href="{{route('games')}}">
+        <span class="icon"><i class="mdi mdi-soccer-field"></i></span>
+        <span>{{__('Games')}}</span>
+    </a>
+</li>

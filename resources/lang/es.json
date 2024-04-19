@@ -331,5 +331,10 @@
     "Place":"Lugar",
     "Location":"Ubicación",
     "Tournament":"Torneo",
-    "Tournaments":"Torneos"
+    "Tournaments":"Torneos",
+    "Game":"Juego",
+    "Games":"Juegos",
+    "Score":"Marcador",
+    "Visit":"Visitante",
+    "Request Score":"Pide Marcador"
 }

@@ -115,23 +115,8 @@ class Payments extends Component
         3 => [
             'password'  =>  'nullable|min:6',
             "password_confirmation" => "nullable|min:6|max:50|same:password",
-        ],
+        ]
     ];
-            1 => [
-                'fullname'  =>  'required',
-                'phone'     =>  'required|digits_between:7,10',
-                'email'     =>  'required',
-            ],
-            2 => [
-                'quantity_teams' => 'required',
-                'price_total'   => 'required',
-            ],
-            3 => [
-                'password'  =>  'nullable|min:6',
-                "password_confirmation" => "nullable|min:6|max:50|same:password",
-                "accept_terms"  => 'required',
-            ],
-        ];
 
     // Evaluá y en su caso  envía a donde corresponda
     public function render()
@@ -142,13 +127,12 @@ class Payments extends Component
         return view('livewire.payments.new_payment');
     }
 
+
+    /** Procesa el pago */
     public function makepayment(Request $request)
     {
-        if (isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
-    /** Procesa el pago */
-    public function makepayment(Request $request) {
 
-        if(isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
+        if (isset($request->promoter_id)) $this->promoter_id = $request->promoter_id;
         $procesado = false;
         $this->charge = null;
         $this->error_stripe = null;
@@ -159,6 +143,7 @@ class Payments extends Component
         $this->user_without_payment = UserWithoutPayments::findOrFail($request->id_user);
 
         $this->has_promoter_code = is_null($request->promoter_id) ? false : true;
+
         if ($this->has_promoter_code) {
             $this->promoter_code_id = Promoter::findOrFail($request->promoter_id);
         }
@@ -179,36 +164,29 @@ class Payments extends Component
             //         "source"        => $request->stripeToken,
             //         "description"   => $request->name,
             // ]);
-                    "amount"        => $request->price_total * 100,
-                    "currency"      => "USD",
-                    "source"        => $request->stripeToken,
-                    "description"   => $request->name,
-            ]);
 
-            if( $this->charge ) {
-
-                if($request->new_user) {
+            if ($this->charge) {
+                if ($request->new_user) {
                     $this->useradd =  $this->create_user($request->password);
                     $this->create_coach($this->useradd);
                     $this->assign_coach_role($this->useradd);
-                }else{
+                } else {
                     $this->useradd = User::findOrFail($request->user_id);
-                    $this->user_without_payment = UserWithoutPayments::where('email',$this->useradd)
-                                                    ->where('phone',$this->useradd)
-                                                    ->first();
+                    $this->user_without_payment = UserWithoutPayments::where('email', $this->useradd)
+                        ->where('phone', $this->useradd)
+                        ->first();
                 }
-
                 $payment = null;
-                if(!$procesado){
-                    $payment = $this->create_payment($this->useradd,
-                                                    $request->name,
-                                                    $request->price_total,
-                                                    $request->total_teams,
-                                                    $request->promoter_id );
+                if (!$procesado) {
+                    $payment = $this->create_payment(
+                        $this->useradd,
+                        $request->name,
+                        $request->price_total,
+                        $request->total_teams,
+                        $request->promoter_id
+                    );
                 }
-
-
-
+            }
 
             if ($payment) {
                 $this->updateUserTokens();
@@ -218,38 +196,39 @@ class Payments extends Component
                 $this->send_notifications($this->useradd, 'noty_payment', $payment); // Notificación
                 if ($this->has_promoter_code) {
                     $this->send_mail_to_promoter($payment);
-                if($payment){
+                    if ($payment) {
 
-                    $this->updateUserTokens($this->useradd);
-                    $this->create_Teamcategory($this->useradd,$payment,$request);
+                        $this->updateUserTokens($this->useradd);
+                        $this->create_Teamcategory($this->useradd, $payment, $request);
 
-                    $this->user_without_payment = UserWithoutPayments::where('email',$this->useradd->email)
-                                                                    ->where('phone',$this->useradd->phone)
-                                                                    ->first();
-                    if($this->user_without_payment){
-                        $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
+                        $this->user_without_payment = UserWithoutPayments::where('email', $this->useradd->email)
+                            ->where('phone', $this->useradd->phone)
+                            ->first();
+                        if ($this->user_without_payment) {
+                            $this->user_without_payment->delete();                              // Se elimina de usuarios sin pago
+                        }
+
+                        $this->send_Mail_Confirmation($this->useradd, $request->price_total, $request->total_teams);
+
+                        $this->send_notifications($this->useradd, 'noty_payment', $payment);      // Notificaciónes
+                        $this->send_Mail_Confirmation($request);
+
+                        $this->send_notifications($this->useradd, 'noty_payment', $payment); // Notificación
+
+                        if ($this->has_promoter_code) {
+                            $this->send_mail_to_promoter($payment);
+                        }
+
+                        $procesado = true;
+
+                        return redirect()->route('confirmation');
                     }
-
-                   $this->send_Mail_Confirmation( $this->useradd,$request->price_total,$request->total_teams);
-
-                   $this->send_notifications($this->useradd ,'noty_payment',$payment);      // Notificaciónes
-                    $this->send_Mail_Confirmation($request);
-
-                    $this->send_notifications($this->useradd ,'noty_payment',$payment); // Notificación
-
-                    if ($this->has_promoter_code) {
-                        $this->send_mail_to_promoter($payment);
-                    }
-
-                    $procesado = true;
-
-                    return redirect()->route('confirmation');
                 }
             }
         } catch (\Throwable $exception) {
             $this->send_notifications($this->user_without_payment, 'noty_without_payment', null, $request->price_total, $request->total_teams);
             //$this->send_notifications($this->user_without_payment,'noty_without_payment',null,$request->price_total,$request->total_teams);
-            $this->send_notifications($this->user_without_payment,'noty_without_payment',null,$request->price_total,$request->total_teams);
+            $this->send_notifications($this->user_without_payment, 'noty_without_payment', null, $request->price_total, $request->total_teams);
             $this->error_stripe = $exception->getMessage();
             if ($this->has_promoter_code) {
                 return redirect()->route('error', [$this->error_stripe, $this->promoter_code_id->code]);
@@ -258,38 +237,33 @@ class Payments extends Component
             }
         }
     }
-/** Valida Teléfono y correo */
-    public function validate_phone_and_email(){
+    /** Valida Teléfono y correo */
+    public function validate_phone_and_email()
+    {
         $this->same_phone_and_email = false;
 
         if ($this->phone && $this->email) {
 
             $this->user = User::where('phone', $this->phone)
-                            ->orWhere('email',$this->email)->first();
+                ->orWhere('email', $this->email)->first();
 
             $this->same_phone_and_email = !$this->user;
 
-            if($this->user && $this->user->phone == $this->phone && $this->user->email== $this->email)
+            if ($this->user && $this->user->phone == $this->phone && $this->user->email == $this->email)
                 $this->same_phone_and_email = true;
         }
     }
 
+
     /** Graba registro en tabla de Usuarios Sin pagos */
     public function create_user_without_payment()
     {
+
         $this->validate([
             'fullname'  =>  'required|min:3|max:50',
-            'phone'     =>  'required|unique:users',
-            'email'     =>  'required|unique:users',
+            'phone'     =>  'required|digits_between:7,10',
+            'email'     =>  'required',
         ]);
-/** Graba registro en tabla de Usuarios Sin pagos */
-public function create_user_without_payment(){
-
-    $this->validate([
-        'fullname'  =>  'required|min:3|max:50',
-        'phone'     =>  'required|digits_between:7,10',
-        'email'     =>  'required',
-    ]);
 
         if ($exist_user_whithout_payment > 0) {
             UserWithoutPayments::where('email', $this->email)
@@ -311,46 +285,47 @@ public function create_user_without_payment(){
         }
         // Inicializa todo lo del cupón
         if ($this->general_settings->active_coupon) $this->reset_coupon();
-    // ¿Ya existe el usuario sólo con el teléfono?
+        // ¿Ya existe el usuario sólo con el teléfono?
 
-    $this->same_phone_and_email = true;
+        $this->same_phone_and_email = true;
 
-    $this->user = User::where('email', $this->email)->where('phone', $this->phone)->first();
+        $this->user = User::where('email', $this->email)->where('phone', $this->phone)->first();
 
-    $this->new_user =  $this->user ? false : true;
+        $this->new_user =  $this->user ? false : true;
 
-    if($this->user){
-        $this->new_user = false;
+        if ($this->user) {
+            $this->new_user = false;
+        } else {
+            $this->new_user = true;
+        }
 
-    }else{
-        $this->new_user = true;
+        $exist_user_whithout_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->count();
+
+        if ($exist_user_whithout_payment > 0) {
+            UserWithoutPayments::where('email', $this->email)
+                ->where('phone', $this->phone)
+                ->update([
+                    'name'  => $this->fullname,
+                    'email' => $this->email,
+                    'phone' => $this->phone
+                ]);
+            $this->user_without_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->first();
+        } else {
+            $this->user_without_payment = UserWithoutPayments::create([
+                'name'      => $this->fullname,
+                'email'     => $this->email,
+                'phone'     => $this->phone,
+            ]);
+            //Creacion de Notificacion cuando se creo un usuario.
+            $this->send_notifications($this->user_without_payment, 'noty_create_user');
+        }
+        if (!$this->user) {
+            $this->user = $this->user_without_payment;
+        }
+
+        // Inicializa todo lo del cupón
+        if ($this->general_settings->active_coupon) $this->reset_coupon();
     }
-
-    $exist_user_whithout_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->count();
-
-    if ($exist_user_whithout_payment > 0){
-                            UserWithoutPayments::where('email', $this->email)
-                            ->where('phone', $this->phone)
-                            ->update([  'name'  => $this->fullname,
-                                        'email' => $this->email,
-                                        'phone' => $this->phone]);
-    $this->user_without_payment = UserWithoutPayments::where('email', $this->email)->where('phone', $this->phone)->first();
-    } else {
-        $this->user_without_payment = UserWithoutPayments::create([
-            'name'      => $this->fullname,
-            'email'     => $this->email,
-            'phone'     => $this->phone,
-        ]);
-        //Creacion de Notificacion cuando se creo un usuario.
-        $this->send_notifications($this->user_without_payment,'noty_create_user');
-    }
-    if(!$this->user){
-        $this->user = $this->user_without_payment;
-    }
-
-    // Inicializa todo lo del cupón
-    if ($this->general_settings->active_coupon) $this->reset_coupon();
-}
 
     /** Funciones para multi steps */
     public function updated($propertyName)
@@ -452,58 +427,39 @@ public function create_user_without_payment(){
         ]);
 
         $role_record = Role::where('name', 'coach')->first();
-    // Crea usuario con datos del usuario temporal
-    private function create_user($password) {
-        $user_record = User::where('email',$this->user_without_payment->email)
-                        ->where('phone',$this->user_without_payment->phone)
-                        ->first();
-
-        if(!$user_record){
-            return  User::Create([
-                'name'      => $this->user_without_payment->name,
-                'email'     => $this->user_without_payment->email,
-                'phone'     => $this->user_without_payment->phone,
-                'password'  => Hash::make($password)
-            ]);
-        }
-        return $user_record;
     }
 
+
     // Crea el usuario como Coach
-    private function create_coach(User $user){
+    private function create_coach(User $user)
+    {
         return Coach::create([
             'name'      => $user->name,
-			'phone'     => $user->phone,
+            'phone'     => $user->phone,
             'user_id'   => $user->id
-		]);
+        ]);
     }
 
     // Asigna rol de coach al usuario
-    private function assign_coach_role(User $user){
-        $role_record = Role::where('name','coach')->first();
+    private function assign_coach_role(User $user)
+    {
+        $role_record = Role::where('name', 'coach')->first();
         if ($role_record) {
             $user->roles()->attach($role_record);
         }
     }
 
 
-    private function updateUserTokens()
-    {
-        $this->useradd->update_token_register_teams();
-        $this->useradd->update_token_register_players();
-    }
-
-    private function create_payment($request)
-    {
-        $promoter_id = $request->promoter_id ? $request->promoter_id : null;
     // Actualiza Tokens del usuario
-    public function updateUserTokens(User $user){
+    public function updateUserTokens(User $user)
+    {
         $user->update_token_register_teams();
         $user->update_token_register_players();
     }
 
     // Crea el pago
-    private function create_payment(User $user,$name,$amount,$total_teams,$promoter_id = null) {
+    private function create_payment(User $user, $name, $amount, $total_teams, $promoter_id = null)
+    {
 
         return Payment::create([
             'amount'        => $amount,
@@ -514,12 +470,10 @@ public function create_user_without_payment(){
         ]);
     }
 
-    public function create_Teamcategory($request, $payment)
+    // Crea equipos x Categoría
+    public function create_Teamcategory(User $user, $payment = null, $request = null)
     {
         $i = 0;
-    // Crea equipos x Categoría
-    public function create_Teamcategory(User $user, $payment=null, $request=null){
-        $i=0;
         foreach ($request->categoriesIds as $categoryId => $value) {
             if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
                 TeamCategory::create([
@@ -529,63 +483,44 @@ public function create_user_without_payment(){
                     'qty_teams'   => $request->quantity_teams[$i]
                 ]);
             }
-        if ($this->categoriesIds && $this->quantity_teams) {
-            foreach ($this->categoriesIds as $categoryId => $value) {
-                if (isset($this->quantity_teams[$i]) && $this->quantity_teams[$i] > 0) {
-                    TeamCategory::create([
-                        'user_id'     =>  $user->id,
-                        'category_id' => $value,
-                        'payment_id'  => null,
-                        'qty_teams'   => $this->quantity_teams[$i]
-                    ]);
+            if ($this->categoriesIds && $this->quantity_teams) {
+                foreach ($this->categoriesIds as $categoryId => $value) {
+                    if (isset($this->quantity_teams[$i]) && $this->quantity_teams[$i] > 0) {
+                        TeamCategory::create([
+                            'user_id'     =>  $user->id,
+                            'category_id' => $value,
+                            'payment_id'  => null,
+                            'qty_teams'   => $this->quantity_teams[$i]
+                        ]);
+                    }
+                    $i++;
                 }
-            $i++;
-            }
-        } else {
-            foreach ($request->categoriesIds as $categoryId => $value) {
-                if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
-                    TeamCategory::create([
-                        'user_id'     => $user->id,
-                        'category_id' => $value,
-                        'payment_id'  => $payment->id,
-                        'qty_teams'   => $request->quantity_teams[$i]
-                    ]);
+            } else {
+                foreach ($request->categoriesIds as $categoryId => $value) {
+                    if (isset($request->quantity_teams[$i]) && $request->quantity_teams[$i] > 0) {
+                        TeamCategory::create([
+                            'user_id'     => $user->id,
+                            'category_id' => $value,
+                            'payment_id'  => $payment->id,
+                            'qty_teams'   => $request->quantity_teams[$i]
+                        ]);
+                    }
+                    $i++;
                 }
-                $i++;
             }
         }
     }
 
     // Correo al usuario de confirmación
-    public function sendMail($request)
+
+    public function send_Mail_Confirmation(User $user, $total = null, $total_teams = null)
     {
-    public function send_Mail_Confirmation($request) {
-
-        $email          =  $this->useradd->email;
-        $total          =  $request->price_total;
-        $total_teams    =  $request->total_teams;
-        $token          =  $this->useradd->token_register_teams;
-        $token_player   =  $this->useradd->token_register_players;
-        return Mail::to($email)
-            ->send(new ConfirmationMail($email, $total, $total_teams, $token, $token_player));
-    }
-
-      // Correo al usuario de confirmación
-      public function send_Mail_Confirmation_by_admin() {
-
-        $email          =  $this->useradd->email;
-        $total          =  $this->price_total;
-        $total_teams    =  $this->total_teams;
-        $token          =  $this->useradd->token_register_teams;
-        $token_player   =  $this->useradd->token_register_players;
-    public function send_Mail_Confirmation(User $user,$total=null,$total_teams=null) {
 
         $email          =  $user->email;
         $token          =  $user->token_register_teams;
         $token_player   =  $user->token_register_players;
         return Mail::to($email)
-            ->send(new ConfirmationMail
-            ($email, $total, $total_teams, $token, $token_player));
+            ->send(new ConfirmationMail($email, $total, $total_teams, $token, $token_player));
     }
 
     /** Ve que categorías tienen disponbilidad de equipos y calcula el máximo */
@@ -677,9 +612,9 @@ public function create_user_without_payment(){
         }
     }
 
-    public function send_mail_to_promoter($payment)
+
+    public function send_mail_to_promoter($payment = null)
     {
-    public function send_mail_to_promoter($payment=null) {
         Mail::to($this->promoter_code_id->email)
             ->send(new MailNotification(
                 $this->promoter_code_id->email,
@@ -697,45 +632,22 @@ public function create_user_without_payment(){
     {
         return Promoter::where('code', $promoter_code)->first();
     }
+
     public function validate_key_to_coupon()
     {
         $this->apply_coupon = strtolower(trim($this->key_to_coupon)) == strtolower(trim($this->general_settings->key_to_coupon));
     }
 
-    public function apply_coupon()
+    public function apply_coupon($total_teams)
     {
-        $this->amount_with_coupon = $this->price_total;
-        $this->price_total = $this->price_total - $this->calculate_discount();
-        $this->coupon_applied = true;
-    }
-
-    // Importe a descontar del total
-    private function calculate_discount()
-    {
-        switch ($this->total_teams) {
-            case 1:
-                return 20;
-                break;
-            case 2:
-                return 30;
-                break;
-            case 3:
-                return 40;
-                break;
-            case 4:
-                return 50;
-                break;
-            default:
-                return 100;
-    public function apply_coupon($total_teams){
         $this->coupon_applied = false;
         $this->amount_with_coupon = $this->price_total;
-          //TODO: ¿Que método de descuento aplicar?
-        if($this->general_settings->active_coupon && $this->validate_key_to_coupon()){
-            $this->price_total = $this->price_total - $this->calculate_discount($total_teams,'couppon');
-        }else{
+        //TODO: ¿Que método de descuento aplicar?
+        if ($this->general_settings->active_coupon && $this->validate_key_to_coupon()) {
+            $this->price_total = $this->price_total - $this->calculate_discount($total_teams, 'couppon');
+        } else {
             $this->price_total = $this->price_total - $this->calculate_discount($total_teams);
-            if($this->calculate_discount($total_teams) > 0 ){
+            if ($this->calculate_discount($total_teams) > 0) {
                 $this->coupon_applied = true;
             }
         }
@@ -743,16 +655,17 @@ public function create_user_without_payment(){
 
 
     // Importe a descontar del total
-    private function calculate_discount($total_teams=0,$type='cost_by_team'){
+    private function calculate_discount($total_teams = 0, $type = 'cost_by_team')
+    {
 
         // Rebajar el costo por equipo
-        if($type = 'cost_by_team'){
-            if($total_teams < 3){
+        if ($type = 'cost_by_team') {
+            if ($total_teams < 3) {
                 $this->discount_by_team = 0;
                 return 0;
             }
 
-            if($total_teams >= 3 && $total_teams <= 5){
+            if ($total_teams >= 3 && $total_teams <= 5) {
                 $this->discount_by_team = 20;
                 return 20 * $total_teams;
             }
@@ -763,7 +676,7 @@ public function create_user_without_payment(){
 
 
         // Importe fijo a descontar según cantidad de equipos
-        if($type = 'couppon'){
+        if ($type = 'couppon') {
             switch ($total_teams) {
                 case  1:
                     return 10;
@@ -777,7 +690,7 @@ public function create_user_without_payment(){
                 case 4:
                     return 50;
                     break;
-                default :
+                default:
                     return 100;
             }
         }
@@ -785,36 +698,36 @@ public function create_user_without_payment(){
 
     // Registro por administración
 
-    public function register_by_admin() {
+    public function register_by_admin()
+    {
         try {
-            if($this->new_user){
+            if ($this->new_user) {
                 $this->useradd = $this->create_user($this->phone);
                 $this->create_coach($this->useradd);
                 $this->assign_coach_role($this->useradd);
-            }else{
-                $this->useradd  = User::where('email',$this->email)
-                                      ->where('phone',$this->phone)
-                                      ->first();
-                $this->user_without_payment  = UserWithoutPayments::where('email',$this->email)
-                                                ->where('phone',$this->phone)
-                                                ->first();
+            } else {
+                $this->useradd  = User::where('email', $this->email)
+                    ->where('phone', $this->phone)
+                    ->first();
+                $this->user_without_payment  = UserWithoutPayments::where('email', $this->email)
+                    ->where('phone', $this->phone)
+                    ->first();
             }
 
             $this->updateUserTokens($this->useradd);
-            $this->create_Teamcategory($this->useradd,null,null);
+            $this->create_Teamcategory($this->useradd, null, null);
 
-            if($this->user_without_payment){
+            if ($this->user_without_payment) {
                 $this->user_without_payment->delete();   // Se elimina de usuarios sin pago
             }
 
 
-            $this->send_Mail_Confirmation($this->useradd,$this->price_total,$this->total_teams);
+            $this->send_Mail_Confirmation($this->useradd, $this->price_total, $this->total_teams);
 
             return redirect()->route('dashboard');
-
         } catch (\Throwable $exception) {
 
-            $this->send_notifications($this->user_without_payment,'noty_without_payment',null,$this->price_total,$this->total_teams);
+            $this->send_notifications($this->user_without_payment, 'noty_without_payment', null, $this->price_total, $this->total_teams);
             $this->error = $exception->getMessage();
             return redirect()->route('error', [$this->error]);
         }

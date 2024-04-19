@@ -36,9 +36,8 @@ class Teams extends Component
         $this->categories = Category::Active()
             ->orderBy('date_from')
             ->get();
-        if (Auth::user()->IsAdmin()) {
-            $this->allow_create = false;
-        }
+
+        $this->allow_create = true;
     }
 
     /*+----------------------------------------------+
