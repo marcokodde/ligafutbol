@@ -21,7 +21,6 @@ class Games extends Component
     use CrudTrait;
     use UserTrait;
 
-
     protected $listeners = ['destroy'];
 
     protected $rules = [
