@@ -169,3 +169,10 @@
         <span>{{__('Games')}}</span>
     </a>
 </li>
+
+<li>
+    <a href="{{url('matches')}}">
+        <span class="icon"><i class="fas fa-address-card"></i></span>
+        <span>{{__('Matches')}}</span>
+    </a>
+</li>

@@ -1,5 +1,6 @@
 <tr>
     <td>{{ $record->id }}</td>
+    <td>{{ $record->name }}</td>
     <td>
         {{ date('l F d Y', strtotime($record->from)) }}
     </td>

@@ -14,7 +14,6 @@ class Team extends Model
     protected $fillable =  [
         'name',
         'category_id',
-        'zipcode',
         'user_id',
         'active',
         'enabled',
@@ -28,36 +27,39 @@ class Team extends Model
       +-----------------+
      */
 
-    public function category(){
-        return $this->belongsTo(Category::class,'category_id');
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function zipcodex(){
-        return $this->belongsTo(Zipcode::class,'zipcode','zipcode');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function user(){
-        return $this->belongsTo(User::class,'user_id');
-    }
-
-    public function coaches(){
+    public function coaches()
+    {
         return $this->belongsToMany(Coach::class);
     }
 
-    public function total_coaches(){
+    public function total_coaches()
+    {
         return $this->belongsToMany(Coach::class)->count();
     }
 
-    public function players(){
+    public function players()
+    {
         return $this->belongsToMany(Player::class);
     }
 
-    public function total_players(){
+    public function total_players()
+    {
         return $this->belongsToMany(Player::class)->count();
     }
 
-    public function payment(){
-        return $this->belongsTo(Payment::class,'payment_id');
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class, 'payment_id');
     }
 
     /*+-----------------+
@@ -65,21 +67,27 @@ class Team extends Model
       +-----------------+
      */
 
-    public function isActive(){
+    public function isActive()
+    {
         return $this->active;
     }
 
-    public function can_be_delete(){
-       if ($this->players()->count()) { return false;   }
+    public function can_be_delete()
+    {
+        if ($this->players()->count()) {
+            return false;
+        }
 
-        if ($this->payment()->count()) { return false;  }
+        if ($this->payment()->count()) {
+            return false;
+        }
 
 
-        $team_category = TeamCategory::where('category_id',$this->category_id)
-                    ->where('qty_teams','>','registered_teams')
-                    ->where('user_id',Auth::user()->id)
-                    ->whereNull('payment_id')
-                    ->first();
+        $team_category = TeamCategory::where('category_id', $this->category_id)
+            ->where('qty_teams', '>', 'registered_teams')
+            ->where('user_id', Auth::user()->id)
+            ->whereNull('payment_id')
+            ->first();
 
         return $team_category;
     }
@@ -94,39 +102,40 @@ class Team extends Model
         $query->where('user_id', Auth::user()->id);
     }
 
-    public function scopeThisUserId($query,$user_id){
-        $query->where('user_id', $user_id);
-
-    }
-
-    public function scopeName($query,$valor)
+    public function scopeThisUserId($query, $user_id)
     {
-        if ( trim($valor) != "") {
-            $query->where('name','LIKE',"%$valor%");
-         }
+        $query->where('user_id', $user_id);
     }
 
-    public function scopeTeam($query,$valor)
+    public function scopeName($query, $valor)
+    {
+        if (trim($valor) != "") {
+            $query->where('name', 'LIKE', "%$valor%");
+        }
+    }
+
+    public function scopeTeam($query, $valor)
     {
         $valor = trim($valor);
-        if ( trim($valor) != "") {
-            $query->where('name',$valor);
-         }
+        if (trim($valor) != "") {
+            $query->where('name', $valor);
+        }
     }
 
-    public function scopeByCategory($query,$category_id)
+    public function scopeByCategory($query, $category_id)
     {
-        if ( $category_id) {
-            $query->where('category_id','=',$category_id);
-         }
+        if ($category_id) {
+            $query->where('category_id', '=', $category_id);
+        }
     }
 
     public function scopeActive($query)
     {
-        $query->where('active',1);
+        $query->where('active', 1);
     }
 
-    public function isLinkedCoach($coach_id){
-        return $this->belongsToMany(Coach::class)->where('coach_id',$coach_id)->count();
+    public function isLinkedCoach($coach_id)
+    {
+        return $this->belongsToMany(Coach::class)->where('coach_id', $coach_id)->count();
     }
 }

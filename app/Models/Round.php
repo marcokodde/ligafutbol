@@ -13,14 +13,15 @@ class Round extends Model
     protected $table = 'rounds';
     public $timestamps = false;
     protected $fillable =  [
+        'name',
         'from',
         'to',
         'active',
     ];
 
     protected $casts = [
-        'from' => 'datetime:Y-m-d',
-        'to' => 'datetime:Y-m-d',
+        'from' => 'date:Y-m-d',
+        'to' => 'date:Y-m-d',
     ];
 
     /*+-----------------+
@@ -38,12 +39,14 @@ class Round extends Model
       +-----------------+
      */
 
-    public function can_be_delete(){
-        if($this->games()->count()) return false;
+    public function can_be_delete()
+    {
+        if ($this->games()->count()) return false;
         return true;
     }
 
-    public function isActive(){
+    public function isActive()
+    {
         return $this->active;
     }
 
@@ -55,18 +58,16 @@ class Round extends Model
 
     public function scopeActiveRound($query)
     {
-        $query->filter(function($item) {
+        $query->filter(function ($item) {
             if (Carbon::now()->between($item->from, $item->to)) {
-              return $item;
+                return $item;
             }
-          });
+        });
     }
 
-    public function scopeRound($query,$from,$to)
+    public function scopeRound($query, $from, $to)
     {
-        $query->where('from','>=',$from)
-              ->where('to','<=',$to);
+        $query->where('from', '>=', $from)
+            ->where('to', '<=', $to);
     }
-
-
 }

@@ -12,6 +12,17 @@
                     </header>
                     <form>
                         <div class="mx-auto bg-white">
+                            {{-- Nombre  --}}
+                            <div class="mb-4">
+                                <label class="block text-sm font-bold text-left text-gray-700">{{__("Name")}}</label>
+                                <input type="text"
+                                wire:model="name"
+                                required
+                                placeholder="{{__("Name")}}"
+                                class="block w-3/4 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
+                                <div>@error('name') <span class="text-red-500">{{ $message }}</span>@enderror</div>
+                            </div>
+
                             {{-- Desde  --}}
                             <div class="mb-4">
                                 <label class="block text-sm font-bold text-left text-gray-700">{{__("From")}}</label>
@@ -22,16 +33,17 @@
                                 class="block w-3/4 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
                                 <div>@error('from') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
+                            {{ $from }}
                             {{-- Hasta --}}
                             <div class="mb-4">
-                                <label class="block text-sm font-bold text-left text-gray-700">{{__("Birthday")}}</label>
+                                <label class="block text-sm font-bold text-left text-gray-700">{{__("To")}}</label>
                                 <input type="date"
-                                        wire:model="to"
-                                        placeholder="{{__("To")}}"
-                                class="block w-3/4 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" >
+                                    wire:model="to"
+                                    placeholder="{{__("To")}}"
+                                    class="block w-3/4 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" >
                                 <div>@error('to') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
-
+                            {{ $to }}
                             <div class="p-2 rounded-lg">
                                 <label class="flex items-start justify-start mt-4 mr-2 font-semibold text-gray-700">
                                     <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">

@@ -7,7 +7,7 @@ use Livewire\Component;
 use App\Traits\UserTrait;
 use Livewire\WithPagination;
 use App\Http\Livewire\Traits\CrudTrait;
-
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 
@@ -20,7 +20,8 @@ class Rounds extends Component
 
 
     protected $listeners = ['destroy'];
-    public $from, $to, $active;
+    public $name, $from, $to, $active;
+    public $round, $main_record;
 
     public function mount()
     {
@@ -54,7 +55,7 @@ class Rounds extends Component
     {
         $this->record_id = null;
         $this->record = null;
-        $this->reset(['from', 'to', 'active']);
+        $this->reset(['name', 'from', 'to', 'active']);
     }
 
     /*+---------------+
@@ -65,17 +66,19 @@ class Rounds extends Component
     public function store()
     {
         $this->validate([
-            'from'  => 'required',
-            'to'    => 'required',
+            'name'  => 'required',
+            'from'  => 'sometimes',
+            'to'    => 'sometimes',
             'active' => 'sometimes'
         ]);
 
         Round::updateOrCreate(['id' => $this->record_id], [
+            'name'  => $this->name,
             'from'  => $this->from,
             'to'    => $this->to,
-            'active' => $this->active
-
+            'active' => $this->active = $this->active ? 1 : 0
         ]);
+
         $this->create_button_label = __('Create') . ' ' . __('Round');
         $this->store_message(__('Rounds'));
     }
@@ -87,10 +90,10 @@ class Rounds extends Component
 
     public function edit(Round $record)
     {
-        $this->resetInputFields();
         $this->create_button_label = __('Update') . ' ' . __('Round');
         $this->record = $record;
         $this->record_id = $record->id;
+        $this->name = $record->name;
         $this->from = $record->from;
         $this->to = $record->to;
         $this->active = $record->active;

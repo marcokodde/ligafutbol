@@ -41,6 +41,7 @@ use App\Http\Livewire\TemporalController;
 use App\Http\Livewire\TotalTeamsByCategories;
 use App\Http\Livewire\ReleaseResponsibilities;
 use App\Http\Controllers\ConfirmationController;
+use App\Http\Livewire\Matches;
 
 require 'pruebas.php';
 
@@ -71,7 +72,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('stadiums', Stadiums::class)->name('stadiums');                       // Crear Campos
     Route::get('tournaments', Tournaments::class)->name('tournaments');              // Crear Torneos
     Route::get('rounds', Rounds::class)->name('rounds');                             // Rondas (Jornadas)
-    Route::get('games', Games::class)->name('games');                                  // Juegos
+    Route::get('games', Games::class)->name('games');                                // Juegos
+    Route::get('matches', Matches::class)->name('matches');                          // Cedulas
+
+
     // Acciones del usuario Coach
     Route::get('teams', Teams::class)->name('teams');                                // Equipos
     Route::get('coaches', Coaches::class)->name('coaches');                          // Entrenadores
