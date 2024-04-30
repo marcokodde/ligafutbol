@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\User;
-
 use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -46,15 +44,12 @@ class Matches extends Component
         $this->pagination = 11;
     }
 
-
     /*+----------------------------------------------+
 	| Presenta formulario filtrando la búsqueda    |
-	+----------------------------------------------+
-	 */
+	+----------------------------------------------+*/
 
     public function render()
     {
-
         $this->create_button_label =  $this->record_id ?    __('Update') . ' ' . __('Match')
             : __('Create') . ' ' . __('Match');
 
@@ -63,10 +58,9 @@ class Matches extends Component
         ]);
     }
 
-    /*+------------------------+
+    /*+---------------------+
 	| Inicializa variables  |
-	+-----------------------+
-    */
+	+----------------------*/
 
     private function resetInputFields()
     {
@@ -77,13 +71,10 @@ class Matches extends Component
 
     /*+---------------------------------------------+
     | Valida, crea o actualiza según corresponda  |
-    +---------------------------------------------+
-    */
+    +---------------------------------------------+*/
 
     public function store()
     {
-
-
         $this->validate([
             'game_id' => 'required|min:3|max:30',
             'tournament_id' => 'required|min:3|max:30',
@@ -105,8 +96,7 @@ class Matches extends Component
 
     /*+------------------------------+
 	  | Lee Registro Editar o Borar  |
-	 +-------------------------------+
-    */
+	 +-----------------------------+*/
 
     public function edit(Matche $record)
     {
@@ -123,8 +113,7 @@ class Matches extends Component
 
     /*+----------------------------+
 	| Elimina Registro             |
-	+------------------------------+
-	 */
+	+----------------------------+*/
     public function destroy(Matche $record)
     {
         $this->delete_record($record, __('Match') . ' ' . __('Deleted Successfully!!'));

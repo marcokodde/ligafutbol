@@ -11,6 +11,7 @@ use App\Traits\UserTrait;
 use Livewire\WithPagination;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Models\Competidor;
+use App\Models\Stadium;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 
@@ -30,21 +31,20 @@ class Games extends Component
         'main_record.visit_team_id'         => 'required|different:main_record.local_team_id|exists:teams,id',
         'main_record.local_score'           => 'nullable|min:0|max:99',
         'main_record.visit_score'           => 'nullable|min:0|max:99',
+        'main_record.stadium_id'              => 'required|exists:stadiums,id',
         'main_record.request_score'         => 'nullable',
         'main_record.points_winner'         => 'nullable',
-        'main_record.extra_points_winner'   => 'nullable',
-
+        'main_record.extra_points_winner'   => 'nullable'
     ];
 
     public $teams           = null;
     public $rounds          = null;
+    public $stadiums        = null;
     public $round           = null;
     public $round_id        = null;
     public $show_round      = false;
     public $request_score   = false;
-    // public $hour;
-    // public $minute;
-
+    public $main_record   = null;
 
     public function mount()
     {
@@ -130,6 +130,7 @@ class Games extends Component
     {
         $this->teams = Team::orderby('name')->get();
         $this->rounds = Round::orderby('from')->get();
+        $this->stadiums = Stadium::all();
         if ($this->rounds->count() == 1) {
             $this->round = $this->rounds->first();
             $this->main_record->round_id = $this->round->id;

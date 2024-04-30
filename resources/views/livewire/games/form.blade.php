@@ -12,7 +12,7 @@
                     </header>
                     <form>
                         <div class="mx-auto bg-white">
-                            {{-- Desde  --}}
+                            {{-- Jornada  --}}
                             <div class="mb-4">
                                 <label class="block text-sm font-bold text-left text-gray-700">{{__("Round")}}</label>
                                 <select  wire:model="main_record.round_id"
@@ -25,7 +25,7 @@
                                         @endforeach
                                 </select>
                             </div>
-                            {{-- Hasta --}}
+                            {{-- Fecha --}}
                             <div class="mb-4">
                                 <label class="block text-sm font-bold text-left text-gray-700">{{__("Date")}}</label>
                                 <input type="datetime-local"
@@ -35,7 +35,7 @@
                                     class="block w-3/4 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" >
                                 <div>@error('main_record.date') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
-
+                            {{-- Local --}}
                             <div class="mb-4">
                                 <label  class="block text-sm font-bold text-left text-gray-700" for="">{{ __("Local") }}</label>
                                 <select wire:model="main_record.local_team_id"
@@ -47,8 +47,7 @@
                                 </select>
                                 <div>@error('main_record.local_team_id') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
-
-
+                            {{-- Visitante --}}
                             <div class="mb-4">
                                 <label  class="block text-sm font-bold text-left text-gray-700" for="">{{ __("Visit") }}</label>
                                 <select wire:model="main_record.visit_team_id"
@@ -60,22 +59,34 @@
                                 </select>
                                 <div>@error('main_record.visit_team_id') <span class="text-red-500">{{ $message }}</span>@enderror</div>
                             </div>
-
+                            {{-- Se solicita marcador --}}
                             <div class="p-2 rounded-lg">
                                 <label class="flex items-start justify-start mt-4 mr-2 font-semibold text-gray-700">
                                     {{__("Marcador")}}
                                 </label>
-                                     {{-- Pedir Marcador en partidos? --}}
-                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                        <input type="radio" wire:model="main_record.request_score" class="btn-check" name="type" id="score_yes" value="1">
-                                        <label class="btn btn-outline-info" for="score_yes">{{__('Yes')}}</label>
+                                    {{-- Pedir Marcador en partidos? --}}
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" wire:model="main_record.request_score" class="btn-check" name="type" id="score_yes" value="1">
+                                    <label class="btn btn-outline-info" for="score_yes">{{__('Yes')}}</label>
 
-                                        <input type="radio" wire:model="main_record.request_score" class="ml-4 btn-check" name="type" id="score_no" value="0">
-                                        <label class="btn btn-outline-warning" for="score_no">{{__('No')}}</label>
-                                    </div>
-
+                                    <input type="radio" wire:model="main_record.request_score" class="ml-4 btn-check" name="type" id="score_no" value="0">
+                                    <label class="btn btn-outline-warning" for="score_no">{{__('No')}}</label>
+                                </div>
                             </div>
-
+                            {{-- Que campo --}}
+                            <div class="mb-4">
+                                <label class="block text-sm font-bold text-left text-gray-700">{{__("Campo")}}</label>
+                                <select  wire:model="main_record.stadium_id"
+                                    class="mb-2 form-select">
+                                    <option value="">{{ __('Campo') }}</option>
+                                        @foreach ($stadiums as $stadium)
+                                            <option class="block w-3/4 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                                value="{{ $stadium->id }}">{{ $stadium->name }}
+                                            </option>
+                                        @endforeach
+                                </select>
+                            </div>
+                            {{-- Marcadores --}}
                             <div class="mb-4">
                                 <label class="block text-sm font-bold text-left text-gray-700">{{__("Marcador Local")}}</label>
                                 <input type="number" min="0" max="99" wire:model="main_record.local_score"  placeholder="{{__("Local")}}"

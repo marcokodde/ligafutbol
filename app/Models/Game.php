@@ -21,7 +21,8 @@ class Game extends Model
         'visit_score',
         'request_score',
         'points_winner',
-        'extra_points_winner'
+        'extra_points_winner',
+        'stadium_id'
     ];
 
     protected $casts = [
@@ -33,21 +34,26 @@ class Game extends Model
       +-----------------+
      */
 
-     public function Round():BelongsTo
-     {
+    public function Round(): BelongsTo
+    {
         return $this->belongsTo(Round::class);
-     }
+    }
 
-     public function LocalTeam():BelongsTo
-     {
-        return $this->belongsTo(Team::class,'local_team_id');
-     }
+    public function Campo(): BelongsTo
+    {
+        return $this->belongsTo(Stadium::class);
+    }
+
+    public function LocalTeam(): BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'local_team_id');
+    }
 
 
-     public function VisitTeam():BelongsTo
-     {
-        return $this->belongsTo(Team::class,'visit_team_id');
-     }
+    public function VisitTeam(): BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'visit_team_id');
+    }
 
 
     /*+-----------------+
@@ -55,18 +61,20 @@ class Game extends Model
       +-----------------+
      */
 
-    public function can_be_delete(){
+    public function can_be_delete()
+    {
         return true;
     }
 
     /** ¿Se puede pronosticar? */
-    public function can_pick(){
+    public function can_pick()
+    {
         $mutable   = new Carbon($this->date);
         $mutable   = $mutable->subMinutes(5);
         $dif_time  = $mutable->diffForHumans(now());
         $dif_time  = now()->diffForHumans($mutable);
-        return str_contains($dif_time,'after') || str_contains($dif_time,'despu') ? false : true;
-      }
+        return str_contains($dif_time, 'after') || str_contains($dif_time, 'despu') ? false : true;
+    }
 
     /*+-------------------+
       | Búsquedas         |
@@ -75,24 +83,22 @@ class Game extends Model
 
     public function scopeActiveRound($query)
     {
-        $query->filter(function($item) {
+        $query->filter(function ($item) {
             if (Carbon::now()->between($item->from, $item->to)) {
-              return $item;
+                return $item;
             }
-          });
+        });
     }
 
-    public function scopeRound($query,$from,$to)
+    public function scopeRound($query, $from, $to)
     {
-        $query->where('from','>=',$from)
-              ->where('to','<=',$to);
+        $query->where('from', '>=', $from)
+            ->where('to', '<=', $to);
     }
 
 
-    public function scopeCanPick($query){
-        $query->where('date','>',now()->addMinutes(5));
+    public function scopeCanPick($query)
+    {
+        $query->where('date', '>', now()->addMinutes(5));
     }
-
-
-
 }
